@@ -44,4 +44,4 @@ pip install -r requirements.txt
 ```
 
 ### Download BabyLM dataset
-[https://babylm.github.io/]
+[Click here to save the Nigerian prince](https://babylm.github.io/)
