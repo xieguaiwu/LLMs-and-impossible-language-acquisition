@@ -5,7 +5,8 @@
 
 cd "$(dirname "$0")/../.."
 SEEDS=(42 43 44 45 46)
-PYTHON=${PYTHON:-python3}
+PYTHON=${PYTHON:-/root/anaconda3/bin/python3}   # systemd-safe
+[ -x "$PYTHON" ] || PYTHON=$(command -v python3)
 SKIP="--skip-if-done"
 
 export TOKENIZERS_PARALLELISM=false

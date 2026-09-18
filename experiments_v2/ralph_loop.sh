@@ -23,6 +23,8 @@ log() { echo "[$(date -Is)] $*" >> "$LOG"; }
 
 export PYTHON=${PYTHON:-/root/anaconda3/bin/python3}   # systemd PATH lacks anaconda
 [ -x "$PYTHON" ] || PYTHON=$(command -v python3)
+export PATH=/root/anaconda3/bin:/usr/local/bin:$PATH
+command -v gh >/dev/null && gh auth setup-git >/dev/null 2>&1 || true
 export HF_ENDPOINT=${HF_ENDPOINT:-https://hf-mirror.com}
 export GIT_TERMINAL_PROMPT=0
 
