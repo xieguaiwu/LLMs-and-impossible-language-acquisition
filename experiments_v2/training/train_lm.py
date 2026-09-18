@@ -144,10 +144,11 @@ def train_gpt2(args, seed: int) -> dict:
                                 block_size=128, overwrite_cache=True)
     collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 
-    run_dir = RESULTS / dataset_key_of(args.dataset) / args.model / \
+    # results dir keyed by the RAW dataset name (svo vs svo_polluted are
+    out_dir = RESULTS / args.dataset / args.model / \
         (f"{args.condition}_seed{seed}_ext" if extended else f"{args.condition}_seed{seed}")
     targs = TrainingArguments(
-        output_dir=str(run_dir),
+        output_dir=str(out_dir),
         overwrite_output_dir=True,
         max_steps=total_steps,
         per_device_train_batch_size=batch,
@@ -172,7 +173,7 @@ def train_gpt2(args, seed: int) -> dict:
     elapsed = time.time() - t0
 
     trainer.save_model()                       # checkpoint for the probe suite
-    tokenizer.save_pretrained(str(run_dir))
+    tokenizer.save_pretrained(str(out_dir))
 
     losses = [float(x["loss"]) for x in trainer.state.log_history if "loss" in x]
     test_loss = eval_loss_gpt2(model, tokenizer, test_path)
@@ -185,7 +186,7 @@ def train_gpt2(args, seed: int) -> dict:
               budget=args.budget, dataset_raw=args.dataset,
               from_scratch=True, seed=seed)
     return write_run_json(
-        run_dir / "training_metrics.json",
+        out_dir / "training_metrics.json",
         run_id=f"{args.dataset}_{args.model}_{args.condition}_seed{seed}",
         experiment=f"v2_{args.dataset}",
         model=model_name, dataset=args.dataset, condition=args.condition,
@@ -359,8 +360,9 @@ def main() -> None:
     sys.path.insert(0, str(REPO / "experiments_v2" / "analysis"))
     sys.path.insert(0, str(REPO / "experiments_v2" / "probes"))
 
+    ext_suffix = "_ext" if args.budget == "extended" else ""
     out_json = (RESULTS / args.dataset / args.model /
-                f"{args.condition}_seed{args.seed}" / "training_metrics.json")
+                f"{args.condition}_seed{args.seed}{ext_suffix}" / "training_metrics.json")
     if args.skip_if_done and out_json.exists():
         try:
             prev = json.load(open(out_json))
