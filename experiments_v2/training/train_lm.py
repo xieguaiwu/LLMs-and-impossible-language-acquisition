@@ -69,16 +69,25 @@ def set_seed(seed: int) -> None:
         pass
 
 
+def dataset_key_of(dataset: str) -> str:
+    """svo / svo_polluted -> svo-keyed budgets; babylm stays itself."""
+    return dataset.replace("_polluted", "") if dataset.endswith("_polluted") else dataset
+
+
 def load_texts(dataset: str, condition: str) -> tuple[str, str, str]:
     """Return (train_path, val_path, test_path) for a condition."""
-    base = DATA_V2 / ("babylm_conditions" if dataset == "babylm" else "conditions")
+    base = DATA_V2 / {
+        "babylm": "babylm_conditions",
+        "svo": "conditions",
+        "svo_polluted": "conditions_polluted",
+    }[dataset]
     d = base / "train" / f"{condition}.txt"
     t = base / "test" / f"{condition}.txt"
     if not d.exists() or not t.exists():
         raise FileNotFoundError(
             f"missing condition files for {dataset}/{condition}; "
             f"run data_v2/generate_svo.py + data_v2/conditions.py first "
-            f"(and babylm preparation for dataset=babylm)"
+            f"(and the babylm / polluted preparation for other datasets)"
         )
     return str(d), str(d), str(t)  # val==train slice handled inside trainer
 
@@ -91,14 +100,21 @@ def train_gpt2(args, seed: int) -> dict:
                               GPT2LMHeadModel, GPT2TokenizerFast,
                               TextDataset, Trainer, TrainingArguments)
 
+    from training.models import count_parameters
+
     set_seed(seed)
     tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
     tokenizer.pad_token = tokenizer.eos_token
+    if args.condition.endswith("negtok"):
+        tokenizer.add_special_tokens({"additional_special_tokens": ["<NEG>"]})
 
-    train_path, _val_path, test_path = load_texts(args.dataset, args.condition)
-    budget = BUDGETS[args.dataset]
+    extended = args.budget == "extended"
+    budget = BUDGETS[dataset_key_of(args.dataset)]
+    if extended:
+        budget = {k: (v * 3 if ("steps" in k or "warmup" in k) else v) for k, v in budget.items()}
     total_steps = budget["gpt2_steps"]
     warmup = budget["gpt2_warmup"]
+    train_path, _val_path, test_path = load_texts(args.dataset, args.condition)
 
     if args.model == "gpt2":
         config = GPT2Config.from_pretrained("gpt2")
@@ -119,8 +135,8 @@ def train_gpt2(args, seed: int) -> dict:
         accum = budget["gpt2_accum"]
     else:
         raise ValueError(args.model)
-
-    from training.models import count_parameters
+    if args.condition.endswith("negtok"):
+        model.resize_token_embeddings(len(tokenizer))
 
     n_params = count_parameters(model)
 
@@ -128,7 +144,8 @@ def train_gpt2(args, seed: int) -> dict:
                                 block_size=128, overwrite_cache=True)
     collator = DataCollatorForLanguageModeling(tokenizer=tokenizer, mlm=False)
 
-    run_dir = RESULTS / args.dataset / args.model / f"{args.condition}_seed{seed}"
+    run_dir = RESULTS / dataset_key_of(args.dataset) / args.model / \
+        (f"{args.condition}_seed{seed}_ext" if extended else f"{args.condition}_seed{seed}")
     targs = TrainingArguments(
         output_dir=str(run_dir),
         overwrite_output_dir=True,
@@ -165,6 +182,7 @@ def train_gpt2(args, seed: int) -> dict:
     hp = dict(model=model_name, n_params=n_params, lr=lr, batch=batch, accum=accum,
               effective_batch=batch * accum, max_steps=total_steps,
               warmup=warmup, block_size=128, weight_decay=0.01,
+              budget=args.budget, dataset_raw=args.dataset,
               from_scratch=True, seed=seed)
     return write_run_json(
         run_dir / "training_metrics.json",
@@ -323,7 +341,9 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model", required=True,
                         choices=["gpt2", "gpt2_tiny", "lstm", "lstm_matched"])
-    parser.add_argument("--dataset", required=True, choices=["svo", "babylm"])
+    parser.add_argument("--dataset", required=True, choices=["svo", "svo_polluted", "babylm"])
+    parser.add_argument("--budget", default="replication", choices=["replication", "extended"],
+                        help="replication = original-paper optimizer budget; extended = 3x steps (gap-emergence probe)")
     parser.add_argument("--condition", required=True)
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--skip-if-done", action="store_true",

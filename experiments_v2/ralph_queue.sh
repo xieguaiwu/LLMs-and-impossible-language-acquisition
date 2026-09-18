@@ -79,6 +79,37 @@ if [ "$RUN_CONTROLS" = "1" ]; then
   done
 fi
 
+# ---------- extended-budget arms (H7: does the natural advantage EMERGE with
+# more compute?) and polluted-corpus diagnostic (H8: are the original paper's
+# Exp-1 numbers a corpus-duplication artifact?). GPU-only by default.
+if [ "$RUN_EXTRA" = "1" ] && [ "$RUN_CONTROLS" = "1" ]; then
+  mkdir -p experiments_v2/data_v2/conditions_polluted
+  $PYTHON experiments_v2/data_v2/make_polluted.py natural reversed parity_negation \
+    >> experiments_v2/results/polluted_prep.log 2>&1 || fail=$((fail+1))
+  for cond in natural reversed parity_negation fixed_start_neg; do
+    for seed in "${SEEDS[@]}"; do
+      if $NICE $PYTHON experiments_v2/training/train_lm.py \
+          --model gpt2 --dataset svo --condition "$cond" --seed "$seed" \
+          --budget extended $SKIP >> experiments_v2/results/queue_1.log 2>&1; then
+        note "OK   ext $cond/seed$seed"
+      else
+        note "FAIL ext $cond/seed$seed"; fail=$((fail+1))
+      fi
+    done
+  done
+  for cond in natural reversed parity_negation; do
+    for seed in "${SEEDS[@]}"; do
+      if $NICE $PYTHON experiments_v2/training/train_lm.py \
+          --model gpt2 --dataset svo_polluted --condition "$cond" --seed "$seed" $SKIP \
+          >> experiments_v2/results/queue_1.log 2>&1; then
+        note "OK   polluted $cond/seed$seed"
+      else
+        note "FAIL polluted $cond/seed$seed"; fail=$((fail+1))
+      fi
+    done
+  done
+fi
+
 # ---------- probes on parity checkpoints (inference only) ----------------------
 if [ "$RUN_PROBES" = "1" ] && [ "$fail" -eq 0 ]; then
   for seed in "${SEEDS[@]}"; do
