@@ -68,7 +68,13 @@ while true; do
   if [ -d "$STATE" ]; then
     export GIT_INDEX_FILE="$STATE/tmpindex"
     git read-tree HEAD 2>> "$LOG"
-    git add -f experiments_v2/results 2>> "$LOG" || true
+    # weights excluded (500MB/run x many runs would bloat the object db)
+    git add -f -- \
+      ":(exclude)experiments_v2/results/**/*.safetensors" \
+      ":(exclude)experiments_v2/results/**/*.bin" \
+      ":(exclude)experiments_v2/results/**/*.pt" \
+      ":(exclude)experiments_v2/results/**/final/**" \
+      experiments_v2/results 2>> "$LOG" || true
     TREE=$(git write-tree 2>> "$LOG")
     unset GIT_INDEX_FILE
     if [ "$(git rev-parse "${TREE}^{tree}" 2>/dev/null)" != "$(git rev-parse 'HEAD^{tree}' 2>/dev/null)" ]; then
@@ -99,7 +105,12 @@ while true; do
       # publish again regardless (same commit-tree mechanism)
       export GIT_INDEX_FILE="$STATE/tmpindex_b"
       git read-tree HEAD 2>> "$LOG"
-      git add -f experiments_v2/results experiments_v2/data_v2 2>> "$LOG" || true
+      git add -f -- \
+        ":(exclude)experiments_v2/results/**/*.safetensors" \
+        ":(exclude)experiments_v2/results/**/*.bin" \
+        ":(exclude)experiments_v2/results/**/*.pt" \
+        ":(exclude)experiments_v2/results/**/final/**" \
+        experiments_v2/results experiments_v2/data_v2 2>> "$LOG" || true
       TREE=$(git write-tree 2>> "$LOG")
       unset GIT_INDEX_FILE
       COMMIT=$(git -c user.name="ralph-server" -c user.email="ralph@server.local" \
