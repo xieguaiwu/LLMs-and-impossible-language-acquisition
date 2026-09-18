@@ -66,3 +66,29 @@ For such a smart person like you, I guess it wouldn't hard to figure out how to 
 
 PS: [Click here to automatically cite the paper](https://www.youtube.com/shorts/11bnjWCDLa0)
 ---
+
+---
+
+## experiments_v2 — multi-seed replication, controls & probes (2026-09)
+
+`experiments_v2/` contains the v2 experimental suite that addresses the
+methodological limitations of the original single-seed study:
+
+- **n≥5 seeds per condition** with per-seed statistical aggregates,
+  Holm-Bonferroni correction, Cohen's d + bootstrap CI, and TOST equivalence
+  testing for null claims (no more t-tests over serially-correlated
+  training steps);
+- **marker controls** for parity negation (`fixed_start_neg`, `fixed_end_neg`,
+  `<NEG>` special-token variant), **token-unit parity**, and a Kallini-style
+  `word_shuffle` reference condition;
+- **capacity-matched architecture pair** (gpt2_tiny ≈44M vs lstm_matched ≈39M)
+  to unconfound the GPT-2 vs LSTM comparison;
+- **behavioral probes** for the parity rule: minimal pairs, violation
+  detection, length extrapolation, and a diagnostic hidden-state probe;
+- **matched-pair held-out evaluation** on a shared sentence split.
+
+See [`experiments_v2/README.md`](experiments_v2/README.md) and the frozen
+preregistration in
+[`experiments_v2/preregistration.md`](experiments_v2/preregistration.md)
+(read it before interpreting results). CPU smoke tests:
+`python3 experiments_v2/tests/test_all.py`.
