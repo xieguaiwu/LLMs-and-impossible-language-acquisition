@@ -61,20 +61,22 @@ while true; do
     qok=0
   fi
 
-  # 4. publish results to the v2-results branch (best effort, every pass)
+  # 4. publish results to the v2-results branch (never touches main)
   pushed=0
   if [ -d "$STATE" ]; then
-    git add -f experiments_v2/results experiments_v2/data_v2/conditions 2>> "$LOG"
+    git checkout -q -B v2-results 2>> "$LOG"
+    git add -f experiments_v2/results 2>> "$LOG"
     if ! git diff --cached --quiet 2>> "$LOG"; then
       git -c user.name="ralph-server" -c user.email="ralph@server.local" \
         commit -q -m "results: iteration $iter ($(date -u +%FT%TZ))" 2>> "$LOG" || true
     fi
-    if git push -q origin HEAD:refs/heads/v2-results 2>> "$LOG"; then
+    if git push -q -f origin v2-results 2>> "$LOG"; then
       log "results pushed to v2-results"
       pushed=1
     else
       log "results push FAILED"
     fi
+    git checkout -q main 2>> "$LOG"
   fi
 
   if [ "$qok" -eq 1 ] && [ "$pushed" -eq 1 ]; then
@@ -88,11 +90,13 @@ while true; do
         log "BabyLM phase failed -> will retry next iteration"
       fi
       # publish again regardless
+      git checkout -q -B v2-results 2>> "$LOG"
       git add -f experiments_v2/results experiments_v2/data_v2 2>> "$LOG"
       git diff --cached --quiet 2>> "$LOG" || git -c user.name="ralph-server" \
         -c user.email="ralph@server.local" commit -q -m "results: babylm iteration $iter" 2>> "$LOG" || true
-      git push -q origin HEAD:refs/heads/v2-results 2>> "$LOG" \
+      git push -q -f origin v2-results 2>> "$LOG" \
         && log "babylm results pushed" || log "babylm results push FAILED"
+      git checkout -q main 2>> "$LOG"
     fi
     if [ -f "$STATE/ALL_SVO_DONE" ] && [ -f "$STATE/ALL_BABYLM_DONE" ]; then
       log "ALL PHASES COMPLETE — ralph loop exiting cleanly"
