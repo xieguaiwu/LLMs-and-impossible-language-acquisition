@@ -26,14 +26,18 @@ export HF_ENDPOINT=${HF_ENDPOINT:-https://hf-mirror.com}
 export GIT_TERMINAL_PROMPT=0
 
 # ---- one-time environment preparation ---------------------------------------
-if ! $PYTHON -c "import torch, transformers, scipy, sklearn, pandas, matplotlib" 2>/dev/null; then
-  log "installing python deps"
-  pip install -q torch transformers datasets accelerate scipy scikit-learn \
-      pandas matplotlib tqdm >> "$STATE/deps.log" 2>&1 \
-    || pip install -q -i https://pypi.tuna.tsinghua.edu.cn/simple torch transformers \
-       datasets accelerate scipy scikit-learn pandas matplotlib tqdm >> "$STATE/deps.log" 2>&1 \
+# Install ONLY missing packages; never list torch explicitly (it would upgrade
+# the existing CPU torch to the latest CUDA wheel).
+for mod in transformers datasets accelerate scipy sklearn pandas matplotlib tqdm; do
+  $PYTHON -c "import $mod" 2>/dev/null || MISSING="$MISSING $mod"
+done
+if [ "${MISSING:-}" ]; then
+  log "installing missing python deps:$MISSING"
+  pip install -q $MISSING >> "$STATE/deps.log" 2>&1 \
+    || pip install -q -i https://pypi.tuna.tsinghua.edu.cn/simple $MISSING >> "$STATE/deps.log" 2>&1 \
     || { log "DEPS INSTALL FAILED (see deps.log)"; exit 4; }
 fi
+$PYTHON -c "import torch" 2>/dev/null || { log "torch missing and not auto-installed -- install CPU torch manually"; exit 4; }
 $PYTHON -c "import spacy" 2>/dev/null || pip install -q spacy >> "$STATE/deps.log" 2>&1 || true
 
 iter=0
