@@ -28,6 +28,7 @@ export GIT_TERMINAL_PROMPT=0
 # ---- one-time environment preparation ---------------------------------------
 # Install ONLY missing packages; never list torch explicitly (it would upgrade
 # the existing CPU torch to the latest CUDA wheel).
+MISSING=""
 for mod in transformers datasets accelerate scipy sklearn pandas matplotlib tqdm; do
   $PYTHON -c "import $mod" 2>/dev/null || MISSING="$MISSING $mod"
 done
