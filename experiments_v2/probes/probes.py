@@ -101,18 +101,31 @@ def make_extrapolation_pairs(train_sentences: list[str], test_sentences: list[st
 # ------------------------------------------------------------ surprisal ----
 
 def marker_surprisal(model, tokenizer, sentence: str, marker: str = "Not") -> dict:
-    """Mean surprisal (nats) of the marker token(s) at the position where it occurs."""
+    """Mean surprisal (nats) of the marker token(s) at the position where it occurs.
+
+    Searches BOTH surface forms: sentence-initial markers are encoded without a
+    leading space ("Not"), medial/final ones with it (" Not") — the two are
+    different BPE ids, and searching only one of them made every minimal pair
+    score as not-found (v2 incident, 2026-09-19 recheck).
+    """
     import torch
 
     ids = tokenizer.encode(sentence)
-    marker_ids = tokenizer.encode(" " + marker.strip(), add_special_tokens=False) or \
-                 tokenizer.encode(marker.strip(), add_special_tokens=False)
-    m = len(marker_ids)
-    # locate marker subsequence
+    candidates = []
+    for surface in (marker.strip(), " " + marker.strip()):
+        mi = tokenizer.encode(surface, add_special_tokens=False)
+        if mi and mi not in candidates:
+            candidates.append(mi)
     pos = None
-    for i in range(len(ids) - m + 1):
-        if ids[i : i + m] == marker_ids:
-            pos = i
+    used_m = None
+    for marker_ids in candidates:
+        m = len(marker_ids)
+        for i in range(len(ids) - m + 1):
+            if ids[i : i + m] == marker_ids:
+                pos = i
+                used_m = m
+                break
+        if pos is not None:
             break
     if pos is None:
         return {"found": False, "surprisal": None}
@@ -120,13 +133,14 @@ def marker_surprisal(model, tokenizer, sentence: str, marker: str = "Not") -> di
     device = next(model.parameters()).device
     input_ids = torch.tensor([ids], device=device)
     with torch.no_grad():
-        logits = model(input_ids).logits if not hasattr(model, "generate") else model(input_ids).logits
+        logits = model(input_ids).logits
     logprobs = torch.log_softmax(logits[0], dim=-1)
+    marker_ids = ids[pos : pos + used_m]
     total = 0.0
     for j, tok in enumerate(marker_ids):
         pred_pos = pos + j - 1  # logits[t] predicts token t+1
         total += -float(logprobs[pred_pos, tok])
-    return {"found": True, "surprisal": total / m, "position": pos}
+    return {"found": True, "surprisal": total / used_m, "position": pos}
 
 
 def evaluate_pairs(model, tokenizer, pairs: list[dict], marker: str = "Not") -> dict:
