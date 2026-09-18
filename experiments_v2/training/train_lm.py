@@ -339,8 +339,7 @@ def main() -> None:
     sys.path.insert(0, str(REPO / "experiments_v2" / "analysis"))
     sys.path.insert(0, str(REPO / "experiments_v2" / "probes"))
 
-    out_json = (RESULTS / args.dataset /
-                ("lstm" if args.model.startswith("lstm") else args.model) /
+    out_json = (RESULTS / args.dataset / args.model /
                 f"{args.condition}_seed{args.seed}" / "training_metrics.json")
     if args.skip_if_done and out_json.exists():
         try:
