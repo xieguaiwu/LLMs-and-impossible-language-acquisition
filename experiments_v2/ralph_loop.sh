@@ -70,8 +70,28 @@ while true; do
   fi
 
   if [ "$qok" -eq 1 ] && [ "$pushed" -eq 1 ]; then
-    log "ALL WORK COMPLETE — ralph loop exiting cleanly"
-    exit 0
+    # ---- phase 2: BabyLM (gated on raw-data fetch success) ----
+    if [ ! -f "$STATE/ALL_BABYLM_DONE" ]; then
+      log "SVO complete -> starting BabyLM phase"
+      if bash experiments_v2/fetch_babylm.sh >> "$STATE/fetch_babylm.log" 2>&1 \
+         && bash experiments_v2/babylm_queue.sh >> "$STATE/queue_pass_babylm.log" 2>&1; then
+        log "BabyLM phase SUCCESS"
+      else
+        log "BabyLM phase failed -> will retry next iteration"
+      fi
+      # publish again regardless
+      git add -f experiments_v2/results experiments_v2/data_v2 2>> "$LOG"
+      git diff --cached --quiet 2>> "$LOG" || git -c user.name="ralph-server" \
+        -c user.email="ralph@server.local" commit -q -m "results: babylm iteration $iter" 2>> "$LOG" || true
+      git push -q origin HEAD:refs/heads/v2-results 2>> "$LOG" \
+        && log "babylm results pushed" || log "babylm results push FAILED"
+    fi
+    if [ -f "$STATE/ALL_SVO_DONE" ] && [ -f "$STATE/ALL_BABYLM_DONE" ]; then
+      log "ALL PHASES COMPLETE — ralph loop exiting cleanly"
+      exit 0
+    fi
+    log "sleeping 120s before next phase/retry"
+    sleep 120
   fi
   log "sleeping 120s before retry"
   sleep 120
