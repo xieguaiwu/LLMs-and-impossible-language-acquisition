@@ -321,6 +321,10 @@ def main() -> None:
     import sys
 
     sys.path.insert(0, str(REPO / "experiments_v2" / "training"))
+    sys.path.insert(0, str(REPO / "experiments_v2"))  # enables `from training.models import ...`
+    sys.path.insert(0, str(REPO / "experiments_v2" / "data_v2"))
+    sys.path.insert(0, str(REPO / "experiments_v2" / "analysis"))
+    sys.path.insert(0, str(REPO / "experiments_v2" / "probes"))
 
     out_json = (RESULTS / args.dataset /
                 ("lstm" if args.model.startswith("lstm") else args.model) /
