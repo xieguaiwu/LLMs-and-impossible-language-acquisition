@@ -90,20 +90,23 @@ def rule_word_shuffle(sentence: str, unit: str = "word", special_token: bool = F
 
 
 _BPE_CACHE: dict[str, int] = {}
+_BPE_TOK = None
 
 
 def _bpe_len(sentence: str) -> int:
     """GPT-2 BPE length; lazily imported so data tools work without transformers."""
+    global _BPE_TOK
     text = _strip_sentence(sentence)
     if text in _BPE_CACHE:
         return _BPE_CACHE[text]
     try:
         from transformers import GPT2TokenizerFast
 
-        tok = GPT2TokenizerFast.from_pretrained("gpt2")
+        if _BPE_TOK is None:
+            _BPE_TOK = GPT2TokenizerFast.from_pretrained("gpt2")  # load ONCE, not per sentence
     except Exception as exc:  # pragma: no cover - requires transformers
         raise RuntimeError("token-unit parity requires transformers + gpt2 tokenizer") from exc
-    n = len(tok.encode(text))
+    n = len(_BPE_TOK.encode(text))
     _BPE_CACHE[text] = n
     return n
 
