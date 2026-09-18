@@ -4,7 +4,8 @@
 # are tolerated: ralph_loop only gates the BabyLM phase on the marker file.
 
 set -u
-cd "$(dirname "$0")/../.."   # repo root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # absolute: systemd-safe
+cd "$SCRIPT_DIR/../.."   # repo root
 
 RAW_DIR=experiments_v2/data_v2/babylm/raw
 mkdir -p "$RAW_DIR"

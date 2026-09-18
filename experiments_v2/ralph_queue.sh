@@ -8,7 +8,8 @@
 # so the caller knows a retry is needed. Individual failures do NOT stop
 # the queue -- all remaining cells still run in the same pass.
 
-cd "$(dirname "$0")/../.."          # repo root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # absolute: systemd-safe
+cd "$SCRIPT_DIR/../.."          # repo root
 SEEDS=(42 43 44 45 46)
 PYTHON=${PYTHON:-/root/anaconda3/bin/python3}   # systemd-safe
 [ -x "$PYTHON" ] || PYTHON=$(command -v python3)

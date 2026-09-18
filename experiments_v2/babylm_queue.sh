@@ -3,7 +3,8 @@
 # original study left at n=1, now n=5 seeds. Idempotent + failure-tolerant
 # like ralph_queue.sh. Requires babylm_conditions prepared (prepare_babylm.py).
 
-cd "$(dirname "$0")/../.."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # absolute: systemd-safe
+cd "$SCRIPT_DIR/../.."   # repo root
 SEEDS=(42 43 44 45 46)
 PYTHON=${PYTHON:-/root/anaconda3/bin/python3}   # systemd-safe
 [ -x "$PYTHON" ] || PYTHON=$(command -v python3)
