@@ -37,10 +37,18 @@ REPO = Path(__file__).resolve().parents[2]
 DATA_V2 = REPO / "experiments_v2" / "data_v2"
 RESULTS = REPO / "experiments_v2" / "results"
 
-# Frozen budgets. SVO: 141 steps mirrors the original Experiment-1 protocol
-# (effective batch 32). BabyLM: 401 steps mirrors the original Experiment-2.
-BUDGETS = {"svo": {"steps": 141, "warmup": 20},
-           "babylm": {"steps": 401, "warmup": 56}}
+# Frozen budgets. These mirror the ORIGINAL run scripts' actual optimizer
+# budgets (not their log-point counts):
+#   GPT-2 (train.py): batch 4, logging_steps=10, 141-141 logged points
+#   -> ~1410 optimizer steps of 4x128 tokens (~950k tokens over 5 epochs)
+#   BabyLM (colab_train_babydataset.py): same shape -> ~4010 steps
+#   LSTM (lstm_nlp.py): batch 32, MAX_STEPS=2000, logging_steps=5 -> 400 logs
+BUDGETS = {
+    "svo": {"gpt2_steps": 1410, "gpt2_warmup": 197, "gpt2_batch": 4, "gpt2_accum": 1,
+            "lstm_steps": 2000, "lstm_warmup": 280, "lstm_batch": 32},
+    "babylm": {"gpt2_steps": 4010, "gpt2_warmup": 561, "gpt2_batch": 4, "gpt2_accum": 1,
+               "lstm_steps": 2000, "lstm_warmup": 280, "lstm_batch": 32},
+}
 
 # Capacity-matched pair + original subjects.
 LSTM_SPECS = {
@@ -89,14 +97,16 @@ def train_gpt2(args, seed: int) -> dict:
 
     train_path, _val_path, test_path = load_texts(args.dataset, args.condition)
     budget = BUDGETS[args.dataset]
+    total_steps = budget["gpt2_steps"]
+    warmup = budget["gpt2_warmup"]
 
     if args.model == "gpt2":
         config = GPT2Config.from_pretrained("gpt2")
         model = GPT2LMHeadModel(config)  # from scratch
         model_name = "gpt2_small_124M"
         lr = 5e-5
-        batch = 4
-        accum = 8
+        batch = budget["gpt2_batch"]
+        accum = budget["gpt2_accum"]
     elif args.model == "gpt2_tiny":
         config = GPT2Config(
             vocab_size=50257, n_positions=128, n_embd=512, n_layer=6, n_head=8,
@@ -105,8 +115,8 @@ def train_gpt2(args, seed: int) -> dict:
         model = GPT2LMHeadModel(config)
         model_name = "gpt2_tiny_6L512d"
         lr = 5e-5
-        batch = 4
-        accum = 8
+        batch = budget["gpt2_batch"]
+        accum = budget["gpt2_accum"]
     else:
         raise ValueError(args.model)
 
@@ -122,12 +132,12 @@ def train_gpt2(args, seed: int) -> dict:
     targs = TrainingArguments(
         output_dir=str(run_dir),
         overwrite_output_dir=True,
-        max_steps=budget["steps"],
+        max_steps=total_steps,
         per_device_train_batch_size=batch,
         gradient_accumulation_steps=accum,
         learning_rate=lr,
         lr_scheduler_type="linear",
-        warmup_steps=budget["warmup"],
+        warmup_steps=warmup,
         weight_decay=0.01,
         adam_beta1=0.9, adam_beta2=0.999, adam_epsilon=1e-8,
         max_grad_norm=1.0,
@@ -153,8 +163,8 @@ def train_gpt2(args, seed: int) -> dict:
     from training.metrics import write_run_json
 
     hp = dict(model=model_name, n_params=n_params, lr=lr, batch=batch, accum=accum,
-              effective_batch=batch * accum, max_steps=budget["steps"],
-              warmup=budget["warmup"], block_size=128, weight_decay=0.01,
+              effective_batch=batch * accum, max_steps=total_steps,
+              warmup=warmup, block_size=128, weight_decay=0.01,
               from_scratch=True, seed=seed)
     return write_run_json(
         run_dir / "training_metrics.json",
@@ -162,7 +172,7 @@ def train_gpt2(args, seed: int) -> dict:
         experiment=f"v2_{args.dataset}",
         model=model_name, dataset=args.dataset, condition=args.condition,
         seed=seed, hyperparameters=hp, losses=losses, test_loss=test_loss,
-        total_steps=budget["steps"], training_time_seconds=elapsed,
+        total_steps=total_steps, training_time_seconds=elapsed,
     )
 
 
@@ -202,6 +212,8 @@ def train_lstm(args, seed: int) -> dict:
     tokenizer = GPT2TokenizerFast.from_pretrained("gpt2")
     spec = LSTM_SPECS[args.model]
     budget = BUDGETS[args.dataset]
+    total_steps = budget["lstm_steps"]
+    warmup = budget["lstm_warmup"]
 
     train_path, _val_path, test_path = load_texts(args.dataset, args.condition)
 
@@ -244,12 +256,10 @@ def train_lstm(args, seed: int) -> dict:
     n_params = count_parameters(model)
 
     ds = LineDataset(train_path)
-    loader = DataLoader(ds, batch_size=32, shuffle=True, collate_fn=collate,
+    loader = DataLoader(ds, batch_size=budget["lstm_batch"], shuffle=True, collate_fn=collate,
                         drop_last=True, generator=torch.Generator().manual_seed(seed))
 
     opt = torch.optim.AdamW(model.parameters(), lr=spec["lr"], weight_decay=1e-5)
-    total_steps = budget["steps"]
-    warmup = budget["warmup"]
 
     def lr_at(step):
         if step < warmup:
@@ -296,7 +306,7 @@ def train_lstm(args, seed: int) -> dict:
     from training.metrics import write_run_json
 
     hp = dict(model=args.model, n_params=n_params, **{k: v for k, v in spec.items()},
-              max_steps=total_steps, warmup=warmup, batch=32, from_scratch=True, seed=seed)
+              max_steps=total_steps, warmup=warmup, batch=budget["lstm_batch"], from_scratch=True, seed=seed)
     return write_run_json(
         RESULTS / args.dataset / args.model / f"{args.condition}_seed{seed}" / "training_metrics.json",
         run_id=f"{args.dataset}_{args.model}_{args.condition}_seed{seed}",
