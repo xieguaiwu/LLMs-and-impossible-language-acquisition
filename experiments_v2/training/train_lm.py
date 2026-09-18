@@ -313,12 +313,26 @@ def main() -> None:
     parser.add_argument("--dataset", required=True, choices=["svo", "babylm"])
     parser.add_argument("--condition", required=True)
     parser.add_argument("--seed", type=int, required=True)
+    parser.add_argument("--skip-if-done", action="store_true",
+                        help="ralph-loop resumability: exit 0 immediately if this run's JSON already exists")
     args = parser.parse_args()
 
     os.chdir(REPO)  # relative imports + HF cache stability
     import sys
 
     sys.path.insert(0, str(REPO / "experiments_v2" / "training"))
+
+    out_json = (RESULTS / args.dataset /
+                ("lstm" if args.model.startswith("lstm") else args.model) /
+                f"{args.condition}_seed{args.seed}" / "training_metrics.json")
+    if args.skip_if_done and out_json.exists():
+        try:
+            prev = json.load(open(out_json))
+            if prev.get("summary"):
+                print(f"SKIP {out_json} (already complete)")
+                return
+        except Exception:
+            pass  # corrupt file -> retrain
 
     if args.model.startswith("lstm"):
         record = train_lstm(args, args.seed)
