@@ -9,7 +9,11 @@ cd "$SCRIPT_DIR/.."   # repo root (script lives in experiments_v2/)
 
 RAW_DIR=experiments_v2/data_v2/babylm/raw
 mkdir -p "$RAW_DIR"
-BASE="https://hf-mirror.com/datasets/Sree1994/babylm_100M/resolve/main/data"
+# OFFICIAL BabyLM source (per-genre files, exactly Kallini's GENRES).
+# The Sree1994/babylm_100M mirror turned out to be a 10M-word corpus under a
+# 100M name (caught by the word-count guard 2026-09-19).
+BASE="https://hf-mirror.com/datasets/cambridge-climb/BabyLM/resolve/main/clean"
+GENRES="aochildes bnc_spoken cbt children_stories gutenberg open_subtitles qed simple_wikipedia switchboard wikipedia"
 
 if ls "$RAW_DIR"/train*.txt >/dev/null 2>&1; then
   echo "raw BabyLM already present"
@@ -33,7 +37,7 @@ for pq in sorted(raw.glob("*.parquet")):
 EOF
 fi
 
-WORDS=$(cat "$RAW_DIR"/train*.txt 2>/dev/null | wc -w || echo 0)
+WORDS=$(cat "$RAW_DIR"/100M_*.txt 2>/dev/null | wc -w || echo 0)
 echo "train corpus words: $WORDS"
 if [ "$WORDS" -lt 50000000 ]; then
   echo "BabyLM corpus suspiciously small ($WORDS words) -- aborting phase"

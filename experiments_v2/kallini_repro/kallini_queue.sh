@@ -38,43 +38,27 @@ grep -q "^BABYLM_DATA_PATH = \"${KALLINI_DATA_PATH}\"" "$KALLINI_REPO/utils.py" 
   sed -i "s|^BABYLM_DATA_PATH = .*|BABYLM_DATA_PATH = \"${KALLINI_DATA_PATH}\"|" "$KALLINI_REPO/utils.py"
 
 # ---------- [2] BabyLM raw text from HF mirror (same source as fetch_babylm) ----
-if [ ! -f "$KALLINI_DATA_PATH/babylm_data/babylm_100M/all_parsed.json" ]; then
-  note "fetching BabyLM parquet via HF mirror"
-  mkdir -p "$KALLINI_DATA_PATH/parquet"
-  for spec in train-00000-of-00001-483d4930a18b1694.parquet \
-              valid-00000-of-00001-dbeb923c899f3527.parquet \
-              test-00000-of-00001-dbeb923c899f3527.parquet; do
-    [ -f "$KALLINI_DATA_PATH/parquet/$spec" ] || \
-      curl -sL --retry 3 -o "$KALLINI_DATA_PATH/parquet/$spec" \
-        "https://hf-mirror.com/datasets/Sree1994/babylm_100M/resolve/main/data/$spec" \
-        || { note "HF FETCH FAIL"; exit 9; }
+if [ ! -f "$KALLINI_DATA_PATH/babylm_data/babylm_100M/aochildes_parsed.json" ]; then
+  note "fetching official BabyLM per-genre files via HF mirror (cambridge-climb/BabyLM)"
+  mkdir -p "$KALLINI_DATA_PATH/babylm_data/babylm_100M" "$KALLINI_DATA_PATH/babylm_data/babylm_test"
+  GENRES="aochildes bnc_spoken cbt children_stories gutenberg open_subtitles qed simple_wikipedia switchboard wikipedia"
+  for g in $GENRES; do
+    f="$KALLINI_DATA_PATH/babylm_data/babylm_100M/${g}.train"
+    [ -f "$f" ] || curl -sL --retry 3 -o "$f" \
+      "https://hf-mirror.com/datasets/cambridge-climb/BabyLM/resolve/main/clean/100M/${g}.txt" \
+      || { note "HF FETCH FAIL $g"; exit 9; }
+    t="$KALLINI_DATA_PATH/babylm_data/babylm_test/${g}.test"
+    [ -f "$t" ] || curl -sL --retry 3 -o "$t" \
+      "https://hf-mirror.com/datasets/cambridge-climb/BabyLM/resolve/main/clean/test/${g}.txt" \
+      || { note "HF FETCH FAIL test $g"; exit 9; }
   done
-  note "writing raw text files"
-  $PYTHON - <<'PYEOF' >> experiments_v2/kallini_repro/data_prep.log 2>&1 \
-    || { note "TEXT EXTRACT FAIL"; exit 9; }
-import pandas as pd, glob, os
-base = "/root/kallini_data"
-os.makedirs(f"{base}/babylm_data/babylm_100M", exist_ok=True)
-os.makedirs(f"{base}/babylm_data/babylm_dev", exist_ok=True)
-os.makedirs(f"{base}/babylm_data/babylm_test", exist_ok=True)
-def dump(pq_glob, out_path):
-    pq = sorted(glob.glob(pq_glob))[0]
-    df = pd.read_parquet(pq)
-    col = next(c for c in df.columns if df[c].map(lambda v: isinstance(v, str)).all())
-    n = 0
-    with open(out_path, "w", encoding="utf-8") as f:
-        for row in df[col]:
-            f.write(str(row).replace("\n", " ").strip() + "\n")
-            n += 1
-    print(f"{out_path}: {n} lines")
-dump(f"{base}/parquet/train*.parquet", f"{base}/babylm_data/babylm_100M/all.train")
-dump(f"{base}/parquet/valid*.parquet", f"{base}/babylm_data/babylm_dev/all.dev")
-dump(f"{base}/parquet/test*.parquet",  f"{base}/babylm_data/babylm_test/all.test")
-PYEOF
-  note "shim-tagging train + test"
+  WORDS=$(cat "$KALLINI_DATA_PATH"/babylm_data/babylm_100M/*.train 2>/dev/null | wc -w || echo 0)
+  echo "kallini corpus words: $WORDS"
+  if [ "$WORDS" -lt 50000000 ]; then note "corpus too small ($WORDS)"; exit 9; fi
+  note "shim-tagging train + test (per genre)"
   $PYTHON experiments_v2/kallini_repro/shim_tag.py \
-    "$KALLINI_DATA_PATH/babylm_data/babylm_100M/all.train" \
-    "$KALLINI_DATA_PATH/babylm_data/babylm_test/all.test" \
+    "$KALLINI_DATA_PATH"/babylm_data/babylm_100M/*.train \
+    "$KALLINI_DATA_PATH"/babylm_data/babylm_test/*.test \
     >> experiments_v2/kallini_repro/data_prep.log 2>&1 \
     || { note "SHIM TAG FAIL"; exit 9; }
 fi
