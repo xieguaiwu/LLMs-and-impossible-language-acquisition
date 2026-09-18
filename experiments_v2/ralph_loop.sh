@@ -104,13 +104,13 @@ while true; do
       unset GIT_INDEX_FILE
       COMMIT=$(git -c user.name="ralph-server" -c user.email="ralph@server.local" \
         commit-tree "$TREE" -p HEAD -m "results: babylm iteration $iter" 2>> "$LOG")
-      if git push -f origin "$COMMIT:refs/heads/v2-results" >> "$LOG" 2>&1; then
+      if git push -f origin "$COMMIT:refs/heads/$RESULTS_BRANCH" >> "$LOG" 2>&1; then
         log "babylm results pushed"
       else
         log "babylm results push FAILED"
       fi
     fi
-    if [ -f "$STATE/ALL_SVO_DONE" ] && [ -f "$STATE/ALL_BABYLM_DONE" ]; then
+    if [ -f "$STATE/ALL_SVO_DONE" ] && { [ "$RUN_BABYLM" = "0" ] || [ -f "$STATE/ALL_BABYLM_DONE" ]; }; then
       log "ALL PHASES COMPLETE — ralph loop exiting cleanly"
       exit 0
     fi

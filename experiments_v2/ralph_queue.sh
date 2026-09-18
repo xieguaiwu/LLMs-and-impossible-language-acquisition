@@ -15,13 +15,22 @@ PYTHON=${PYTHON:-/root/anaconda3/bin/python3}   # systemd-safe
 [ -x "$PYTHON" ] || PYTHON=$(command -v python3)
 SKIP="--skip-if-done"
 
+# multi-host scoping (env):
+#   MODELS         which SVO main models this host runs (default all three)
+#   RUN_CONTROLS   1/0 gpt2 control conditions
+#   RUN_PROBES     1/0 probe suite (needs gpt2 parity checkpoints on this host)
+MODELS=${MODELS:-"gpt2_tiny lstm_matched gpt2"}
+RUN_CONTROLS=${RUN_CONTROLS:-1}
+RUN_PROBES=${RUN_PROBES:-1}
+NICE_LEVEL=${NICE_LEVEL:-10}   # set NICE_LEVEL=off for dedicated boxes
+
 export TOKENIZERS_PARALLELISM=false
 export HF_ENDPOINT=${HF_ENDPOINT:-https://hf-mirror.com}
 if [ -z "${OMP_NUM_THREADS:-}" ]; then
   export OMP_NUM_THREADS=$(( $(nproc) > 1 ? $(nproc) - 1 : 1 ))
 fi
-NICE=""
-command -v nice >/dev/null && NICE="nice -n 10"
+NICE="nice -n $NICE_LEVEL"
+[ "$NICE_LEVEL" = "off" ] && NICE=""
 
 fail=0
 note() { echo "[$(date -Is)] $*"; }
@@ -45,32 +54,33 @@ run() { # model dataset condition seed
   fi
 }
 
+run_if() { # model cond seed -> only when model in $MODELS
+  local model=$1
+  case " $MODELS " in *" $model "*) run "$model" "$2" "$3";; esac
+}
+
 mkdir -p experiments_v2/results
 
-# ---------- main conditions x 5 seeds x 3 models (decision-first order) ------
-# lstm_matched + gpt2_tiny first: capacity-matched claim (H5), cheap on CPU.
+# ---------- main conditions x 5 seeds (decision-first order) -----------------
 for cond in natural reversed parity_negation; do
   for seed in "${SEEDS[@]}"; do
-    run gpt2_tiny "$cond" "$seed"
-    run lstm_matched "$cond" "$seed"
-  done
-done
-# gpt2 124M (heaviest) last among mains
-for cond in natural reversed parity_negation; do
-  for seed in "${SEEDS[@]}"; do
-    run gpt2 "$cond" "$seed"
+    run_if gpt2_tiny    "$cond" "$seed"
+    run_if lstm_matched "$cond" "$seed"
+    run_if gpt2         "$cond" "$seed"
   done
 done
 
 # ---------- control conditions on gpt2 (H2/H3/H4) -----------------------------
-for cond in fixed_start_neg fixed_end_neg parity_negation_negtok word_shuffle parity_negation_tok; do
-  for seed in "${SEEDS[@]}"; do
-    run gpt2 "$cond" "$seed"
+if [ "$RUN_CONTROLS" = "1" ]; then
+  for cond in fixed_start_neg fixed_end_neg parity_negation_negtok word_shuffle parity_negation_tok; do
+    for seed in "${SEEDS[@]}"; do
+      run_if gpt2 "$cond" "$seed"
+    done
   done
-done
+fi
 
 # ---------- probes on parity checkpoints (inference only) ----------------------
-if [ "$fail" -eq 0 ]; then
+if [ "$RUN_PROBES" = "1" ] && [ "$fail" -eq 0 ]; then
   for seed in "${SEEDS[@]}"; do
     dir=experiments_v2/results/svo/gpt2/parity_negation_seed$seed
     if [ -f "$dir/probe_report.json" ]; then continue; fi
@@ -94,6 +104,6 @@ note "queue pass done: $n_done runs complete, $fail failures this pass"
 if [ "$fail" -gt 0 ]; then
   exit 1
 fi
-note "ALL DONE"
+note "ALL DONE (models: $MODELS)"
 touch experiments_v2/results/ALL_SVO_DONE
 exit 0
