@@ -52,8 +52,8 @@ KALLINI_REPO = Path(os.environ.get("KALLINI_REPO", "/root/mission-impossible-lan
 BABYLM_DATA_PATH = Path(os.environ.get("KALLINI_DATA_PATH", "/root/kallini_data"))
 RESULTS = Path(os.environ.get("REPRO_RESULTS", Path(__file__).resolve().parent / "results"))
 TRAIN_SET = os.environ.get("REPRO_TRAIN_SET", "100M")
-MAX_STEPS = 3000
-WARMUP_STEPS = 300
+MAX_STEPS = int(os.environ.get("REPRO_MAX_STEPS", 3000))
+WARMUP_STEPS = int(os.environ.get("REPRO_WARMUP_STEPS", 300))
 PEAK_LR = 6e-4
 EVAL_CHECKPOINTS = [100, 300, 500, 1000, 2000, 3000]
 EVAL_SAMPLE = 10000
@@ -72,7 +72,16 @@ LANGUAGES = [
     "reverse_control",            # NoReverse (English + R-marker control)
     "reverse_partial",
     "reverse_full",
+    # --- v3 class-P conditions (DESIGN_V3 §1.1; datasets via design_v3/v3_conditions.py)
+    "parity_word",                # paper's counting rule (word domain)
+    "parity_tok",                 # counting rule over BPE tokens (BabyLM-only meaningful)
+    "negtok",                     # word parity, reserved <NEG> marker (vocab +1)
+    "fixed_start",                # primary marker control of class P
+    "fixed_end",                  # position control
+    "bare_reverse",               # Reverse-bare (no marker; NOT a Kallini replication cell)
+    "word_shuffle",               # our v2 Kallini-analog reference
 ]
+VOCAB_EXTRA = {"negtok": 1, "reverse_control": 1, "reverse_partial": 1, "reverse_full": 1}
 
 sys.path.insert(0, str(KALLINI_REPO))
 from utils import PERTURBATIONS, gpt2_original_tokenizer  # noqa: E402
@@ -179,6 +188,15 @@ def lr_lambda(step: int) -> float:
     return max(0.0, (MAX_STEPS - step) / max(1, MAX_STEPS - WARMUP_STEPS))
 
 
+def eval_checkpoints_for(steps: int) -> list[int]:
+    """DESIGN_V3 ladder: 6 log-spaced points, scaled for extended budgets."""
+    base = [100, 300, 500, 1000, 2000, 3000]
+    if steps <= 3000:
+        return [s for s in base if s <= steps] or [steps]
+    pts = sorted({100, 300, 500, 1000, 2000, 3000, int(steps * 0.67), steps})
+    return [s for s in pts if s <= steps]
+
+
 def set_seed(seed: int) -> None:
     random.seed(seed)
     np.random.seed(seed)
@@ -186,12 +204,23 @@ def set_seed(seed: int) -> None:
     torch.cuda.manual_seed_all(seed)
 
 
-def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda") -> dict:
+def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
+              max_steps: int = None, warmup: int = None) -> dict:
+    global MAX_STEPS, WARMUP_STEPS
+    if max_steps:
+        MAX_STEPS = max_steps
+        WARMUP_STEPS = warmup
     from transformers import GPT2Config, GPT2LMHeadModel
 
     spec = PERTURBATIONS[perturbation]
     tokenizer = spec["gpt2_tokenizer"]
+    # v3 P-class conditions live outside PERTURBATIONS; register their tokenizer
+    # + vocab sizing here (DESIGN_V3 §1.3.4: markers must be registered tokens)
+    if perturbation not in spec and perturbation == "negtok":
+        tokenizer = type(tokenizer).from_pretrained("gpt2")
+        tokenizer.add_special_tokens({"additional_special_tokens": ["<NEG>"]})
     reverse_mode = perturbation.startswith("reverse")
+    vocab_extra = VOCAB_EXTRA.get(perturbation, 0)
 
     t_pack = time.time()
     blocks = load_packed_dataset(perturbation, seed)
@@ -201,7 +230,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda")
 
     set_seed(seed)
     config = GPT2Config(
-        vocab_size=50257 + (1 if reverse_mode else 0),
+        vocab_size=50257 + vocab_extra,
         n_positions=SEQ_LEN, n_embd=768, n_layer=12, n_head=12,
         resid_pdrop=0.1, embd_pdrop=0.1, attn_pdrop=0.1,
         reorder_and_upcast_attn=True, scale_attn_by_inverse_layer_idx=True,
@@ -232,6 +261,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda")
     eval_trace: dict[str, float] = {}
     t0 = time.time()
     model.train()
+    checkpoints = eval_checkpoints_for(MAX_STEPS)
     for step in range(1, MAX_STEPS + 1):
         opt.zero_grad(set_to_none=True)
         loss_avg = 0.0
@@ -247,7 +277,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda")
         scaler.update()
         sched.step()
 
-        if step in EVAL_CHECKPOINTS:
+        if step in checkpoints:
             trace = evaluate_checkpoint(model, eval_sents, device)
             eval_trace[str(step)] = trace["gmean_ppl"]
             torch.save(trace["ppls"], out_dir / f"ppls_step{step}.pt")
@@ -283,15 +313,23 @@ def main() -> None:
     parser.add_argument("perturbation", choices=LANGUAGES)
     parser.add_argument("--seed", type=int, required=True)
     parser.add_argument("--skip-if-done", action="store_true")
+    parser.add_argument("--steps", type=int, default=None,
+                        help="override MAX_STEPS (H7 budget ladder); warmup stays at 10%%")
     args = parser.parse_args()
 
-    out_dir = RESULTS / f"babylm_{args.perturbation}_{TRAIN_SET}" / f"seed{args.seed}"
+    if args.steps:
+        global MAX_STEPS, WARMUP_STEPS, EVAL_CHECKPOINTS
+        MAX_STEPS = args.steps
+        WARMUP_STEPS = max(300, int(0.10 * args.steps))
+
+    out_dir = RESULTS / f"babylm_{args.perturbation}_{TRAIN_SET}" / \
+        (f"steps{args.steps}_seed{args.seed}" if args.steps else f"seed{args.seed}")
     done_marker = out_dir / "exp1_result.json"
     if args.skip_if_done and done_marker.exists():
         print(f"SKIP {done_marker} (already complete)")
         return
 
-    result = train_one(args.perturbation, args.seed, out_dir)
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
     out_dir.mkdir(parents=True, exist_ok=True)
     with open(done_marker, "w") as f:
         json.dump(result, f, indent=2)

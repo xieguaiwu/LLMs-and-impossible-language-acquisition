@@ -21,6 +21,10 @@ export REPRO_RESULTS=${REPRO_RESULTS:-experiments_v2/kallini_repro/results}
 
 LANGS="shuffle_control shuffle_nondeterministic shuffle_deterministic21 shuffle_local3 shuffle_local10 shuffle_even_odd reverse_control reverse_partial reverse_full"
 
+# v3 class-P conditions (DESIGN_V3 §1.1) — trained with the SAME trainer/eval.
+# Gated by RUN_V3 (GPU box enables); each has its own results tree.
+V3_LANGS="parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle"
+
 fail=0
 note() { echo "[$(date -Is)] $*"; }
 mkdir -p experiments_v2/kallini_repro/results
@@ -88,6 +92,28 @@ if need_perturb shuffle_control || need_perturb reverse_partial; then
   ' || note "WARN some perturb jobs failed (see data_prep.log)"
 fi
 
+# ---------- [3b] v3 class-P datasets (DESIGN_V3 §1.1, Kallini token-ID format) --
+if [ "${RUN_V3:-0}" = "1" ]; then
+  if [ ! -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_parity_word/babylm_100M/all.train" ]; then
+    note "generating v3 class-P datasets"
+    $PYTHON - <<'PYEOF' >> experiments_v2/kallini_repro/data_prep.log 2>&1 \
+      || { note "V3 PERTURB FAIL"; exit 9; }
+import sys
+sys.path.insert(0, "experiments_v2/design_v3")
+from v3_conditions import write_condition, CONDITIONS
+from pathlib import Path
+base = Path(__import__("os").environ.get("KALLINI_DATA_PATH", "/root/kallini_data"))
+tagged_train = base / "babylm_data" / "babylm_100M" / "all_parsed.json"
+tagged_test  = base / "babylm_data" / "babylm_test" / "all_parsed.json"
+assert tagged_train.exists() and tagged_test.exists(), "shim_tag the corpus first"
+for lang in "parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle".split():
+    write_condition(lang, tagged_train, base / "babylm_data_perturbed", "100M")
+    write_condition(lang, tagged_test,  base / "babylm_data_perturbed", "test")
+print("v3 P-class datasets done")
+PYEOF
+  fi
+fi
+
 # ---------- [4] training queue --------------------------------------------------
 run() {
   local lang=$1 seed=$2
@@ -105,6 +131,29 @@ for seed in $SEEDS; do
     run "$lang" "$seed"
   done
 done
+
+# ---------- [4b] v3 class-P training queue (DESIGN_V3 priority ladder) ---------
+if [ "${RUN_V3:-0}" = "1" ]; then
+  # P0: parity_word + fixed_start (the paper's central contrast)
+  # P1: parity_tok + negtok
+  # P2: H7 2x arm (natural + parity_word at 6000 steps, seed 0)
+  # ladder for H7: {300,1000,2000,4000,6000} via STEPS env in train_exp1
+  for seed in 0 14 41; do
+    for lang in parity_word fixed_start parity_tok negtok; do
+      run "$lang" "$seed"
+    done
+  done
+  if [ "${RUN_V3_H7:-1}" = "1" ]; then
+    for lang in parity_word fixed_start shuffle_control; do
+      if $NICE $PYTHON experiments_v2/kallini_repro/train_exp1.py "$lang" --seed 0 \
+          --steps 6000 --skip-if-done >> experiments_v2/kallini_repro/queue.log 2>&1; then
+        note "OK   2x $lang/seed0"
+      else
+        note "FAIL 2x $lang/seed0"; fail=$((fail+1))
+      fi
+    done
+  fi
+fi
 
 # ---------- [5] aggregate --------------------------------------------------------
 $PYTHON experiments_v2/kallini_repro/aggregate_exp1.py >> experiments_v2/kallini_repro/queue.log 2>&1 \
