@@ -9,7 +9,7 @@
 # the queue -- all remaining cells still run in the same pass.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # absolute: systemd-safe
-cd "$SCRIPT_DIR/../.."          # repo root
+cd "$SCRIPT_DIR/.."          # repo root (script lives in experiments_v2/)
 SEEDS=(42 43 44 45 46)
 PYTHON=${PYTHON:-/root/anaconda3/bin/python3}   # systemd-safe
 [ -x "$PYTHON" ] || PYTHON=$(command -v python3)

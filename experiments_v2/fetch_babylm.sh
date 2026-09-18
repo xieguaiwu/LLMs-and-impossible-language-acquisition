@@ -5,7 +5,7 @@
 
 set -u
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"   # absolute: systemd-safe
-cd "$SCRIPT_DIR/../.."   # repo root
+cd "$SCRIPT_DIR/.."   # repo root (script lives in experiments_v2/)
 
 RAW_DIR=experiments_v2/data_v2/babylm/raw
 mkdir -p "$RAW_DIR"
