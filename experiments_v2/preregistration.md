@@ -165,4 +165,29 @@ GPU box; see experiments_v2/README.md).
 
 ## 10. Deviation log
 
-(none yet — append dated entries below if any clause above is violated)
+- 2026-09-18T23:30+08:00: the first 5 `parity_negation_negtok` cells (seeds 42-46
+  started 23:09-23:25 on the GPU host) were trained WITHOUT registering `<NEG>`
+  as a special token (the marker was BPE-fragmented into `< NEG >`). The bug
+  was found during GPU early-signal review; those cells are invalid and were
+  deleted + retrained with `add_special_tokens` + `resize_token_embeddings`.
+- 2026-09-18: early clean-corpus results show natural ≈ reversed at the
+  replication budget (test PPL 1.918 vs 1.915), which contradicts the paper's
+  Exp-1 direction. Two pre-registered diagnostic arms were added (H7/H8 below)
+  instead of silently interpreting the replication.
+
+## 11. Post-hoc hypotheses registered on first clean-corpus evidence (H7/H8)
+
+These were written AFTER observing the GPU early signal above (declared as
+such); they are diagnostic, not confirmatory:
+
+- **H7 (extended budget).** The natural-vs-impossible gap is an emergent
+  phenomenon that requires more optimization than the original paper's
+  protocol provided. Test: re-run natural/reversed/parity_negation/
+  fixed_start_neg at 3× steps (4230) on the clean corpus. If the gap opens
+  with budget, the original claim survives in a compute-dependent form; if
+  it never opens, the Exp-1 result is corpus-artifact-driven (H8).
+- **H8 (pollution artifact).** Re-implementing the original corpus format
+  (each sentence duplicated as `Original: X` + `X`) restores the paper's
+  numbers (natural ≈ 0.83-level loss and a natural < parity < reversed
+  ordering). If confirmed, the original SVO experiments' magnitudes are a
+  duplication artifact, and the paper's Exp-1 must be corrected/qualified.
