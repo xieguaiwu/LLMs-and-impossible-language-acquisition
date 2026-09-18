@@ -49,13 +49,15 @@ class LSTMLM(nn.Module):
         logits = self.head(out)
         loss = None
         if labels is not None:
-            loss_fn = nn.CrossEntropyLoss(
-                ignore_index=-100 if self.pad_token_id is None else -100
-            )
-            loss = loss_fn(
-                logits[:, :-1, :].reshape(-1, logits.size(-1)),
-                labels[:, 1:].reshape(-1),
-            )
+            # REDTEAM #4 fix: mask pad positions out of the loss (pad tokens
+            # contributed loss in v2, biasing every LSTM number)
+            loss_fn = nn.CrossEntropyLoss(ignore_index=-100)
+            shift_logits = logits[:, :-1, :].reshape(-1, logits.size(-1))
+            shift_labels = labels[:, 1:].reshape(-1)
+            if self.pad_token_id is not None:
+                shift_labels = shift_labels.masked_fill(
+                    shift_labels == self.pad_token_id, -100)
+            loss = loss_fn(shift_logits, shift_labels)
         return {"loss": loss, "logits": logits}
 
 
