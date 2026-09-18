@@ -144,6 +144,9 @@ def train_gpt2(args, seed: int) -> dict:
     trainer.train()
     elapsed = time.time() - t0
 
+    trainer.save_model()                       # checkpoint for the probe suite
+    tokenizer.save_pretrained(str(run_dir))
+
     losses = [float(x["loss"]) for x in trainer.state.log_history if "loss" in x]
     test_loss = eval_loss_gpt2(model, tokenizer, test_path)
 
