@@ -21,7 +21,8 @@ LOG="$STATE/ralph.log"
 
 log() { echo "[$(date -Is)] $*" >> "$LOG"; }
 
-export PYTHON=${PYTHON:-python3}
+export PYTHON=${PYTHON:-/root/anaconda3/bin/python3}   # systemd PATH lacks anaconda
+[ -x "$PYTHON" ] || PYTHON=$(command -v python3)
 export HF_ENDPOINT=${HF_ENDPOINT:-https://hf-mirror.com}
 export GIT_TERMINAL_PROMPT=0
 
