@@ -157,8 +157,20 @@ def create_attention_mask(token_lists):
 
 
 def create_input_ids(token_lists, pad_token_id):
-    padded = zip_longest(*token_lists, fillvalue=pad_token_id)
-    return torch.tensor(list(padded), dtype=torch.long)
+    """Their create_input_ids: the outer zip(*) undoes zip_longest's transpose.
+
+    Without it the batch comes back as (L, B) while create_attention_mask
+    returns (B, L), and get_perplexities dies at `loss * shift_attention_mask`
+    with "The size of tensor a (31) must match the size of tensor b (23)" —
+    i.e. the eval path crashed for every run at the first checkpoint
+    (2026-09-19). The assertion keeps that transposition from coming back.
+    """
+    padded = zip(*zip_longest(*token_lists, fillvalue=pad_token_id))
+    ids = torch.tensor(list(padded), dtype=torch.long)
+    assert ids.shape[0] == len(token_lists), (
+        f"create_input_ids returned {tuple(ids.shape)}; expected "
+        f"({len(token_lists)}, L) rows-per-example — the outer zip(*) is missing")
+    return ids
 
 
 def get_perplexities(model, token_lists, pad_token_id, device="cuda"):
