@@ -20,6 +20,14 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/../.." || exit 3   # repo root
 REPO_ROOT="$PWD"
 
+# One-shot pass => pulling at the start is safe (no mid-execution byte-offset
+# hazard: the wrapper does not re-read itself after this point). Best-effort.
+mkdir -p "$SCRIPT_DIR/results_lstm"
+if [ "${LSTM_SKIP_PULL:-0}" != "1" ]; then
+  git pull --ff-only origin main >> "$SCRIPT_DIR/results_lstm/pull.log" 2>&1 \
+    || echo "[$(date -Is)] git pull failed (continuing with local HEAD)" >> "$SCRIPT_DIR/results_lstm/pull.log"
+fi
+
 PYTHON=${PYTHON:-/root/anaconda3/bin/python3}
 [ -x "$PYTHON" ] || PYTHON=$(command -v python3)
 export PYTHONPATH="$REPO_ROOT/experiments_v2/kallini_repro:$REPO_ROOT/experiments_v2:${PYTHONPATH:-}"
@@ -27,12 +35,15 @@ export TOKENIZERS_PARALLELISM=false
 export KALLINI_DATA_PATH=${KALLINI_DATA_PATH:-/root/kallini_data}
 export LSTM_RESULTS=${LSTM_RESULTS:-$SCRIPT_DIR/results_lstm}
 export LSTM_SEQ_LEN=${LSTM_SEQ_LEN:-256}
-export LSTM_STEPS=${LSTM_STEPS:-3000}
-LSTM_WORKERS=${LSTM_WORKERS:-3}
+export LSTM_STEPS=${LSTM_STEPS:-300}
+export LSTM_MICRO_BATCH=${LSTM_MICRO_BATCH:-8}
+export LSTM_EVAL_N=${LSTM_EVAL_N:-2000}
+LSTM_WORKERS=${LSTM_WORKERS:-2}
+LSTM_THREADS=${LSTM_THREADS:-2}     # torch threads per worker (4 cores total)
 RESULTS_BRANCH=${RESULTS_BRANCH:-v2-results-lstm}
 PUBLISH=${PUBLISH:-0}
-export OMP_NUM_THREADS=1
-export MKL_NUM_THREADS=1
+export OMP_NUM_THREADS=${LSTM_THREADS}
+export MKL_NUM_THREADS=${LSTM_THREADS}
 
 CONDITIONS=${CONDITIONS:-"shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start"}
 SEEDS=${SEEDS:-"0 14 41 53 96"}
@@ -107,6 +118,7 @@ if [ "$PUBLISH" = "1" ] && [ -d "$LSTM_RESULTS" ]; then
     ":(exclude)experiments_v2/kallini_repro/results_lstm/**/*.pt" \
     ":(exclude)experiments_v2/kallini_repro/results_lstm/**/*.bin" \
     ":(exclude)experiments_v2/kallini_repro/results_lstm/**/*.safetensors" \
+    ":(exclude)experiments_v2/kallini_repro/results_lstm/cache/**" \
     experiments_v2/kallini_repro/results_lstm 2>>"$LOG" || true
   TREE=$(git write-tree 2>>"$LOG")
   unset GIT_INDEX_FILE

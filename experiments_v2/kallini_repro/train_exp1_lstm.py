@@ -37,8 +37,17 @@ Documented deviations (CPU reality; logged in every result JSON)
 
 Usage
 -----
-    LSTM_SEQ_LEN=256 LSTM_STEPS=3000 python train_exp1_lstm.py shuffle_control \
+    LSTM_SEQ_LEN=256 LSTM_STEPS=300 python train_exp1_lstm.py shuffle_control \
         --seed 0 --skip-if-done
+
+Budget limitation (binding, owner ruling 2026-09-19)
+---------------------------------------------------
+This arm runs at ~1/160 of the GPT-2 arm's token budget (300 x 8192 = 2.46e6 vs
+3000 x 128 x 1024 = 3.93e8). It must therefore never be reported as an
+"architecture axis at equal budget": only the budget-dependent wording of the
+F8/H7 family is licensed ("no detectable difference *at this budget*").
+Epochs-matched on cpu2 would take ~160 h per cell (GPT-2 arm ~27k tok/s vs
+lstm_matched ~680 tok/s measured here).
 """
 from __future__ import annotations
 
@@ -64,7 +73,7 @@ from training.models import LSTMLM, count_parameters  # noqa: E402
 # ---------------------------------------------------------------- config ----
 
 SEQ_LEN = int(os.environ.get("LSTM_SEQ_LEN", 256))
-MICRO_BATCH = int(os.environ.get("LSTM_MICRO_BATCH", 16))
+MICRO_BATCH = int(os.environ.get("LSTM_MICRO_BATCH", 4))
 EFF_BATCH = int(os.environ.get("LSTM_EFF_BATCH", 32))
 STEPS = int(os.environ.get("LSTM_STEPS", 3000))
 WARMUP = int(os.environ.get("LSTM_WARMUP", 0)) or max(100, int(0.10 * STEPS))
@@ -77,13 +86,23 @@ N_LAYERS = int(os.environ.get("LSTM_LAYERS", 2))
 DROPOUT = float(os.environ.get("LSTM_DROPOUT", 0.3))
 SAVE_CKPT = os.environ.get("LSTM_SAVE_CKPT", "0") == "1"
 RESULTS = Path(os.environ.get("LSTM_RESULTS", HERE / "results_lstm"))
-EVAL_BATCH = int(os.environ.get("LSTM_EVAL_BATCH", 16))
+EVAL_BATCH = int(os.environ.get("LSTM_EVAL_BATCH", 8))
 # Eval cost on CPU is dominated by the 50257-vocab head (~3 s per 16x256 batch),
 # so the LSTM arm evaluates the FIRST LSTM_EVAL_N of the *same* 10k test sample
 # the GPT-2 arm draws (subset, not a different sample) — documented deviation.
 EVAL_N = int(os.environ.get("LSTM_EVAL_N", 2000))
-VOCAB_SIZE = 50257  # marker-free GPT-2 vocab (class-P marker conditions keep 50257)
+VOCAB_SIZE = 50257  # GPT-2 marker-free base; reverse_* conditions add a marker id
 EOS = G.EOS_TOKEN_ID
+
+
+BUDGET_NOTE = (
+    "budget-limited arm: LSTM_STEPS x effective_batch x SEQ_LEN tokens vs the GPT-2 "
+    "arm's 3000 x 128 x 1024 = 3.93e8 (ratio ~1/160 at the 300-step default). "
+    "NO equal-budget architecture-axis claim is licensed by this arm; report it only "
+    "as budget-dependent (F8/H7 family: 'no detectable difference at this budget'). "
+    "Epochs-matched would need ~160 h per cell on cpu2 (measured: GPT-2 arm ~27k tok/s "
+    "vs lstm_matched ~680 tok/s here)."
+)
 
 
 def logits_gb(batch: int, seq: int) -> float:
@@ -145,10 +164,29 @@ def packed_blocks(perturbation: str, seed: int) -> tuple[np.ndarray, int, int]:
     src = np.repeat(st, sl)
     src += np.arange(total, dtype=np.int32) - offs
     shuffled = stream[src]
+    del stream, src, st, sl, offs, perm
     n_windows = int(math.ceil(total / SEQ_LEN))
-    padded = np.zeros(n_windows * SEQ_LEN, dtype=np.int32)
-    padded[:total] = shuffled
-    return padded.reshape(n_windows, SEQ_LEN), total, int(lens.size)
+    # view into the shuffled stream (no copy); only the tail window is padded
+    full = (total // SEQ_LEN) * SEQ_LEN
+    windows = np.empty((n_windows, SEQ_LEN), dtype=np.int32)
+    windows[: total // SEQ_LEN] = shuffled[:full].reshape(-1, SEQ_LEN)
+    if total % SEQ_LEN:
+        tail = np.zeros(SEQ_LEN, dtype=np.int32)
+        tail[: total - full] = shuffled[full:]
+        windows[-1] = tail
+    del shuffled
+    # Persist + mmap: the packed stream is 545 MB per (condition, seed). Two
+    # workers holding it anonymously pushed cpu2 into swap thrash (measured
+    # 2026-09-19: 3.7 GB swap full, both workers in D state at 10% CPU).
+    # File-backed pages are shared and evictable, so training RSS stays low.
+    cache_dir = RESULTS / "cache"
+    cache_dir.mkdir(parents=True, exist_ok=True)
+    cache_file = cache_dir / f"{perturbation}_seed{seed}_seq{SEQ_LEN}.npy"
+    if not cache_file.exists():
+        np.save(cache_file, windows)
+    del windows
+    windows = np.load(cache_file, mmap_mode="r")
+    return windows, total, int(lens.size)
 
 
 # ------------------------------------------------------------------ model ----
@@ -224,8 +262,9 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
           f"(fwd+bwd)", flush=True)
 
     G.set_seed(seed)
+    vocab_size = VOCAB_SIZE + G.VOCAB_EXTRA.get(perturbation, 0)   # reverse_*: +1 marker
     model = LSTMLM(
-        vocab_size=VOCAB_SIZE, emb_dim=EMB_DIM, hidden_dim=HIDDEN_DIM,
+        vocab_size=vocab_size, emb_dim=EMB_DIM, hidden_dim=HIDDEN_DIM,
         num_layers=N_LAYERS, dropout=DROPOUT, pad_token_id=EOS,
     )
     n_params = count_parameters(model)
@@ -246,7 +285,6 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
             rows[i] = windows[order[ptr]]
             ptr += 1
         return torch.from_numpy(rows.astype(np.int64))
-
     checkpoints = G.eval_checkpoints_for(steps)
     eval_trace: dict[str, float] = {}
     losses: list[float] = []
@@ -287,6 +325,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         "seed": seed,
         "arch": "lstm_matched",
         "n_params": n_params,
+        "vocab_size": vocab_size,
         "max_steps": steps,
         "effective_batch": EFF_BATCH,
         "micro_batch": MICRO_BATCH,
@@ -298,6 +337,9 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         "n_windows": len(windows),
         "n_tokens": n_tokens,
         "n_sentences": n_sents,
+        "tokens_per_step": EFF_BATCH * SEQ_LEN,
+        "token_budget": EFF_BATCH * SEQ_LEN * steps,
+        "budget_note": BUDGET_NOTE,
         "eval_gmean": eval_trace,
         "eval_n": len(eval_sents),
         "final_loss": round(float(np.mean(losses[-50:])), 4) if losses else None,

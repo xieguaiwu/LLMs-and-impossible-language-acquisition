@@ -281,3 +281,32 @@ reported as such; equivalence language only with the n=17 LSTM extension.
 `args.dataset` verbatim (no aliases); skip-if-done checks must include `_3x`/`_ext` suffixes;
 special tokens (`<NEG>`, `R`) must be registered + embeddings resized, with a unit test;
 per-host result branches to avoid force-push clobbering.
+
+---
+
+## 2.2a LSTM arm — cpu2 budget deviations (registered 2026-09-19)
+
+Registered by the cpu2 runner session; the LSTM arm is **budget-limited** and must be
+reported only in the budget-dependent wording of the F8/H7 family.
+
+| Item | Design (§2.2) | As run on cpu2 | Why |
+|---|---|---|---|
+| Steps | "scaled to ≈ GPT-2 token budget as CPU time allows" | **300** | 4-core CPU throughput |
+| Seq len | 512 | **256** | batch 32 × seq 512 × 50257-vocab logits = 3.3 GB fwd + 3.3 GB bwd → OOM-killed (exit 137, measured) |
+| Batch | 32 | **32 effective** (micro 4 × accum 8) | identical effective batch, bounded peak memory |
+| Eval sample | same 10k test sentences | **first 2000 of that same 10k sample** (nested subset, not a new draw) | one full 10k eval ≈ 30 min on CPU |
+| Workers | "2–3 parallel workers" | **2 workers × 2 torch threads** | 4 cores, 7.7 GB RAM (2 workers × 512 MB mmap'd packed stream) |
+
+**Token budget**: 300 × 32 × 256 = **2.46e6** tokens vs the GPT-2 arm's
+3000 × 128 × 1024 = **3.93e8** → **ratio ≈ 1/160**.
+
+**Binding wording constraint**: this arm licenses **no** equal-budget architecture-axis
+claim. Only: "no detectable difference **at this budget**" (F8/H7 family).
+Epochs-matched (3 epochs ≈ 3.9e8 tokens) would need **~160 h per cell** on cpu2:
+the GPT-2 arm measures ~27k tok/s (13.1e6 tokens / 8.1 min) while `lstm_matched`
+measures **~680 tok/s** here (12 s/step at 8192 tokens/step) — the 50257 × 640 vocab
+head, not the recurrence, is the bottleneck.
+
+**Byte-identity**: `packing_equivalence_check.py` proves the cpu2 numpy packer
+reproduces `train_exp1.load_packed_dataset`'s token stream exactly (3 seeds, multi-file,
+token-for-token) — the LSTM arm imports `train_exp1` as the single protocol source.
