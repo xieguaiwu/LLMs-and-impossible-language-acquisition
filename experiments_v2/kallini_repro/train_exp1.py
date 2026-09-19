@@ -190,7 +190,11 @@ def get_perplexities(model, token_lists, pad_token_id, device="cuda"):
     return torch.exp(per_example_loss).tolist()
 
 
-def evaluate_checkpoint(model, eval_sents, device="cuda", batch=32) -> dict:
+def evaluate_checkpoint(model, eval_sents, device="cuda", batch=8) -> dict:
+    """Per-checkpoint perplexity. batch=8 mirrors their BATCH_SIZE in
+    perplexities/perplexities.py (the port used 32, which OOMs a 10 GB card at
+    the first checkpoint: 32 x ~350 tokens of fp32-upcast loss). Padding is
+    masked per example, so the batch size does not change the numbers."""
     ppls: list[float] = []
     model.eval()
     with torch.no_grad():
@@ -331,7 +335,8 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
         sched.step()
 
         if step in checkpoints:
-            trace = evaluate_checkpoint(model, eval_sents, device)
+            trace = evaluate_checkpoint(model, eval_sents, device,
+                                        batch=int(os.environ.get("REPRO_EVAL_BATCH", 8)))
             eval_trace[str(step)] = trace["gmean_ppl"]
             torch.save(trace["ppls"], out_dir / f"ppls_step{step}.pt")
             out_dir.mkdir(parents=True, exist_ok=True)

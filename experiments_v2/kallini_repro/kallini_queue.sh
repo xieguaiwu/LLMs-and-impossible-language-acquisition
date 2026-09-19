@@ -15,6 +15,8 @@ NICE="nice -n $NICE_LEVEL"
 
 export TOKENIZERS_PARALLELISM=false
 export HF_ENDPOINT=${HF_ENDPOINT:-https://hf-mirror.com}
+# 10 GB card: reduce allocator fragmentation for the fp32-upcast GPT-2 loss path
+export PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}
 export KALLINI_REPO=${KALLINI_REPO:-/root/mission-impossible-language-models}
 export KALLINI_DATA_PATH=${KALLINI_DATA_PATH:-/root/kallini_data}
 export REPRO_RESULTS=${REPRO_RESULTS:-experiments_v2/kallini_repro/results}
