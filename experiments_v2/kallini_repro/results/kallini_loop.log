@@ -1,0 +1,204 @@
+[2026-09-18T23:48:19+08:00] kallini loop starting (branch v2-results-gpu, seeds '0 14 41')
+[2026-09-19T00:43:19+08:00] still waiting for llm-ralph-gpu (12x5m)
+[2026-09-19T01:20:47+08:00] kallini loop starting (branch v2-results-gpu, seeds '0 14 41')
+[2026-09-19T02:15:48+08:00] still waiting for llm-ralph-gpu (12x5m)
+[2026-09-19T03:15:48+08:00] still waiting for llm-ralph-gpu (24x5m)
+[2026-09-19T04:15:48+08:00] still waiting for llm-ralph-gpu (36x5m)
+[2026-09-19T05:15:48+08:00] still waiting for llm-ralph-gpu (48x5m)
+[2026-09-19T06:15:48+08:00] still waiting for llm-ralph-gpu (60x5m)
+[2026-09-19T07:15:48+08:00] still waiting for llm-ralph-gpu (72x5m)
+[2026-09-19T08:15:48+08:00] still waiting for llm-ralph-gpu (84x5m)
+[2026-09-19T09:15:48+08:00] still waiting for llm-ralph-gpu (96x5m)
+[2026-09-19T10:10:48+08:00] v2 unit drained -> starting kallini repro
+[2026-09-19T10:10:48+08:00] === kallini iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T10:21:10+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 71c4a46...a22bc42 a22bc42ab06598f8f9a0fb018a220d10c58265a3 -> v2-results-gpu (forced update)
+[2026-09-19T10:21:13+08:00] results pushed to v2-results-gpu
+[2026-09-19T10:24:13+08:00] === kallini iteration 2 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   3878053..01fa5eb  main       -> origin/main
+更新 3878053..01fa5eb
+Fast-forward
+ experiments_v2/preregistration.md | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+[2026-09-19T10:24:21+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a22bc42...a15a3f6 a15a3f64024cde167bc837dd1c28b5e40364dc82 -> v2-results-gpu (forced update)
+[2026-09-19T10:24:23+08:00] results pushed to v2-results-gpu
+[2026-09-19T10:27:23+08:00] === kallini iteration 3 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T10:27:32+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a15a3f6...002108b 002108b1db9660be39e8a6a2da78578e3147934a -> v2-results-gpu (forced update)
+[2026-09-19T10:27:34+08:00] results pushed to v2-results-gpu
+[2026-09-19T10:30:34+08:00] === kallini iteration 4 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T10:30:43+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 002108b...4186b2c 4186b2c84769fa6d2b4cf83bb7c29c62281e16d5 -> v2-results-gpu (forced update)
+[2026-09-19T10:30:46+08:00] results pushed to v2-results-gpu
+[2026-09-19T10:33:46+08:00] === kallini iteration 5 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   01fa5eb..c7462ef  main       -> origin/main
+更新 01fa5eb..c7462ef
+Fast-forward
+ experiments_v2/kallini_repro/kallini_queue.sh | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+[2026-09-19T10:33:55+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4186b2c...12c6c7a 12c6c7a8c27e8564a18ce737cc3cfa1bad1f8d0d -> v2-results-gpu (forced update)
+[2026-09-19T10:33:58+08:00] results pushed to v2-results-gpu
+[2026-09-19T10:36:58+08:00] === kallini iteration 6 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T10:37:06+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 12c6c7a...3f5545c 3f5545c81bd6a7a9cb03c220a98c038a5ad9acbd -> v2-results-gpu (forced update)
+[2026-09-19T10:37:08+08:00] results pushed to v2-results-gpu
+[2026-09-19T10:40:08+08:00] === kallini iteration 7 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T10:40:17+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3f5545c...8363e24 8363e24dadf9d7f346c0aff0daef142383442724 -> v2-results-gpu (forced update)
+[2026-09-19T10:40:19+08:00] results pushed to v2-results-gpu
+[2026-09-19T10:43:19+08:00] === kallini iteration 8 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   c7462ef..a8075ad  main       -> origin/main
+更新 c7462ef..a8075ad
+Fast-forward
+ experiments_v2/kallini_repro/kallini_queue.sh | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
+[2026-09-19T11:10:53+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8363e24...b63142e b63142ed3118e51c38e75c7aa42d2e7fc89d7f40 -> v2-results-gpu (forced update)
+[2026-09-19T11:10:55+08:00] results pushed to v2-results-gpu
+[2026-09-19T11:13:55+08:00] === kallini iteration 9 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   a8075ad..c77fe29  main       -> origin/main
+更新 a8075ad..c77fe29
+Fast-forward
+ experiments_v2/design_v3/v3_conditions.py | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+[2026-09-19T11:19:31+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b63142e...0467c21 0467c211913301e67f71c6bc86686808959c9b15 -> v2-results-gpu (forced update)
+[2026-09-19T11:19:33+08:00] results pushed to v2-results-gpu
+[2026-09-19T11:22:33+08:00] === kallini iteration 10 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T11:28:01+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0467c21...805a815 805a815e4a266c90513c6d57660bf3f00468f672 -> v2-results-gpu (forced update)
+[2026-09-19T11:28:03+08:00] results pushed to v2-results-gpu
+[2026-09-19T11:31:03+08:00] === kallini iteration 11 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T11:36:39+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 805a815...72a7973 72a7973e1ee8e429d883ba1fceca94d9d4753d93 -> v2-results-gpu (forced update)
+[2026-09-19T11:36:41+08:00] results pushed to v2-results-gpu
+[2026-09-19T11:39:41+08:00] === kallini iteration 12 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T11:45:16+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 72a7973...0bf73e4 0bf73e42b080f7d6c248de496c73526c0b361ab4 -> v2-results-gpu (forced update)
+[2026-09-19T11:45:18+08:00] results pushed to v2-results-gpu
+[2026-09-19T11:48:18+08:00] === kallini iteration 13 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T11:53:44+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0bf73e4...129ffc0 129ffc0823e3f0ef7f7e8b1b8db8932a695fd64c -> v2-results-gpu (forced update)
+[2026-09-19T11:53:46+08:00] results pushed to v2-results-gpu
+[2026-09-19T11:56:46+08:00] === kallini iteration 14 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T12:02:33+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 129ffc0...6dd427e 6dd427e64700aca9f4ece6be8de73128ff4bcd4f -> v2-results-gpu (forced update)
+[2026-09-19T12:02:35+08:00] results pushed to v2-results-gpu
+[2026-09-19T12:05:35+08:00] === kallini iteration 15 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T12:11:21+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6dd427e...deeec08 deeec0850ab083ca43b80c03e8ecb4e038446ae7 -> v2-results-gpu (forced update)
+[2026-09-19T12:11:24+08:00] results pushed to v2-results-gpu
+[2026-09-19T12:14:24+08:00] === kallini iteration 16 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T12:20:17+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + deeec08...dcaf757 dcaf75711ccbd0e7e9aa9da811ae4656b92ebeea -> v2-results-gpu (forced update)
+[2026-09-19T12:20:19+08:00] results pushed to v2-results-gpu
+[2026-09-19T12:23:19+08:00] === kallini iteration 17 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T12:29:05+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + dcaf757...525da0e 525da0e461f0be501a653fc29df47b8ed7778c44 -> v2-results-gpu (forced update)
+[2026-09-19T12:29:07+08:00] results pushed to v2-results-gpu
+[2026-09-19T12:32:07+08:00] === kallini iteration 18 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T16:21:26+08:00] kallini queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 525da0e...19a0da0 19a0da0cc36917f3990515a7cea986ea48ba2c4c -> v2-results-gpu (forced update)
+[2026-09-19T16:21:28+08:00] results pushed to v2-results-gpu
+[2026-09-19T16:24:28+08:00] === kallini iteration 19 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   95036b2..a4e6468  main       -> origin/main
+更新 95036b2..a4e6468
+Fast-forward
+ experiments_v2/design_v3/EXPDESIGN_V3.md           |  29 ++
+ experiments_v2/kallini_repro/lstm_v3_queue.sh      | 149 ++++++++
+ .../kallini_repro/packing_equivalence_check.py     |  81 +++++
+ experiments_v2/kallini_repro/train_exp1_lstm.py    | 375 +++++++++++++++++++++
+ 4 files changed, 634 insertions(+)
+ create mode 100755 experiments_v2/kallini_repro/lstm_v3_queue.sh
+ create mode 100644 experiments_v2/kallini_repro/packing_equivalence_check.py
+ create mode 100644 experiments_v2/kallini_repro/train_exp1_lstm.py
+[2026-09-19T16:43:41+08:00] kallini loop starting (branch v2-results-gpu, seeds '0 14 41')
+[2026-09-19T16:43:41+08:00] v2 unit drained -> starting kallini repro
+[2026-09-19T16:43:41+08:00] === kallini iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T20:50:11+08:00] kallini loop starting (branch v2-results-gpu, seeds '0 14 41')
+[2026-09-19T20:50:11+08:00] v2 unit drained -> starting kallini repro
+[2026-09-19T20:50:11+08:00] === kallini iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T21:33:24+08:00] kallini loop starting (branch v2-results-gpu, seeds '0 14 41')
+[2026-09-19T21:33:24+08:00] v2 unit drained -> starting kallini repro
+[2026-09-19T21:33:24+08:00] === kallini iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。

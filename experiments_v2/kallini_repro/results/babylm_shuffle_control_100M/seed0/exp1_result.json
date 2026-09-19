@@ -1,0 +1,22 @@
+{
+  "language": "shuffle_control",
+  "train_set": "100M",
+  "seed": 0,
+  "max_steps": 3000,
+  "effective_batch": 128,
+  "micro_batch": 4,
+  "seq_len": 1024,
+  "peak_lr": 0.0006,
+  "warmup": 300,
+  "n_blocks": 132947,
+  "eval_gmean": {
+    "100": 992.2474,
+    "300": 288.4464,
+    "500": 204.2532,
+    "1000": 151.7077,
+    "2000": 111.5222,
+    "3000": 102.9026
+  },
+  "wall_time_s": 14129.9,
+  "completed_at": "2026-09-19T17:30:33.892155+00:00"
+}
