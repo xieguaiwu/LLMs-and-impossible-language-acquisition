@@ -45,6 +45,11 @@ from datetime import datetime, timezone
 from itertools import zip_longest
 from pathlib import Path
 
+# 10 GB card: the fp32-upcast GPT-2 loss + eval path is close to the limit, so
+# reduce allocator fragmentation before torch initializes CUDA. setdefault, so an
+# explicit PYTORCH_CUDA_ALLOC_CONF from the queue script still wins.
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
 import numpy as np
 import torch
 
