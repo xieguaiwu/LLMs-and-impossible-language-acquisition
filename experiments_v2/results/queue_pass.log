@@ -1,0 +1,157 @@
+[2026-09-18T19:56:04+08:00] generating SVO corpus + conditions
+/root/anaconda3/bin/python3: can't open file '/root/experiments_v2/data_v2/generate_svo.py': [Errno 2] No such file or directory
+[2026-09-18T19:56:04+08:00] DATA FAIL
+[2026-09-18T19:58:07+08:00] generating SVO corpus + conditions
+/root/anaconda3/bin/python3: can't open file '/root/experiments_v2/data_v2/generate_svo.py': [Errno 2] No such file or directory
+[2026-09-18T19:58:07+08:00] DATA FAIL
+[2026-09-18T19:59:51+08:00] generating SVO corpus + conditions
+wrote 10000 sentences -> experiments_v2/data_v2/svo_sentences.txt
+natural                  train=  9500 -> experiments_v2/data_v2/conditions/train/natural.txt
+                         test =   500 -> experiments_v2/data_v2/conditions/test/natural.txt
+reversed                 train=  9500 -> experiments_v2/data_v2/conditions/train/reversed.txt
+                         test =   500 -> experiments_v2/data_v2/conditions/test/reversed.txt
+parity_negation          train=  9500 -> experiments_v2/data_v2/conditions/train/parity_negation.txt
+                         test =   500 -> experiments_v2/data_v2/conditions/test/parity_negation.txt
+fixed_start_neg          train=  9500 -> experiments_v2/data_v2/conditions/train/fixed_start_neg.txt
+                         test =   500 -> experiments_v2/data_v2/conditions/test/fixed_start_neg.txt
+fixed_end_neg            train=  9500 -> experiments_v2/data_v2/conditions/train/fixed_end_neg.txt
+                         test =   500 -> experiments_v2/data_v2/conditions/test/fixed_end_neg.txt
+parity_negation_tok      train=  9500 -> experiments_v2/data_v2/conditions/train/parity_negation_tok.txt
+                         test =   500 -> experiments_v2/data_v2/conditions/test/parity_negation_tok.txt
+parity_negation_negtok   train=  9500 -> experiments_v2/data_v2/conditions/train/parity_negation_negtok.txt
+                         test =   500 -> experiments_v2/data_v2/conditions/test/parity_negation_negtok.txt
+word_shuffle             train=  9500 -> experiments_v2/data_v2/conditions/train/word_shuffle.txt
+                         test =   500 -> experiments_v2/data_v2/conditions/test/word_shuffle.txt
+[2026-09-18T20:27:22+08:00] OK   gpt2_tiny/natural/seed42
+[2026-09-18T20:29:22+08:00] OK   lstm_matched/natural/seed42
+[2026-09-18T21:20:05+08:00] OK   gpt2_tiny/natural/seed42
+[2026-09-18T21:49:10+08:00] OK   lstm_matched/natural/seed42
+[2026-09-18T22:26:38+08:00] OK   gpt2_tiny/natural/seed43
+[2026-09-18T22:38:35+08:00] OK   gpt2_tiny/natural/seed42
+[2026-09-18T23:05:26+08:00] OK   lstm_matched/natural/seed42
+[2026-09-18T23:05:26+08:00] OK   gpt2_tiny/natural/seed43
+[2026-09-18T23:31:28+08:00] OK   lstm_matched/natural/seed43
+[2026-09-19T00:07:51+08:00] OK   gpt2_tiny/natural/seed44
+[2026-09-19T00:34:10+08:00] OK   lstm_matched/natural/seed44
+[2026-09-19T01:09:16+08:00] OK   gpt2_tiny/natural/seed45
+[2026-09-19T01:35:22+08:00] OK   lstm_matched/natural/seed45
+[2026-09-19T02:10:19+08:00] OK   gpt2_tiny/natural/seed46
+[2026-09-19T02:36:52+08:00] OK   lstm_matched/natural/seed46
+[2026-09-19T03:11:55+08:00] OK   gpt2_tiny/reversed/seed42
+[2026-09-19T03:40:27+08:00] OK   lstm_matched/reversed/seed42
+[2026-09-19T04:15:40+08:00] OK   gpt2_tiny/reversed/seed43
+[2026-09-19T04:43:35+08:00] OK   lstm_matched/reversed/seed43
+[2026-09-19T05:18:31+08:00] OK   gpt2_tiny/reversed/seed44
+[2026-09-19T05:47:00+08:00] OK   lstm_matched/reversed/seed44
+[2026-09-19T06:22:01+08:00] OK   gpt2_tiny/reversed/seed45
+[2026-09-19T06:50:06+08:00] OK   lstm_matched/reversed/seed45
+[2026-09-19T07:25:22+08:00] OK   gpt2_tiny/reversed/seed46
+[2026-09-19T07:53:12+08:00] OK   lstm_matched/reversed/seed46
+[2026-09-19T08:28:33+08:00] OK   gpt2_tiny/parity_negation/seed42
+[2026-09-19T08:56:31+08:00] OK   lstm_matched/parity_negation/seed42
+[2026-09-19T09:32:14+08:00] OK   gpt2_tiny/parity_negation/seed43
+[2026-09-19T10:00:46+08:00] OK   lstm_matched/parity_negation/seed43
+[2026-09-19T10:37:00+08:00] OK   gpt2_tiny/parity_negation/seed44
+[2026-09-19T11:06:23+08:00] OK   lstm_matched/parity_negation/seed44
+[2026-09-19T11:42:39+08:00] OK   gpt2_tiny/parity_negation/seed45
+[2026-09-19T12:12:40+08:00] OK   lstm_matched/parity_negation/seed45
+[2026-09-19T12:49:14+08:00] OK   gpt2_tiny/parity_negation/seed46
+[2026-09-19T13:17:08+08:00] OK   lstm_matched/parity_negation/seed46
+[2026-09-19T13:17:37+08:00] queue pass done: 30 runs complete, 0 failures this pass
+[2026-09-19T13:17:37+08:00] ALL DONE (models: gpt2_tiny lstm_matched)
+[2026-09-19T13:53:56+08:00] OK   gpt2_tiny/natural/seed42
+[2026-09-19T13:53:56+08:00] OK   lstm_matched/natural/seed42
+[2026-09-19T13:53:56+08:00] OK   gpt2_tiny/natural/seed43
+[2026-09-19T13:53:56+08:00] OK   lstm_matched/natural/seed43
+[2026-09-19T13:53:56+08:00] OK   gpt2_tiny/natural/seed44
+[2026-09-19T13:53:56+08:00] OK   lstm_matched/natural/seed44
+[2026-09-19T13:53:56+08:00] OK   gpt2_tiny/natural/seed45
+[2026-09-19T13:53:56+08:00] OK   lstm_matched/natural/seed45
+[2026-09-19T13:53:56+08:00] OK   gpt2_tiny/natural/seed46
+[2026-09-19T13:53:57+08:00] OK   lstm_matched/natural/seed46
+[2026-09-19T13:53:57+08:00] OK   gpt2_tiny/reversed/seed42
+[2026-09-19T13:53:57+08:00] OK   lstm_matched/reversed/seed42
+[2026-09-19T13:53:57+08:00] OK   gpt2_tiny/reversed/seed43
+[2026-09-19T13:53:57+08:00] OK   lstm_matched/reversed/seed43
+[2026-09-19T13:53:57+08:00] OK   gpt2_tiny/reversed/seed44
+[2026-09-19T13:53:57+08:00] OK   lstm_matched/reversed/seed44
+[2026-09-19T13:53:57+08:00] OK   gpt2_tiny/reversed/seed45
+[2026-09-19T13:53:57+08:00] OK   lstm_matched/reversed/seed45
+[2026-09-19T13:53:58+08:00] OK   gpt2_tiny/reversed/seed46
+[2026-09-19T13:53:58+08:00] OK   lstm_matched/reversed/seed46
+[2026-09-19T13:53:58+08:00] OK   gpt2_tiny/parity_negation/seed42
+[2026-09-19T13:53:58+08:00] OK   lstm_matched/parity_negation/seed42
+[2026-09-19T13:53:58+08:00] OK   gpt2_tiny/parity_negation/seed43
+[2026-09-19T13:53:58+08:00] OK   lstm_matched/parity_negation/seed43
+[2026-09-19T13:53:58+08:00] OK   gpt2_tiny/parity_negation/seed44
+[2026-09-19T13:53:58+08:00] OK   lstm_matched/parity_negation/seed44
+[2026-09-19T13:53:58+08:00] OK   gpt2_tiny/parity_negation/seed45
+[2026-09-19T13:53:58+08:00] OK   lstm_matched/parity_negation/seed45
+[2026-09-19T13:53:59+08:00] OK   gpt2_tiny/parity_negation/seed46
+[2026-09-19T13:53:59+08:00] OK   lstm_matched/parity_negation/seed46
+[2026-09-19T13:54:28+08:00] queue pass done: 30 runs complete, 0 failures this pass
+[2026-09-19T13:54:28+08:00] ALL DONE (models: gpt2_tiny lstm_matched)
+[2026-09-19T14:06:43+08:00] OK   gpt2_tiny/natural/seed42
+[2026-09-19T14:06:43+08:00] OK   lstm_matched/natural/seed42
+[2026-09-19T14:06:43+08:00] OK   gpt2_tiny/natural/seed43
+[2026-09-19T14:06:43+08:00] OK   lstm_matched/natural/seed43
+[2026-09-19T14:06:43+08:00] OK   gpt2_tiny/natural/seed44
+[2026-09-19T14:06:43+08:00] OK   lstm_matched/natural/seed44
+[2026-09-19T14:06:43+08:00] OK   gpt2_tiny/natural/seed45
+[2026-09-19T14:06:43+08:00] OK   lstm_matched/natural/seed45
+[2026-09-19T14:06:43+08:00] OK   gpt2_tiny/natural/seed46
+[2026-09-19T14:06:44+08:00] OK   lstm_matched/natural/seed46
+[2026-09-19T14:06:44+08:00] OK   gpt2_tiny/reversed/seed42
+[2026-09-19T14:06:44+08:00] OK   lstm_matched/reversed/seed42
+[2026-09-19T14:06:44+08:00] OK   gpt2_tiny/reversed/seed43
+[2026-09-19T14:06:44+08:00] OK   lstm_matched/reversed/seed43
+[2026-09-19T14:06:44+08:00] OK   gpt2_tiny/reversed/seed44
+[2026-09-19T14:06:44+08:00] OK   lstm_matched/reversed/seed44
+[2026-09-19T14:06:44+08:00] OK   gpt2_tiny/reversed/seed45
+[2026-09-19T14:06:44+08:00] OK   lstm_matched/reversed/seed45
+[2026-09-19T14:06:44+08:00] OK   gpt2_tiny/reversed/seed46
+[2026-09-19T14:06:45+08:00] OK   lstm_matched/reversed/seed46
+[2026-09-19T14:06:45+08:00] OK   gpt2_tiny/parity_negation/seed42
+[2026-09-19T14:06:45+08:00] OK   lstm_matched/parity_negation/seed42
+[2026-09-19T14:06:45+08:00] OK   gpt2_tiny/parity_negation/seed43
+[2026-09-19T14:06:45+08:00] OK   lstm_matched/parity_negation/seed43
+[2026-09-19T14:06:45+08:00] OK   gpt2_tiny/parity_negation/seed44
+[2026-09-19T14:06:45+08:00] OK   lstm_matched/parity_negation/seed44
+[2026-09-19T14:06:45+08:00] OK   gpt2_tiny/parity_negation/seed45
+[2026-09-19T14:06:45+08:00] OK   lstm_matched/parity_negation/seed45
+[2026-09-19T14:06:46+08:00] OK   gpt2_tiny/parity_negation/seed46
+[2026-09-19T14:06:46+08:00] OK   lstm_matched/parity_negation/seed46
+[2026-09-19T14:07:14+08:00] queue pass done: 30 runs complete, 0 failures this pass
+[2026-09-19T14:07:14+08:00] ALL DONE (models: gpt2_tiny lstm_matched)
+[2026-09-19T14:09:56+08:00] OK   gpt2_tiny/natural/seed42
+[2026-09-19T14:09:56+08:00] OK   lstm_matched/natural/seed42
+[2026-09-19T14:09:56+08:00] OK   gpt2_tiny/natural/seed43
+[2026-09-19T14:09:57+08:00] OK   lstm_matched/natural/seed43
+[2026-09-19T14:09:57+08:00] OK   gpt2_tiny/natural/seed44
+[2026-09-19T14:09:57+08:00] OK   lstm_matched/natural/seed44
+[2026-09-19T14:09:57+08:00] OK   gpt2_tiny/natural/seed45
+[2026-09-19T14:09:57+08:00] OK   lstm_matched/natural/seed45
+[2026-09-19T14:09:57+08:00] OK   gpt2_tiny/natural/seed46
+[2026-09-19T14:09:57+08:00] OK   lstm_matched/natural/seed46
+[2026-09-19T14:09:57+08:00] OK   gpt2_tiny/reversed/seed42
+[2026-09-19T14:09:57+08:00] OK   lstm_matched/reversed/seed42
+[2026-09-19T14:09:58+08:00] OK   gpt2_tiny/reversed/seed43
+[2026-09-19T14:09:58+08:00] OK   lstm_matched/reversed/seed43
+[2026-09-19T14:09:58+08:00] OK   gpt2_tiny/reversed/seed44
+[2026-09-19T14:09:58+08:00] OK   lstm_matched/reversed/seed44
+[2026-09-19T14:09:58+08:00] OK   gpt2_tiny/reversed/seed45
+[2026-09-19T14:09:58+08:00] OK   lstm_matched/reversed/seed45
+[2026-09-19T14:09:58+08:00] OK   gpt2_tiny/reversed/seed46
+[2026-09-19T14:09:58+08:00] OK   lstm_matched/reversed/seed46
+[2026-09-19T14:09:58+08:00] OK   gpt2_tiny/parity_negation/seed42
+[2026-09-19T14:09:58+08:00] OK   lstm_matched/parity_negation/seed42
+[2026-09-19T14:09:59+08:00] OK   gpt2_tiny/parity_negation/seed43
+[2026-09-19T14:09:59+08:00] OK   lstm_matched/parity_negation/seed43
+[2026-09-19T14:09:59+08:00] OK   gpt2_tiny/parity_negation/seed44
+[2026-09-19T14:09:59+08:00] OK   lstm_matched/parity_negation/seed44
+[2026-09-19T14:09:59+08:00] OK   gpt2_tiny/parity_negation/seed45
+[2026-09-19T14:09:59+08:00] OK   lstm_matched/parity_negation/seed45
+[2026-09-19T14:09:59+08:00] OK   gpt2_tiny/parity_negation/seed46
+[2026-09-19T14:09:59+08:00] OK   lstm_matched/parity_negation/seed46
+[2026-09-19T14:10:27+08:00] queue pass done: 30 runs complete, 0 failures this pass
+[2026-09-19T14:10:27+08:00] ALL DONE (models: gpt2_tiny lstm_matched)

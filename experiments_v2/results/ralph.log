@@ -1,0 +1,107 @@
+[2026-09-18T19:56:02+08:00] === iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-18T19:56:04+08:00] queue incomplete -> will retry
+remote: 
+remote: Create a pull request for 'v2-results' on GitHub by visiting:        
+remote:      https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition/pull/new/v2-results        
+remote: 
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ * [new branch]      bdaaf51eae91041c67458947c2fb86b798f121bf -> v2-results
+[2026-09-18T19:56:06+08:00] results pushed to v2-results
+[2026-09-18T19:56:06+08:00] sleeping 120s before retry
+[2026-09-18T19:58:06+08:00] === iteration 2 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-18T19:58:07+08:00] queue incomplete -> will retry
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + bdaaf51...0011f6f 0011f6fdd9a8b4ecdc0f143e96ba61488665c6db -> v2-results (forced update)
+[2026-09-18T19:58:10+08:00] results pushed to v2-results
+[2026-09-18T19:58:10+08:00] sleeping 120s before retry
+[2026-09-18T19:59:50+08:00] === iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-18T20:40:31+08:00] === iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-18T22:38:33+08:00] === iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T13:17:37+08:00] queue SUCCESS
+error: RPC 失败。HTTP 500 curl 22 The requested URL returned error: 500
+send-pack: unexpected disconnect while reading sideband packet
+fatal: 远端意外挂断了
+Everything up-to-date
+[2026-09-19T13:51:54+08:00] results push FAILED
+[2026-09-19T13:51:54+08:00] sleeping 120s before retry
+[2026-09-19T13:53:54+08:00] === iteration 2 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   c77fe29..b2a786c  main       -> origin/main
+更新 f4c5cdd..b2a786c
+Fast-forward
+ experiments_v2/data_v2/make_polluted.py          |  61 ++++
+ experiments_v2/design_v3/DESIGN_V3.md            |  85 ++++++
+ experiments_v2/design_v3/EXPDESIGN_V3.md         | 283 ++++++++++++++++++
+ experiments_v2/design_v3/KALLINI_DESIGN_NOTES.md |  72 +++++
+ experiments_v2/design_v3/REDTEAM.md              | 193 ++++++++++++
+ experiments_v2/design_v3/STATS_PLAN_V3.md        | 261 ++++++++++++++++
+ experiments_v2/design_v3/v3_conditions.py        | 170 +++++++++++
+ experiments_v2/fetch_babylm.sh                   |  35 +--
+ experiments_v2/kallini_repro/README.md           |  61 ++++
+ experiments_v2/kallini_repro/aggregate_exp1.py   |  64 ++++
+ experiments_v2/kallini_repro/kallini_loop.sh     |  72 +++++
+ experiments_v2/kallini_repro/kallini_queue.sh    | 189 ++++++++++++
+ experiments_v2/kallini_repro/shim_tag.py         |  53 ++++
+ experiments_v2/kallini_repro/train_exp1.py       | 360 +++++++++++++++++++++++
+ experiments_v2/preregistration.md                |  42 ++-
+ experiments_v2/probes/probes.py                  |  34 ++-
+ experiments_v2/ralph_loop.sh                     |  15 +-
+ experiments_v2/ralph_queue.sh                    |  31 ++
+ experiments_v2/training/models.py                |  16 +-
+ experiments_v2/training/train_lm.py              |  46 ++-
+ 20 files changed, 2089 insertions(+), 54 deletions(-)
+ create mode 100644 experiments_v2/data_v2/make_polluted.py
+ create mode 100644 experiments_v2/design_v3/DESIGN_V3.md
+ create mode 100644 experiments_v2/design_v3/EXPDESIGN_V3.md
+ create mode 100644 experiments_v2/design_v3/KALLINI_DESIGN_NOTES.md
+ create mode 100644 experiments_v2/design_v3/REDTEAM.md
+ create mode 100644 experiments_v2/design_v3/STATS_PLAN_V3.md
+ create mode 100644 experiments_v2/design_v3/v3_conditions.py
+ create mode 100644 experiments_v2/kallini_repro/README.md
+ create mode 100644 experiments_v2/kallini_repro/aggregate_exp1.py
+ create mode 100644 experiments_v2/kallini_repro/kallini_loop.sh
+ create mode 100644 experiments_v2/kallini_repro/kallini_queue.sh
+ create mode 100644 experiments_v2/kallini_repro/shim_tag.py
+ create mode 100644 experiments_v2/kallini_repro/train_exp1.py
+[2026-09-19T13:54:28+08:00] queue SUCCESS
+[2026-09-19T14:05:22+08:00] results push FAILED
+[2026-09-19T14:05:22+08:00] sleeping 120s before retry
+error: git-remote-https died of signal 15
+send-pack: unexpected disconnect while reading sideband packet
+error: pack-objects died of signal 15
+error: pack-objects died of signal 15
+fatal: 远端意外挂断了
+[2026-09-19T14:06:41+08:00] === iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   b2a786c..c8bcf43  main       -> origin/main
+更新 b2a786c..c8bcf43
+Fast-forward
+ experiments_v2/ralph_loop.sh | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
+[2026-09-19T14:07:14+08:00] queue SUCCESS
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0ba4a3e...985ba42 985ba427e0422d4cac1fa36e1ea908cb7950c346 -> v2-results (forced update)
+[2026-09-19T14:07:20+08:00] results pushed to v2-results
+[2026-09-19T14:07:20+08:00] SVO complete -> starting BabyLM phase
+[2026-09-19T14:09:55+08:00] === iteration 1 ===
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+[2026-09-19T14:10:27+08:00] queue SUCCESS

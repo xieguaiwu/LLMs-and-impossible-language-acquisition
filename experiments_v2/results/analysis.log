@@ -1,0 +1,188 @@
+runs: 30  cells: 6
+wrote /root/llm-impossible/experiments_v2/results/aggregated/all_runs.csv and per_seed_summary.csv
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_morestats.py:1879: UserWarning: Input data for shapiro has range zero. The results may not be accurate.
+  warnings.warn("Input data for shapiro has range zero. The results "
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_morestats.py:3189: RuntimeWarning: invalid value encountered in scalar divide
+  W = numer / denom
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_axis_nan_policy.py:523: RuntimeWarning: Precision loss occurred in moment calculation due to catastrophic cancellation. This occurs when the data are nearly identical. Results may be unreliable.
+  res = hypotest_fun_out(*samples, **kwds)
+36 comparisons -> /root/llm-impossible/experiments_v2/results/aggregated/holm_corrected_tests.csv
+dataset            model           metric    cond1           cond2           test        p_raw       p_holm  significant_holm  cohens_d  d_ci95_low  d_ci95_high  tost_p  equivalent_at_d0.8
+    svo gpt2_tiny_6L512d       final_loss  natural        reversed        welch_t 2.681061e-12 2.681061e-12              True   44.4591     36.9088     107.8381     1.0               False
+    svo gpt2_tiny_6L512d       final_loss  natural parity_negation        welch_t 1.564552e-16 4.693657e-16              True  145.2676    117.3608     385.2455     1.0               False
+    svo gpt2_tiny_6L512d       final_loss reversed parity_negation        welch_t 1.594620e-14 3.189239e-14              True   89.7537     74.7261     203.6022     1.0               False
+    svo gpt2_tiny_6L512d         min_loss  natural        reversed        welch_t 5.724108e-08 5.724108e-08              True   14.6742     11.6027      45.1581     1.0               False
+    svo gpt2_tiny_6L512d         min_loss  natural parity_negation        welch_t 1.338567e-12 4.015700e-12              True   46.4255     38.4144     106.4999     1.0               False
+    svo gpt2_tiny_6L512d         min_loss reversed parity_negation        welch_t 3.519920e-09 7.039840e-09              True   22.4169     18.9795      49.1665     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss  natural        reversed        welch_t 1.403073e-06 1.403073e-06              True    8.3036      6.7706      27.1777     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss  natural parity_negation        welch_t 8.911659e-09 2.673498e-08              True   18.0679     15.5876      35.0770     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss reversed parity_negation        welch_t 4.191463e-07 8.382926e-07              True   12.3214     10.5212      25.1374     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac  natural        reversed        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac  natural parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac reversed parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d        test_loss  natural        reversed        welch_t 1.744910e-09 1.744910e-09              True   21.6797     18.4471      40.8914     1.0               False
+    svo gpt2_tiny_6L512d        test_loss  natural parity_negation        welch_t 1.660705e-14 3.321410e-14              True  146.4388    119.9208     446.7402     1.0               False
+    svo gpt2_tiny_6L512d        test_loss reversed parity_negation        welch_t 2.126604e-15 6.379811e-15              True  115.4830     96.3935     298.5302     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl  natural        reversed        welch_t 1.385373e-09 1.385373e-09              True   21.7624     18.5671      40.9053     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl  natural parity_negation        welch_t 4.571523e-16 1.371457e-15              True  152.1703    127.0576     468.9856     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl reversed parity_negation        welch_t 8.491270e-16 1.698254e-15              True  116.5713     98.2856     282.8306     1.0               False
+    svo     lstm_matched       final_loss  natural        reversed        welch_t 5.258975e-17 1.577692e-16              True  170.7689    149.0186     628.4850     1.0               False
+    svo     lstm_matched       final_loss  natural parity_negation        welch_t 4.654122e-13 4.654122e-13              True   57.7367     53.1166     107.3895     1.0               False
+    svo     lstm_matched       final_loss reversed parity_negation        welch_t 2.788320e-14 5.576641e-14              True  -94.2807   -338.1879     -82.7448     1.0               False
+    svo     lstm_matched         min_loss  natural        reversed mann_whitney_u 7.936508e-03 1.587302e-02              True   96.4190     83.0446     314.5006     1.0               False
+    svo     lstm_matched         min_loss  natural parity_negation mann_whitney_u 7.936508e-03 1.587302e-02              True   30.0690     23.5370     125.5256     1.0               False
+    svo     lstm_matched         min_loss reversed parity_negation        welch_t 8.227232e-11 2.468169e-10              True  -42.1032    -94.6519     -33.9887     1.0               False
+    svo     lstm_matched         auc_loss  natural        reversed        welch_t 1.697444e-15 5.092331e-15              True  191.9504    160.3815     373.6738     1.0               False
+    svo     lstm_matched         auc_loss  natural parity_negation        welch_t 8.757132e-14 1.432009e-13              True   65.2146     56.9470     119.4198     1.0               False
+    svo     lstm_matched         auc_loss reversed parity_negation        welch_t 7.160045e-14 1.432009e-13              True -113.7798   -231.1577     -98.3890     1.0               False
+    svo     lstm_matched convergence_frac  natural        reversed        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched convergence_frac  natural parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched convergence_frac reversed parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched        test_loss  natural        reversed        welch_t 1.550481e-11 3.100963e-11              True  134.2551    111.4222     287.3449     1.0               False
+    svo     lstm_matched        test_loss  natural parity_negation        welch_t 3.146049e-15 9.438146e-15              True  101.5390     91.3531     185.9836     1.0               False
+    svo     lstm_matched        test_loss reversed parity_negation        welch_t 1.271842e-10 1.271842e-10              True  -77.3346   -168.6017     -64.2990     1.0               False
+    svo     lstm_matched         test_ppl  natural        reversed        welch_t 1.269798e-15 3.809393e-15              True  159.6667    138.8553     291.6344     1.0               False
+    svo     lstm_matched         test_ppl  natural parity_negation        welch_t 5.151562e-15 1.030312e-14              True  101.3264     90.4400     186.6196     1.0               False
+    svo     lstm_matched         test_ppl reversed parity_negation        welch_t 1.043868e-12 1.043868e-12              True  -85.7358   -167.0904     -73.6017     1.0               False
+plots -> /root/llm-impossible/experiments_v2/results/aggregated
+runs: 30  cells: 6
+wrote /root/llm-impossible/experiments_v2/results/aggregated/all_runs.csv and per_seed_summary.csv
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_morestats.py:1879: UserWarning: Input data for shapiro has range zero. The results may not be accurate.
+  warnings.warn("Input data for shapiro has range zero. The results "
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_morestats.py:3189: RuntimeWarning: invalid value encountered in scalar divide
+  W = numer / denom
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_axis_nan_policy.py:523: RuntimeWarning: Precision loss occurred in moment calculation due to catastrophic cancellation. This occurs when the data are nearly identical. Results may be unreliable.
+  res = hypotest_fun_out(*samples, **kwds)
+36 comparisons -> /root/llm-impossible/experiments_v2/results/aggregated/holm_corrected_tests.csv
+dataset            model           metric    cond1           cond2           test        p_raw       p_holm  significant_holm  cohens_d  d_ci95_low  d_ci95_high  tost_p  equivalent_at_d0.8
+    svo gpt2_tiny_6L512d       final_loss  natural        reversed        welch_t 2.681061e-12 2.681061e-12              True   44.4591     36.9088     107.8381     1.0               False
+    svo gpt2_tiny_6L512d       final_loss  natural parity_negation        welch_t 1.564552e-16 4.693657e-16              True  145.2676    117.3608     385.2455     1.0               False
+    svo gpt2_tiny_6L512d       final_loss reversed parity_negation        welch_t 1.594620e-14 3.189239e-14              True   89.7537     74.7261     203.6022     1.0               False
+    svo gpt2_tiny_6L512d         min_loss  natural        reversed        welch_t 5.724108e-08 5.724108e-08              True   14.6742     11.6027      45.1581     1.0               False
+    svo gpt2_tiny_6L512d         min_loss  natural parity_negation        welch_t 1.338567e-12 4.015700e-12              True   46.4255     38.4144     106.4999     1.0               False
+    svo gpt2_tiny_6L512d         min_loss reversed parity_negation        welch_t 3.519920e-09 7.039840e-09              True   22.4169     18.9795      49.1665     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss  natural        reversed        welch_t 1.403073e-06 1.403073e-06              True    8.3036      6.7706      27.1777     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss  natural parity_negation        welch_t 8.911659e-09 2.673498e-08              True   18.0679     15.5876      35.0770     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss reversed parity_negation        welch_t 4.191463e-07 8.382926e-07              True   12.3214     10.5212      25.1374     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac  natural        reversed        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac  natural parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac reversed parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d        test_loss  natural        reversed        welch_t 1.744910e-09 1.744910e-09              True   21.6797     18.4471      40.8914     1.0               False
+    svo gpt2_tiny_6L512d        test_loss  natural parity_negation        welch_t 1.660705e-14 3.321410e-14              True  146.4388    119.9208     446.7402     1.0               False
+    svo gpt2_tiny_6L512d        test_loss reversed parity_negation        welch_t 2.126604e-15 6.379811e-15              True  115.4830     96.3935     298.5302     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl  natural        reversed        welch_t 1.385373e-09 1.385373e-09              True   21.7624     18.5671      40.9053     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl  natural parity_negation        welch_t 4.571523e-16 1.371457e-15              True  152.1703    127.0576     468.9856     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl reversed parity_negation        welch_t 8.491270e-16 1.698254e-15              True  116.5713     98.2856     282.8306     1.0               False
+    svo     lstm_matched       final_loss  natural        reversed        welch_t 5.258975e-17 1.577692e-16              True  170.7689    149.0186     628.4850     1.0               False
+    svo     lstm_matched       final_loss  natural parity_negation        welch_t 4.654122e-13 4.654122e-13              True   57.7367     53.1166     107.3895     1.0               False
+    svo     lstm_matched       final_loss reversed parity_negation        welch_t 2.788320e-14 5.576641e-14              True  -94.2807   -338.1879     -82.7448     1.0               False
+    svo     lstm_matched         min_loss  natural        reversed mann_whitney_u 7.936508e-03 1.587302e-02              True   96.4190     83.0446     314.5006     1.0               False
+    svo     lstm_matched         min_loss  natural parity_negation mann_whitney_u 7.936508e-03 1.587302e-02              True   30.0690     23.5370     125.5256     1.0               False
+    svo     lstm_matched         min_loss reversed parity_negation        welch_t 8.227232e-11 2.468169e-10              True  -42.1032    -94.6519     -33.9887     1.0               False
+    svo     lstm_matched         auc_loss  natural        reversed        welch_t 1.697444e-15 5.092331e-15              True  191.9504    160.3815     373.6738     1.0               False
+    svo     lstm_matched         auc_loss  natural parity_negation        welch_t 8.757132e-14 1.432009e-13              True   65.2146     56.9470     119.4198     1.0               False
+    svo     lstm_matched         auc_loss reversed parity_negation        welch_t 7.160045e-14 1.432009e-13              True -113.7798   -231.1577     -98.3890     1.0               False
+    svo     lstm_matched convergence_frac  natural        reversed        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched convergence_frac  natural parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched convergence_frac reversed parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched        test_loss  natural        reversed        welch_t 1.550481e-11 3.100963e-11              True  134.2551    111.4222     287.3449     1.0               False
+    svo     lstm_matched        test_loss  natural parity_negation        welch_t 3.146049e-15 9.438146e-15              True  101.5390     91.3531     185.9836     1.0               False
+    svo     lstm_matched        test_loss reversed parity_negation        welch_t 1.271842e-10 1.271842e-10              True  -77.3346   -168.6017     -64.2990     1.0               False
+    svo     lstm_matched         test_ppl  natural        reversed        welch_t 1.269798e-15 3.809393e-15              True  159.6667    138.8553     291.6344     1.0               False
+    svo     lstm_matched         test_ppl  natural parity_negation        welch_t 5.151562e-15 1.030312e-14              True  101.3264     90.4400     186.6196     1.0               False
+    svo     lstm_matched         test_ppl reversed parity_negation        welch_t 1.043868e-12 1.043868e-12              True  -85.7358   -167.0904     -73.6017     1.0               False
+plots -> /root/llm-impossible/experiments_v2/results/aggregated
+runs: 30  cells: 6
+wrote /root/llm-impossible/experiments_v2/results/aggregated/all_runs.csv and per_seed_summary.csv
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_morestats.py:1879: UserWarning: Input data for shapiro has range zero. The results may not be accurate.
+  warnings.warn("Input data for shapiro has range zero. The results "
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_morestats.py:3189: RuntimeWarning: invalid value encountered in scalar divide
+  W = numer / denom
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_axis_nan_policy.py:523: RuntimeWarning: Precision loss occurred in moment calculation due to catastrophic cancellation. This occurs when the data are nearly identical. Results may be unreliable.
+  res = hypotest_fun_out(*samples, **kwds)
+36 comparisons -> /root/llm-impossible/experiments_v2/results/aggregated/holm_corrected_tests.csv
+dataset            model           metric    cond1           cond2           test        p_raw       p_holm  significant_holm  cohens_d  d_ci95_low  d_ci95_high  tost_p  equivalent_at_d0.8
+    svo gpt2_tiny_6L512d       final_loss  natural        reversed        welch_t 2.681061e-12 2.681061e-12              True   44.4591     36.9088     107.8381     1.0               False
+    svo gpt2_tiny_6L512d       final_loss  natural parity_negation        welch_t 1.564552e-16 4.693657e-16              True  145.2676    117.3608     385.2455     1.0               False
+    svo gpt2_tiny_6L512d       final_loss reversed parity_negation        welch_t 1.594620e-14 3.189239e-14              True   89.7537     74.7261     203.6022     1.0               False
+    svo gpt2_tiny_6L512d         min_loss  natural        reversed        welch_t 5.724108e-08 5.724108e-08              True   14.6742     11.6027      45.1581     1.0               False
+    svo gpt2_tiny_6L512d         min_loss  natural parity_negation        welch_t 1.338567e-12 4.015700e-12              True   46.4255     38.4144     106.4999     1.0               False
+    svo gpt2_tiny_6L512d         min_loss reversed parity_negation        welch_t 3.519920e-09 7.039840e-09              True   22.4169     18.9795      49.1665     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss  natural        reversed        welch_t 1.403073e-06 1.403073e-06              True    8.3036      6.7706      27.1777     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss  natural parity_negation        welch_t 8.911659e-09 2.673498e-08              True   18.0679     15.5876      35.0770     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss reversed parity_negation        welch_t 4.191463e-07 8.382926e-07              True   12.3214     10.5212      25.1374     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac  natural        reversed        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac  natural parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac reversed parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d        test_loss  natural        reversed        welch_t 1.744910e-09 1.744910e-09              True   21.6797     18.4471      40.8914     1.0               False
+    svo gpt2_tiny_6L512d        test_loss  natural parity_negation        welch_t 1.660705e-14 3.321410e-14              True  146.4388    119.9208     446.7402     1.0               False
+    svo gpt2_tiny_6L512d        test_loss reversed parity_negation        welch_t 2.126604e-15 6.379811e-15              True  115.4830     96.3935     298.5302     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl  natural        reversed        welch_t 1.385373e-09 1.385373e-09              True   21.7624     18.5671      40.9053     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl  natural parity_negation        welch_t 4.571523e-16 1.371457e-15              True  152.1703    127.0576     468.9856     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl reversed parity_negation        welch_t 8.491270e-16 1.698254e-15              True  116.5713     98.2856     282.8306     1.0               False
+    svo     lstm_matched       final_loss  natural        reversed        welch_t 5.258975e-17 1.577692e-16              True  170.7689    149.0186     628.4850     1.0               False
+    svo     lstm_matched       final_loss  natural parity_negation        welch_t 4.654122e-13 4.654122e-13              True   57.7367     53.1166     107.3895     1.0               False
+    svo     lstm_matched       final_loss reversed parity_negation        welch_t 2.788320e-14 5.576641e-14              True  -94.2807   -338.1879     -82.7448     1.0               False
+    svo     lstm_matched         min_loss  natural        reversed mann_whitney_u 7.936508e-03 1.587302e-02              True   96.4190     83.0446     314.5006     1.0               False
+    svo     lstm_matched         min_loss  natural parity_negation mann_whitney_u 7.936508e-03 1.587302e-02              True   30.0690     23.5370     125.5256     1.0               False
+    svo     lstm_matched         min_loss reversed parity_negation        welch_t 8.227232e-11 2.468169e-10              True  -42.1032    -94.6519     -33.9887     1.0               False
+    svo     lstm_matched         auc_loss  natural        reversed        welch_t 1.697444e-15 5.092331e-15              True  191.9504    160.3815     373.6738     1.0               False
+    svo     lstm_matched         auc_loss  natural parity_negation        welch_t 8.757132e-14 1.432009e-13              True   65.2146     56.9470     119.4198     1.0               False
+    svo     lstm_matched         auc_loss reversed parity_negation        welch_t 7.160045e-14 1.432009e-13              True -113.7798   -231.1577     -98.3890     1.0               False
+    svo     lstm_matched convergence_frac  natural        reversed        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched convergence_frac  natural parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched convergence_frac reversed parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched        test_loss  natural        reversed        welch_t 1.550481e-11 3.100963e-11              True  134.2551    111.4222     287.3449     1.0               False
+    svo     lstm_matched        test_loss  natural parity_negation        welch_t 3.146049e-15 9.438146e-15              True  101.5390     91.3531     185.9836     1.0               False
+    svo     lstm_matched        test_loss reversed parity_negation        welch_t 1.271842e-10 1.271842e-10              True  -77.3346   -168.6017     -64.2990     1.0               False
+    svo     lstm_matched         test_ppl  natural        reversed        welch_t 1.269798e-15 3.809393e-15              True  159.6667    138.8553     291.6344     1.0               False
+    svo     lstm_matched         test_ppl  natural parity_negation        welch_t 5.151562e-15 1.030312e-14              True  101.3264     90.4400     186.6196     1.0               False
+    svo     lstm_matched         test_ppl reversed parity_negation        welch_t 1.043868e-12 1.043868e-12              True  -85.7358   -167.0904     -73.6017     1.0               False
+plots -> /root/llm-impossible/experiments_v2/results/aggregated
+runs: 30  cells: 6
+wrote /root/llm-impossible/experiments_v2/results/aggregated/all_runs.csv and per_seed_summary.csv
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_morestats.py:1879: UserWarning: Input data for shapiro has range zero. The results may not be accurate.
+  warnings.warn("Input data for shapiro has range zero. The results "
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_morestats.py:3189: RuntimeWarning: invalid value encountered in scalar divide
+  W = numer / denom
+/root/anaconda3/lib/python3.11/site-packages/scipy/stats/_axis_nan_policy.py:523: RuntimeWarning: Precision loss occurred in moment calculation due to catastrophic cancellation. This occurs when the data are nearly identical. Results may be unreliable.
+  res = hypotest_fun_out(*samples, **kwds)
+36 comparisons -> /root/llm-impossible/experiments_v2/results/aggregated/holm_corrected_tests.csv
+dataset            model           metric    cond1           cond2           test        p_raw       p_holm  significant_holm  cohens_d  d_ci95_low  d_ci95_high  tost_p  equivalent_at_d0.8
+    svo gpt2_tiny_6L512d       final_loss  natural        reversed        welch_t 2.681061e-12 2.681061e-12              True   44.4591     36.9088     107.8381     1.0               False
+    svo gpt2_tiny_6L512d       final_loss  natural parity_negation        welch_t 1.564552e-16 4.693657e-16              True  145.2676    117.3608     385.2455     1.0               False
+    svo gpt2_tiny_6L512d       final_loss reversed parity_negation        welch_t 1.594620e-14 3.189239e-14              True   89.7537     74.7261     203.6022     1.0               False
+    svo gpt2_tiny_6L512d         min_loss  natural        reversed        welch_t 5.724108e-08 5.724108e-08              True   14.6742     11.6027      45.1581     1.0               False
+    svo gpt2_tiny_6L512d         min_loss  natural parity_negation        welch_t 1.338567e-12 4.015700e-12              True   46.4255     38.4144     106.4999     1.0               False
+    svo gpt2_tiny_6L512d         min_loss reversed parity_negation        welch_t 3.519920e-09 7.039840e-09              True   22.4169     18.9795      49.1665     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss  natural        reversed        welch_t 1.403073e-06 1.403073e-06              True    8.3036      6.7706      27.1777     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss  natural parity_negation        welch_t 8.911659e-09 2.673498e-08              True   18.0679     15.5876      35.0770     1.0               False
+    svo gpt2_tiny_6L512d         auc_loss reversed parity_negation        welch_t 4.191463e-07 8.382926e-07              True   12.3214     10.5212      25.1374     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac  natural        reversed        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac  natural parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d convergence_frac reversed parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo gpt2_tiny_6L512d        test_loss  natural        reversed        welch_t 1.744910e-09 1.744910e-09              True   21.6797     18.4471      40.8914     1.0               False
+    svo gpt2_tiny_6L512d        test_loss  natural parity_negation        welch_t 1.660705e-14 3.321410e-14              True  146.4388    119.9208     446.7402     1.0               False
+    svo gpt2_tiny_6L512d        test_loss reversed parity_negation        welch_t 2.126604e-15 6.379811e-15              True  115.4830     96.3935     298.5302     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl  natural        reversed        welch_t 1.385373e-09 1.385373e-09              True   21.7624     18.5671      40.9053     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl  natural parity_negation        welch_t 4.571523e-16 1.371457e-15              True  152.1703    127.0576     468.9856     1.0               False
+    svo gpt2_tiny_6L512d         test_ppl reversed parity_negation        welch_t 8.491270e-16 1.698254e-15              True  116.5713     98.2856     282.8306     1.0               False
+    svo     lstm_matched       final_loss  natural        reversed        welch_t 5.258975e-17 1.577692e-16              True  170.7689    149.0186     628.4850     1.0               False
+    svo     lstm_matched       final_loss  natural parity_negation        welch_t 4.654122e-13 4.654122e-13              True   57.7367     53.1166     107.3895     1.0               False
+    svo     lstm_matched       final_loss reversed parity_negation        welch_t 2.788320e-14 5.576641e-14              True  -94.2807   -338.1879     -82.7448     1.0               False
+    svo     lstm_matched         min_loss  natural        reversed mann_whitney_u 7.936508e-03 1.587302e-02              True   96.4190     83.0446     314.5006     1.0               False
+    svo     lstm_matched         min_loss  natural parity_negation mann_whitney_u 7.936508e-03 1.587302e-02              True   30.0690     23.5370     125.5256     1.0               False
+    svo     lstm_matched         min_loss reversed parity_negation        welch_t 8.227232e-11 2.468169e-10              True  -42.1032    -94.6519     -33.9887     1.0               False
+    svo     lstm_matched         auc_loss  natural        reversed        welch_t 1.697444e-15 5.092331e-15              True  191.9504    160.3815     373.6738     1.0               False
+    svo     lstm_matched         auc_loss  natural parity_negation        welch_t 8.757132e-14 1.432009e-13              True   65.2146     56.9470     119.4198     1.0               False
+    svo     lstm_matched         auc_loss reversed parity_negation        welch_t 7.160045e-14 1.432009e-13              True -113.7798   -231.1577     -98.3890     1.0               False
+    svo     lstm_matched convergence_frac  natural        reversed        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched convergence_frac  natural parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched convergence_frac reversed parity_negation        welch_t          NaN 0.000000e+00              True    0.0000      0.0000       0.0000     1.0               False
+    svo     lstm_matched        test_loss  natural        reversed        welch_t 1.550481e-11 3.100963e-11              True  134.2551    111.4222     287.3449     1.0               False
+    svo     lstm_matched        test_loss  natural parity_negation        welch_t 3.146049e-15 9.438146e-15              True  101.5390     91.3531     185.9836     1.0               False
+    svo     lstm_matched        test_loss reversed parity_negation        welch_t 1.271842e-10 1.271842e-10              True  -77.3346   -168.6017     -64.2990     1.0               False
+    svo     lstm_matched         test_ppl  natural        reversed        welch_t 1.269798e-15 3.809393e-15              True  159.6667    138.8553     291.6344     1.0               False
+    svo     lstm_matched         test_ppl  natural parity_negation        welch_t 5.151562e-15 1.030312e-14              True  101.3264     90.4400     186.6196     1.0               False
+    svo     lstm_matched         test_ppl reversed parity_negation        welch_t 1.043868e-12 1.043868e-12              True  -85.7358   -167.0904     -73.6017     1.0               False
+plots -> /root/llm-impossible/experiments_v2/results/aggregated
