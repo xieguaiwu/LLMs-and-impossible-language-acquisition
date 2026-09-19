@@ -52,7 +52,13 @@ while true; do
   pushed=0
   export GIT_INDEX_FILE="$STATE/tmpindex"
   git read-tree HEAD 2>> "$LOG"
-  git add -f experiments_v2/kallini_repro/results experiments_v2/kallini_repro/*.log 2>> "$LOG" || true
+  git add -f experiments_v2/kallini_repro/results experiments_v2/kallini_repro/*.log \
+    ":(exclude)experiments_v2/kallini_repro/results/**/final/*" \
+    ":(exclude)experiments_v2/kallini_repro/results/**/*.safetensors" \
+    ":(exclude)experiments_v2/kallini_repro/results/**/*.bin" \
+    ":(exclude)experiments_v2/kallini_repro/results/tmpindex*" \
+    ":(exclude)experiments_v2/kallini_repro/results/.publish.lock" \
+    2>> "$LOG" || true
   TREE=$(git write-tree 2>> "$LOG")
   unset GIT_INDEX_FILE
   COMMIT=$(git -c user.name="kallini-repro" -c user.email="kallini@repro.local" \
