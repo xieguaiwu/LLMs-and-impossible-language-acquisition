@@ -68,6 +68,9 @@ fi
 git fetch -q origin "$RESULTS_BRANCH" 2>/dev/null || true
 REMOTE_TREE=$(git rev-parse "origin/$RESULTS_BRANCH^{tree}" 2>/dev/null || echo "")
 if [ -n "$REMOTE_TREE" ] && [ "$REMOTE_TREE" = "$(git rev-parse "$TREE^{tree}")" ]; then
+  # heartbeat: the sentinel uses this log's mtime to tell "publisher alive" from
+  # "publisher dead", so a no-op run must still write a line
+  log "no changes to publish (cells=$cells)"
   echo "no changes to publish (cells=$cells)"; exit 0
 fi
 
