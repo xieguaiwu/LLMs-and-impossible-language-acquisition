@@ -59,15 +59,15 @@ PEAK_LR = 6e-4
 EVAL_CHECKPOINTS = [100, 300, 500, 1000, 2000, 3000]
 EVAL_SAMPLE = 10000
 EFF_BATCH = 128
-MICRO_BATCH = int(os.environ.get("REPRO_MICRO_BATCH", 8))
-# Why overridable: on a 10 GB RTX 3080 the step-1 forward of GPT-2-small at
-# micro 8 x seq 1024 OOMs (GPT-2 upcasts the LM-head loss to fp32 and
-# reorder_and_upcast_attn keeps a fp32 copy of the attention weights; the
-# process reaches ~8.4 GiB allocated and the CUDA caching allocator then needs
-# another 1.5 GiB). Lowering the micro batch keeps the Kallini-faithful
-# effective batch (EFF_BATCH=128) unchanged and only trades step count for
-# memory, because the accumulation factor is derived from EFF_BATCH.
-# 2026-09-19: GPU box runs with REPRO_MICRO_BATCH=4.
+MICRO_BATCH = int(os.environ.get("REPRO_MICRO_BATCH", 4))
+# Why the default is 4 and not 8: on the target 10 GB RTX 3080 the step-1 forward
+# of GPT-2-small at micro 8 x seq 1024 OOMs (GPT-2 upcasts the LM-head loss to
+# fp32 and reorder_and_upcast_attn keeps a fp32 attention copy; the process
+# reaches ~8.4 GiB allocated and the caching allocator then needs another 1.5
+# GiB). Verified 2026-09-19: micro 8 dies before step 100, micro 4 trains.
+# The Kallini effective batch is unaffected: the accumulation factor is derived
+# from EFF_BATCH=128, so micro 4 only trades step count for memory. Set
+# REPRO_MICRO_BATCH=8 on a GPU with enough memory to restore the original split.
 SEQ_LEN = 1024
 DEFAULT_SEEDS = [0, 14, 41, 53, 96]
 
