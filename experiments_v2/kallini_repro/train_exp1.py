@@ -19,6 +19,7 @@ language-models):
 
 Documented deviations (single-GPU compute; see kallini_repro/README.md):
   * effective batch 512 -> 128 (micro 8 x accum 16): tokens/run 1.57B -> 0.39B
+    (micro batch is env-overridable: REPRO_MICRO_BATCH, see below)
     (~3 epochs of the 100M-word corpus);
   * LR schedule: warmup 300 to 6e-4, then linear decay to 0 by step 3000
     (paper specifies only the warmup; the 4000-warmup note implies decay);
@@ -58,7 +59,15 @@ PEAK_LR = 6e-4
 EVAL_CHECKPOINTS = [100, 300, 500, 1000, 2000, 3000]
 EVAL_SAMPLE = 10000
 EFF_BATCH = 128
-MICRO_BATCH = 8
+MICRO_BATCH = int(os.environ.get("REPRO_MICRO_BATCH", 8))
+# Why overridable: on a 10 GB RTX 3080 the step-1 forward of GPT-2-small at
+# micro 8 x seq 1024 OOMs (GPT-2 upcasts the LM-head loss to fp32 and
+# reorder_and_upcast_attn keeps a fp32 copy of the attention weights; the
+# process reaches ~8.4 GiB allocated and the CUDA caching allocator then needs
+# another 1.5 GiB). Lowering the micro batch keeps the Kallini-faithful
+# effective batch (EFF_BATCH=128) unchanged and only trades step count for
+# memory, because the accumulation factor is derived from EFF_BATCH.
+# 2026-09-19: GPU box runs with REPRO_MICRO_BATCH=4.
 SEQ_LEN = 1024
 DEFAULT_SEEDS = [0, 14, 41, 53, 96]
 
@@ -258,6 +267,10 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
     model = GPT2LMHeadModel(config).to(device)
 
     accum = EFF_BATCH // MICRO_BATCH
+    assert accum * MICRO_BATCH == EFF_BATCH, (
+        f"REPRO_MICRO_BATCH={MICRO_BATCH} does not divide the effective batch "
+        f"{EFF_BATCH}; the gradient accumulation must reproduce the Kallini "
+        f"effective batch exactly")
     opt = torch.optim.AdamW(model.parameters(), lr=PEAK_LR)
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lr_lambda=lr_lambda)
     scaler = torch.cuda.amp.GradScaler()
