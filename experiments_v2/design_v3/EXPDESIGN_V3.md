@@ -321,3 +321,11 @@ can be recomputed on exactly those 2000 indices for a like-for-like comparison.
 **Late conditions**: `negtok` and `fixed_start` were generated after the first cpu2 pass;
 they run in a follow-up pass (`systemd-run --unit=llm-lstm-extra`, waits for `llm-lstm`
 to finish) with the same knobs, so all 7 conditions share one protocol.
+
+**Cache-version tag (reproducibility, registered 2026-09-19)**: the packed-stream caches are
+named `<condition>_seed<N>_seq<LEN>_<PACK_VERSION>.npy` with `PACK_VERSION` bumped whenever the
+packing semantics change (`v2` = trailing partial window dropped, mirroring upstream
+`babylm_dataset.py::__chunk`). Without the tag a re-run after a protocol change would silently
+train on a stale cache — so the tag is a precondition for "re-run reproduces the arm".
+Byte-identity evidence (3 seeds, multi-file, token-for-token, with the dropped-tail counts)
+is kept at `experiments_v2/kallini_repro/PACKING_EVIDENCE.md`.
