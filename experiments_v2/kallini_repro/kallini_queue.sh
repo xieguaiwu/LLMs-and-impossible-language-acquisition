@@ -71,8 +71,10 @@ if need_perturb shuffle_control || need_perturb reverse_partial; then
   note "perturbing train (100M) + test splits with their perturb.py"
   printf '%s\n' $LANGS | xargs -P 3 -I{} bash -c '
     NICE_LEVEL="'$NICE_LEVEL'"; NICE="nice -n $NICE_LEVEL"; [ "$NICE_LEVEL" = off ] && NICE=""
-    '"$PYTHON"' '"$KALLINI_REPO"'/data/perturb.py {} 100M >> '"$PWD"'/experiments_v2/kallini_repro/data_prep.log 2>&1 || true
-    '"$PYTHON"' '"$KALLINI_REPO"'/data/perturb.py {} test  >> '"$PWD"'/experiments_v2/kallini_repro/data_prep.log 2>&1 || true
+    # their perturb.py does sys.path.append("..") -> CWD must be their repo root
+    cd '"$KALLINI_REPO"' || exit 9
+    '"$PYTHON"' data/perturb.py {} 100M >> '"$PWD"'/experiments_v2/kallini_repro/data_prep.log 2>&1 || true
+    '"$PYTHON"' data/perturb.py {} test  >> '"$PWD"'/experiments_v2/kallini_repro/data_prep.log 2>&1 || true
   ' || note "WARN some perturb jobs failed (see data_prep.log)"
 fi
 
