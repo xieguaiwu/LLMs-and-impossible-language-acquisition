@@ -64,23 +64,39 @@ if [ ! -f "$KALLINI_DATA_PATH/babylm_data/babylm_100M/aochildes_parsed.json" ]; 
 fi
 
 # ---------- [3] perturbed datasets via THEIR perturb.py -------------------------
-need_perturb() {
-  [ ! -d "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$1/babylm_100M" ]
-}
-if need_perturb shuffle_control || need_perturb reverse_partial; then
-  note "perturbing train (100M) + test splits with their perturb.py"
-  printf '%s\n' $LANGS | xargs -P 3 -I{} bash -c '
+# Idempotent per language: regenerate only the languages whose per-genre files
+# are missing. A half-finished pass must not mask the missing languages.
+perturb_missing=""
+for l in $LANGS; do
+  ls "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$l/babylm_100M"/*.train >/dev/null 2>&1 \
+    || perturb_missing="$perturb_missing $l"
+done
+if [ -n "$perturb_missing" ]; then
+  note "perturbing train (100M) + test splits with their perturb.py:$perturb_missing"
+  printf '%s\n' $perturb_missing | xargs -P 3 -I{} bash -c '
     NICE_LEVEL="'$NICE_LEVEL'"; NICE="nice -n $NICE_LEVEL"; [ "$NICE_LEVEL" = off ] && NICE=""
-    # their perturb.py does sys.path.append("..") -> CWD must be their repo root
-    cd '"$KALLINI_REPO"' || exit 9
-    '"$PYTHON"' data/perturb.py {} 100M >> '"$PWD"'/experiments_v2/kallini_repro/data_prep.log 2>&1 || true
-    '"$PYTHON"' data/perturb.py {} test  >> '"$PWD"'/experiments_v2/kallini_repro/data_prep.log 2>&1 || true
+    # their perturb.py does sys.path.append("..") relative to the CWD. Run it
+    # from <repo>/data (as their own data/perturb.sh does) so that ".." resolves
+    # to the repo root, where utils.py lives. Running it from the repo root
+    # raises ModuleNotFoundError: No module named utils.
+    cd '"$KALLINI_REPO"'/data || exit 9
+    '"$PYTHON"' perturb.py {} 100M >> '"$PWD"'/experiments_v2/kallini_repro/data_prep.log 2>&1 || true
+    '"$PYTHON"' perturb.py {} test  >> '"$PWD"'/experiments_v2/kallini_repro/data_prep.log 2>&1 || true
   ' || note "WARN some perturb jobs failed (see data_prep.log)"
 fi
 
 # ---------- [3b] v3 class-P datasets (DESIGN_V3 §1.1, Kallini token-ID format) --
+# Gate on the per-genre layout emitted since c77fe29. The old gate tested
+# all.train, which the pre-c77fe29 writer produced as a single overwritten file
+# (only the last genre survived) -> it never triggered a regeneration.
+V3_LANGS_ALL="parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle"
 if [ "${RUN_V3:-0}" = "1" ]; then
-  if [ ! -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_parity_word/babylm_100M/all.train" ]; then
+  v3_missing=0
+  for c in $V3_LANGS_ALL; do
+    ls "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_100M"/*.train >/dev/null 2>&1 \
+      || v3_missing=1
+  done
+  if [ "$v3_missing" = "1" ]; then
     note "generating v3 class-P datasets"
     $PYTHON - <<'PYEOF' >> experiments_v2/kallini_repro/data_prep.log 2>&1 \
       || { note "V3 PERTURB FAIL"; exit 9; }
@@ -100,6 +116,17 @@ for lang in "parity_word parity_tok negtok fixed_start fixed_end bare_reverse wo
         write_condition(lang, Path(tf), base / "babylm_data_perturbed", "test")
 print("v3 P-class datasets done", len(tagged_train), "genres")
 PYEOF
+  fi
+  # The loader globs *.train and *_affected.test: a stale pre-c77fe29 single-file
+  # dump (all.train / all_affected.test) would be loaded on top of the per-genre
+  # files. Quarantine such files outside babylm_data_perturbed (reversible).
+  stale_dir="$KALLINI_DATA_PATH/_stale_all_splits"
+  stale_hits=$(find "$KALLINI_DATA_PATH/babylm_data_perturbed" -maxdepth 3 \
+    \( -name 'all.train' -o -name 'all_affected.test' \) -print 2>/dev/null)
+  if [ -n "$stale_hits" ]; then
+    mkdir -p "$stale_dir"
+    printf '%s\n' "$stale_hits" | while IFS= read -r f; do mv -f "$f" "$stale_dir/"; done
+    note "quarantined $(printf '%s\n' "$stale_hits" | wc -l) stale all.* split files -> $stale_dir"
   fi
 fi
 

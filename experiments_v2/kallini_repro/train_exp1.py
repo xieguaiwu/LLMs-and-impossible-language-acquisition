@@ -82,6 +82,13 @@ LANGUAGES = [
     "word_shuffle",               # our v2 Kallini-analog reference
 ]
 VOCAB_EXTRA = {"negtok": 1, "reverse_control": 1, "reverse_partial": 1, "reverse_full": 1}
+# v3 class-P conditions (DESIGN_V3 §1.1). They live outside Kallini's
+# PERTURBATIONS registry and use the marker-free GPT-2 tokenizer, so the
+# trainer must not look them up in PERTURBATIONS.
+V3_CONDITIONS = [
+    "parity_word", "parity_tok", "negtok", "fixed_start", "fixed_end",
+    "bare_reverse", "word_shuffle",
+]
 
 sys.path.insert(0, str(KALLINI_REPO))
 from utils import PERTURBATIONS, gpt2_original_tokenizer  # noqa: E402
@@ -204,6 +211,25 @@ def set_seed(seed: int) -> None:
     torch.cuda.manual_seed_all(seed)
 
 
+def tokenizer_for(perturbation: str):
+    """Their tokenizer registry, extended with the v3 class-P conditions.
+
+    v3 conditions are absent from PERTURBATIONS, so they must not be looked up
+    there (a bare PERTURBATIONS[name] raises KeyError before any v3 handling).
+    """
+    spec = PERTURBATIONS.get(perturbation)
+    if spec is not None:
+        return spec["gpt2_tokenizer"]
+    assert perturbation in V3_CONDITIONS, f"unknown perturbation: {perturbation}"
+    tokenizer = gpt2_original_tokenizer
+    if perturbation == "negtok":
+        # marker-free GPT-2 plus the reserved <NEG> token (vocab +1, DESIGN_V3
+        # §1.3.4), mirroring VOCAB_EXTRA and design_v3/v3_conditions.py
+        tokenizer = type(tokenizer).from_pretrained("gpt2")
+        tokenizer.add_special_tokens({"additional_special_tokens": ["<NEG>"]})
+    return tokenizer
+
+
 def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
               max_steps: int = None, warmup: int = None) -> dict:
     global MAX_STEPS, WARMUP_STEPS
@@ -212,13 +238,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
         WARMUP_STEPS = warmup
     from transformers import GPT2Config, GPT2LMHeadModel
 
-    spec = PERTURBATIONS[perturbation]
-    tokenizer = spec["gpt2_tokenizer"]
-    # v3 P-class conditions live outside PERTURBATIONS; register their tokenizer
-    # + vocab sizing here (DESIGN_V3 §1.3.4: markers must be registered tokens)
-    if perturbation not in spec and perturbation == "negtok":
-        tokenizer = type(tokenizer).from_pretrained("gpt2")
-        tokenizer.add_special_tokens({"additional_special_tokens": ["<NEG>"]})
+    tokenizer = tokenizer_for(perturbation)
     reverse_mode = perturbation.startswith("reverse")
     vocab_extra = VOCAB_EXTRA.get(perturbation, 0)
 
