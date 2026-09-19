@@ -88,14 +88,17 @@ import sys
 sys.path.insert(0, "experiments_v2/design_v3")
 from v3_conditions import write_condition, CONDITIONS
 from pathlib import Path
-base = Path(__import__("os").environ.get("KALLINI_DATA_PATH", "/root/kallini_data"))
-tagged_train = base / "babylm_data" / "babylm_100M" / "all_parsed.json"
-tagged_test  = base / "babylm_data" / "babylm_test" / "all_parsed.json"
-assert tagged_train.exists() and tagged_test.exists(), "shim_tag the corpus first"
+import glob, os
+base = Path(os.environ.get("KALLINI_DATA_PATH", "/root/kallini_data"))
+tagged_train = sorted(glob.glob(str(base / "babylm_data" / "babylm_100M" / "*_parsed.json")))
+tagged_test  = sorted(glob.glob(str(base / "babylm_data" / "babylm_test" / "*_parsed.json")))
+assert tagged_train and tagged_test, "shim tag the corpus first"
 for lang in "parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle".split():
-    write_condition(lang, tagged_train, base / "babylm_data_perturbed", "100M")
-    write_condition(lang, tagged_test,  base / "babylm_data_perturbed", "test")
-print("v3 P-class datasets done")
+    for tf in tagged_train:
+        write_condition(lang, Path(tf), base / "babylm_data_perturbed", "100M")
+    for tf in tagged_test:
+        write_condition(lang, Path(tf), base / "babylm_data_perturbed", "test")
+print("v3 P-class datasets done", len(tagged_train), "genres")
 PYEOF
   fi
 fi
