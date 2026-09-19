@@ -170,6 +170,21 @@ GPU box; see experiments_v2/README.md).
   as a special token (the marker was BPE-fragmented into `< NEG >`). The bug
   was found during GPU early-signal review; those cells are invalid and were
   deleted + retrained with `add_special_tokens` + `resize_token_embeddings`.
+- 2026-09-19T10:15+08:00: the v2 BabyLM arm (batch 4 / seq 128 / 4010 steps) is
+  RETIRED, per REDTEAM blocker #3 (regime incoherence: <2% of one epoch at
+  LR 5e-5) and a fatal operational failure — the TextDataset preprocessing of
+  the 8.74M-sentence train file hit the unit's 20GB MemoryMax and stalled for
+  6h with zero GPU progress. Per DESIGN_V3 (frozen), the BabyLM venue for all
+  cross-condition claims is the kallini_repro trainer (batch 128, seq 1024,
+  3000 steps, per-sentence ppl eval). The v3 P-class grid IS the BabyLM arm.
+- 2026-09-19T10:15+08:00: BabyLM source switched from the mislabeled
+  Sree1994/babylm_100M HF mirror (actually 10M words; caught by the 50M-word
+  guard) to the official cambridge-climb/BabyLM per-genre files — which also
+  restores Kallini's 10-genre layout and per-genre eval sampling.
+- 2026-09-19T10:15+08:00: BabyLM source switched from the mislabeled
+  Sree1994/babylm_100M HF mirror (actually 10M words; caught by the 50M-word
+  guard) to the official cambridge-climb/BabyLM per-genre files — which also
+  restores Kallini's 10-genre layout and per-genre eval sampling.
 - 2026-09-18: early clean-corpus results show natural ≈ reversed at the
   replication budget (test PPL 1.918 vs 1.915), which contradicts the paper's
   Exp-1 direction. Two pre-registered diagnostic arms were added (H7/H8 below)
