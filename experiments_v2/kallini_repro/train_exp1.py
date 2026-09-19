@@ -281,9 +281,17 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
     ptr = 0
 
     def next_batch() -> list[list[int]]:
+        """One MICRO batch: the accumulation loop assembles the effective batch.
+
+        This used to fill EFF_BATCH (128) rows per call while the training loop
+        called it `accum` times per step, so the step-1 forward was 128 x 1024
+        tokens and the real effective batch was 128 x accum (4096) instead of
+        the Kallini-faithful 128. On a 10 GB card that OOMs immediately
+        (2026-09-19), and it silently broke the documented protocol.
+        """
         nonlocal ptr, order
         batch: list[list[int]] = []
-        while len(batch) < EFF_BATCH:
+        while len(batch) < MICRO_BATCH:
             if ptr >= n_blocks:
                 order = rng.permutation(n_blocks)
                 ptr = 0
