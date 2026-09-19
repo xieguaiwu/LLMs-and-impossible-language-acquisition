@@ -65,11 +65,15 @@ fi
 
 # ---------- [3] perturbed datasets via THEIR perturb.py -------------------------
 # Idempotent per language: regenerate only the languages whose per-genre files
-# are missing. A half-finished pass must not mask the missing languages.
+# are missing. A partial pass (crash, OOM, disk) must not look complete: require
+# all 10 BabyLM genres before a language counts as generated.
+BABYLM_GENRES="aochildes bnc_spoken cbt children_stories gutenberg open_subtitles qed simple_wikipedia switchboard wikipedia"
 perturb_missing=""
 for l in $LANGS; do
-  ls "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$l/babylm_100M"/*.train >/dev/null 2>&1 \
-    || perturb_missing="$perturb_missing $l"
+  for g in $BABYLM_GENRES; do
+    [ -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$l/babylm_100M/$g.train" ] \
+      || { perturb_missing="$perturb_missing $l"; break; }
+  done
 done
 if [ -n "$perturb_missing" ]; then
   note "perturbing train (100M) + test splits with their perturb.py:$perturb_missing"
@@ -93,8 +97,11 @@ V3_LANGS_ALL="parity_word parity_tok negtok fixed_start fixed_end bare_reverse w
 if [ "${RUN_V3:-0}" = "1" ]; then
   v3_missing=0
   for c in $V3_LANGS_ALL; do
-    ls "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_100M"/*.train >/dev/null 2>&1 \
-      || v3_missing=1
+    for g in $BABYLM_GENRES; do
+      [ -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_100M/$g.train" ] \
+        || { v3_missing=1; break; }
+    done
+    [ "$v3_missing" = "1" ] && break
   done
   if [ "$v3_missing" = "1" ]; then
     note "generating v3 class-P datasets"
