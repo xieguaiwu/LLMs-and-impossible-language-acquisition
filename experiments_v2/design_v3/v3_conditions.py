@@ -149,10 +149,12 @@ def write_condition(lang: str, tagged_json: Path, out_dir: Path, split_tag: str)
     data = json.load(open(tagged_json))
     if split_tag == "100M":
         out_dir = out_dir / f"babylm_{lang}" / "babylm_100M"
-        out_file = out_dir / "all.train"
+        # per-genre naming (matches their {genre}.train layout + the trainer's
+        # *.train glob; a shared all.train would be overwritten per genre)
+        out_file = out_dir / f"{tagged_json.stem}.train"
     else:
         out_dir = out_dir / f"babylm_{lang}" / "babylm_test_affected"
-        out_file = out_dir / "all_affected.test"
+        out_file = out_dir / f"{tagged_json.stem}_affected.test"
     out_dir.mkdir(parents=True, exist_ok=True)
     n = 0
     with open(out_file, "w") as f:
