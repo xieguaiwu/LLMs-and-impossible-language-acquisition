@@ -59,19 +59,27 @@ def main() -> int:
 
         for seed in (0, 14, 41):
             blocks = G.load_packed_dataset(COND, seed)              # their path
+            assert all(len(b) == G.SEQ_LEN for b in blocks), (
+                "upstream block width changed (tail-drop invariant broken)")
             theirs = np.array([t for b in blocks for t in b], dtype=np.int32)
-            windows, total, n_sents = L.packed_blocks(COND, seed)   # mine
-            mine = windows.reshape(-1)[:total]
-            same_len = len(theirs) == len(mine) == total
+            windows, kept, n_sents = L.packed_blocks(COND, seed)   # mine
+            mine = windows.reshape(-1)
+            _stream, lens = L._sentence_stream(COND)
+            total = int(_stream.size)
+            expected_kept = (total // L.SEQ_LEN) * L.SEQ_LEN
+            same_len = len(theirs) == len(mine) == kept == expected_kept
             same_tok = bool(np.array_equal(theirs, mine))
-            print(f"seed={seed:>3} sentences={n_sents:>5} tokens={total:>8} "
+            print(f"seed={seed:>3} sentences={n_sents:>7} tokens={total:>9} "
+                  f"kept={kept:>9} (dropped tail={total - kept:>4}) "
                   f"len_match={same_len} identical={same_tok}")
             if not (same_len and same_tok):
-                bad = np.flatnonzero(theirs != mine)[:5]
-                print(f"  MISMATCH at {bad.tolist()} "
-                      f"theirs={theirs[bad].tolist()} mine={mine[bad].tolist()}")
+                n = min(len(theirs), len(mine))
+                bad = np.flatnonzero(theirs[:n] != mine[:n])[:5]
+                print(f"  MISMATCH len theirs={len(theirs)} mine={len(mine)} "
+                      f"kept={kept} at {bad.tolist()}")
                 return 1
-        print("PASS: LSTM packer reproduces the GPT-2 arm's token stream exactly")
+        print("PASS: LSTM packer reproduces the GPT-2 arm's token stream exactly "
+              "(same tail-drop semantics, all windows full-width)")
         return 0
     finally:
         shutil.rmtree(tmp, ignore_errors=True)

@@ -112,6 +112,12 @@ def logits_gb(batch: int, seq: int) -> float:
 
 # ------------------------------------------------------------------ data ----
 
+# Cache tag: bump when the packing semantics change so stale .npy caches are
+# never reused (2026-09-19 v2 = drop the trailing partial window, mirroring
+# upstream babylm_dataset.py::__chunk).
+PACK_VERSION = os.environ.get("LSTM_PACK_VERSION", "v2")
+
+
 def _sentence_stream(perturbation: str) -> tuple[np.ndarray, np.ndarray]:
     """Per-file token arrays with one EOS appended per sentence, plus lengths.
 
@@ -164,28 +170,34 @@ def packed_blocks(perturbation: str, seed: int) -> tuple[np.ndarray, int, int]:
     src += np.arange(total, dtype=np.int32) - offs
     shuffled = stream[src]
     del stream, src, st, sl, offs, perm
-    n_windows = int(math.ceil(total / SEQ_LEN))
-    # view into the shuffled stream (no copy); only the tail window is padded
-    full = (total // SEQ_LEN) * SEQ_LEN
-    windows = np.empty((n_windows, SEQ_LEN), dtype=np.int32)
-    windows[: total // SEQ_LEN] = shuffled[:full].reshape(-1, SEQ_LEN)
-    if total % SEQ_LEN:
-        tail = np.zeros(SEQ_LEN, dtype=np.int32)
-        tail[: total - full] = shuffled[full:]
-        windows[-1] = tail
+    # Drop the trailing partial window: upstream babylm_dataset.py::__chunk ends
+    # with "# Drop last line if not a multiple of max_seq_len" + pop(), and the
+    # GPU arm died randomly at steps 500-1000 (ValueError: expected sequence of
+    # length 1024 at dim 1) whenever a partial block reached a batch.
+    n_full = total // SEQ_LEN
+    kept = n_full * SEQ_LEN
+    windows = np.ascontiguousarray(shuffled[:kept].reshape(n_full, SEQ_LEN))
     del shuffled
+    # ---- packing invariants (asserted, not smoke-tested) ----
+    assert windows.shape[1] == SEQ_LEN, f"window width {windows.shape[1]} != {SEQ_LEN}"
+    assert windows.shape[0] == n_full == (total - (total % SEQ_LEN)) // SEQ_LEN, (
+        f"window count {windows.shape[0]} != {n_full} (token total {total})")
+    assert windows.size == kept, f"kept {windows.size} != {kept} tokens"
+    assert len(windows) == 0 or windows[-1].shape[0] == SEQ_LEN, "trailing partial window survived"
+    if n_full == 0:
+        raise RuntimeError(f"no full window for {perturbation} seed{seed}: total={total}")
     # Persist + mmap: the packed stream is 545 MB per (condition, seed). Two
     # workers holding it anonymously pushed cpu2 into swap thrash (measured
     # 2026-09-19: 3.7 GB swap full, both workers in D state at 10% CPU).
     # File-backed pages are shared and evictable, so training RSS stays low.
     cache_dir = RESULTS / "cache"
     cache_dir.mkdir(parents=True, exist_ok=True)
-    cache_file = cache_dir / f"{perturbation}_seed{seed}_seq{SEQ_LEN}.npy"
+    cache_file = cache_dir / f"{perturbation}_seed{seed}_seq{SEQ_LEN}_{PACK_VERSION}.npy"
     if not cache_file.exists():
         np.save(cache_file, windows)
     del windows
     windows = np.load(cache_file, mmap_mode="r")
-    return windows, total, int(lens.size)
+    return windows, kept, int(lens.size)
 
 
 # ------------------------------------------------------------------ model ----
