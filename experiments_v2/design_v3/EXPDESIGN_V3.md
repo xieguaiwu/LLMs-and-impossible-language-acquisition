@@ -310,3 +310,14 @@ head, not the recurrence, is the bottleneck.
 **Byte-identity**: `packing_equivalence_check.py` proves the cpu2 numpy packer
 reproduces `train_exp1.load_packed_dataset`'s token stream exactly (3 seeds, multi-file,
 token-for-token) — the LSTM arm imports `train_exp1` as the single protocol source.
+
+**Eval ordering (like-for-like, registered 2026-09-19)**: the LSTM arm evaluates the
+**first 2000 entries of the same 10k sample** the GPT-2 arm draws
+(`load_eval_sentences(seed)` → `[:2000]`), and writes per-sentence `ppls` **in that same
+order** (`eval_step<N>.json`). Therefore the first 2000 entries of the GPT-2 arm's
+`ppls_step<N>.pt` are the identical sentence set in the identical order — GPT-2 metrics
+can be recomputed on exactly those 2000 indices for a like-for-like comparison.
+
+**Late conditions**: `negtok` and `fixed_start` were generated after the first cpu2 pass;
+they run in a follow-up pass (`systemd-run --unit=llm-lstm-extra`, waits for `llm-lstm`
+to finish) with the same knobs, so all 7 conditions share one protocol.
