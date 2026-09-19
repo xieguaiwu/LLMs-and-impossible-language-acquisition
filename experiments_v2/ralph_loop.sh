@@ -93,8 +93,12 @@ while true; do
   fi
 
   if [ "$qok" -eq 1 ] && [ "$pushed" -eq 1 ]; then
-    # ---- phase 2: BabyLM (gated on raw-data fetch success) ----
-    if [ ! -f "$STATE/ALL_BABYLM_DONE" ]; then
+    # ---- phase 2: BabyLM (gated on RUN_BABYLM + raw-data fetch success) ----
+    # RUN_BABYLM must gate the phase itself, not only the exit check below:
+    # with RUN_BABYLM=0 (v2 BabyLM batch-4 arm retired, redteam #3 + prereg
+    # deviation log) the loop used to start fetch_babylm.sh + babylm_queue.sh
+    # anyway and then still exit as if only SVO had run.
+    if [ "${RUN_BABYLM:-0}" = "1" ] && [ ! -f "$STATE/ALL_BABYLM_DONE" ]; then
       log "SVO complete -> starting BabyLM phase"
       if bash experiments_v2/fetch_babylm.sh >> "$STATE/fetch_babylm.log" 2>&1 \
          && bash experiments_v2/babylm_queue.sh >> "$STATE/queue_pass_babylm.log" 2>&1; then
@@ -121,7 +125,7 @@ while true; do
         log "babylm results push FAILED"
       fi
     fi
-    if [ -f "$STATE/ALL_SVO_DONE" ] && { [ "$RUN_BABYLM" = "0" ] || [ -f "$STATE/ALL_BABYLM_DONE" ]; }; then
+    if [ -f "$STATE/ALL_SVO_DONE" ] && { [ "${RUN_BABYLM:-0}" = "0" ] || [ -f "$STATE/ALL_BABYLM_DONE" ]; }; then
       log "ALL PHASES COMPLETE — ralph loop exiting cleanly"
       exit 0
     fi
