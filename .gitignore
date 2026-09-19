@@ -8,3 +8,4 @@ experiments_v2/data_v2/babylm/
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
+experiments_v2/kallini_repro/results_lstm/

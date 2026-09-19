@@ -142,7 +142,6 @@ def _sentence_stream(perturbation: str) -> tuple[np.ndarray, np.ndarray]:
         lengths.append(lens + 1)          # +1: the EOS that follows each sentence
     return np.concatenate(parts), np.concatenate(lengths)
 
-
 def packed_blocks(perturbation: str, seed: int) -> tuple[np.ndarray, int, int]:
     """Sentence-shuffled stream (same permutation as the GPT-2 arm) -> windows.
 
@@ -354,6 +353,8 @@ def main() -> None:
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--steps", type=int, default=None)
     ap.add_argument("--skip-if-done", action="store_true")
+    ap.add_argument("--prepack-only", action="store_true",
+                    help="build the packed .npy cache and exit (serial prepack phase)")
     args = ap.parse_args()
 
     steps = args.steps or STEPS
@@ -362,6 +363,12 @@ def main() -> None:
     done_marker = out_dir / "lstm_result.json"
     if args.skip_if_done and done_marker.exists():
         print(f"SKIP {done_marker} (already complete)")
+        return
+
+    if args.prepack_only:
+        windows, total, n_sents = packed_blocks(args.perturbation, args.seed)
+        print(f"PREPACK {args.perturbation} seed{args.seed}: windows={len(windows)} "
+              f"tokens={total} sents={n_sents}")
         return
 
     result = train_one(args.perturbation, args.seed, out_dir, steps, warmup)

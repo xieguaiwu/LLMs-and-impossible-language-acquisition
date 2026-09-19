@@ -96,6 +96,24 @@ for c in $ready_conds; do
   done
 done
 
+# ---------- serial prepack ----------
+# The packer peaks at ~3 GB (per-file arrays + concatenated stream + gather
+# index + windows). Two workers packing at once pushed cpu2 into full swap
+# (measured 2026-09-19: 3.7 GB swap, both workers in D state, 25% CPU).
+# Prepacking serially (~40 s per cell) keeps the parallel phase at ~1.2 GB/worker.
+note "prepack phase (serial)"
+while read -r c s; do
+  [ -z "$c" ] && continue
+  cache="$LSTM_RESULTS/cache/${c}_seed${s}_seq${LSTM_SEQ_LEN}.npy"
+  if [ -f "$cache" ]; then continue; fi
+  if nice -n 10 "$PYTHON" "$SCRIPT_DIR/train_exp1_lstm.py" "$c" --seed "$s" --prepack-only \
+       >> "$LSTM_RESULTS/prepack.log" 2>&1; then
+    echo "PREPACK ok   $c seed$s"
+  else
+    echo "PREPACK FAIL $c seed$s"
+  fi
+done <<< "$cells"
+
 fail=0
 printf '%s' "$cells" | grep -v '^$' | xargs -P "$LSTM_WORKERS" -L1 bash -c 'run_cell "$@"' _ 2>&1 | tee -a "$LOG" || true
 
