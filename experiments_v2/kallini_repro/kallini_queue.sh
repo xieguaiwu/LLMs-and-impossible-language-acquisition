@@ -73,7 +73,9 @@ BABYLM_GENRES="aochildes bnc_spoken cbt children_stories gutenberg open_subtitle
 perturb_missing=""
 for l in $LANGS; do
   for g in $BABYLM_GENRES; do
+    # upstream perturb.py writes {genre}.train / {genre}_affected.test
     [ -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$l/babylm_100M/$g.train" ] \
+      && [ -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$l/babylm_test_affected/${g}_affected.test" ] \
       || { perturb_missing="$perturb_missing $l"; break; }
   done
 done
@@ -100,7 +102,12 @@ if [ "${RUN_V3:-0}" = "1" ]; then
   v3_missing=0
   for c in $V3_LANGS_ALL; do
     for g in $BABYLM_GENRES; do
-      [ -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_100M/$g.train" ] \
+      # v3_conditions.write_condition names files after the tagged json stem:
+      # {genre}_parsed.train / {genre}_parsed_affected.test (NOT upstream's
+      # {genre}.train) — checking the wrong name re-ran 2h of finished work
+      # on every loop iteration.
+      [ -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_100M/${g}_parsed.train" ] \
+        && [ -f "$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_test_affected/${g}_parsed_affected.test" ] \
         || { v3_missing=1; break; }
     done
     [ "$v3_missing" = "1" ] && break
@@ -118,7 +125,17 @@ base = Path(os.environ.get("KALLINI_DATA_PATH", "/root/kallini_data"))
 tagged_train = sorted(glob.glob(str(base / "babylm_data" / "babylm_100M" / "*_parsed.json")))
 tagged_test  = sorted(glob.glob(str(base / "babylm_data" / "babylm_test" / "*_parsed.json")))
 assert tagged_train and tagged_test, "shim tag the corpus first"
+# per-condition skip: a single unfinished condition must not force a rebuild of
+# the other six (each one costs ~15 min of tokenization)
+def complete(lang):
+    d_train = base / "babylm_data_perturbed" / f"babylm_{lang}" / "babylm_100M"
+    d_test = base / "babylm_data_perturbed" / f"babylm_{lang}" / "babylm_test_affected"
+    return (all((d_train / f"{Path(tf).stem}.train").exists() for tf in tagged_train)
+            and all((d_test / f"{Path(tf).stem}_affected.test").exists() for tf in tagged_test))
 for lang in "parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle".split():
+    if complete(lang):
+        print(f"{lang} skip (all genres present)")
+        continue
     for tf in tagged_train:
         write_condition(lang, Path(tf), base / "babylm_data_perturbed", "100M")
     for tf in tagged_test:

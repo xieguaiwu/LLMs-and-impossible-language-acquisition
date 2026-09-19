@@ -108,10 +108,14 @@ def perturb_bare_reverse(sent: dict, **kw) -> list[int]:
 
 def perturb_word_shuffle(sent: dict, seed: int = 0, **kw) -> list[int]:
     toks = _base_ids({"sent_text": sent["sent_text"]})
-    rng = hashlib.sha256(("shuffle:" + sent["sent_text"]).encode()).digest()
-    order = list(range(len(toks)))
     # deterministic per-sentence shuffle (numpy-free): Fisher-Yates from hash
-    h = int(rng.hexdigest(), 16)
+    # (2026-09-19: this used to call .hexdigest() on the bytes returned by
+    # .digest(), so word_shuffle raised AttributeError on the first sentence and
+    # the whole v3 data block aborted after ~2h of regenerating the other six
+    # conditions)
+    digest = hashlib.sha256(("shuffle:" + sent["sent_text"]).encode()).hexdigest()
+    order = list(range(len(toks)))
+    h = int(digest, 16)
     for i in range(len(order) - 1, 0, -1):
         h = (h * 6364136223846793005 + 1442695040888963407) & ((1 << 63) - 1)
         j = h % (i + 1)
