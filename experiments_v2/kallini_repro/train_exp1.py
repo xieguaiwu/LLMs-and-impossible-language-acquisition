@@ -317,6 +317,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
 
     eval_trace: dict[str, float] = {}
     t0 = time.time()
+    out_dir.mkdir(parents=True, exist_ok=True)   # before the first checkpoint save
     model.train()
     checkpoints = eval_checkpoints_for(MAX_STEPS)
     for step in range(1, MAX_STEPS + 1):
@@ -339,7 +340,6 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
                                         batch=int(os.environ.get("REPRO_EVAL_BATCH", 8)))
             eval_trace[str(step)] = trace["gmean_ppl"]
             torch.save(trace["ppls"], out_dir / f"ppls_step{step}.pt")
-            out_dir.mkdir(parents=True, exist_ok=True)
             print(f"[eval] {perturbation} seed{seed} step {step}: "
                   f"gmean_ppl={trace['gmean_ppl']} (n={trace['n']})", flush=True)
         if step % 100 == 0:
