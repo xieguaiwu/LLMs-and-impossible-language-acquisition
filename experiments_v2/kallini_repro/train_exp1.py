@@ -136,7 +136,19 @@ def load_packed_dataset(perturbation: str, seed: int) -> list[list[int]]:
             continue
         all_tokens.extend(toks)
         all_tokens.append(EOS_TOKEN_ID)
-    return [all_tokens[i : i + SEQ_LEN] for i in range(0, len(all_tokens), SEQ_LEN)]
+    blocks = [all_tokens[i : i + SEQ_LEN] for i in range(0, len(all_tokens), SEQ_LEN)]
+    # Their __chunk drops a trailing partial block (babylm_dataset.py: "Drop
+    # last line if not a multiple of max_seq_len"). Without this, the short tail
+    # eventually lands in a batch and kills every run at a random step:
+    #   ValueError: expected sequence of length 1024 at dim 1 (got 167)
+    # (a 100-step smoke cannot see it: the tail is drawn uniformly over the
+    # first ~1038 steps, so it fired around step 500-1000 in production).
+    if blocks and len(blocks[-1]) < SEQ_LEN:
+        blocks.pop()
+    assert blocks, f"no full {SEQ_LEN}-token block in {data_dir}"
+    assert all(len(b) == SEQ_LEN for b in blocks), (
+        "packed blocks must all be SEQ_LEN; a partial block would break batching")
+    return blocks
 
 
 def load_eval_sentences(perturbation: str, seed: int, n: int = EVAL_SAMPLE) -> list[list[int]]:
