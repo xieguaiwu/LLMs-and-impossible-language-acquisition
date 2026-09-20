@@ -360,8 +360,11 @@ arm). **F4 is computed on this arm**; the 40M equal-budget rows are renamed
 `F4_budget40M` and moved to the exploratory BH bucket. LR is frozen by a probe on
 the natural condition only (3 LRs × 1 seed × 600 steps, quarantined tree, no
 inferential claim; REDTEAM #4(i)). Conditions {shuffle_control, reverse_full,
-parity_word} × seeds {0,14,41} = 9 cells (~40 GPU-h). Seeds 53/96 stay available as a
-conditional n=5 extension (queued only if the F4 verdict is near threshold).
+parity_word} × seeds {0,14,41} = 9 cells (~40 GPU-h) in the paper-critical block,
+plus seeds {53,96} = 6 cells in the stretch tier (§[4d2]) — **registered
+unconditionally by owner ruling 2026-09-21**, so F4 is reported at n=5 (the
+STATS_PLAN_V3 §2 headline rule); `v3_pipeline.py` selects the largest complete
+paired seed set automatically and records it in the row's `seeds` column.
 
 ### 10c-3. In-process ladder probe + 2 replay cells (exploratory dynamics)
 `train_exp1.py` gains `LADDER_PROBE=1`: at every evaluation checkpoint the P1

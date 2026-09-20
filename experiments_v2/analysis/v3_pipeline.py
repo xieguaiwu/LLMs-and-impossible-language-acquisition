@@ -448,15 +448,32 @@ def run_families(rows, out_dir: Path):
     # 1620, tied head, 123.4M ≈ GPT-2-small 124M) at the same token budget. The
     # old equal-budget-but-1/3-capacity rows are kept, renamed F4_budget40M, as
     # the budget/capacity diagnostic they actually are.
+    def _complete_seeds(arm_name, conds):
+        """Largest seed set for which BOTH arms have every cell (n=5 preferred).
+
+        Registered 2026-09-21: F4 is an n=5 headline family, so the row must use
+        seeds 53/96 as soon as they exist on both sides; the row records which set
+        was used in its `seeds` column.
+        """
+        for cand in ([0, 14, 41, 53, 96], [0, 14, 41], [0, 14]):
+            if all(_cell(rows, "gpt2", c, sd) and _cell(rows, arm_name, c, sd)
+                   for c in conds for sd in cand):
+                return cand
+        return None
+
     for arm_name, family in (("lstm_capmatch", "F4"), ("lstm_gpu", "F4_budget40M")):
         for cond, alt, direction in (("shuffle_control", None, 0),
                                      ("reverse_full", "shuffle_control", +1),
                                      ("parity_word", "shuffle_control", +1),
                                      ("not_random", "shuffle_control", +1)):
-            g = _vec(rows, "gpt2", cond, S3)
-            l = _vec(rows, arm_name, cond, S3)
+            seeds = _complete_seeds(arm_name, [cond] + ([alt] if alt else []))
+            if seeds is None:
+                continue
+            S3 = seeds
+            g = _vec(rows, "gpt2", cond, seeds)
+            l = _vec(rows, arm_name, cond, seeds)
             if alt:
-                g0, l0 = _vec(rows, "gpt2", alt, S3), _vec(rows, arm_name, alt, S3)
+                g0, l0 = _vec(rows, "gpt2", alt, seeds), _vec(rows, arm_name, alt, seeds)
                 if not (all(np.isfinite(g)) and all(np.isfinite(l))
                         and all(np.isfinite(g0)) and all(np.isfinite(l0))):
                     continue
@@ -476,9 +493,10 @@ def run_families(rows, out_dir: Path):
                 S3, list(dj), list(dl), f"paired_t (n={len(S3)})", p, cohen_dz(diffs),
                 bootstrap_ci(diffs), None,
                 "diff>0" if p < 0.05 else f"no_detectable_diff_n{len(S3)}",
-                note=("capacity-matched arm (EMB=HIDDEN=1620, 123.4M params; §10c-2)"
+                note=(f"capacity-matched arm (EMB=HIDDEN=1620, 123.4M params; §10c-2); "
+                      f"n={len(seeds)} paired seeds"
                       if arm_name == "lstm_capmatch" else
-                      "budget/capacity diagnostic only (40M vs 124M; §10c-2)")))
+                      f"budget/capacity diagnostic only (40M vs 124M; §10c-2); n={len(seeds)}")))
 
     # --- F5: H7 2x vs 1x (within condition, seed-paired) ----------------------
     for cond in ("shuffle_control", "parity_word"):

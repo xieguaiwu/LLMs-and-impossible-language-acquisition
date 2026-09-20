@@ -90,9 +90,14 @@ def lstm_gpu_cells() -> list[Path]:
 
 
 def lstm_capmatch_cells() -> list[Path]:
-    """§10c-2: capacity-matched LSTM (EMB=HIDDEN=1620 -> 123.4M, tied head)."""
+    """§10c-2: capacity-matched LSTM (EMB=HIDDEN=1620 -> 123.4M, tied head).
+
+    Registered n=5 (owner ruling 2026-09-21): seeds 0/14/41 in the paper-critical
+    block (§[4c2]) + 53/96 in the stretch tier (§[4d2]) — the GPT-2 arm already has
+    the matching seeds, so F4 can be reported at n=5.
+    """
     return [CAP / f"babylm_{c}_100M" / f"seed{s}" / "lstm_result.json"
-            for c in CAPMATCH_CONDS for s in SEEDS3]
+            for c in CAPMATCH_CONDS for s in [0, 14, 41, 53, 96]]
 
 
 def nope_cells() -> list[Path]:

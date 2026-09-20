@@ -630,6 +630,35 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_STRETCH:-1}" = "1" ]; then
       bash experiments_v2/kallini_repro/publish_results.sh || note "WARN logo publish failed"
   fi
 
+  # --- capmatch n=5 extension (§10c-2; owner ruling 2026-09-21: unconditional) --
+  # The confirmatory architecture family F4 is registered at n=5 (STATS_PLAN_V3 §2
+  # headline rule). The GPT-2 side already has seeds 53/96 for all three capmatch
+  # conditions (extension tier), so the paired contrast can reach n=5; without
+  # these cells F4 stays at n=3 and only the parametric test can reach p<.05.
+  # Placed in the stretch tier on purpose: it can only extend the campaign, never
+  # delay a paper-critical block.
+  if [ "${RUN_V3_CAPMATCH_EXT:-1}" = "1" ]; then
+    # The tier may run with §[4c2] disabled, so re-establish its globals rather
+    # than relying on that block having executed (LSTM_LR would be empty -> crash).
+    CAPMATCH_DIR=${CAPMATCH_DIR:-experiments_v2/kallini_repro/results_lstm_gpu_capmatch}
+    CAPMATCH_CONDS=${CAPMATCH_CONDS:-shuffle_control reverse_full parity_word}
+    mkdir -p "$CAPMATCH_DIR"
+    CAPMATCH_LR=${CAPMATCH_LR:-$(cat "$CAPMATCH_DIR/.frozen_lr" 2>/dev/null || echo 1e-3)}
+    pending_cap_ext=$(find "$CAPMATCH_DIR" -name lstm_result.json 2>/dev/null | wc -l)
+    if [ "$pending_cap_ext" -lt 15 ]; then
+      for s in 53 96; do
+        for c in $CAPMATCH_CONDS; do
+          run_lstm_capmatch "$c" "$s"
+        done
+      done
+    fi
+    if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+      RESULTS_DIR=$CAPMATCH_DIR RESULTS_BRANCH=v2-results-lstm-gpu-capmatch \
+        RESULTS_KIND=lstm_result.json \
+        bash experiments_v2/kallini_repro/publish_results.sh || note "WARN capmatch ext publish failed"
+    fi
+  fi
+
   # --- model-scale axis (GPT-2 medium, 6 cells, ~55 GPU-h) -------------------
   MS_DIR=experiments_v2/kallini_repro/results_model_scale
   mkdir -p "$MS_DIR"
