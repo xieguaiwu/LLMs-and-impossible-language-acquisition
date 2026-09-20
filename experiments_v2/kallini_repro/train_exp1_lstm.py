@@ -120,6 +120,11 @@ BUDGET_NOTE = (
     "Epochs-matched would need ~160 h per cell on cpu2 (measured: GPT-2 arm ~27k tok/s "
     "vs lstm_matched ~680 tok/s here)."
 )
+# Capacity-matched arm (§10c-2) overrides the note + arch tag via env so the
+# result JSON records what the arm actually is (defaults keep the cpu2 arm's
+# frozen wording byte-identical).
+BUDGET_NOTE = os.environ.get("LSTM_BUDGET_NOTE", BUDGET_NOTE)
+ARCH_TAG = os.environ.get("LSTM_ARCH_TAG", "lstm_matched")
 
 
 def logits_gb(batch: int, seq: int) -> float:
@@ -410,7 +415,9 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         "language": perturbation,
         "train_set": G.TRAIN_SET,
         "seed": seed,
-        "arch": "lstm_matched",
+        "arch": ARCH_TAG,
+        "emb_dim": EMB_DIM,
+        "hidden_dim": HIDDEN_DIM,
         "n_params": n_params,
         "device": DEVICE,
         "amp": AMP,

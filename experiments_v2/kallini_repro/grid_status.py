@@ -29,6 +29,12 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[2]
 R = REPO / "experiments_v2" / "kallini_repro" / "results"
 L = REPO / "experiments_v2" / "kallini_repro" / "results_lstm_gpu"
+CAP = REPO / "experiments_v2" / "kallini_repro" / "results_lstm_gpu_capmatch"
+NOPE = REPO / "experiments_v2" / "kallini_repro" / "results_nope"
+DS = REPO / "experiments_v2" / "kallini_repro" / "results_datascale"
+LOGO = REPO / "experiments_v2" / "kallini_repro" / "results_logo"
+MS = REPO / "experiments_v2" / "kallini_repro" / "results_model_scale"
+RP = REPO / "experiments_v2" / "kallini_repro" / "results_ladder_probe"
 CPU_LSTM = Path(os.environ.get("LSTM_RESULTS", "/root/llm-impossible-lstm/experiments_v2/kallini_repro/results_lstm"))
 
 SR9 = ["shuffle_control", "shuffle_nondeterministic", "shuffle_deterministic21",
@@ -42,6 +48,15 @@ LSTM_GPU_CONDS = ["shuffle_control", "reverse_full", "parity_word", "not_random"
 LSTM_CPU_CONDS = ["shuffle_control", "reverse_full", "reverse_control",
                   "parity_word", "parity_tok", "negtok", "fixed_start"]
 LSTM_CPU_SEEDS = [0, 14, 41, 53, 96]
+# --- 2026-09-20 evening arms (preregistration §10c) ---------------------------
+# Keep this list in sync with kallini_queue.sh whenever an arm is registered.
+CAPMATCH_CONDS = ["shuffle_control", "reverse_full", "parity_word"]   # §[4c2]
+NOPE_CONDS = ["parity_word", "shuffle_control"]                        # §[4c3]
+DATASCALE_CONDS = ["shuffle_control", "parity_word", "fixed_start"]    # §[4d2]
+DATASCALE_SCALES = ["sub1M", "sub10M"]
+LOGO_CONDS = ["shuffle_control", "parity_word"]                        # §[4d2]
+MODEL_SCALE_CONDS = ["shuffle_control", "parity_word", "fixed_start"]  # §[4d2]
+LADDER_PROBE_CONDS = ["parity_word", "fixed_start"]                    # §[4d2]
 
 
 def gpt2_cells() -> list[Path]:
@@ -74,18 +89,63 @@ def lstm_gpu_cells() -> list[Path]:
             for c in LSTM_GPU_CONDS for s in SEEDS3]
 
 
+def lstm_capmatch_cells() -> list[Path]:
+    """§10c-2: capacity-matched LSTM (EMB=HIDDEN=1620 -> 123.4M, tied head)."""
+    return [CAP / f"babylm_{c}_100M" / f"seed{s}" / "lstm_result.json"
+            for c in CAPMATCH_CONDS for s in SEEDS3]
+
+
+def nope_cells() -> list[Path]:
+    """§10c-4: no-positional-encoding GPT-2 (zeroed frozen wpe)."""
+    return [NOPE / f"babylm_{c}_100M" / f"seed{s}" / "exp1_result.json"
+            for c in NOPE_CONDS for s in SEEDS3]
+
+
+def datascale_cells() -> list[Path]:
+    """§10c-5: 1M/10M-token corpus subsamples at the fixed 3000-step budget."""
+    return [DS / f"babylm_{c}_100M" / f"seed{s}_{sc}" / "exp1_result.json"
+            for c in DATASCALE_CONDS for sc in DATASCALE_SCALES for s in [0, 14]]
+
+
+def logo_cells() -> list[Path]:
+    """§10c-8: trained without simple_wikipedia, evaluated on the full draw."""
+    return [LOGO / f"babylm_{c}_100M" / "seed0_logo7sw" / "exp1_result.json"
+            for c in LOGO_CONDS]
+
+
+def model_scale_cells() -> list[Path]:
+    """§10c-6: GPT-2 medium (355M) at the same token budget."""
+    return [MS / f"babylm_{c}_100M" / f"seed{s}" / "exp1_result.json"
+            for c in MODEL_SCALE_CONDS for s in [0, 14]]
+
+
+def ladder_probe_cells() -> list[Path]:
+    """§10c-3: replay of the two pre-probe class-P cells (LADDER_PROBE=1)."""
+    return [RP / f"babylm_{c}_100M" / "seed0" / "exp1_result.json"
+            for c in LADDER_PROBE_CONDS]
+
+
 def lstm_cpu_cells() -> list[Path]:
     return [CPU_LSTM / f"babylm_{c}_100M" / f"seed{s}" / "lstm_result.json"
             for c in LSTM_CPU_CONDS for s in LSTM_CPU_SEEDS]
 
 
 def summarize() -> dict:
-    arms = {"gpt2": gpt2_cells(), "lstm_gpu": lstm_gpu_cells(), "lstm_cpu": lstm_cpu_cells()}
+    arms = {"gpt2": gpt2_cells(), "lstm_gpu": lstm_gpu_cells(), "lstm_cpu": lstm_cpu_cells(),
+            "capmatch": lstm_capmatch_cells(), "nope": nope_cells(),
+            "datascale": datascale_cells(), "logo": logo_cells(),
+            "model_scale": model_scale_cells(), "ladder_probe": ladder_probe_cells()}
     out = {}
     for name, want in arms.items():
         done = sum(1 for p in want if p.exists())
         out[name] = {"expected": len(want), "done": done, "pending": len(want) - done}
     out["pending_total"] = sum(v["pending"] for k, v in out.items() if isinstance(v, dict))
+    # pending_gpu_total = what the chain sentinel must treat as "still to do" on the
+    # GPU box (all GPT-2 + both LSTM arms + the evening arms); the cpu2 LSTM arm is
+    # deliberately excluded: it is another host's queue with its own watchdog.
+    out["pending_gpu_total"] = sum(out[k]["pending"] for k in
+                                   ("gpt2", "lstm_gpu", "capmatch", "nope",
+                                    "datascale", "logo", "model_scale", "ladder_probe"))
     out["complete_marker"] = (R / "ALL_KALLINI_DONE").exists()
     return out
 
@@ -105,10 +165,13 @@ def main() -> int:
         print(" ".join(f"pending_{k}={v['pending']}" if isinstance(v, dict)
                        else f"{k}={v}" for k, v in s.items()))
         return 0
-    for name in ("gpt2", "lstm_gpu", "lstm_cpu"):
+    for name in ("gpt2", "lstm_gpu", "lstm_cpu", "capmatch", "nope", "datascale",
+                 "logo", "model_scale", "ladder_probe"):
         v = s[name]
-        print(f"{name:9s} done {v['done']:3d}/{v['expected']:3d}  pending {v['pending']:3d}")
-    print(f"pending_total={s['pending_total']}  ALL_KALLINI_DONE={s['complete_marker']}")
+        print(f"{name:12s} done {v['done']:3d}/{v['expected']:3d}  pending {v['pending']:3d}")
+    print(f"pending_total={s['pending_total']}  "
+          f"pending_gpu_total={s['pending_gpu_total']}  "
+          f"ALL_KALLINI_DONE={s['complete_marker']}")
     return 0
 
 

@@ -79,6 +79,32 @@ MICRO_BATCH = int(os.environ.get("REPRO_MICRO_BATCH", 4))
 SEQ_LEN = 1024
 DEFAULT_SEEDS = [0, 14, 41, 53, 96]
 
+# ---- 2026-09-20 evening expansion (prereg §10c) — all env-gated, default off,
+# so the running grid's behavior is unchanged until a pass restart pulls this. ----
+# NoPE arm (§10c-4): zero + freeze the positional embeddings. Equivalent to
+# Kallini's own gpt2_no_positional_encoding_model.py (their NoPE ablation),
+# which drops wpe entirely; a zeroed frozen wpe contributes the same zero
+# vector without needing a custom model class.
+NOPE = os.environ.get("GPT2_NOPE", "0") == "1"
+# In-process ladder probe (§10c-3): at every eval-checkpoint step, run the P1
+# branch-matched minimal pairs on the CURRENT weights, so rule-acquisition
+# dynamics come out of the same cells instead of a final-checkpoint-only probe.
+LADDER_PROBE = os.environ.get("LADDER_PROBE", "0") == "1"
+LADDER_PROBE_CONDS = {"parity_word", "parity_tok", "negtok", "fixed_start",
+                      "fixed_end", "not_random"}
+# Model-scale arm (§10c): GPT-2 medium = 355M (n_embd 1024 / 24 layers / 16 heads).
+MODEL_SIZE = os.environ.get("REPRO_MODEL_SIZE", "gpt2")
+MODEL_SIZES = {"gpt2": dict(n_embd=768, n_layer=12, n_head=12),
+               "gpt2_medium": dict(n_embd=1024, n_layer=24, n_head=16)}
+# Dataset override for the data-scale / LOGO arms (§10c): a full directory name
+# under babylm_data_perturbed (e.g. babylm_parity_word_sub1M). Empty = default.
+DATA_SUBDIR = os.environ.get("REPRO_DATA_SUBDIR", "")
+# Output-dir suffix (datascale arms share one tree; the scale must be in the
+# cell name: seed0_sub1M). Grid-status manifests expect the untagged names for
+# every existing arm, so the default stays "".
+DIR_TAG = os.environ.get("REPRO_DIR_TAG", "")
+assert MODEL_SIZE in MODEL_SIZES, f"unknown REPRO_MODEL_SIZE={MODEL_SIZE}"
+
 LANGUAGES = [
     "shuffle_control",            # NoShuffle (English control)
     "shuffle_nondeterministic",
@@ -125,12 +151,22 @@ def dataset_key_of(dataset: str) -> str:
     return dataset
 
 
+def data_subdir_of(perturbation: str) -> str:
+    """Directory name of a condition's data (REPRO_DATA_SUBDIR override wins).
+
+    The data-scale / LOGO arms point this at a generated variant directory
+    (``babylm_<cond>_sub1M`` etc.) while keeping ``perturbation`` itself a
+    registered condition (tokenizer resolution stays valid).
+    """
+    return DATA_SUBDIR or f"babylm_{perturbation}"
+
+
 # ----------------------------------------------------------- data packing ---
 
 def load_packed_dataset(perturbation: str, seed: int) -> list[list[int]]:
     """Their babylm_dataset.py packing: shuffle token-ID sentences with
     numpy rng(seed), join with EOS, chunk into SEQ_LEN blocks."""
-    data_dir = BABYLM_DATA_PATH / "babylm_data_perturbed" / f"babylm_{perturbation}" / f"babylm_{TRAIN_SET}"
+    data_dir = BABYLM_DATA_PATH / "babylm_data_perturbed" / data_subdir_of(perturbation) / f"babylm_{TRAIN_SET}"
     files = sorted(data_dir.glob("*.train"))
     assert files, f"no perturbed train files for {perturbation} under {data_dir}"
     all_sentences: list[str] = []
@@ -228,7 +264,7 @@ def load_eval_sentences(perturbation: str, seed: int, n: int = EVAL_SAMPLE,
     LSTM arm's "first 2000 of the same 10k sample" nesting still holds (it
     imports this function).
     """
-    data_dir = BABYLM_DATA_PATH / "babylm_data_perturbed" / f"babylm_{perturbation}" / "babylm_test_affected"
+    data_dir = BABYLM_DATA_PATH / "babylm_data_perturbed" / data_subdir_of(perturbation) / "babylm_test_affected"
     files = sorted(data_dir.glob("*_affected.test"))
     lines: list[str] = []
     for f in files:
@@ -450,13 +486,22 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
           f"({time.time()-t_pack:.0f}s)", flush=True)
 
     set_seed(seed)
+    dims = MODEL_SIZES[MODEL_SIZE]
     config = GPT2Config(
         vocab_size=50257 + vocab_extra,
-        n_positions=SEQ_LEN, n_embd=768, n_layer=12, n_head=12,
+        n_positions=SEQ_LEN, n_embd=dims["n_embd"], n_layer=dims["n_layer"],
+        n_head=dims["n_head"],
         resid_pdrop=0.1, embd_pdrop=0.1, attn_pdrop=0.1,
         reorder_and_upcast_attn=True, scale_attn_by_inverse_layer_idx=True,
     )
     model = GPT2LMHeadModel(config).to(device)
+    if NOPE:
+        # NoPE arm (§10c-4): zero + freeze the positional embeddings — same
+        # semantics as Kallini's gpt2_no_positional_encoding_model.py (wpe
+        # removed); the causal mask is the only remaining order signal.
+        with torch.no_grad():
+            model.transformer.wpe.weight.zero_()
+        model.transformer.wpe.weight.requires_grad_(False)
 
     accum = EFF_BATCH // MICRO_BATCH
     assert accum * MICRO_BATCH == EFF_BATCH, (
@@ -491,6 +536,22 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
             ptr += 1
         return batch
 
+    # Ladder probe wiring (§10c): one frozen pair set per condition, loaded
+    # lazily so cells that do not need it pay nothing.
+    probe_pairs = None
+    if LADDER_PROBE and perturbation in LADDER_PROBE_CONDS:
+        try:
+            sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+            from probes.probes_babylm import load_base_pool, make_pairs, run_p1
+            probe_pool = load_base_pool(limit=20000)
+            probe_pairs = make_pairs(probe_pool, 200,
+                                     domain="tok" if perturbation == "parity_tok" else "word",
+                                     seed=42)
+            print(f"[probe] ladder probe armed: {len(probe_pairs)} branch-matched pairs", flush=True)
+        except Exception as e:                       # analysis-side, never blocks the grid
+            print(f"[probe] init failed ({e}); ladder probe disabled", flush=True)
+    probe_trace: dict[str, dict] = {}
+
     eval_trace: dict[str, float] = {}
     eval_content_trace: dict[str, float] = {}
     t0 = time.time()
@@ -507,6 +568,10 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
                 out = model(input_ids=input_ids, labels=input_ids.clone())
             scaler.scale(out.loss / accum).backward()
             loss_avg += float(out.loss) / accum
+        # 2026-09-20 fix (§10c, P2): the clip used to run on the loss-scaled
+        # gradients without unscale_, which normalized every step to unit true
+        # norm (a different optimizer regime than the registered clip@1.0).
+        scaler.unscale_(opt)
         torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
         scaler.step(opt)
         scaler.update()
@@ -522,6 +587,16 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
             torch.save(trace["ppls"], out_dir / f"ppls_step{step}.pt")
             if "ppls_content" in trace:
                 torch.save(trace["ppls_content"], out_dir / f"ppls_content_step{step}.pt")
+            if probe_pairs is not None:
+                try:
+                    probe_trace[str(step)] = run_p1(model, probe_pairs, device)
+                except Exception as e:               # analysis-side, never blocks the grid
+                    print(f"[probe] step {step} failed: {e}", flush=True)
+            model.train()                            # 2026-09-20 fix (§10c, P1):
+            # evaluate_checkpoint() left the model in eval() mode and nothing
+            # restored it, so every cell silently trained WITHOUT dropout from
+            # its first eval checkpoint on (uniform across all cells, but a
+            # deviation from the registered protocol and from Kallini).
             print(f"[eval] {perturbation} seed{seed} step {step}: "
                   f"gmean_ppl={trace['gmean_ppl']} "
                   f"content={trace.get('gmean_ppl_content')} (n={trace['n']})", flush=True)
@@ -542,6 +617,13 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
         "seq_len": SEQ_LEN,
         "peak_lr": PEAK_LR,
         "warmup": WARMUP_STEPS,
+        "model_size": MODEL_SIZE,
+        "nope": NOPE,
+        "data_subdir": DATA_SUBDIR or f"babylm_{perturbation}",
+        "dir_tag": DIR_TAG,
+        "dropout_active_all_steps": True,
+        "grad_clip_true_norm": True,
+        "ladder_probe": probe_trace if probe_trace else None,
         "n_blocks": len(blocks),
         "eval_gmean": eval_trace,
         "eval_gmean_content": {k: v for k, v in eval_content_trace.items()},
@@ -572,7 +654,8 @@ def main() -> None:
         WARMUP_STEPS = max(300, int(0.10 * args.steps))
 
     out_dir = RESULTS / f"babylm_{args.perturbation}_{TRAIN_SET}" / \
-        (f"steps{args.steps}_seed{args.seed}" if args.steps else f"seed{args.seed}")
+        (f"steps{args.steps}_seed{args.seed}{DIR_TAG}" if args.steps
+         else f"seed{args.seed}{DIR_TAG}")
     done_marker = out_dir / "exp1_result.json"
     if args.skip_if_done and done_marker.exists():
         print(f"SKIP {done_marker} (already complete)")

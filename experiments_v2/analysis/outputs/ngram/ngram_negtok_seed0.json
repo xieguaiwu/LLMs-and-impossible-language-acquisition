@@ -1,0 +1,14 @@
+{
+  "condition": "negtok",
+  "draw_seed": 0,
+  "eval_n": 10000,
+  "eval_fingerprint": "3b683fcc428b7b68",
+  "train_tokens_used": 6000000,
+  "bigram_types": 439576,
+  "unigram_types": 18024,
+  "discount_D": 0.65357,
+  "gmean_ppl": 417.8066,
+  "gmean_ppl_content": 660.6589,
+  "median_ppl": 385.7972,
+  "model": "bigram_absdisc"
+}

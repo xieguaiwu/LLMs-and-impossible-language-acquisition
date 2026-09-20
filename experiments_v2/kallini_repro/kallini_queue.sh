@@ -108,6 +108,37 @@ fi
 V3_LANGS_ALL="parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle not_random"
 POOL_VERSION="pool-v2-base-filter"
 POOL_VERSION_FILE="$KALLINI_DATA_PATH/babylm_data_perturbed/.pool_version"
+
+# Row-count equality gate (2026-09-20 evening, prereg §10c): the existence
+# gate cannot see a truncated genre file — audit A0's exact failure mode
+# (parity_word/simple_wikipedia was 37% short and passed every check). Every
+# condition in a pool must have the SAME line count across its 10 genres,
+# train and test separately. Runs before any training starts (a pass begin
+# has no training in flight, so the deterministic regeneration it may
+# trigger is safe).
+rowcount_gate() {
+  local c g f n ref hits=""
+  for c in $V3_LANGS_ALL; do
+    ref=""
+    for g in $BABYLM_GENRES; do
+      f="$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_100M/${g}_parsed.train"
+      [ -f "$f" ] || { hits="$hits $c:missing:$g"; continue; }
+      n=$(grep -c '' "$f")
+      [ -z "$ref" ] && ref=$n
+      [ "$n" != "$ref" ] && hits="$hits $c:$g=$n_vs_$ref"
+    done
+    ref=""
+    for g in $BABYLM_GENRES; do
+      f="$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_test_affected/${g}_parsed_affected.test"
+      [ -f "$f" ] || { hits="$hits $c:testmissing:$g"; continue; }
+      n=$(grep -c '' "$f")
+      [ -z "$ref" ] && ref=$n
+      [ "$n" != "$ref" ] && hits="$hits $c:test:$g=$n_vs_$ref"
+    done
+  done
+  echo "$hits"
+}
+
 if [ "${RUN_V3:-0}" = "1" ]; then
   v3_missing=0
   [ "$(cat "$POOL_VERSION_FILE" 2>/dev/null)" = "$POOL_VERSION" ] || v3_missing=1
@@ -146,6 +177,26 @@ if [ "${RUN_V3:-0}" = "1" ]; then
       note "V3 PERTURB FAIL"; exit 9
     fi
   fi
+  # Row-count equality gate (audit A0 prevention, §10c): a mismatch means a
+  # genre file is truncated or from a different generation pass. The pools are
+  # deterministic, so one regeneration attempt is the correct repair; a
+  # persistent mismatch is a hard failure (the training arm must not start on
+  # an unequal pool).
+  gate_hits=$(rowcount_gate)
+  if [ -n "$gate_hits" ]; then
+    note "DATA GATE row-count mismatch:$gate_hits -> one deterministic regen pass"
+    if FORCE_REGEN=1 $PYTHON experiments_v2/design_v3/regenerate_conditions.py --force \
+        >> experiments_v2/kallini_repro/data_prep.log 2>&1; then
+      printf '%s\n' "$POOL_VERSION" > "$POOL_VERSION_FILE"
+    else
+      note "V3 REGEN FAIL (row-count gate)"; exit 9
+    fi
+    gate_hits=$(rowcount_gate)
+    if [ -n "$gate_hits" ]; then
+      note "DATA GATE STILL MISMATCHED AFTER REGEN:$gate_hits"; exit 9
+    fi
+    note "DATA GATE row-count OK after regen"
+  fi
   # The loader globs *.train and *_affected.test: a stale pre-c77fe29 single-file
   # dump (all.train / all_affected.test) would be loaded on top of the per-genre
   # files. Quarantine such files outside babylm_data_perturbed (reversible).
@@ -162,8 +213,10 @@ fi
 # ---------- [4] training queue --------------------------------------------------
 run() {
   local lang=$1 seed=$2
-  if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train $lang/seed$seed"; return 0; fi
-  if $NICE $PYTHON experiments_v2/kallini_repro/train_exp1.py "$lang" --seed "$seed" --skip-if-done \
+  if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train $lang/seed$seed${RUN_EXTRA_ENV:+ [$RUN_EXTRA_ENV]}"; return 0; fi
+  # env ${RUN_EXTRA_ENV:-} lets a tier arm its cells (e.g. LADDER_PROBE=1 for
+  # the class-P blocks) without duplicating the runner; empty = unchanged.
+  if env ${RUN_EXTRA_ENV:-} $NICE $PYTHON experiments_v2/kallini_repro/train_exp1.py "$lang" --seed "$seed" --skip-if-done \
       >> experiments_v2/kallini_repro/queue.log 2>&1; then
     note "OK   $lang/seed$seed"
   else
@@ -190,11 +243,16 @@ if [ "${RUN_V3:-0}" = "1" ]; then
   # P1: parity_tok + negtok
   # P2: H7 2x arm (natural + parity_word at 6000 steps, seed 0)
   # ladder for H7: {300,1000,2000,4000,6000} via STEPS env in train_exp1
+  # 2026-09-20 evening (§10c-3): every class-P cell carries the in-process
+  # ladder probe (P1 branch-matched minimal pairs at each eval checkpoint),
+  # so rule-acquisition dynamics come out of the same cells.
+  RUN_EXTRA_ENV="LADDER_PROBE=1"
   for seed in 0 14 41; do
     for lang in parity_word fixed_start parity_tok negtok not_random; do
       run "$lang" "$seed"
     done
   done
+  RUN_EXTRA_ENV=""
   if [ "${RUN_V3_H7:-1}" = "1" ]; then
     for lang in parity_word fixed_start shuffle_control; do
       run_steps "$lang" 0 6000
@@ -262,6 +320,142 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_LSTM_GPU:-1}" = "1" ]; then
   fi
 fi
 
+# ---------- [4c2] capacity-matched LSTM arm (§10c-2, registered 2026-09-20) -----
+# The §[4c] arm is equal-TOKEN-budget but not equal-capacity (~40M vs 124M), so
+# the confirmatory architecture family F4 is redefined onto THIS arm:
+#   EMB = HIDDEN = 1620 with the tied output head -> 50257x1620 + 16x1620^2
+#   = 123.4M params (99.5% of GPT-2-small 124M).
+# Same protocol shapes as §[4c] (seq 1024 / eff batch 128 / 3000 steps = 3.93e8
+# tokens). Registration status: pre-data amend (0 cells at registration).
+# The LR is frozen by a cheap probe on the natural condition ONLY (REDTEAM #4(i):
+# 3 LRs x 1 seed x 600 steps, quarantined tree, no inferential claim). The
+# frozen value is cached in .frozen_lr so a re-armed pass skips the probe.
+CAPMATCH_RESULTS=experiments_v2/kallini_repro/results_lstm_gpu_capmatch
+run_lstm_capmatch() {  # condition seed
+  local c=$1 s=$2
+  if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train lstm_capmatch $c/seed$s (LR $CAPMATCH_LR)"; return 0; fi
+  if $NICE env LSTM_DEVICE=cuda LSTM_RESULTS=$CAPMATCH_DIR \
+        LSTM_SEQ_LEN=1024 LSTM_EFF_BATCH=128 LSTM_MICRO_BATCH=8 LSTM_STEPS=3000 \
+        LSTM_LR="$CAPMATCH_LR" LSTM_EVAL_N=10000 LSTM_SAVE_CKPT=0 LSTM_PACK_VERSION=v2 \
+        LSTM_ARCH_TAG=lstm_capmatch124 \
+        LSTM_BUDGET_NOTE="capacity-matched arm: EMB=HIDDEN=1620 (tied head) = 123.4M params vs GPT-2-small 124M; token budget identical to the GPT-2 arm (3000x128x1024)" \
+        $PYTHON experiments_v2/kallini_repro/train_exp1_lstm.py "$c" --seed "$s" --skip-if-done \
+        >> experiments_v2/kallini_repro/results_lstm_gpu_capmatch/queue.log 2>&1; then
+    note "OK   lstm_capmatch $c/seed$s"
+  else
+    note "FAIL lstm_capmatch $c/seed$s"
+    fail=$((fail+1))
+  fi
+}
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_LSTM_CAPMATCH:-1}" = "1" ]; then
+  CAPMATCH_DIR=experiments_v2/kallini_repro/results_lstm_gpu_capmatch
+  mkdir -p "$CAPMATCH_DIR"
+  pending_cap=$(find "$CAPMATCH_DIR" -name lstm_result.json 2>/dev/null | wc -l)
+  CAPMATCH_CONDS="${CAPMATCH_CONDS:-shuffle_control reverse_full parity_word}"
+  expected_cap=$(( $(echo $CAPMATCH_CONDS | wc -w) * 3 ))
+  if [ "$pending_cap" -lt "$expected_cap" ]; then
+    # --- LR probe (no inference; quarantined tree; skip-if-done per tree) ---
+    CAPMATCH_LR=$(cat "$CAPMATCH_DIR/.frozen_lr" 2>/dev/null || true)
+    if [ -z "$CAPMATCH_LR" ]; then
+      for lr in 5e-4 1e-3 2e-3; do
+        lr_dir=experiments_v2/kallini_repro/results_smoke/_quarantine_lstm_capmatch_lr/lr$lr
+        mkdir -p "$lr_dir"
+        if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would run capmatch LR probe lr=$lr"; continue; fi
+        if $NICE env LSTM_DEVICE=cuda LSTM_RESULTS="$lr_dir" \
+              LSTM_SEQ_LEN=1024 LSTM_EFF_BATCH=128 LSTM_MICRO_BATCH=8 LSTM_STEPS=600 \
+              LSTM_LR="$lr" LSTM_EVAL_N=2000 LSTM_SAVE_CKPT=0 LSTM_PACK_VERSION=v2smoke \
+              LSTM_ARCH_TAG=lstm_capmatch124_lrprobe \
+              $PYTHON experiments_v2/kallini_repro/train_exp1_lstm.py shuffle_control --seed 0 --skip-if-done \
+              >> experiments_v2/kallini_repro/results_smoke/lr_probe.log 2>&1; then
+          note "capmatch LR probe OK ($lr)"
+        else
+          note "WARN capmatch LR probe failed ($lr)"
+          fail=$((fail+1))
+        fi
+      done
+      CAPMATCH_LR=$($PYTHON - <<'PYEOF'
+import json, pathlib
+base = pathlib.Path("experiments_v2/kallini_repro/results_smoke/_quarantine_lstm_capmatch_lr")
+best, best_v = None, None
+for d in sorted(base.glob("lr*/babylm_shuffle_control_100M/steps600_seed0")):
+    r = d / "lstm_result.json"
+    if not r.exists():
+        continue
+    v = json.loads(r.read_text())["eval_gmean"].get("600")
+    if v is not None and (best_v is None or v < best_v):
+        best, best_v = d.parent.name.split("lr")[1], v
+print(best or "1e-3")
+PYEOF
+)
+      printf '%s\n' "$CAPMATCH_LR" > "$CAPMATCH_DIR/.frozen_lr"
+      note "capmatch LR frozen: $CAPMATCH_LR"
+    fi
+    if [ "${QUEUE_DRY_RUN:-0}" != "1" ] && [ "$pending_cap" -lt "$expected_cap" ]; then
+      # CUDA smoke (~1 min) before the first ~4 h cell, same pattern as §[4c].
+      if ! ls "$CAPMATCH_DIR"/babylm_* >/dev/null 2>&1; then
+        note "lstm_capmatch smoke (1 step, quarantined tree)"
+        if $NICE env LSTM_DEVICE=cuda \
+              LSTM_RESULTS=experiments_v2/kallini_repro/results_smoke/_quarantine_lstm_capmatch \
+              LSTM_SEQ_LEN=1024 LSTM_EFF_BATCH=128 LSTM_MICRO_BATCH=8 LSTM_STEPS=1 \
+              LSTM_EMB=1620 LSTM_HIDDEN=1620 LSTM_SAVE_CKPT=0 LSTM_PACK_VERSION=v2smoke \
+              LSTM_ARCH_TAG=lstm_capmatch124 \
+              $PYTHON experiments_v2/kallini_repro/train_exp1_lstm.py shuffle_control --seed 0 \
+              >> experiments_v2/kallini_repro/results_lstm_gpu_capmatch/queue.log 2>&1; then
+          note "lstm_capmatch smoke OK"
+        else
+          note "LSTM CAPMATCH SMOKE FAILED -> arm skipped this pass"
+          fail=$((fail+1))
+        fi
+      fi
+      for c in $CAPMATCH_CONDS; do
+        for s in 0 14 41; do
+          run_lstm_capmatch "$c" "$s"
+        done
+      done
+    fi
+  fi
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=$CAPMATCH_DIR RESULTS_BRANCH=v2-results-lstm-gpu-capmatch \
+      RESULTS_KIND=lstm_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN capmatch publish failed"
+  fi
+fi
+
+# ---------- [4c3] NoPE position-ablation arm (§10c-4, registered 2026-09-20) ----
+# Causal test of WHERE the architecture's impossible-language bias lives: the
+# same GPT-2 trainer with positional embeddings zeroed + frozen (Kallini's own
+# NoPE model semantics). If the impossible-language gap shrinks without
+# positional information, the bias is carried by position (linear-chain), not
+# hierarchy. Exploratory (mechanistic) family F7; pre-data registration.
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_NOPE:-1}" = "1" ]; then
+  NOPE_DIR=experiments_v2/kallini_repro/results_nope
+  mkdir -p "$NOPE_DIR"
+  NOPE_CONDS="${NOPE_CONDS:-parity_word shuffle_control}"
+  pending_nope=$(find "$NOPE_DIR" -name exp1_result.json 2>/dev/null | wc -l)
+  # n=3 (seeds 0/14/41): at n=2 a one-sided paired test cannot reach p<.05
+  # (df=1), so the family would be undecidable by construction.
+  expected_nope=$(( $(echo $NOPE_CONDS | wc -w) * 3 ))
+  if [ "$pending_nope" -lt "$expected_nope" ]; then
+    for c in $NOPE_CONDS; do
+      for s in 0 14 41; do
+        if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train nope $c/seed$s"; continue; fi
+        if $NICE env REPRO_RESULTS=$NOPE_DIR GPT2_NOPE=1 LADDER_PROBE=1 \
+            $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed "$s" --skip-if-done \
+            >> experiments_v2/kallini_repro/results_nope/queue.log 2>&1; then
+          note "OK   nope $c/seed$s"
+        else
+          note "FAIL nope $c/seed$s"
+          fail=$((fail+1))
+        fi
+      done
+    done
+  fi
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=$NOPE_DIR RESULTS_BRANCH=v2-results-nope RESULTS_KIND=exp1_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN nope publish failed"
+  fi
+fi
+
 # ---------- [4f] Kallini S/R replication panel (T0) ----------------------------
 # Runs AFTER the paper-critical blocks (2026-09-20 ordering decision): the class-P
 # grid + H7 carry the paper's central contrast (H10) and the probes depend on its
@@ -288,6 +482,7 @@ done
 #     no longer blocked at n=1
 EXT_SEEDS="${EXT_SEEDS:-53 96}"
 if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_EXT:-1}" = "1" ]; then
+  RUN_EXTRA_ENV="LADDER_PROBE=1"
   for seed in $EXT_SEEDS; do
     for lang in shuffle_control reverse_full parity_word fixed_start parity_tok negtok; do
       run "$lang" "$seed"
@@ -296,6 +491,7 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_EXT:-1}" = "1" ]; then
   for seed in 0 14 41; do
     run fixed_end "$seed"
   done
+  RUN_EXTRA_ENV=""
   if [ "${RUN_V3_H7:-1}" = "1" ]; then
     for seed in 14 41; do
       for lang in shuffle_control parity_word; do
@@ -309,6 +505,137 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_EXT:-1}" = "1" ]; then
     for lang in shuffle_control parity_word; do
       run_steps "$lang" 0 9000
     done
+  fi
+fi
+
+# ---------- [4d2] stretch tier (§10c, registered 2026-09-20 evening) ------------
+# Registered exploratory arms, queued AFTER every paper-critical block so they
+# can only ever add days, never delay a confirmatory family:
+#   * datascale axis (§10c-5): PoS analog — fixed 3000-step budget over
+#     deterministic 1M/10M-token sentence subsets; the full-data cell is the
+#     existing 1x cell, so the axis needs only the two reduced scales.
+#   * ladder-probe replay (§10c-3): the two class-P cells that finished BEFORE
+#     the in-process ladder probe existed (parity_word s0, fixed_start s0),
+#     re-run under LADDER_PROBE=1 so the acquisition-dynamics panel is seed-
+#     complete. 1x budget, exploratory.
+#   * LOGO generalization (§10c-8): train WITHOUT simple_wikipedia, evaluate
+#     the same frozen draw; the analysis slices per-genre transfer deltas.
+#   * model-scale axis (§10c-6): GPT-2 medium (355M) x 3 conditions x 2 seeds;
+#     answers the paper's own Limitations ("bigger models may memorize away
+#     the bias"). Slowest cells last.
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_STRETCH:-1}" = "1" ]; then
+  # --- data-scale subsets (deterministic; runs once, cheap, CPU-only) --------
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ] \
+     && [ ! -f "$KALLINI_DATA_PATH/babylm_data_perturbed/.datascale_v1" ]; then
+    note "generating data-scale subsets (1M/10M tokens x 3 conditions)"
+    if $PYTHON experiments_v2/design_v3/make_datascale_subsets.py \
+        >> experiments_v2/kallini_repro/data_prep.log 2>&1; then
+      printf '%s\n' "datascale-v1" > "$KALLINI_DATA_PATH/babylm_data_perturbed/.datascale_v1"
+    else
+      note "WARN datascale subset generation failed -> datascale cells skipped this pass"
+    fi
+  fi
+  DATASCALE_CONDS="shuffle_control parity_word fixed_start"
+  DS_DIR=experiments_v2/kallini_repro/results_datascale
+  mkdir -p "$DS_DIR"
+  for scale in sub1M sub10M; do
+    pending_ds=$(find "$DS_DIR" -name exp1_result.json 2>/dev/null | grep -c "$scale" || true)
+    if [ "$pending_ds" -lt 6 ]; then
+      for c in $DATASCALE_CONDS; do
+        for s in 0 14; do
+          if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train datascale $scale $c/seed$s"; continue; fi
+          if $NICE env REPRO_RESULTS=$DS_DIR \
+                REPRO_DATA_SUBDIR="babylm_${c}_${scale}" REPRO_DIR_TAG="_${scale}" \
+                $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed "$s" --skip-if-done \
+                >> experiments_v2/kallini_repro/results_datascale/queue.log 2>&1; then
+            note "OK   datascale $scale $c/seed$s"
+          else
+            note "FAIL datascale $scale $c/seed$s"
+            fail=$((fail+1))
+          fi
+        done
+      done
+    fi
+  done
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=$DS_DIR RESULTS_BRANCH=v2-results-datascale RESULTS_KIND=exp1_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN datascale publish failed"
+  fi
+
+  # --- ladder-probe replay (the two pre-probe cells; ~8 h) --------------------
+  RP_DIR=experiments_v2/kallini_repro/results_ladder_probe
+  mkdir -p "$RP_DIR"
+  pending_rp=$(find "$RP_DIR" -name exp1_result.json 2>/dev/null | wc -l)
+  if [ "$pending_rp" -lt 2 ]; then
+    for c in parity_word fixed_start; do
+      if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train ladder-replay $c/seed0"; continue; fi
+      if $NICE env REPRO_RESULTS=$RP_DIR LADDER_PROBE=1 \
+          $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed 0 --skip-if-done \
+          >> experiments_v2/kallini_repro/results_ladder_probe/queue.log 2>&1; then
+        note "OK   ladder-replay $c/seed0"
+      else
+        note "FAIL ladder-replay $c/seed0"
+        fail=$((fail+1))
+      fi
+    done
+  fi
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=$RP_DIR RESULTS_BRANCH=v2-results-ladder-probe RESULTS_KIND=exp1_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN ladder replay publish failed"
+  fi
+
+  # --- LOGO generalization (2 cells, ~8 h) -----------------------------------
+  LOGO_DIR=experiments_v2/kallini_repro/results_logo
+  mkdir -p "$LOGO_DIR"
+  pending_logo=$(find "$LOGO_DIR" -name exp1_result.json 2>/dev/null | wc -l)
+  if [ "$pending_logo" -lt 2 ]; then
+    if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would generate LOGO subsets"; fi
+    if [ "${QUEUE_DRY_RUN:-0}" != "1" ] \
+       && $PYTHON experiments_v2/design_v3/make_datascale_subsets.py --logo \
+            >> experiments_v2/kallini_repro/data_prep.log 2>&1; then
+      for c in shuffle_control parity_word; do
+        if $NICE env REPRO_RESULTS=$LOGO_DIR \
+              REPRO_DATA_SUBDIR="babylm_${c}_logo7sw" REPRO_DIR_TAG="_logo7sw" \
+              $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed 0 --skip-if-done \
+              >> experiments_v2/kallini_repro/results_logo/queue.log 2>&1; then
+          note "OK   logo7sw $c/seed0"
+        else
+          note "FAIL logo7sw $c/seed0"
+          fail=$((fail+1))
+        fi
+      done
+    else
+      [ "${QUEUE_DRY_RUN:-0}" != "1" ] && note "WARN LOGO subset generation failed -> skipped this pass"
+    fi
+  fi
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=$LOGO_DIR RESULTS_BRANCH=v2-results-logo RESULTS_KIND=exp1_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN logo publish failed"
+  fi
+
+  # --- model-scale axis (GPT-2 medium, 6 cells, ~55 GPU-h) -------------------
+  MS_DIR=experiments_v2/kallini_repro/results_model_scale
+  mkdir -p "$MS_DIR"
+  MS_CONDS="shuffle_control parity_word fixed_start"
+  pending_ms=$(find "$MS_DIR" -name exp1_result.json 2>/dev/null | wc -l)
+  if [ "$pending_ms" -lt 6 ]; then
+    for c in $MS_CONDS; do
+      for s in 0 14; do
+        if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train model-scale $c/seed$s (gpt2_medium)"; continue; fi
+        if $NICE env REPRO_RESULTS=$MS_DIR REPRO_MODEL_SIZE=gpt2_medium REPRO_MICRO_BATCH=2 \
+            $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed "$s" --skip-if-done \
+            >> experiments_v2/kallini_repro/results_model_scale/queue.log 2>&1; then
+          note "OK   model-scale $c/seed$s"
+        else
+          note "FAIL model-scale $c/seed$s"
+          fail=$((fail+1))
+        fi
+      done
+    done
+  fi
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=$MS_DIR RESULTS_BRANCH=v2-results-model-scale RESULTS_KIND=exp1_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN model-scale publish failed"
   fi
 fi
 

@@ -1,0 +1,14 @@
+{
+  "condition": "reverse_control",
+  "draw_seed": 0,
+  "eval_n": 10000,
+  "eval_fingerprint": "5db01b3143961048",
+  "train_tokens_used": 6000003,
+  "bigram_types": 433489,
+  "unigram_types": 18040,
+  "discount_D": 0.65457,
+  "gmean_ppl": 527.9331,
+  "gmean_ppl_content": 897.7352,
+  "median_ppl": 461.8455,
+  "model": "bigram_absdisc"
+}

@@ -1,0 +1,6 @@
+condition,draw_seed,eval_n,eval_fingerprint,train_tokens_used,bigram_types,unigram_types,discount_D,gmean_ppl,gmean_ppl_content,median_ppl,model
+fixed_start,0,10000,4927dd059a655be4,6000000,437674,18024,0.65385,745.8898,745.8898,580.0051,bigram_absdisc
+negtok,0,10000,3b683fcc428b7b68,6000000,439576,18024,0.65357,417.8066,660.6589,385.7972,bigram_absdisc
+parity_tok,0,10000,fb5468c67f35da4b,6000000,439614,18025,0.65362,492.8593,713.2248,410.0956,bigram_absdisc
+reverse_control,0,10000,5db01b3143961048,6000003,433489,18040,0.65457,527.9331,897.7352,461.8455,bigram_absdisc
+reverse_full,0,10000,24b6dadf345d3834,6000003,430784,18040,0.6551,862.9291,1723.4483,666.9814,bigram_absdisc

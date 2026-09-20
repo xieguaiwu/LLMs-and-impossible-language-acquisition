@@ -330,6 +330,140 @@ families they affect; the S/R replication panel is untouched by all of them.
     BPE tokens on the base sentence" (Kallini `filter_shuffle`), not "2-200 words".
     The paper must quote the implemented rule.
 
+## 10c. Amendments registered 2026-09-20 (evening): protocol fixes + expansion arms
+
+Authorization: the owner's standing ruling ("rigor corrections required for
+methodological/academic soundness are implemented directly on the model's
+recommendation") plus the explicit instruction to execute this round in full.
+Data state at registration: **no confirmatory family has data under the amended
+protocol** — the protocol fixes below invalidate the training regime of every cell
+completed before this timestamp, and those cells are quarantined and re-run (10c-9);
+every new arm below had **zero cells** when registered.
+
+### 10c-1. n-gram statistical baseline (analysis, no training)
+`analysis/ngram_baseline.py`: interpolated absolute-discounting **bigram** fitted on
+the same perturbed corpora (6M-token fits, disclosed) and scored on the same frozen
+10k-sentence draw with the same geometric-mean convention plus the marker-masked
+content-only column. Rationale: Chomsky's critique calls an LLM "nothing but a
+pattern predictor"; no experiment in this project measured that baseline, so the
+"architecture-level bias" claim had no floor. **Status: implemented and run for the
+7 conditions available on cpu2** (`analysis/outputs/ngram/`, results quoted in
+`design_v3/FORMAL_COMPLEXITY.md` §4). Role: descriptive/exploratory floor.
+
+### 10c-2. Capacity-matched LSTM arm — F4 redefined (**confirmatory family**)
+The equal-token-budget LSTM arm (`lstm_matched`, ~40M params) is not
+capacity-matched to GPT-2-small (124M), so its rows cannot carry the confirmatory
+architecture claim. New arm: `LSTM_EMB=LSTM_HIDDEN=1620`, tied head ⇒
+50257·1620 + 16·1620² ≈ **123.4M params (99.5 % of GPT-2-small)**, same protocol
+shapes (seq 1024 / eff batch 128 / 3000 steps = 3.93e8 tokens, identical to the GPT-2
+arm). **F4 is computed on this arm**; the 40M equal-budget rows are renamed
+`F4_budget40M` and moved to the exploratory BH bucket. LR is frozen by a probe on
+the natural condition only (3 LRs × 1 seed × 600 steps, quarantined tree, no
+inferential claim; REDTEAM #4(i)). Conditions {shuffle_control, reverse_full,
+parity_word} × seeds {0,14,41} = 9 cells (~40 GPU-h). Seeds 53/96 stay available as a
+conditional n=5 extension (queued only if the F4 verdict is near threshold).
+
+### 10c-3. In-process ladder probe + 2 replay cells (exploratory dynamics)
+`train_exp1.py` gains `LADDER_PROBE=1`: at every evaluation checkpoint the P1
+branch-matched minimal-pair delta is computed on the current weights and stored in
+the cell's result JSON (`ladder_probe`). Rationale: the probe suite previously
+measured only final weights, so "when was the rule (not) acquired" — the direct
+experimental correspondent of the Piaget-stage narrative — was unmeasured. The
+class-P blocks (§[4b], extension tier) run with this flag; the two cells finished
+before it existed (`parity_word` s0, `fixed_start` s0) are **re-run** in a separate
+quarantined-from-the-main-tree arm (`results_ladder_probe/`) so the panel is
+seed-complete. Analysis: `v3_pipeline.run_ladder_probe_dynamics` →
+`ladder_probe_dynamics.csv`, descriptive only.
+
+### 10c-4. NoPE position-ablation arm (exploratory family **F7_nope**)
+Same GPT-2 trainer with the positional embedding **zeroed and frozen** — the
+semantics of Kallini's own `gpt2_no_positional_encoding_model.py` (they remove wpe;
+a zeroed frozen wpe contributes the same zero vector). Estimand: the impossibility
+penalty `B_m = ppl_m(cond) − ppl_m(shuffle_control)`; registered one-sided
+prediction `B_gpt2 − B_nope > 0` (removing positional information reduces the
+deficit, i.e. the bias is position-borne). Conditions {parity_word,
+shuffle_control} × seeds {0,14,41} = 6 cells (~24 GPU-h). n=3 is deliberate: at n=2
+no one-sided paired test can reach p<.05.
+
+### 10c-5. Data-scale axis, the PoS analog (exploratory family **F8_datascale**)
+Deterministic 1M/10M-token stratified subsamples of the condition's own train pool
+(`design_v3/make_datascale_subsets.py`; test pool copied verbatim so the evaluation
+draw is the parent's), trained at the **fixed** 3000-step budget — so the axis varies
+data scarcity at fixed optimisation budget. Registered one-sided prediction:
+`penalty(sub1M) > penalty(full corpus)`. Conditions {shuffle_control, parity_word,
+fixed_start} × scales {sub1M, sub10M} × seeds {0,14} = 12 cells (~47 GPU-h),
+exploratory/descriptive (n=2).
+
+### 10c-6. Model-scale axis (exploratory family **F9_model_scale**)
+GPT-2 **medium** (355M: n_embd 1024 / 24 layers / 16 heads) at the same token
+budget, micro batch 2. Conditions {shuffle_control, parity_word, fixed_start} ×
+seeds {0,14} = 6 cells (~55 GPU-h). Two-sided: the paper's own Limitations speculate
+that larger models may memorise the bias away, while a larger model could equally
+amplify it. Exploratory.
+
+### 10c-7. Formal-complexity mapping (analysis/writing, no compute)
+`design_v3/FORMAL_COMPLEXITY.md`: classifies every condition by the formal machinery
+its transformation requires (k-local ⇒ regular; global permutation ⇒ non-regular;
+reversal ⇒ anti-hierarchical but CF-closed; parity ⇒ **MOD-2 counting**, the
+canonical non-regular language), reviews the transformer theory (Hahn 2020;
+Merrill–Sabharwal log-precision counting), and pre-specifies six falsifiable
+predictions (FC1–FC6) before the corresponding cells exist. This converts the
+paper's admitted weakness ("no formal definition of impossible languages") into a
+graded, testable axis.
+
+### 10c-8. LOGO domain-transfer arm (exploratory, descriptive)
+`make_datascale_subsets.py --logo`: train with the `simple_wikipedia` genre
+**removed** (9/10 of the corpus), evaluate the same frozen draw; the analysis slices
+per-genre perplexity and compares against the full-data model on the held-out genre.
+Rationale: supports the P4 domain-dissociation probe with a data-side counterpart
+(does the learned rule transfer across domains?). Conditions {shuffle_control,
+parity_word} × seed 0 = 2 cells (~8 GPU-h).
+
+### 10c-9. Protocol fixes P1/P2 + quarantine and re-run of affected cells
+Two bugs in **our** reimplementation (Kallini's own training runs under NeMo and
+does not contain either pattern) were found while implementing this round:
+
+* **P1 — dropout silently disabled after the first evaluation checkpoint.**
+  `evaluate_checkpoint()` sets `model.eval()` and nothing restored `model.train()`,
+  so from the first checkpoint on every cell trained with dropout off (GPT-2 arm and
+  both LSTM trainers).
+* **P2 — gradient clipping on loss-scaled gradients.** The GPT-2 arm called
+  `clip_grad_norm_(..., 1.0)` **before** `scaler.unscale_()`, i.e. it clipped the
+  scaled gradients, which normalises every step to unit true norm instead of the
+  registered clip@1.0 (a different optimizer regime). The LSTM arms use no scaler on
+  the cpu2 path and are unaffected; the GPU LSTM arms run with AMP off.
+
+Both are fixed in the same commit (`train_exp1.py`). Consequences: the six GPT-2
+cells completed before the fix (`shuffle_control` s0, `shuffle_deterministic21` s0,
+`shuffle_nondeterministic` s0, `shuffle_local3` s0, `parity_word` s0,
+`fixed_start` s0) are **quarantined (moved, never deleted) and re-run** under the
+fixed protocol; the re-run is automatic (their result files disappear from the arm,
+so the idempotent queue re-schedules them). Effect on already-published materials:
+`VISION.md`/`PROGRESS.md` numbers from those cells are marked superseded. The cpu2
+LSTM arm is **left untouched** (owner ruling: do not touch that unit mid-pass; its
+12 completed cells share the P1 regime uniformly and its role is budget-diagnostic).
+New result JSONs record `dropout_active_all_steps` / `grad_clip_true_norm` so the two
+generations of cells are distinguishable in the data itself.
+
+### 10c-10. Queue gate hardening (row-count equality)
+The class-P data gate now checks **line-count equality across the 10 genres** (train
+and test), in addition to existence and the pool-version marker. A mismatch triggers
+one deterministic regeneration pass and, if it persists, a hard failure (exit 9) —
+the training arm must never start on an unequal pool. Rationale: audit A0 (a
+37 %-truncated genre file) passed every existence check unnoticed.
+
+### 10c-11. Infrastructure sync (manifest, sentinel, publisher)
+`grid_status.py` registers all new arms and emits `pending_gpu_total`; the cpu2 chain
+sentinel now prefers that field (with a fallback to the old two-key sum, so the
+rolling update is safe). `publish_results.sh` (already parameterised) gains 6 new
+result branches: `v2-results-lstm-gpu-capmatch`, `v2-results-nope`,
+`v2-results-datascale`, `v2-results-ladder-probe`, `v2-results-logo`,
+`v2-results-model-scale`. Expected totals: main GPT-2 arm 66, GPU LSTM 12, capmatch
+9, NoPE 6, datascale 12, ladder-replay 2, LOGO 2, model-scale 6, cpu2 LSTM 35.
+**Cost of this round ≈ 200 GPU-h** on top of the ~10.5 remaining days of the
+original grid; ordering keeps every paper-critical block ahead of the exploratory
+tiers (§[4d2] is last).
+
 ## 11. Post-hoc hypotheses registered on first clean-corpus evidence (H7/H8)
 
 These were written AFTER observing the GPU early signal above (declared as
