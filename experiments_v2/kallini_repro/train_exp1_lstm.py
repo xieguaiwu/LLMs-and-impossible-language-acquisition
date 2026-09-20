@@ -165,6 +165,16 @@ def _sentence_stream(perturbation: str) -> tuple[np.ndarray, np.ndarray]:
         lengths.append(lens + 1)          # +1: the EOS that follows each sentence
     return np.concatenate(parts), np.concatenate(lengths)
 
+def _data_fingerprint(perturbation: str) -> str:
+    """Short hash of the condition's train files (names, sizes, mtimes)."""
+    import hashlib
+    data_dir = G.BABYLM_DATA_PATH / "babylm_data_perturbed" / f"babylm_{perturbation}" / f"babylm_{G.TRAIN_SET}"
+    h = hashlib.blake2b(digest_size=4)
+    for f in sorted(data_dir.glob("*.train")):
+        st = f.stat()
+        h.update(f"{f.name}:{st.st_size}:{st.st_mtime_ns}\n".encode())
+    return h.hexdigest()
+
 def packed_blocks(perturbation: str, seed: int) -> tuple[np.ndarray, int, int]:
     """Sentence-shuffled stream (same permutation as the GPT-2 arm) -> windows.
 
@@ -209,7 +219,12 @@ def packed_blocks(perturbation: str, seed: int) -> tuple[np.ndarray, int, int]:
     # File-backed pages are shared and evictable, so training RSS stays low.
     cache_dir = RESULTS / "cache"
     cache_dir.mkdir(parents=True, exist_ok=True)
-    cache_file = cache_dir / f"{perturbation}_seed{seed}_seq{SEQ_LEN}_{PACK_VERSION}.npy"
+    # Data fingerprint in the cache name (2026-09-20): the pack version alone
+    # cannot see a *dataset* change, so a regenerated condition under the same
+    # pack tag would silently reuse the old packed stream (this is how the
+    # pool-v1/pool-v2 sentence-set change would have slipped through on cpu2).
+    cache_file = cache_dir / (f"{perturbation}_seed{seed}_seq{SEQ_LEN}_"
+                              f"{PACK_VERSION}_{_data_fingerprint(perturbation)}.npy")
     if not cache_file.exists():
         np.save(cache_file, windows)
     del windows

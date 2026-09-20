@@ -64,6 +64,8 @@ def gpt2_cells() -> list[Path]:
     for c in ["shuffle_control", "parity_word"]:      # H7 2x at seeds 14/41
         for s in [14, 41]:
             want.append(R / f"babylm_{c}_100M" / f"steps6000_seed{s}" / "exp1_result.json")
+    for c in ["shuffle_control", "parity_word"]:      # H7 3x (Kallini token budget)
+        want.append(R / f"babylm_{c}_100M" / "steps9000_seed0" / "exp1_result.json")
     return want
 
 

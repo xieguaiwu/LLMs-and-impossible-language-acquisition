@@ -287,13 +287,21 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_EXT:-1}" = "1" ]; then
       done
     done
   fi
+  # H7 3x (9000 steps = 1.18e9 tokens ~= 9 epochs): the design's first extension
+  # priority — it doubles as the Kallini-token-budget fidelity arm (EXPDESIGN §5).
+  if [ "${RUN_V3_H7_3X:-1}" = "1" ]; then
+    for lang in shuffle_control parity_word; do
+      run_steps "$lang" 0 9000
+    done
+  fi
 fi
 
 # ---------- [4e] BabyLM probe smoke (code-path check only, no conclusions) -----
 # Runs the probe suite on the first available final/ checkpoint with 10 pairs and
 # writes into a quarantine tree. It is a code-path check: probe numbers from
 # shuffle-class checkpoints are not results (they must come from the P class).
-if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_PROBE_SMOKE:-1}" = "1" ]; then
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_PROBE_SMOKE:-1}" = "1" ] \
+   && [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
   probe_ckpt=$(ls -d experiments_v2/kallini_repro/results/babylm_*_100M/seed0/final 2>/dev/null | head -1)
   if [ -n "$probe_ckpt" ]; then
     mkdir -p experiments_v2/kallini_repro/results_smoke/_quarantine_probe

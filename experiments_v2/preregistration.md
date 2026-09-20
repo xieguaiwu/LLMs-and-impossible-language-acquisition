@@ -280,6 +280,10 @@ families they affect; the S/R replication panel is untouched by all of them.
    H7 (6000 steps) at seeds 14/41 for shuffle_control and parity_word so F5 is no
    longer blocked at n=1; the previously unregistered ``fixed_start@6000`` cell is
    declared exploratory. Implemented in ``kallini_queue.sh`` §[4d] (the GPU LSTM arm runs first, §[4c], so F4 lands before the n=5 extension tier).
+   In addition, the design's *first* extension priority is now registered too:
+   **H7 3x (9000 steps = 1.18e9 tokens ~= 9 epochs)** for shuffle_control and
+   parity_word at seed 0, which doubles as the **Kallini token-budget fidelity
+   arm** (EXPDESIGN_V3 §5, P4 ext). Grid total: 66 GPT-2 cells.
 5. **Evaluation hygiene (audit B5).** ``load_eval_sentences`` now measures the pool
    duplication (**20.1% of the 987,793-sentence test pool is an exact duplicate**)
    and a sampled near-duplicate rate, and records a per-sentence id list plus an
