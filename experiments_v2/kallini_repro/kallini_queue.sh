@@ -166,23 +166,31 @@ if [ "${RUN_V3:-0}" = "1" ]; then
     [ "$(cat "$POOL_VERSION_FILE" 2>/dev/null)" = "$POOL_VERSION" ] && v3_missing=0
   fi
   if [ "$v3_missing" = "1" ]; then
-    note "generating v3 class-P datasets (pool $POOL_VERSION)"
-    # single source of truth for the generator (also runnable standalone on any
-    # host that has the tagged shim JSONs)
-    if FORCE_REGEN=1 $PYTHON experiments_v2/design_v3/regenerate_conditions.py --force \
-        >> experiments_v2/kallini_repro/data_prep.log 2>&1; then
-      printf '%s\n' "$POOL_VERSION" > "$POOL_VERSION_FILE"
-      note "v3 datasets regenerated (pool $POOL_VERSION)"
+    if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then
+      note "[dry] v3 class-P datasets incomplete -> would regenerate (skipped in dry-run)"
     else
-      note "V3 PERTURB FAIL"; exit 9
+      note "generating v3 class-P datasets (pool $POOL_VERSION)"
+      # single source of truth for the generator (also runnable standalone on any
+      # host that has the tagged shim JSONs)
+      if FORCE_REGEN=1 $PYTHON experiments_v2/design_v3/regenerate_conditions.py --force \
+          >> experiments_v2/kallini_repro/data_prep.log 2>&1; then
+        printf '%s\n' "$POOL_VERSION" > "$POOL_VERSION_FILE"
+        note "v3 datasets regenerated (pool $POOL_VERSION)"
+      else
+        note "V3 PERTURB FAIL"; exit 9
+      fi
     fi
   fi
   # Row-count equality gate (audit A0 prevention, §10c): a mismatch means a
   # genre file is truncated or from a different generation pass. The pools are
   # deterministic, so one regeneration attempt is the correct repair; a
   # persistent mismatch is a hard failure (the training arm must not start on
-  # an unequal pool).
+  # an unequal pool). Dry-run mode only reports (no writes).
   gate_hits=$(rowcount_gate)
+  if [ -n "$gate_hits" ] && [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then
+    note "[dry] DATA GATE row-count mismatch would be repaired by regeneration:$gate_hits"
+    gate_hits=""
+  fi
   if [ -n "$gate_hits" ]; then
     note "DATA GATE row-count mismatch:$gate_hits -> one deterministic regen pass"
     if FORCE_REGEN=1 $PYTHON experiments_v2/design_v3/regenerate_conditions.py --force \
