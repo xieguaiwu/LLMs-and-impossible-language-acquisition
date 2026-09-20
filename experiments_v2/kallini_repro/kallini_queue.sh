@@ -124,6 +124,17 @@ if [ "${RUN_V3:-0}" = "1" ]; then
     [ "$v3_missing" = "1" ] && break
   done
   if [ "$v3_missing" = "1" ]; then
+    # 2026-09-20 incident: a loop restart pulled this new gate while a manual
+    # regeneration was already running, so a SECOND generator started writing the
+    # same files (and gpu2 hit a global OOM that killed the training cell). Never
+    # start a duplicate: wait for the running generator, then re-check the marker.
+    while pgrep -f 'regenerate_conditions[.]py' >/dev/null 2>&1; do
+      note "waiting for a running dataset regeneration to finish (no duplicate generator)"
+      sleep 60
+    done
+    [ "$(cat "$POOL_VERSION_FILE" 2>/dev/null)" = "$POOL_VERSION" ] && v3_missing=0
+  fi
+  if [ "$v3_missing" = "1" ]; then
     note "generating v3 class-P datasets (pool $POOL_VERSION)"
     # single source of truth for the generator (also runnable standalone on any
     # host that has the tagged shim JSONs)
