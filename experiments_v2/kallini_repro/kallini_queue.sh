@@ -97,9 +97,20 @@ fi
 # Gate on the per-genre layout emitted since c77fe29. The old gate tested
 # all.train, which the pre-c77fe29 writer produced as a single overwritten file
 # (only the last genre survived) -> it never triggered a regeneration.
-V3_LANGS_ALL="parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle"
+#
+# 2026-09-20: the gate ALSO checks a pool-version marker, because the sentence
+# filter changed semantics (v1: filter on the perturbed token count -> every
+# markered condition kept a different sentence set; v2: filter on the BASE
+# sentence, Kallini's filter_shuffle semantics -> all class-P conditions share
+# one sentence set). Existence checks cannot detect a semantics change, and a
+# stale pool would silently train the treatment arm on a different sentence set
+# than its control (audit 2026-09-20, P0 / B5).
+V3_LANGS_ALL="parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle not_random"
+POOL_VERSION="pool-v2-base-filter"
+POOL_VERSION_FILE="$KALLINI_DATA_PATH/babylm_data_perturbed/.pool_version"
 if [ "${RUN_V3:-0}" = "1" ]; then
   v3_missing=0
+  [ "$(cat "$POOL_VERSION_FILE" 2>/dev/null)" = "$POOL_VERSION" ] || v3_missing=1
   for c in $V3_LANGS_ALL; do
     for g in $BABYLM_GENRES; do
       # v3_conditions.write_condition names files after the tagged json stem:
@@ -113,35 +124,16 @@ if [ "${RUN_V3:-0}" = "1" ]; then
     [ "$v3_missing" = "1" ] && break
   done
   if [ "$v3_missing" = "1" ]; then
-    note "generating v3 class-P datasets"
-    $PYTHON - <<'PYEOF' >> experiments_v2/kallini_repro/data_prep.log 2>&1 \
-      || { note "V3 PERTURB FAIL"; exit 9; }
-import sys
-sys.path.insert(0, "experiments_v2/design_v3")
-from v3_conditions import write_condition, CONDITIONS
-from pathlib import Path
-import glob, os
-base = Path(os.environ.get("KALLINI_DATA_PATH", "/root/kallini_data"))
-tagged_train = sorted(glob.glob(str(base / "babylm_data" / "babylm_100M" / "*_parsed.json")))
-tagged_test  = sorted(glob.glob(str(base / "babylm_data" / "babylm_test" / "*_parsed.json")))
-assert tagged_train and tagged_test, "shim tag the corpus first"
-# per-condition skip: a single unfinished condition must not force a rebuild of
-# the other six (each one costs ~15 min of tokenization)
-def complete(lang):
-    d_train = base / "babylm_data_perturbed" / f"babylm_{lang}" / "babylm_100M"
-    d_test = base / "babylm_data_perturbed" / f"babylm_{lang}" / "babylm_test_affected"
-    return (all((d_train / f"{Path(tf).stem}.train").exists() for tf in tagged_train)
-            and all((d_test / f"{Path(tf).stem}_affected.test").exists() for tf in tagged_test))
-for lang in "parity_word parity_tok negtok fixed_start fixed_end bare_reverse word_shuffle".split():
-    if complete(lang):
-        print(f"{lang} skip (all genres present)")
-        continue
-    for tf in tagged_train:
-        write_condition(lang, Path(tf), base / "babylm_data_perturbed", "100M")
-    for tf in tagged_test:
-        write_condition(lang, Path(tf), base / "babylm_data_perturbed", "test")
-print("v3 P-class datasets done", len(tagged_train), "genres")
-PYEOF
+    note "generating v3 class-P datasets (pool $POOL_VERSION)"
+    # single source of truth for the generator (also runnable standalone on any
+    # host that has the tagged shim JSONs)
+    if FORCE_REGEN=1 $PYTHON experiments_v2/design_v3/regenerate_conditions.py --force \
+        >> experiments_v2/kallini_repro/data_prep.log 2>&1; then
+      printf '%s\n' "$POOL_VERSION" > "$POOL_VERSION_FILE"
+      note "v3 datasets regenerated (pool $POOL_VERSION)"
+    else
+      note "V3 PERTURB FAIL"; exit 9
+    fi
   fi
   # The loader globs *.train and *_affected.test: a stale pre-c77fe29 single-file
   # dump (all.train / all_affected.test) would be loaded on top of the per-genre
@@ -159,11 +151,24 @@ fi
 # ---------- [4] training queue --------------------------------------------------
 run() {
   local lang=$1 seed=$2
+  if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train $lang/seed$seed"; return 0; fi
   if $NICE $PYTHON experiments_v2/kallini_repro/train_exp1.py "$lang" --seed "$seed" --skip-if-done \
       >> experiments_v2/kallini_repro/queue.log 2>&1; then
     note "OK   $lang/seed$seed"
   else
     note "FAIL $lang/seed$seed"
+    fail=$((fail+1))
+  fi
+}
+
+run_steps() {  # lang seed steps  (H7 budget ladder; out_dir gets a steps<N>_ tag)
+  local lang=$1 seed=$2 steps=$3
+  if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train ${steps}step $lang/seed$seed"; return 0; fi
+  if $NICE $PYTHON experiments_v2/kallini_repro/train_exp1.py "$lang" --seed "$seed" --steps "$steps" --skip-if-done \
+      >> experiments_v2/kallini_repro/queue.log 2>&1; then
+    note "OK   ${steps}step $lang/seed$seed"
+  else
+    note "FAIL ${steps}step $lang/seed$seed"
     fail=$((fail+1))
   fi
 }
@@ -187,13 +192,118 @@ if [ "${RUN_V3:-0}" = "1" ]; then
   done
   if [ "${RUN_V3_H7:-1}" = "1" ]; then
     for lang in parity_word fixed_start shuffle_control; do
-      if $NICE $PYTHON experiments_v2/kallini_repro/train_exp1.py "$lang" --seed 0 \
-          --steps 6000 --skip-if-done >> experiments_v2/kallini_repro/queue.log 2>&1; then
-        note "OK   2x $lang/seed0"
-      else
-        note "FAIL 2x $lang/seed0"; fail=$((fail+1))
-      fi
+      run_steps "$lang" 0 6000
     done
+  fi
+fi
+
+# ---------- [4c] rigor extension tier (2026-09-20 design audit) ---------------
+# Adds every cell that a confirmatory family needs to reach the pre-registered
+# sample size, plus the entropy-matched marker control (audit B1/B4):
+#   * seeds 53/96 for the F4 reference conditions (shuffle_control, reverse_full)
+#     -> F4a/F4b/F4c reach n=5 instead of n=3 (STATS_PLAN_V3 §2: headline claims
+#     require n>=5 because exact rank tests cannot reach p<.05 at n=3)
+#   * seeds 53/96 for parity_word / fixed_start -> F1 (H10, the paper's central
+#     contrast) reaches n=5
+#   * seeds 53/96 for parity_tok / negtok -> F2/F3 reach n=5
+#   * fixed_end at seeds 0/14/41 -> F2's second control reaches n=3
+#   * not_random at seeds 0/14/41 -> the entropy-matched control (B1)
+#   * H7 (6000 steps) at seeds 14/41 for shuffle_control / parity_word -> F5 is
+#     no longer blocked at n=1
+EXT_SEEDS="${EXT_SEEDS:-53 96}"
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_EXT:-1}" = "1" ]; then
+  for seed in $EXT_SEEDS; do
+    for lang in shuffle_control reverse_full parity_word fixed_start parity_tok negtok; do
+      run "$lang" "$seed"
+    done
+  done
+  for seed in 0 14 41; do
+    run fixed_end "$seed"
+    run not_random "$seed"
+  done
+  if [ "${RUN_V3_H7:-1}" = "1" ]; then
+    for seed in 14 41; do
+      for lang in shuffle_control parity_word; do
+        run_steps "$lang" "$seed" 6000
+      done
+    done
+  fi
+fi
+
+# ---------- [4d] GPU LSTM arm: equal-token-budget architecture axis -------------
+# Audit B2 (2026-09-20). The cpu2 LSTM arm runs at 1/160 of the GPT-2 token
+# budget, so it licenses no equal-budget architecture claim (F8). This arm runs
+# the SAME trainer on the GPU with the GPT-2 protocol's shapes — seq 1024,
+# effective batch 128, 3000 steps = 3000x128x1024 = 3.93e8 tokens, exactly the
+# GPT-2 arm's budget — so F4 (H12) becomes a budget-matched contrast.
+# Sub-protocol: seq 1024 / micro 8 x accum 16 / 3000 steps / 10k-sentence eval;
+# the optimizer settings stay the frozen per-architecture v2 LSTM regime
+# (AdamW, peak LR 1e-3, 10% warmup, dropout 0.3, clip 5.0), which is the
+# documented per-architecture deviation (EXPDESIGN_V3 §2.2).
+run_lstm_gpu() {  # condition seed
+  local c=$1 s=$2
+  if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train lstm_gpu $c/seed$s"; return 0; fi
+  if $NICE env LSTM_DEVICE=cuda LSTM_RESULTS=experiments_v2/kallini_repro/results_lstm_gpu \
+        LSTM_SEQ_LEN=1024 LSTM_EFF_BATCH=128 LSTM_MICRO_BATCH=8 LSTM_STEPS=3000 \
+        LSTM_LR=1e-3 LSTM_EVAL_N=10000 LSTM_SAVE_CKPT=0 LSTM_PACK_VERSION=v2 \
+        $PYTHON experiments_v2/kallini_repro/train_exp1_lstm.py "$c" --seed "$s" --skip-if-done \
+        >> experiments_v2/kallini_repro/results_lstm_gpu/queue.log 2>&1; then
+    note "OK   lstm_gpu $c/seed$s"
+  else
+    note "FAIL lstm_gpu $c/seed$s"
+    fail=$((fail+1))
+  fi
+}
+
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_LSTM_GPU:-1}" = "1" ]; then
+  mkdir -p experiments_v2/kallini_repro/results_lstm_gpu
+  LSTM_GPU_CONDS="${LSTM_GPU_CONDS:-shuffle_control reverse_full parity_word not_random}"
+  pending_lstm=$(find experiments_v2/kallini_repro/results_lstm_gpu -name lstm_result.json 2>/dev/null | wc -l)
+  expected_lstm=$(( $(echo $LSTM_GPU_CONDS | wc -w) * 3 ))
+  if [ "$pending_lstm" -lt "$expected_lstm" ] && [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    # Smoke first: a broken CUDA path must fail here (~1 min) rather than after
+    # the first 2 h cell. Writes into a quarantine tree, never the real arm.
+    note "lstm_gpu smoke (1 step, quarantined tree)"
+    if $NICE env LSTM_DEVICE=cuda \
+          LSTM_RESULTS=experiments_v2/kallini_repro/results_smoke/_quarantine_lstm_gpu \
+          LSTM_SEQ_LEN=1024 LSTM_EFF_BATCH=128 LSTM_MICRO_BATCH=8 \
+          LSTM_SAVE_CKPT=0 LSTM_PACK_VERSION=v2smoke \
+          $PYTHON experiments_v2/kallini_repro/train_exp1_lstm.py shuffle_control --seed 0 --steps 1 \
+          >> experiments_v2/kallini_repro/results_lstm_gpu/queue.log 2>&1; then
+      note "lstm_gpu smoke OK"
+    else
+      note "LSTM GPU SMOKE FAILED -> arm skipped this pass"
+      fail=$((fail+1))
+    fi
+  fi
+  if [ "$pending_lstm" -lt "$expected_lstm" ]; then
+    for c in $LSTM_GPU_CONDS; do
+      for s in 0 14 41; do
+        run_lstm_gpu "$c" "$s"
+      done
+    done
+  fi
+  RESULTS_DIR=experiments_v2/kallini_repro/results_lstm_gpu \
+    RESULTS_BRANCH=v2-results-lstm-gpu RESULTS_KIND=lstm_result.json \
+    bash experiments_v2/kallini_repro/publish_results.sh || note "WARN lstm_gpu publish failed"
+fi
+
+# ---------- [4e] BabyLM probe smoke (code-path check only, no conclusions) -----
+# Runs the probe suite on the first available final/ checkpoint with 10 pairs and
+# writes into a quarantine tree. It is a code-path check: probe numbers from
+# shuffle-class checkpoints are not results (they must come from the P class).
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_PROBE_SMOKE:-1}" = "1" ]; then
+  probe_ckpt=$(ls -d experiments_v2/kallini_repro/results/babylm_*_100M/seed0/final 2>/dev/null | head -1)
+  if [ -n "$probe_ckpt" ]; then
+    mkdir -p experiments_v2/kallini_repro/results_smoke/_quarantine_probe
+    if $NICE $PYTHON experiments_v2/probes/probes_babylm.py \
+         --model-dir "$probe_ckpt" --pairs 10 --smoke \
+         --out experiments_v2/kallini_repro/results_smoke/_quarantine_probe/probe_smoke.json \
+         >> experiments_v2/kallini_repro/results_lstm_gpu/queue.log 2>&1; then
+      note "probe smoke OK ($probe_ckpt)"
+    else
+      note "WARN probe smoke failed (analysis-side, does not block the grid)"
+    fi
   fi
 fi
 

@@ -76,6 +76,12 @@ SEQ_LEN = int(os.environ.get("LSTM_SEQ_LEN", 256))
 MICRO_BATCH = int(os.environ.get("LSTM_MICRO_BATCH", 4))
 EFF_BATCH = int(os.environ.get("LSTM_EFF_BATCH", 32))
 STEPS = int(os.environ.get("LSTM_STEPS", 3000))
+# Device: "cpu" (the budget-limited cpu2 arm, default) or "cuda" (the
+# equal-token-budget GPU arm registered 2026-09-20, audit B2). The default keeps
+# the running cpu2 arm bit-for-bit on its old path.
+DEVICE = os.environ.get("LSTM_DEVICE", "cpu")
+# Optional fp16 autocast; off by default so the two LSTM arms share numerics.
+AMP = os.environ.get("LSTM_AMP", "0") == "1"
 WARMUP = int(os.environ.get("LSTM_WARMUP", 0)) or max(100, int(0.10 * STEPS))
 PEAK_LR = float(os.environ.get("LSTM_LR", 1e-3))
 WEIGHT_DECAY = float(os.environ.get("LSTM_WD", 1e-5))
@@ -210,8 +216,13 @@ def model_logits(model: LSTMLM, input_ids: torch.Tensor) -> torch.Tensor:
     return model.head(out)
 
 
-def get_perplexities_lstm(model, token_lists, pad_token_id, device="cpu") -> list[float]:
-    """Kallini's perplexities.py math, LSTMLM call path (no attention_mask arg)."""
+def get_perplexities_lstm(model, token_lists, pad_token_id, device="cpu", marker_ids=None):
+    """Kallini's perplexities.py math, LSTMLM call path (no attention_mask arg).
+
+    Mirrors ``train_exp1.get_perplexities`` including the optional
+    content-token-only (marker-masked) second metric, so the architecture axis
+    can be reported with and without the marker positions.
+    """
     input_ids = G.create_input_ids(token_lists, pad_token_id).to(device)
     labels = input_ids.clone()
     attention_mask = G.create_attention_mask(token_lists).to(device)
@@ -224,26 +235,46 @@ def get_perplexities_lstm(model, token_lists, pad_token_id, device="cpu") -> lis
     loss = loss.view(shift_labels.size())
     loss = loss * shift_attention_mask
     per_example_loss = loss.sum(dim=1) / shift_attention_mask.sum(dim=1)
-    return torch.exp(per_example_loss).tolist()
+    ppls = torch.exp(per_example_loss).tolist()
+    if marker_ids is None:
+        return ppls
+    ids = torch.tensor(sorted(marker_ids), device=shift_labels.device)
+    is_marker = torch.isin(shift_labels, ids) & shift_attention_mask.bool()
+    content_mask = (~is_marker).to(loss.dtype)
+    content_loss = (loss * content_mask).sum(dim=1) / content_mask.sum(dim=1).clamp(min=1)
+    return ppls, torch.exp(content_loss).tolist()
 
 
-def evaluate_checkpoint(model, eval_sents, device="cpu", batch: int = EVAL_BATCH) -> dict:
+def evaluate_checkpoint(model, eval_sents, device="cpu", batch: int = EVAL_BATCH,
+                        marker_ids=None) -> dict:
     """Mirror of train_exp1.evaluate_checkpoint (same truncation, same gmean)."""
     ppls: list[float] = []
+    ppls_content: list[float] = []
     model.eval()
     with torch.no_grad():
         for i in range(0, len(eval_sents), batch):
             chunk = [s[:SEQ_LEN] for s in eval_sents[i : i + batch] if len(s) >= 2]
             if not chunk:
                 continue
-            ppls.extend(get_perplexities_lstm(model, chunk, EOS, device))
+            out = get_perplexities_lstm(model, chunk, EOS, device, marker_ids)
+            if marker_ids is None:
+                ppls.extend(out)
+            else:
+                ppls.extend(out[0])
+                ppls_content.extend(out[1])
     log_ppls = [math.log(p) for p in ppls]
-    return {
+    res = {
         "n": len(ppls),
         "gmean_ppl": round(float(math.exp(sum(log_ppls) / len(log_ppls))), 4),
         "mean_ppl": round(float(sum(ppls) / len(ppls)), 4),
         "ppls": [round(p, 4) for p in ppls],
     }
+    if ppls_content:
+        log_c = [math.log(p) for p in ppls_content]
+        res["gmean_ppl_content"] = round(float(math.exp(sum(log_c) / len(log_c))), 4)
+        res["ppls_content"] = [round(p, 4) for p in ppls_content]
+        res["n_marker_masked"] = len(ppls_content)
+    return res
 
 
 # --------------------------------------------------------------- training ----
@@ -277,9 +308,10 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
     model = LSTMLM(
         vocab_size=vocab_size, emb_dim=EMB_DIM, hidden_dim=HIDDEN_DIM,
         num_layers=N_LAYERS, dropout=DROPOUT, pad_token_id=EOS,
-    )
+    ).to(DEVICE)
     n_params = count_parameters(model)
     opt = torch.optim.AdamW(model.parameters(), lr=PEAK_LR, weight_decay=WEIGHT_DECAY)
+    scaler = torch.cuda.amp.GradScaler(enabled=AMP) if DEVICE.startswith("cuda") else None
 
     rng = np.random.default_rng(seed + 1)
     order = rng.permutation(len(windows))
@@ -295,9 +327,10 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
                 ptr = 0
             rows[i] = windows[order[ptr]]
             ptr += 1
-        return torch.from_numpy(rows.astype(np.int64))
+        return torch.from_numpy(rows.astype(np.int64)).to(DEVICE)
     checkpoints = G.eval_checkpoints_for(steps)
     eval_trace: dict[str, float] = {}
+    eval_content_trace: dict[str, float] = {}
     losses: list[float] = []
     t0 = time.time()
     model.train()
@@ -308,21 +341,38 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         loss_avg = 0.0
         for _ in range(accum):
             input_ids = next_batch()
-            out = model(input_ids, labels=input_ids.clone())
-            (out["loss"] / accum).backward()
-            loss_avg += float(out["loss"]) / accum
+            if AMP:
+                with torch.cuda.amp.autocast():
+                    out = model(input_ids, labels=input_ids.clone())
+                    loss = out["loss"]
+                scaler.scale(loss / accum).backward()
+            else:
+                out = model(input_ids, labels=input_ids.clone())
+                loss = out["loss"]
+                (loss / accum).backward()
+            loss_avg += float(loss) / accum
+        if AMP:
+            scaler.unscale_(opt)
         torch.nn.utils.clip_grad_norm_(model.parameters(), CLIP)
-        opt.step()
+        if AMP:
+            scaler.step(opt)
+            scaler.update()
+        else:
+            opt.step()
         losses.append(loss_avg)
 
         if step in checkpoints:
-            trace = evaluate_checkpoint(model, eval_sents)
+            trace = evaluate_checkpoint(model, eval_sents, device=DEVICE,
+                                        marker_ids=getattr(G, "MARKER_IDS", None))
             eval_trace[str(step)] = trace["gmean_ppl"]
+            if "gmean_ppl_content" in trace:
+                eval_content_trace[str(step)] = trace["gmean_ppl_content"]
             out_dir.mkdir(parents=True, exist_ok=True)
             with open(out_dir / f"eval_step{step}.json", "w") as f:
                 json.dump(trace, f)
             print(f"[eval] {perturbation} seed{seed} step {step}: "
-                  f"gmean_ppl={trace['gmean_ppl']} (n={trace['n']})", flush=True)
+                  f"gmean_ppl={trace['gmean_ppl']} content={trace.get('gmean_ppl_content')} "
+                  f"(n={trace['n']})", flush=True)
         if step % 50 == 0:
             print(f"[train] {perturbation} seed{seed} step {step}/{steps} "
                   f"loss={loss_avg:.4f} elapsed={(time.time()-t0)/60:.1f}m", flush=True)
@@ -336,6 +386,8 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         "seed": seed,
         "arch": "lstm_matched",
         "n_params": n_params,
+        "device": DEVICE,
+        "amp": AMP,
         "vocab_size": vocab_size,
         "max_steps": steps,
         "effective_batch": EFF_BATCH,
@@ -352,7 +404,12 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         "token_budget": EFF_BATCH * SEQ_LEN * steps,
         "budget_note": BUDGET_NOTE,
         "eval_gmean": eval_trace,
+        "eval_gmean_content": eval_content_trace,
         "eval_n": len(eval_sents),
+        "eval_pool_n": getattr(eval_sents, "pool_n", None),
+        "eval_pool_exact_dups": getattr(eval_sents, "pool_exact_dups", None),
+        "eval_fingerprint": getattr(eval_sents, "fingerprint", None),
+        "eval_near_dup_rate_sampled": getattr(eval_sents, "near_dup_rate_sampled", None),
         "final_loss": round(float(np.mean(losses[-50:])), 4) if losses else None,
         "wall_time_s": round(time.time() - t0, 1),
         "completed_at": datetime.now(timezone.utc).isoformat(),

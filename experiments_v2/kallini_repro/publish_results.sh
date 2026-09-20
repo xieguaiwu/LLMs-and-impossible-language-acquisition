@@ -18,13 +18,20 @@
 #     branch, so the loop's own pass-end publish and this one do not fight.
 #
 # Usage: bash experiments_v2/kallini_repro/publish_results.sh [--dry-run]
+#        RESULTS_DIR=experiments_v2/kallini_repro/results_lstm_gpu \
+#        RESULTS_BRANCH=v2-results-lstm-gpu RESULTS_KIND=lstm_result.json \
+#        bash experiments_v2/kallini_repro/publish_results.sh
 set -u
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$REPO" || exit 3
 
-STATE=experiments_v2/kallini_repro/results
+# Arm-parameterised (2026-09-20): the GPU LSTM arm writes results_lstm_gpu/ and
+# publishes to its own branch, so both arms share this one publisher.
+RESULTS_DIR=${RESULTS_DIR:-experiments_v2/kallini_repro/results}
+RESULTS_KIND=${RESULTS_KIND:-exp1_result.json}
+STATE="$RESULTS_DIR"
 RESULTS_BRANCH=${RESULTS_BRANCH:-v2-results-gpu}
 LOG="$STATE/publish.log"
 DRY=0
@@ -41,13 +48,14 @@ flock -n 9 || { echo "publish already running"; exit 0; }
 
 # pathspecs: include the results tree and logs, exclude anything heavy
 SPEC=(
-  experiments_v2/kallini_repro/results
+  "$RESULTS_DIR"
   experiments_v2/kallini_repro/*.log
-  ":(exclude)experiments_v2/kallini_repro/results/**/final/*"
-  ":(exclude)experiments_v2/kallini_repro/results/**/*.safetensors"
-  ":(exclude)experiments_v2/kallini_repro/results/**/*.bin"
-  ":(exclude)experiments_v2/kallini_repro/results/tmpindex*"
-  ":(exclude)experiments_v2/kallini_repro/results/.publish.lock"
+  ":(exclude)$RESULTS_DIR/**/final/*"
+  ":(exclude)$RESULTS_DIR/**/*.safetensors"
+  ":(exclude)$RESULTS_DIR/**/*.bin"
+  ":(exclude)$RESULTS_DIR/cache/**"
+  ":(exclude)$RESULTS_DIR/tmpindex*"
+  ":(exclude)$RESULTS_DIR/.publish.lock"
 )
 
 export GIT_INDEX_FILE="$STATE/tmpindex_pub"
@@ -56,7 +64,7 @@ git add -f "${SPEC[@]}" >/dev/null 2>&1 || true
 TREE=$(git write-tree)
 unset GIT_INDEX_FILE
 
-cells=$(find "$STATE" -name exp1_result.json 2>/dev/null | wc -l)
+cells=$(find "$STATE" -name "$RESULTS_KIND" 2>/dev/null | wc -l)
 if [ "$DRY" = "1" ]; then
   echo "tree: $TREE | completed cells: $cells"
   echo "--- staged files (heavy files must NOT appear) ---"

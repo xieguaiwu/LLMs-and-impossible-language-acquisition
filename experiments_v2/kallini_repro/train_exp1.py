@@ -35,10 +35,12 @@ Documented deviations (single-GPU compute; see kallini_repro/README.md):
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import math
 import os
 import random
+import re
 import sys
 import time
 from datetime import datetime, timezone
@@ -95,6 +97,7 @@ LANGUAGES = [
     "fixed_end",                  # position control
     "bare_reverse",               # Reverse-bare (no marker; NOT a Kallini replication cell)
     "word_shuffle",               # our v2 Kallini-analog reference
+    "not_random",                 # entropy-matched marker control (audit 2026-09-20, B1)
 ]
 VOCAB_EXTRA = {"negtok": 1, "reverse_control": 1, "reverse_partial": 1, "reverse_full": 1}
 # v3 class-P conditions (DESIGN_V3 §1.1). They live outside Kallini's
@@ -102,8 +105,14 @@ VOCAB_EXTRA = {"negtok": 1, "reverse_control": 1, "reverse_partial": 1, "reverse
 # trainer must not look them up in PERTURBATIONS.
 V3_CONDITIONS = [
     "parity_word", "parity_tok", "negtok", "fixed_start", "fixed_end",
-    "bare_reverse", "word_shuffle",
+    "bare_reverse", "word_shuffle", "not_random",
 ]
+# Marker token ids masked by the content-only (marker-masked) robustness metric:
+#   1892 = " Not" (sentence-final form), 3673 = "Not" (sentence-initial form),
+#   50257 = the reserved <NEG> / R marker slot (vocab +1 conditions).
+# Documented caveat: a natural "Not" in the base sentence is masked too; the
+# metric is a robustness check, not a re-definition of the primary endpoint.
+MARKER_IDS = (1892, 3673, 50257, 50258)
 
 sys.path.insert(0, str(KALLINI_REPO))
 from utils import PERTURBATIONS, gpt2_original_tokenizer  # noqa: E402
@@ -151,17 +160,137 @@ def load_packed_dataset(perturbation: str, seed: int) -> list[list[int]]:
     return blocks
 
 
-def load_eval_sentences(perturbation: str, seed: int, n: int = EVAL_SAMPLE) -> list[list[int]]:
-    """Their protocol: perturbed test sentences; sample n via numpy rng(seed)."""
+def _sentence_id(line: str) -> str:
+    """Stable 16-hex id of one evaluation sentence (its token-id line)."""
+    return hashlib.blake2b(line.encode(), digest_size=8).hexdigest()
+
+
+def _near_dup_rate(lines: list[str], sample: int = 20000, seed: int = 0) -> float:
+    """Sampled near-duplicate rate (normalised text, cheap proxy for MinHash).
+
+    The design asks for the near-duplication of the evaluation pool to be
+    REPORTED (not filtered): BabyLM is transcript-heavy, so absolute ppl levels
+    and any "held-out" claim depend on it. Normalisation = lowercase, strip
+    punctuation, collapse whitespace; a sentence is a near-duplicate when its
+    normalised form occurs more than once inside the sample.
+    """
+    if not lines:
+        return 0.0
+    rng = np.random.default_rng(seed)
+    take = min(sample, len(lines))
+    idx = rng.choice(len(lines), take, replace=False)
+    seen: dict[str, int] = {}
+    for i in idx:
+        key = re.sub(r"[^a-z0-9 ]", "", lines[i].lower())
+        key = re.sub(r"\s+", " ", key).strip()
+        seen[key] = seen.get(key, 0) + 1
+    return round(1.0 - len(seen) / take, 6)
+
+
+class EvalSample(list):
+    """The 10k evaluation draw plus its hygiene metadata (audit B5).
+
+    A list subclass, so existing callers (``eval_sents[i:j]``, ``len()``) keep
+    working unchanged — the metadata rides along without touching the protocol.
+    """
+
+    ids: list[str]
+    fingerprint: str
+    pool_n: int
+    pool_exact_dups: int
+    exact_dups_removed: int
+    near_dup_rate_sampled: float | None
+
+
+def load_eval_sentences(perturbation: str, seed: int, n: int = EVAL_SAMPLE,
+                        dedup: bool = False) -> "EvalSample":
+    """Their protocol: perturbed test sentences; sample n via numpy rng(seed).
+
+    2026-09-20 (audit B5) adds the hygiene the frozen design requires but the
+    code never did:
+      * measure the pool's exact-duplication and sampled near-duplication rates
+        (measured: **20.1 % exact duplicates** in the 987,793-sentence test pool
+        — REDTEAM #7's warning, now quantified);
+      * emit a stable per-sentence id list + an order fingerprint, so two cells
+        can be aligned sentence-for-sentence and the duplicate-free subset can
+        be selected **in the analysis stage** (``dedup_positions``).
+
+    Why the draw itself stays unfiltered by default: the architecture axis
+    compares GPT-2 against the CPU LSTM arm, and the CPU arm does not save
+    weights (``LSTM_SAVE_CKPT=0``), so its sentence-level ppl is baked in. A
+    filtered draw would change the sampled sentences and silently break
+    like-for-like comparability with those cells. Keeping the draw identical and
+    filtering the metric at analysis time gives every cell (past and future) the
+    same treatment. ``dedup=True`` is available for new arms that want the
+    filtered draw directly.
+
+    The draw is numpy rng(seed).choice over the pool in file order, so the
+    LSTM arm's "first 2000 of the same 10k sample" nesting still holds (it
+    imports this function).
+    """
     data_dir = BABYLM_DATA_PATH / "babylm_data_perturbed" / f"babylm_{perturbation}" / "babylm_test_affected"
     files = sorted(data_dir.glob("*_affected.test"))
-    seqs: list[list[int]] = []
+    lines: list[str] = []
     for f in files:
-        seqs.extend([int(t) for t in l.split()] for l in f.read_text().splitlines() if l.strip())
-    if len(seqs) > n:
-        idx = np.random.default_rng(seed).choice(len(seqs), n, replace=False)
-        seqs = [seqs[i] for i in idx]
-    return seqs
+        lines.extend(l for l in f.read_text().splitlines() if l.strip())
+    pool_n = len(lines)
+
+    # pool-level duplication statistics (always measured, never silent)
+    seen_pool: set[str] = set()
+    pool_dups = 0
+    for line in lines:
+        if line in seen_pool:
+            pool_dups += 1
+        else:
+            seen_pool.add(line)
+    del seen_pool
+
+    exact_dups_removed = 0
+    if dedup:
+        uq: list[str] = []
+        seen: set[str] = set()
+        for line in lines:
+            if line in seen:
+                exact_dups_removed += 1
+                continue
+            seen.add(line)
+            uq.append(line)
+        lines = uq
+
+    near_rate = _near_dup_rate(lines, sample=20000, seed=seed)
+
+    if len(lines) > n:
+        idx = np.random.default_rng(seed).choice(len(lines), n, replace=False)
+        chosen = [lines[i] for i in idx]
+    else:
+        chosen = list(lines)
+
+    sample = EvalSample([int(t) for t in line.split()] for line in chosen)
+    sample.ids = [_sentence_id(line) for line in chosen]
+    sample.fingerprint = hashlib.sha256("\n".join(sample.ids).encode()).hexdigest()[:16]
+    sample.pool_n = pool_n
+    sample.pool_exact_dups = pool_dups
+    sample.exact_dups_removed = exact_dups_removed
+    sample.near_dup_rate_sampled = near_rate
+    return sample
+
+
+def dedup_positions(ids: list[str]) -> list[int]:
+    """Positions of the first occurrence of each sentence in an eval draw.
+
+    Analysis-stage equivalent of "filter the pool before drawing": every cell
+    (including the CPU-arm cells whose weights were discarded) can drop its
+    duplicate sentences from the saved per-sentence ppl arrays with this index
+    vector, without re-running anything.
+    """
+    seen: set[str] = set()
+    keep: list[int] = []
+    for i, k in enumerate(ids):
+        if k in seen:
+            continue
+        seen.add(k)
+        keep.append(i)
+    return keep
 
 
 # ------------------------------------------------------------------ eval ---
@@ -191,8 +320,14 @@ def create_input_ids(token_lists, pad_token_id):
     return ids
 
 
-def get_perplexities(model, token_lists, pad_token_id, device="cuda"):
-    """Verbatim from Kallini et al. 2024 perplexities/perplexities.py (MIT)."""
+def get_perplexities(model, token_lists, pad_token_id, device="cuda", marker_ids=None):
+    """Verbatim from Kallini et al. 2024 perplexities/perplexities.py (MIT).
+
+    Returns a list of per-sentence ppl. When ``marker_ids`` is given, returns a
+    TUPLE ``(ppls_all, ppls_content)`` where the second list excludes the marker
+    positions from each sentence's mean loss — the frozen design's
+    content-token-only robustness metric (DESIGN_V3 §A.2 / REDTEAM #2c).
+    """
     input_ids = create_input_ids(token_lists, pad_token_id).to(device)
     labels = input_ids.clone()
     attention_mask = create_attention_mask(token_lists).to(device)
@@ -205,29 +340,52 @@ def get_perplexities(model, token_lists, pad_token_id, device="cuda"):
     loss = loss.view(shift_labels.size())
     loss = loss * shift_attention_mask
     per_example_loss = loss.sum(dim=1) / shift_attention_mask.sum(dim=1)
-    return torch.exp(per_example_loss).tolist()
+    ppls = torch.exp(per_example_loss).tolist()
+    if marker_ids is None:
+        return ppls
+    ids = torch.tensor(sorted(marker_ids), device=shift_labels.device)
+    is_marker = torch.isin(shift_labels, ids) & shift_attention_mask.bool()
+    content_mask = (~is_marker).to(loss.dtype)
+    content_loss = (loss * content_mask).sum(dim=1) / content_mask.sum(dim=1).clamp(min=1)
+    return ppls, torch.exp(content_loss).tolist()
 
 
-def evaluate_checkpoint(model, eval_sents, device="cuda", batch=8) -> dict:
+def evaluate_checkpoint(model, eval_sents, device="cuda", batch=8, marker_ids=None) -> dict:
     """Per-checkpoint perplexity. batch=8 mirrors their BATCH_SIZE in
     perplexities/perplexities.py (the port used 32, which OOMs a 10 GB card at
     the first checkpoint: 32 x ~350 tokens of fp32-upcast loss). Padding is
-    masked per example, so the batch size does not change the numbers."""
+    masked per example, so the batch size does not change the numbers.
+
+    ``marker_ids`` additionally yields the content-token-only (marker-masked)
+    gmean, i.e. the same forward pass carries both metrics.
+    """
     ppls: list[float] = []
+    ppls_content: list[float] = []
     model.eval()
     with torch.no_grad():
         for i in range(0, len(eval_sents), batch):
             chunk = [s[:SEQ_LEN] for s in eval_sents[i : i + batch] if len(s) >= 2]
             if not chunk:
                 continue
-            ppls.extend(get_perplexities(model, chunk, EOS_TOKEN_ID, device))
+            out = get_perplexities(model, chunk, EOS_TOKEN_ID, device, marker_ids)
+            if marker_ids is None:
+                ppls.extend(out)
+            else:
+                ppls.extend(out[0])
+                ppls_content.extend(out[1])
     log_ppls = [math.log(p) for p in ppls]
-    return {
+    res = {
         "n": len(ppls),
         "gmean_ppl": round(float(math.exp(sum(log_ppls) / len(log_ppls))), 4),
         "mean_ppl": round(float(sum(ppls) / len(ppls)), 4),
         "ppls": [round(p, 4) for p in ppls],
     }
+    if ppls_content:
+        log_c = [math.log(p) for p in ppls_content]
+        res["gmean_ppl_content"] = round(float(math.exp(sum(log_c) / len(log_c))), 4)
+        res["ppls_content"] = [round(p, 4) for p in ppls_content]
+        res["n_marker_masked"] = int(len(ppls_content))
+    return res
 
 
 # --------------------------------------------------------------- training ---
@@ -334,6 +492,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
         return batch
 
     eval_trace: dict[str, float] = {}
+    eval_content_trace: dict[str, float] = {}
     t0 = time.time()
     out_dir.mkdir(parents=True, exist_ok=True)   # before the first checkpoint save
     model.train()
@@ -355,11 +514,17 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
 
         if step in checkpoints:
             trace = evaluate_checkpoint(model, eval_sents, device,
-                                        batch=int(os.environ.get("REPRO_EVAL_BATCH", 8)))
+                                        batch=int(os.environ.get("REPRO_EVAL_BATCH", 8)),
+                                        marker_ids=MARKER_IDS)
             eval_trace[str(step)] = trace["gmean_ppl"]
+            if "gmean_ppl_content" in trace:
+                eval_content_trace[str(step)] = trace["gmean_ppl_content"]
             torch.save(trace["ppls"], out_dir / f"ppls_step{step}.pt")
+            if "ppls_content" in trace:
+                torch.save(trace["ppls_content"], out_dir / f"ppls_content_step{step}.pt")
             print(f"[eval] {perturbation} seed{seed} step {step}: "
-                  f"gmean_ppl={trace['gmean_ppl']} (n={trace['n']})", flush=True)
+                  f"gmean_ppl={trace['gmean_ppl']} "
+                  f"content={trace.get('gmean_ppl_content')} (n={trace['n']})", flush=True)
         if step % 100 == 0:
             print(f"[train] {perturbation} seed{seed} step {step}/{MAX_STEPS} "
                   f"loss={loss_avg:.4f} elapsed={(time.time()-t0)/60:.1f}m", flush=True)
@@ -379,6 +544,14 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
         "warmup": WARMUP_STEPS,
         "n_blocks": len(blocks),
         "eval_gmean": eval_trace,
+        "eval_gmean_content": {k: v for k, v in eval_content_trace.items()},
+        "eval_n": len(eval_sents),
+        "eval_pool_n": getattr(eval_sents, "pool_n", None),
+        "eval_pool_exact_dups": getattr(eval_sents, "pool_exact_dups", None),
+        "eval_fingerprint": getattr(eval_sents, "fingerprint", None),
+        "eval_exact_dups_removed": getattr(eval_sents, "exact_dups_removed", None),
+        "eval_near_dup_rate_sampled": getattr(eval_sents, "near_dup_rate_sampled", None),
+        "marker_ids_masked": list(MARKER_IDS),
         "wall_time_s": round(time.time() - t0, 1),
         "completed_at": datetime.now(timezone.utc).isoformat(),
     }

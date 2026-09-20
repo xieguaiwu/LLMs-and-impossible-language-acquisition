@@ -236,6 +236,90 @@ GPU box; see experiments_v2/README.md).
   (`experiments_v2/probes/probes.py` is the voided SVO version, F4), so the
   probe suite that carries claim #5 must still be written.
 
+## 10b. Amendments registered 2026-09-20 (design audit; A P P L I E D before any class-P data existed)
+
+Scope note: at registration time the GPT-2 grid had produced 3/42 cells, all in the
+*Shuffle control family, and **no** class-P (parity_*) cell existed. Amendments that
+change class-P analysis or add class-P cells are therefore still pre-data for the
+families they affect; the S/R replication panel is untouched by all of them.
+
+1. **Sentence pool v2 (base-token filter).** ``v3_conditions.write_condition`` now
+   applies Kallini's ``filter_shuffle`` to the **unperturbed** sentence
+   (1 < base tokens <= 350) and only then transforms it. Pool v1 filtered the
+   *perturbed* token count, so every markered condition silently kept a different
+   sentence set (audit A0/B5: parity_word 10,042,376 train lines vs negtok
+   9,993,030; test 992,014 vs 987,793). All eight class-P conditions now share one
+   sentence set by construction. The datasets were regenerated
+   (``design_v3/regenerate_conditions.py --force``) and the gate now checks a
+   ``.pool_version`` marker (``pool-v2-base-filter``) instead of file existence,
+   because existence cannot detect a semantics change. Verified with
+   ``kallini_repro/data_integrity_check.py`` on both hosts.
+2. **New condition ``not_random`` (audit B1, Kallini NoReverse analogue).** Marker
+   "Not" placed at sentence start or end with **exactly parity_word's marginal
+   position distribution** (the same multiset of position flags, deterministically
+   permuted across sentences) but independent of the sentence's parity. This gives
+   F1/H10 a control whose marker-position distribution matches the treatment's,
+   which ``fixed_start`` (position entropy 0) does not provide. Registered cells:
+   GPT-2 seeds 0/14/41 and the GPU LSTM arm seeds 0/14/41; the ``parity_word −
+   not_random`` contrast is reported inside family F1 (``F1_not_random``) alongside
+   the frozen ``parity_word − fixed_start``.
+3. **GPU LSTM arm at the GPT-2 token budget (audit B2).** The cpu2 LSTM arm runs at
+   1/160 of the GPT-2 budget and cannot carry the architecture axis (F8). New arm:
+   ``LSTM_DEVICE=cuda``, seq 1024, effective batch 128, 3000 steps,
+   3000x128x1024 = 3.93e8 tokens — identical to the GPT-2 arm — on conditions
+   {shuffle_control, reverse_full, parity_word, not_random} x seeds {0,14,41}, eval
+   on the full 10k draw, results in ``results_lstm_gpu/`` (branch
+   ``v2-results-lstm-gpu``). Optimizer settings stay the frozen per-architecture v2
+   LSTM regime (AdamW 1e-3, 10% warmup, dropout 0.3, clip 5.0; EXPDESIGN_V3 §2.2).
+   F4 (H12) is now a budget-matched contrast (`F4` rows carry the equal-budget
+   note); the cpu2 arm remains a budget-limited diagnostic (F8 wording).
+4. **Extension tier to reach the pre-registered sample sizes (audit B4).**
+   seeds 53/96 for shuffle_control, reverse_full, parity_word, fixed_start,
+   parity_tok, negtok (F1-F4 to n=5, the level STATS_PLAN_V3 §2 requires for
+   headline claims); fixed_end at seeds 0/14/41 (F2's second control to n=3);
+   H7 (6000 steps) at seeds 14/41 for shuffle_control and parity_word so F5 is no
+   longer blocked at n=1; the previously unregistered ``fixed_start@6000`` cell is
+   declared exploratory. Implemented in ``kallini_queue.sh`` §[4c].
+5. **Evaluation hygiene (audit B5).** ``load_eval_sentences`` now measures the pool
+   duplication (**20.1% of the 987,793-sentence test pool is an exact duplicate**)
+   and a sampled near-duplicate rate, and records a per-sentence id list plus an
+   order fingerprint in every result JSON. The duplicate-free primary metric is
+   computed **at analysis time** (``train_exp1.dedup_positions`` /
+   ``analysis/v3_pipeline.py``) rather than by changing the draw, because the cpu2
+   LSTM cells kept no weights and their sentence-level ppl is already fixed; this
+   gives every cell — past and future — the same treatment. A content-token-only
+   (marker-masked) gmean is logged alongside the primary metric for every
+   checkpoint. Class-wise pools are reported exactly (S 987,793 / R 987,895 /
+   P 987,793 test sentences; the residual difference is inherited from the
+   upstream Kallini/Marker pipelines and is disclosed, not silently smoothed).
+6. **H9 criterion amended to within-class orderings (audit B3).** The frozen
+   cross-class rank vector put markered and unmarkered conditions on one raw-ppl
+   axis, which DESIGN_V3 §A.2 / REDTEAM #2 forbid. H9 is now evaluated inside each
+   class (S: control < local3 < local10 < evenodd < deterministic < nondeterministic;
+   R: reverse_control < partial < full; P: fixed_start = fixed_end < negtok <
+   parity_word < parity_tok), and the cross-class Kendall tau is still published
+   descriptively with the marker-entropy caveat (``h9_replication.csv``).
+7. **Probe suite implemented for BabyLM (audit B7).** ``probes/probes_babylm.py``
+   replaces the voided SVO suite: branch-matched minimal-pair deltas, an asymmetric
+   length cap (train <= 60 words, eval 60-200), a hidden-state probe on unmarked
+   content with ``fixed_start`` as negative control, and the P4 word-vs-BPE
+   dissociation probe on the disagreement subset. A code-path smoke is wired into
+   the queue (§[4e], quarantined output, never a result).
+8. **Analysis code (audit B8).** ``analysis/v3_pipeline.py`` implements the frozen
+   families F1-F5 with Holm adjustment, paired tests, TOST, bootstrap CIs and the
+   frozen verdict vocabulary, plus the H9 criterion and the deduplicated /
+   content-only sensitivity columns. ``kallini_repro/grid_status.py`` is the
+   registered-grid manifest used by the chain sentinel (which no longer restarts a
+   completed grid).
+9. **Checkpoint ladder (audit C1).** The implemented H7 ladder is
+   {100,300,500,1000,2000,3000,4020,6000}; the registered
+   {300,1000,2000,4000,5000,6000} was not achieved. `auc_logstep` excludes
+   {100,300} as registered, so the secondary metric differs slightly from the plan;
+   the primary final-checkpoint contrast is unaffected. Registered as a deviation.
+10. **Sentence filter wording (audit C2).** The implemented rule is ">1 and <=350
+    BPE tokens on the base sentence" (Kallini `filter_shuffle`), not "2-200 words".
+    The paper must quote the implemented rule.
+
 ## 11. Post-hoc hypotheses registered on first clean-corpus evidence (H7/H8)
 
 These were written AFTER observing the GPU early signal above (declared as
