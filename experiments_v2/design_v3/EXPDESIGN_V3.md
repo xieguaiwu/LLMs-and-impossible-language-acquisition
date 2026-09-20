@@ -329,3 +329,14 @@ packing semantics change (`v2` = trailing partial window dropped, mirroring upst
 train on a stale cache — so the tag is a precondition for "re-run reproduces the arm".
 Byte-identity evidence (3 seeds, multi-file, token-for-token, with the dropped-tail counts)
 is kept at `experiments_v2/kallini_repro/PACKING_EVIDENCE.md`.
+
+**cpu2 resource envelope (registered 2026-09-20)**: the deployed CPU arm runs **1 worker ×
+2 torch threads** (`micro 8`, `eval batch 4`), with `MemoryHigh 4.5 G / MemoryMax 5.5 G /
+MemorySwapMax 1 G`. Two workers do not fit: each worker needs 2.6–3.2 GB anonymous memory and
+the box has 7.7 GB (three global OOM kills on 09-19/09-20 before this was understood).
+Throughput is 20.2 s/step; the earlier 165 s/step was **torch intra-op threads oversubscribing
+against `OMP_NUM_THREADS`** (4 threads 56.1 s vs 2 threads 4.95 s per 8×256 micro-batch).
+Details, measured tables and the two traps (cgroup `MemoryHigh` below real usage ⇒ reclaim
+storm that mimics a hang; short benchmarks under-report memory) are in
+`experiments_v2/kallini_repro/CPU2_RESOURCE_NOTES.md`. Watchdog:
+`/root/lstm_queue_watchdog.sh` (cron `*/15`, relaunches on failure, `StartLimitIntervalSec=0`).
