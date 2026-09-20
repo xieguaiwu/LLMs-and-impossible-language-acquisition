@@ -184,12 +184,6 @@ run_steps() {  # lang seed steps  (H7 budget ladder; out_dir gets a steps<N>_ ta
   fi
 }
 
-for seed in $SEEDS; do
-  for lang in $LANGS; do
-    run "$lang" "$seed"
-  done
-done
-
 # ---------- [4b] v3 class-P training queue (DESIGN_V3 priority ladder) ---------
 if [ "${RUN_V3:-0}" = "1" ]; then
   # P0: parity_word + fixed_start (the paper's central contrast)
@@ -267,6 +261,17 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_LSTM_GPU:-1}" = "1" ]; then
       bash experiments_v2/kallini_repro/publish_results.sh || note "WARN lstm_gpu publish failed"
   fi
 fi
+
+# ---------- [4f] Kallini S/R replication panel (T0) ----------------------------
+# Runs AFTER the paper-critical blocks (2026-09-20 ordering decision): the class-P
+# grid + H7 carry the paper's central contrast (H10) and the probes depend on its
+# checkpoints, so they go first; the 27-cell replication panel follows. Total
+# compute is unchanged.
+for seed in $SEEDS; do
+  for lang in $LANGS; do
+    run "$lang" "$seed"
+  done
+done
 
 # ---------- [4d] rigor extension tier (2026-09-20 design audit) -- ---------------
 # Adds every cell that a confirmatory family needs to reach the pre-registered
