@@ -280,6 +280,12 @@ families they affect; the S/R replication panel is untouched by all of them.
    H7 (6000 steps) at seeds 14/41 for shuffle_control and parity_word so F5 is no
    longer blocked at n=1; the previously unregistered ``fixed_start@6000`` cell is
    declared exploratory. Implemented in ``kallini_queue.sh`` §[4d] (the GPU LSTM arm runs first, §[4c], so F4 lands before the n=5 extension tier).
+   **Execution order (2026-09-20, after the pool-v2 verification):** the class-P
+   block + H7 2x run first, then the GPU equal-budget LSTM arm, then the Kallini
+   S/R replication panel, then the n=5 extension tier + H7 3x. Rationale: H10/H11
+   and the probe checkpoints are the paper's central contrast, the replication
+   panel carries the erratum framing, and the extension tier only raises n. Total
+   compute is unchanged.
    In addition, the design's *first* extension priority is now registered too:
    **H7 3x (9000 steps = 1.18e9 tokens ~= 9 epochs)** for shuffle_control and
    parity_word at seed 0, which doubles as the **Kallini token-budget fidelity
