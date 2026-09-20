@@ -399,32 +399,37 @@ for d in sorted(base.glob("lr*/babylm_shuffle_control_100M/steps600_seed0")):
 print(best or "1e-3")
 PYEOF
 )
-      printf '%s\n' "$CAPMATCH_LR" > "$CAPMATCH_DIR/.frozen_lr"
-      note "capmatch LR frozen: $CAPMATCH_LR"
-    fi
-    if [ "${QUEUE_DRY_RUN:-0}" != "1" ] && [ "$pending_cap" -lt "$expected_cap" ]; then
-      # CUDA smoke (~1 min) before the first ~4 h cell, same pattern as §[4c].
-      if ! ls "$CAPMATCH_DIR"/babylm_* >/dev/null 2>&1; then
-        note "lstm_capmatch smoke (1 step, quarantined tree)"
-        if $NICE env LSTM_DEVICE=cuda \
-              LSTM_RESULTS=experiments_v2/kallini_repro/results_smoke/_quarantine_lstm_capmatch \
-              LSTM_SEQ_LEN=1024 LSTM_EFF_BATCH=128 LSTM_MICRO_BATCH=8 LSTM_STEPS=1 \
-              LSTM_EMB=1620 LSTM_HIDDEN=1620 LSTM_SAVE_CKPT=0 LSTM_PACK_VERSION=v2smoke \
-              LSTM_ARCH_TAG=lstm_capmatch124 \
-              $PYTHON experiments_v2/kallini_repro/train_exp1_lstm.py shuffle_control --seed 0 \
-              >> experiments_v2/kallini_repro/results_lstm_gpu_capmatch/queue.log 2>&1; then
-          note "lstm_capmatch smoke OK"
-        else
-          note "LSTM CAPMATCH SMOKE FAILED -> arm skipped this pass"
-          fail=$((fail+1))
-        fi
+      if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then
+        note "[dry] would freeze capmatch LR to $CAPMATCH_LR (not written in dry-run)"
+      else
+        printf '%s\n' "$CAPMATCH_LR" > "$CAPMATCH_DIR/.frozen_lr"
+        note "capmatch LR frozen: $CAPMATCH_LR"
       fi
-      for c in $CAPMATCH_CONDS; do
-        for s in 0 14 41; do
-          run_lstm_capmatch "$c" "$s"
-        done
-      done
     fi
+    # smoke first (fail fast before the first ~4 h cell), then the cells. Both
+    # live in one guard; run_lstm_capmatch prints a [dry] line per cell, so a
+    # dry-run still enumerates the arm through the guard-free call below.
+    if [ "${QUEUE_DRY_RUN:-0}" != "1" ] && [ "$pending_cap" -lt "$expected_cap" ] \
+       && ! ls "$CAPMATCH_DIR"/babylm_* >/dev/null 2>&1; then
+      note "lstm_capmatch smoke (1 step, quarantined tree)"
+      if $NICE env LSTM_DEVICE=cuda \
+            LSTM_RESULTS=experiments_v2/kallini_repro/results_smoke/_quarantine_lstm_capmatch \
+            LSTM_SEQ_LEN=1024 LSTM_EFF_BATCH=128 LSTM_MICRO_BATCH=8 LSTM_STEPS=1 \
+            LSTM_EMB=1620 LSTM_HIDDEN=1620 LSTM_SAVE_CKPT=0 LSTM_PACK_VERSION=v2smoke \
+            LSTM_ARCH_TAG=lstm_capmatch124 \
+            $PYTHON experiments_v2/kallini_repro/train_exp1_lstm.py shuffle_control --seed 0 \
+            >> experiments_v2/kallini_repro/results_lstm_gpu_capmatch/queue.log 2>&1; then
+        note "lstm_capmatch smoke OK"
+      else
+        note "LSTM CAPMATCH SMOKE FAILED -> arm skipped this pass"
+        fail=$((fail+1))
+      fi
+    fi
+    for c in $CAPMATCH_CONDS; do
+      for s in 0 14 41; do
+        run_lstm_capmatch "$c" "$s"
+      done
+    done
   fi
   if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
     RESULTS_DIR=$CAPMATCH_DIR RESULTS_BRANCH=v2-results-lstm-gpu-capmatch \
