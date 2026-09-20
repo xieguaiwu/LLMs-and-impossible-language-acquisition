@@ -111,29 +111,33 @@ POOL_VERSION_FILE="$KALLINI_DATA_PATH/babylm_data_perturbed/.pool_version"
 
 # Row-count equality gate (2026-09-20 evening, prereg §10c): the existence
 # gate cannot see a truncated genre file — audit A0's exact failure mode
-# (parity_word/simple_wikipedia was 37% short and passed every check). Every
-# condition in a pool must have the SAME line count across its 10 genres,
-# train and test separately. Runs before any training starts (a pass begin
-# has no training in flight, so the deterministic regeneration it may
-# trigger is safe).
+# (parity_word/simple_wikipedia was 37% short and passed every check).
+#
+# The invariant is CROSS-CONDITION per genre, i.e. "pool identity": for a fixed
+# genre, all class-P conditions must have the same line count (they are generated
+# from one shared sentence set). Genres legitimately differ from each other, so a
+# within-condition comparison would be wrong — the first dry-run of this gate
+# caught exactly that mistake before it could trigger a spurious full
+# regeneration. Runs before any training starts (a pass begin has no training in
+# flight, so the deterministic regeneration it may trigger is safe).
 rowcount_gate() {
-  local c g f n ref hits=""
-  for c in $V3_LANGS_ALL; do
-    ref=""
-    for g in $BABYLM_GENRES; do
+  local c g f n ref first hits=""
+  for g in $BABYLM_GENRES; do
+    ref=""; first=""
+    for c in $V3_LANGS_ALL; do
       f="$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_100M/${g}_parsed.train"
-      [ -f "$f" ] || { hits="$hits $c:missing:$g"; continue; }
+      [ -f "$f" ] || { hits="$hits missing:${c}:${g}"; continue; }
       n=$(grep -c '' "$f")
-      [ -z "$ref" ] && ref=$n
-      [ "$n" != "$ref" ] && hits="$hits $c:$g=$n_vs_$ref"
+      if [ -z "$ref" ]; then ref=$n; first=$c
+      elif [ "$n" != "$ref" ]; then hits="$hits ${g}:${c}=${n}_vs_${ref}(${first})"; fi
     done
-    ref=""
-    for g in $BABYLM_GENRES; do
+    ref=""; first=""
+    for c in $V3_LANGS_ALL; do
       f="$KALLINI_DATA_PATH/babylm_data_perturbed/babylm_$c/babylm_test_affected/${g}_parsed_affected.test"
-      [ -f "$f" ] || { hits="$hits $c:testmissing:$g"; continue; }
+      [ -f "$f" ] || { hits="$hits testmissing:${c}:${g}"; continue; }
       n=$(grep -c '' "$f")
-      [ -z "$ref" ] && ref=$n
-      [ "$n" != "$ref" ] && hits="$hits $c:test:$g=$n_vs_$ref"
+      if [ -z "$ref" ]; then ref=$n; first=$c
+      elif [ "$n" != "$ref" ]; then hits="$hits test:${g}:${c}=${n}_vs_${ref}(${first})"; fi
     done
   done
   echo "$hits"
