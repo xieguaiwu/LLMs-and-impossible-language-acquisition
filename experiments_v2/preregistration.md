@@ -189,6 +189,52 @@ GPU box; see experiments_v2/README.md).
   replication budget (test PPL 1.918 vs 1.915), which contradicts the paper's
   Exp-1 direction. Two pre-registered diagnostic arms were added (H7/H8 below)
   instead of silently interpreting the replication.
+- 2026-09-20T12:45+08:00 (INCIDENT, repaired): gpu2
+  `babylm_data_perturbed/babylm_parity_word/babylm_100M/simple_wikipedia_parsed.train`
+  was truncated to 632,436 of 1,023,786 lines (interrupted write in the
+  16:25-16:43 regeneration pass of 2026-09-19). The queue data gate checks file
+  existence only, so it passed. Effect if unnoticed: the F1 treatment arm
+  (`parity_word`) trains on 3.9% less data than its control (`fixed_start`),
+  biased in the direction of H10; and the cpu2 LSTM arm (complete file) would
+  have trained on a different data volume than the GPT-2 arm (F4c invalid).
+  Repair: the single genre was regenerated on gpu2 from the frozen
+  `design_v3/v3_conditions.py` (deterministic); verification = 1,023,786 lines,
+  md5 8f497eefb733e944695c98b481ab7ea6 (byte-identical to the complete cpu2
+  copy), pool identity parity_word = parity_tok = fixed_start = fixed_end =
+  10,042,376 train lines. Truncated original quarantined (not deleted) at
+  /root/kallini_data/_quarantine_20260920/. New report-only audit tool:
+  experiments_v2/kallini_repro/data_integrity_check.py (pool identity per
+  genre/split + cross-host md5). No training cell had consumed the truncated
+  file (the parity_* block had not started).
+- 2026-09-20T13:10+08:00 (design audit, pre-P-data): independent audit of the
+  frozen design against the running implementation found four implementation-
+  vs-design deviations and four candidate amendments; the P-class (parity_*)
+  grid has produced NO data yet, so the amendments below are still pre-data.
+  Deviations to record: (C1) the H7 checkpoint ladder as implemented is
+  {100,300,500,1000,2000,3000,4020,6000}, not the registered
+  {300,1000,2000,4000,5000,6000} (affects `auc_logstep` only); (C2) the
+  implemented sentence filter is ">1 and <=350 BPE tokens" (Kallini
+  filter_shuffle), not "2-200 words" as written in EXPDESIGN_V3 §1.3.1 -- the
+  paper must quote the implemented rule; (C3) `final/` weights are saved for
+  every cell (publish excludes them) rather than only probe-target cells;
+  (C4) the H7 arm also runs `fixed_start` @6000 (not registered in F5) ->
+  exploratory. Deviations NOT yet applied (owner decision pending):
+  (B1) add an entropy-matched marker control `not_random` (Kallini NoReverse
+  analogue) because F1 uses `fixed_start`, whose marker position entropy (0)
+  does not match `parity_word`'s 50/50; (B2) the architecture axis is currently
+  carried by a 1/160-budget LSTM arm -- either add a GPU token-matched LSTM arm
+  (REDTEAM #4 option) or move F4 to the exploratory bucket; (B3) H9's
+  pre-registered cross-class rank vector contradicts DESIGN_V3 §A.2 / REDTEAM #2
+  (no raw cross-marker-family ppl ordering) and should be replaced by
+  within-class orderings; (B4) seed extension as planned does not cover the
+  F4 reference conditions (GPT-2 shuffle_control / reverse_full); (B5) the
+  registered test-set dedup, the shared evaluation sentence-ID table,
+  content-token-only (marker-masked) scoring and the marker position-entropy
+  report are not implemented; (B6) `negtok` uses the base-token filter while
+  the rest of class P uses the perturbed-token filter (F3 compares pools that
+  differ by 0.5%); (B7) no BabyLM probe implementation exists
+  (`experiments_v2/probes/probes.py` is the voided SVO version, F4), so the
+  probe suite that carries claim #5 must still be written.
 
 ## 11. Post-hoc hypotheses registered on first clean-corpus evidence (H7/H8)
 
