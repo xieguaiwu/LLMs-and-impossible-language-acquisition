@@ -283,9 +283,11 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_LSTM_GPU:-1}" = "1" ]; then
       done
     done
   fi
-  RESULTS_DIR=experiments_v2/kallini_repro/results_lstm_gpu \
-    RESULTS_BRANCH=v2-results-lstm-gpu RESULTS_KIND=lstm_result.json \
-    bash experiments_v2/kallini_repro/publish_results.sh || note "WARN lstm_gpu publish failed"
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=experiments_v2/kallini_repro/results_lstm_gpu \
+      RESULTS_BRANCH=v2-results-lstm-gpu RESULTS_KIND=lstm_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN lstm_gpu publish failed"
+  fi
 fi
 
 # ---------- [4e] BabyLM probe smoke (code-path check only, no conclusions) -----
@@ -314,5 +316,9 @@ $PYTHON experiments_v2/kallini_repro/aggregate_exp1.py >> experiments_v2/kallini
 n_done=$(find experiments_v2/kallini_repro/results -name exp1_result.json 2>/dev/null | wc -l)
 note "kallini pass done: $n_done runs complete, $fail failures"
 if [ "$fail" -gt 0 ]; then exit 1; fi
+if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then
+  note "[dry] pass validated; not writing the completion marker"
+  exit 0
+fi
 touch experiments_v2/kallini_repro/results/ALL_KALLINI_DONE
 exit 0
