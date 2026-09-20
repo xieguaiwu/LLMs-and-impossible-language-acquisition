@@ -63,6 +63,17 @@ from pathlib import Path
 import numpy as np
 import torch
 
+# Thread discipline (2026-09-20): torch defaults to one intra-op thread per core,
+# which oversubscribes against OMP_NUM_THREADS and made every step ~8x slower
+# (measured on cpu2: 165 s/step vs 19.8 s/step with an explicit 2). The env var is
+# the single knob; keep torch in lockstep with it.
+_THREADS = int(os.environ.get("LSTM_THREADS", 2))
+torch.set_num_threads(_THREADS)
+try:
+    torch.set_num_interop_threads(1)
+except RuntimeError:
+    pass
+
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))            # sibling module: train_exp1
 sys.path.insert(0, str(HERE.parent))     # experiments_v2: training.models

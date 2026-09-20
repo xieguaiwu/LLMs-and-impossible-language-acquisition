@@ -38,6 +38,7 @@ export LSTM_SEQ_LEN=${LSTM_SEQ_LEN:-256}
 export LSTM_STEPS=${LSTM_STEPS:-300}
 export LSTM_MICRO_BATCH=${LSTM_MICRO_BATCH:-8}
 export LSTM_EVAL_N=${LSTM_EVAL_N:-2000}
+export LSTM_PACK_VERSION=${LSTM_PACK_VERSION:-v2}
 LSTM_WORKERS=${LSTM_WORKERS:-2}
 LSTM_THREADS=${LSTM_THREADS:-2}     # torch threads per worker (4 cores total)
 RESULTS_BRANCH=${RESULTS_BRANCH:-v2-results-lstm}
@@ -104,7 +105,7 @@ done
 note "prepack phase (serial)"
 while read -r c s; do
   [ -z "$c" ] && continue
-  cache="$LSTM_RESULTS/cache/${c}_seed${s}_seq${LSTM_SEQ_LEN}.npy"
+  cache="$LSTM_RESULTS/cache/${c}_seed${s}_seq${LSTM_SEQ_LEN}_${LSTM_PACK_VERSION:-v2}.npy"
   if [ -f "$cache" ]; then continue; fi
   if nice -n 10 "$PYTHON" "$SCRIPT_DIR/train_exp1_lstm.py" "$c" --seed "$s" --prepack-only \
        >> "$LSTM_RESULTS/prepack.log" 2>&1; then
@@ -154,14 +155,25 @@ if [ "$PUBLISH" = "1" ] && [ -d "$LSTM_RESULTS" ]; then
   fi
 fi
 
-if [ "$n_done" -eq "$expected" ]; then
-  if [ -z "${missing_conds// /}" ]; then
-    touch "$LSTM_RESULTS/ALL_LSTM_V3_DONE"
-    note "ALL LSTM v3 CELLS DONE"
-    exit 0
-  fi
-  note "ready conditions complete; ${missing_conds} still lack data -> retry after sync"
-  exit 1
+# The completion marker means "the whole LSTM arm is done", so it must be
+# computed over the FULL grid, not over this pass's CONDITIONS (a follow-up pass
+# covering only 2 conditions must not be able to mark the arm complete while the
+# main 5 are unfinished).
+FULL_CONDS=${FULL_CONDS:-"shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start"}
+full_expected=0
+full_done=0
+for c in $FULL_CONDS; do
+  for s in $SEEDS; do
+    full_expected=$((full_expected+1))
+    [ -f "$LSTM_RESULTS/babylm_${c}_100M/seed${s}/lstm_result.json" ] && full_done=$((full_done+1))
+  done
+done
+note "full grid: $full_done/$full_expected cells"
+
+if [ "$full_done" -eq "$full_expected" ]; then
+  touch "$LSTM_RESULTS/ALL_LSTM_V3_DONE"
+  note "ALL LSTM v3 CELLS DONE (full grid $full_done/$full_expected)"
+  exit 0
 fi
-note "incomplete: $((expected - n_done)) cell(s) missing"
+note "incomplete: $((full_expected - full_done)) cell(s) missing across the full grid"
 exit 1
