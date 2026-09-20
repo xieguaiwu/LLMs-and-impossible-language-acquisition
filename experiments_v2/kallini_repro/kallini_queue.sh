@@ -186,7 +186,7 @@ if [ "${RUN_V3:-0}" = "1" ]; then
   # P2: H7 2x arm (natural + parity_word at 6000 steps, seed 0)
   # ladder for H7: {300,1000,2000,4000,6000} via STEPS env in train_exp1
   for seed in 0 14 41; do
-    for lang in parity_word fixed_start parity_tok negtok; do
+    for lang in parity_word fixed_start parity_tok negtok not_random; do
       run "$lang" "$seed"
     done
   done
@@ -197,40 +197,7 @@ if [ "${RUN_V3:-0}" = "1" ]; then
   fi
 fi
 
-# ---------- [4c] rigor extension tier (2026-09-20 design audit) ---------------
-# Adds every cell that a confirmatory family needs to reach the pre-registered
-# sample size, plus the entropy-matched marker control (audit B1/B4):
-#   * seeds 53/96 for the F4 reference conditions (shuffle_control, reverse_full)
-#     -> F4a/F4b/F4c reach n=5 instead of n=3 (STATS_PLAN_V3 §2: headline claims
-#     require n>=5 because exact rank tests cannot reach p<.05 at n=3)
-#   * seeds 53/96 for parity_word / fixed_start -> F1 (H10, the paper's central
-#     contrast) reaches n=5
-#   * seeds 53/96 for parity_tok / negtok -> F2/F3 reach n=5
-#   * fixed_end at seeds 0/14/41 -> F2's second control reaches n=3
-#   * not_random at seeds 0/14/41 -> the entropy-matched control (B1)
-#   * H7 (6000 steps) at seeds 14/41 for shuffle_control / parity_word -> F5 is
-#     no longer blocked at n=1
-EXT_SEEDS="${EXT_SEEDS:-53 96}"
-if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_EXT:-1}" = "1" ]; then
-  for seed in $EXT_SEEDS; do
-    for lang in shuffle_control reverse_full parity_word fixed_start parity_tok negtok; do
-      run "$lang" "$seed"
-    done
-  done
-  for seed in 0 14 41; do
-    run fixed_end "$seed"
-    run not_random "$seed"
-  done
-  if [ "${RUN_V3_H7:-1}" = "1" ]; then
-    for seed in 14 41; do
-      for lang in shuffle_control parity_word; do
-        run_steps "$lang" "$seed" 6000
-      done
-    done
-  fi
-fi
-
-# ---------- [4d] GPU LSTM arm: equal-token-budget architecture axis -------------
+# ---------- [4c] GPU LSTM arm: equal-token-budget architecture axis -------------
 # Audit B2 (2026-09-20). The cpu2 LSTM arm runs at 1/160 of the GPT-2 token
 # budget, so it licenses no equal-budget architecture claim (F8). This arm runs
 # the SAME trainer on the GPU with the GPT-2 protocol's shapes — seq 1024,
@@ -287,6 +254,38 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_LSTM_GPU:-1}" = "1" ]; then
     RESULTS_DIR=experiments_v2/kallini_repro/results_lstm_gpu \
       RESULTS_BRANCH=v2-results-lstm-gpu RESULTS_KIND=lstm_result.json \
       bash experiments_v2/kallini_repro/publish_results.sh || note "WARN lstm_gpu publish failed"
+  fi
+fi
+
+# ---------- [4d] rigor extension tier (2026-09-20 design audit) -- ---------------
+# Adds every cell that a confirmatory family needs to reach the pre-registered
+# sample size, plus the entropy-matched marker control (audit B1/B4):
+#   * seeds 53/96 for the F4 reference conditions (shuffle_control, reverse_full)
+#     -> F4a/F4b/F4c reach n=5 instead of n=3 (STATS_PLAN_V3 §2: headline claims
+#     require n>=5 because exact rank tests cannot reach p<.05 at n=3)
+#   * seeds 53/96 for parity_word / fixed_start -> F1 (H10, the paper's central
+#     contrast) reaches n=5
+#   * seeds 53/96 for parity_tok / negtok -> F2/F3 reach n=5
+#   * fixed_end at seeds 0/14/41 -> F2's second control reaches n=3
+#   * not_random at seeds 0/14/41 -> the entropy-matched control (B1)
+#   * H7 (6000 steps) at seeds 14/41 for shuffle_control / parity_word -> F5 is
+#     no longer blocked at n=1
+EXT_SEEDS="${EXT_SEEDS:-53 96}"
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_EXT:-1}" = "1" ]; then
+  for seed in $EXT_SEEDS; do
+    for lang in shuffle_control reverse_full parity_word fixed_start parity_tok negtok; do
+      run "$lang" "$seed"
+    done
+  done
+  for seed in 0 14 41; do
+    run fixed_end "$seed"
+  done
+  if [ "${RUN_V3_H7:-1}" = "1" ]; then
+    for seed in 14 41; do
+      for lang in shuffle_control parity_word; do
+        run_steps "$lang" "$seed" 6000
+      done
+    done
   fi
 fi
 

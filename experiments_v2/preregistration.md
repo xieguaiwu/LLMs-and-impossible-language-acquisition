@@ -279,7 +279,7 @@ families they affect; the S/R replication panel is untouched by all of them.
    headline claims); fixed_end at seeds 0/14/41 (F2's second control to n=3);
    H7 (6000 steps) at seeds 14/41 for shuffle_control and parity_word so F5 is no
    longer blocked at n=1; the previously unregistered ``fixed_start@6000`` cell is
-   declared exploratory. Implemented in ``kallini_queue.sh`` §[4c].
+   declared exploratory. Implemented in ``kallini_queue.sh`` §[4d] (the GPU LSTM arm runs first, §[4c], so F4 lands before the n=5 extension tier).
 5. **Evaluation hygiene (audit B5).** ``load_eval_sentences`` now measures the pool
    duplication (**20.1% of the 987,793-sentence test pool is an exact duplicate**)
    and a sampled near-duplicate rate, and records a per-sentence id list plus an
