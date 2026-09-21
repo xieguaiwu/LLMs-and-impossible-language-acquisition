@@ -46,17 +46,36 @@ mkdir -p "$STATE"
 exec 9>"$STATE/.publish.lock" || exit 3
 flock -n 9 || { echo "publish already running"; exit 0; }
 
-# pathspecs: include the results tree and logs, exclude anything heavy
+# pathspecs: the COMPLETE cells only, plus the logs.
+#
+# 2026-09-21: the publisher used to add the whole results tree, so a cell killed
+# mid-flight (the 00:31 activation killed `parity_tok/seed0`) or aborted hours
+# earlier (`shuffle_local10/seed0`) left per-sentence ppl files in the branch with
+# no result JSON. No analysis reads those (every reader requires the result JSON),
+# but they make the branch look like it has more cells than it does. Enumerating
+# the cells that actually finished is the honest fix: a partial cell publishes
+# nothing until it completes, and stale partials are dropped from the tree on the
+# next force-push.
+CELL_DIRS=()
+while IFS= read -r d; do CELL_DIRS+=("$d"); done < <(
+  find "$RESULTS_DIR" -name "$RESULTS_KIND" -printf '%h\n' 2>/dev/null | sort -u)
 SPEC=(
-  "$RESULTS_DIR"
   experiments_v2/kallini_repro/*.log
+  "$RESULTS_DIR"/*.log
+  ":(exclude)$RESULTS_DIR/tmpindex*"
+  ":(exclude)$RESULTS_DIR/.publish.lock"
+  # heavy-file exclusions MUST stay: the cell dirs contain final/ (weights,
+  # ~500 MB) and the analysis cache; without these, the publisher would try to
+  # push a >100 MB file and GitHub rejects the whole push.
   ":(exclude)$RESULTS_DIR/**/final/*"
   ":(exclude)$RESULTS_DIR/**/*.safetensors"
   ":(exclude)$RESULTS_DIR/**/*.bin"
   ":(exclude)$RESULTS_DIR/cache/**"
-  ":(exclude)$RESULTS_DIR/tmpindex*"
-  ":(exclude)$RESULTS_DIR/.publish.lock"
+  ":(exclude)$RESULTS_DIR/**/*.npy"
 )
+if [ "${#CELL_DIRS[@]}" -gt 0 ]; then
+  SPEC+=("${CELL_DIRS[@]}")
+fi
 
 export GIT_INDEX_FILE="$STATE/tmpindex_pub"
 git read-tree HEAD
