@@ -63,6 +63,9 @@ from pathlib import Path
 import numpy as np
 import torch
 
+# Stack portability (§10c-11): same shim as the GPT-2 trainer.
+from stack_compat import amp_autocast, grad_scaler, pin_numerics, stack_metadata
+
 # Thread discipline (2026-09-20): torch defaults to one intra-op thread per core,
 # which oversubscribes against OMP_NUM_THREADS and made every step ~8x slower
 # (measured on cpu2: 165 s/step vs 19.8 s/step with an explicit 2). The env var is
@@ -342,7 +345,8 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
     ).to(DEVICE)
     n_params = count_parameters(model)
     opt = torch.optim.AdamW(model.parameters(), lr=PEAK_LR, weight_decay=WEIGHT_DECAY)
-    scaler = torch.cuda.amp.GradScaler(enabled=AMP) if DEVICE.startswith("cuda") else None
+    pin_numerics()
+    scaler = grad_scaler(enabled=AMP) if DEVICE.startswith("cuda") else None
 
     rng = np.random.default_rng(seed + 1)
     order = rng.permutation(len(windows))
@@ -373,7 +377,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         for _ in range(accum):
             input_ids = next_batch()
             if AMP:
-                with torch.cuda.amp.autocast():
+                with amp_autocast():
                     out = model(input_ids, labels=input_ids.clone())
                     loss = out["loss"]
                 scaler.scale(loss / accum).backward()
@@ -446,6 +450,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         "final_loss": round(float(np.mean(losses[-50:])), 4) if losses else None,
         "wall_time_s": round(time.time() - t0, 1),
         "completed_at": datetime.now(timezone.utc).isoformat(),
+        "stack": stack_metadata(),
     }
 
 

@@ -55,6 +55,12 @@ os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
 import numpy as np
 import torch
 
+# Stack portability (§10c-11, 2026-09-21): the second (Blackwell) host runs
+# torch >= 2.7 where ``torch.cuda.amp.*`` is deprecated.  The shim is numerically
+# transparent on the 3080 stack; ``pin_numerics()`` only re-asserts the values
+# that were already in effect there.  See experiments_v2/kallini_repro/stack_compat.py
+from stack_compat import amp_autocast, grad_scaler, pin_numerics, stack_metadata
+
 # ---------------------------------------------------------------- config ----
 
 KALLINI_REPO = Path(os.environ.get("KALLINI_REPO", "/root/mission-impossible-language-models"))
@@ -510,7 +516,8 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
         f"effective batch exactly")
     opt = torch.optim.AdamW(model.parameters(), lr=PEAK_LR)
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lr_lambda=lr_lambda)
-    scaler = torch.cuda.amp.GradScaler()
+    pin_numerics()
+    scaler = grad_scaler()
 
     rng = np.random.default_rng(seed + 1)
     n_blocks = len(blocks)
@@ -564,7 +571,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
         for _ in range(accum):
             batch = next_batch()
             input_ids = torch.tensor(batch, dtype=torch.long, device=device)
-            with torch.cuda.amp.autocast():
+            with amp_autocast():
                 out = model(input_ids=input_ids, labels=input_ids.clone())
             scaler.scale(out.loss / accum).backward()
             loss_avg += float(out.loss) / accum
@@ -636,6 +643,7 @@ def train_one(perturbation: str, seed: int, out_dir: Path, device: str = "cuda",
         "marker_ids_masked": list(MARKER_IDS),
         "wall_time_s": round(time.time() - t0, 1),
         "completed_at": datetime.now(timezone.utc).isoformat(),
+        "stack": stack_metadata(),
     }
 
 
