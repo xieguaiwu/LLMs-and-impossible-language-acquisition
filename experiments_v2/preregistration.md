@@ -467,6 +467,65 @@ result branches: `v2-results-lstm-gpu-capmatch`, `v2-results-nope`,
 original grid; ordering keeps every paper-critical block ahead of the exploratory
 tiers (§[4d2] is last).
 
+### 10c-12. Second compute host (Blackwell burst) — stack portability, whole-arm shards, bridge rule
+
+**Trigger.** A second host with RTX 5090 cards became available for a bounded
+window (2026-09-21). A 5090 is compute capability **sm_120**; the registered grid
+ran torch 2.2.2 / CUDA 12.1, whose wheels ship **no sm_120 kernels**, so the host
+necessarily runs a second numerical stack (torch >= 2.7 / cu128, or the vendor
+image's torch >= 2.7 equivalent). This section registers that fact and the rules
+for handling it; it changes **no** protocol parameter, no α and no family.
+
+**Code (committed).**
+* `kallini_repro/stack_compat.py` — one code path for both stacks:
+  `amp_autocast()` (fp16, same semantics as the deprecated
+  `torch.cuda.amp.autocast`), `grad_scaler()` (historical defaults), and
+  `pin_numerics()`, which re-asserts **explicitly** the flags that were already in
+  effect on the 3080 run (matmul TF32 off, cuDNN TF32 on, cuDNN benchmark off,
+  deterministic off; plus `fp32_precision="ieee"` where the API exists). On the
+  3080 stack these assignments are no-ops — verified: the autocast object is
+  state-identical, and `torch.amp.GradScaler` does not exist on 2.2.2 so the shim
+  falls back to the legacy class.
+* `train_exp1.py` / `train_exp1_lstm.py` now go through the shim and write a
+  `stack` block (hostname, device name + capability, torch/CUDA/cuDNN/numpy/
+  transformers versions, effective precision flags) into every result JSON.
+* `make_burst_shards.py` emits one TSV per GPU from the **same manifests the
+  sentinel uses** (`grid_status.py`), carrying the launch recipe copied verbatim
+  from `kallini_queue.sh`; `burst_shard_runner.sh` executes a shard on one GPU
+  (skip-if-done, per-cell log, state TSV); `bootstrap_burst_host.sh` prepares a
+  host (env with sm_120 torch, data with md5/pool verification, shards, runners);
+  `bridge_check.py` performs the comparison below.
+
+**Sharding rule.** Whole arms go to one host — no statistical family is split
+across stacks (P family + H7 on one shard, architecture families on another, S/R
+panel on a third, stretch tier + probe replay on the fourth). Pending lists come
+from `grid_status.py`, so shards cannot silently drop or duplicate registered
+cells.
+
+**Bridge rule (pre-specified).** Before any cross-stack family is reported, at
+least one **bridge cell** per stack pair is re-run on the new host with the same
+condition/seed/budget, and compared against the 3080 cell:
+1. `eval_fingerprint` must be **identical** (it is derived from the sampled
+   sentence IDs) — otherwise the data/eval path differs and numbers are not
+   compared at all;
+2. worst absolute relative delta over the perplexity ladder (all + content-only,
+   plus ladder-probe deltas if present):
+   * **<= 1 %** ⇒ *stack-equivalent*: cross-stack contrasts may be pooled per
+     family, with the venue recorded per cell;
+   * **1–5 %** ⇒ *minor drift*: pool only with an explicit sensitivity note;
+   * **> 5 %** ⇒ *inhomogeneous*: do **not** pool; the affected family is re-run
+     on the original stack (the 3080 queue keeps its order, so nothing is lost).
+3. the bridge run is registered here so it is not a post-hoc rescue: the rule and
+   its thresholds are fixed before any bridge result exists.
+
+**Precedent.** F9 (two silent protocol deviations) is why the second stack is not
+trusted on faith and why the numerics flags are pinned explicitly instead of
+inheriting version defaults.
+
+**What this does not licence.** Cross-stack pooling of a family whose bridge fails,
+reporting a family without its venue, or treating the burst host as a substitute
+for the registered queue order.
+
 ## 11. Post-hoc hypotheses registered on first clean-corpus evidence (H7/H8)
 
 These were written AFTER observing the GPU early signal above (declared as
