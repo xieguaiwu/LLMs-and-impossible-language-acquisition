@@ -14,12 +14,17 @@
 #
 # USAGE (on the new host)
 #   bash bootstrap_burst_host.sh preflight
+#   bash bootstrap_burst_host.sh proxy  --upstream root@<cpu2-visible-endpoint>   # or run expose_mihomo_to_node.sh on cpu2 (preferred: cpu2 is behind NAT)
 #   bash bootstrap_burst_host.sh env
 #   bash bootstrap_burst_host.sh repo   --commit <hash>
-#   bash bootstrap_burst_host.sh data   --from user@host:/root/kallini_data
-#   bash bootstrap_burst_host.sh shards --shard-src /root/burst/shards   # generated on the 3080
-#   bash bootstrap_burst_host.sh run    --shards shard_p_block.tsv,shard_arch.tsv
+#   bash bootstrap_burst_host.sh data   --from user@host:/root/kallini_data      # 32 Mbps link: prefer --archive
+#   bash bootstrap_burst_host.sh data   --archive /root/burst/data_perturbed.tar.zst   # ~4 GB, ~17 min
+#   bash bootstrap_burst_host.sh shards --shard-src /root/burst/shards   # generated on the 3080/cpu2
+#   bash bootstrap_burst_host.sh run    --shards shard_p_block.tsv,shard_arch.tsv     # host A
+#   bash bootstrap_burst_host.sh run    --shards shard_sr_panel.tsv,shard_stretch.tsv # host B
 #   bash bootstrap_burst_host.sh bench  --cell parity_word --seed 0 --steps 300
+#   bash bootstrap_burst_host.sh rsync-back --to root@cpu2:/root/burst/returned      # results return (no git on the node)
+#   bash bootstrap_burst_host.sh role   --role a            # prints this host's shard assignment
 #
 # NOTES
 #   * never install over the system python; everything lives in the conda env;
@@ -119,14 +124,20 @@ cmd_repo() {
 }
 
 cmd_data() {
-  local from=""
-  while [ $# -gt 0 ]; do case "$1" in --from) from=$2; shift ;; esac; shift; done
+  local from="" archive=""
+  while [ $# -gt 0 ]; do
+    case "$1" in --from) from=$2; shift ;; --archive) archive=$2; shift ;; esac
+    shift
+  done
   log "data"
   if [ -f "$DATA_DIR/babylm_data_perturbed/.pool_version" ] && \
      [ -f "$DATA_DIR/babylm_data_perturbed/babylm_parity_word/babylm_test_affected" ]; then
     echo "data already present"
+  elif [ -n "$archive" ]; then
+    echo "unpacking $archive (created by `data-archive create` on the source host)"
+    tar -I 'zstd -d --long=27' -xf "$archive" -C "$(dirname "$DATA_DIR")" || die "archive unpack failed"
   elif [ -n "$from" ]; then
-    echo "rsync from $from (15 GB, ~1 GB = perturbed pools + raw BabyLM)"
+    echo "rsync from $from — on a 32 Mbps link prefer a compressed archive (~4 GB vs 11 GB)"
     rsync -a --info=progress2 "$from/" "$DATA_DIR/" || die "rsync failed"
   else
     log "regenerating locally via the queue's data sections (needs HF mirror access)"
@@ -135,11 +146,57 @@ cmd_data() {
       bash experiments_v2/kallini_repro/kallini_queue.sh >/dev/null 2>&1
   fi
   cd "$REPO_DIR" || die "no repo"
-  echo -n "$(cat "$DATA_DIR/babylm_data_perturbed/.pool_version" 2>/dev/null)" ; echo
+  echo -n "$DATA_DIR pool_version = " ; cat "$DATA_DIR/babylm_data_perturbed/.pool_version" 2>/dev/null ; echo
   "${PY[0]:-/root/anaconda3/bin/python3}" experiments_v2/kallini_repro/data_integrity_check.py --md5 aochildes \
     | tail -3
-  echo "COPY the HF tokenizer cache from a working host if HF is blocked:"
+  echo "HF tokenizer cache (2.8 MB) must also be present; if HF is blocked, copy it with the archive:"
   echo "  rsync -a <host>:/root/.cache/huggingface/hub/models--gpt2/ ~/.cache/huggingface/hub/"
+}
+
+cmd_data_archive() {   # run on a host that HAS the data (gpu2/cpu2)
+  local out=/root/burst/data_perturbed.tar.zst src=${KALLINI_DATA_PATH:-/root/kallini_data}
+  while [ $# -gt 0 ]; do case "$1" in --out) out=$2; shift ;; --src) src=$2; shift ;; esac; shift; done
+  mkdir -p "$(dirname "$out")"
+  log "creating $out from $src (perturbed pools only; ~2.7x compression)"
+  tar -I 'zstd -3 --long=27 -T0' -cf "$out" -C "$(dirname "$src")" \
+      "$(basename "$src")/babylm_data_perturbed" "$(basename "$src")/babylm_data" 2>/dev/null
+  ls -lh "$out"
+  echo "transfer at 32 Mbps: ~17 min for 4 GB. On the node: bootstrap_burst_host.sh data --archive <file>"
+}
+
+cmd_rsync_back() {     # results return: the node does not need git credentials
+  local to=""
+  while [ $# -gt 0 ]; do case "$1" in --to) to=$2; shift ;; esac; shift; done
+  [ -n "$to" ] || die "--to required (e.g. root@cpu2:/root/burst/returned)"
+  log "returning result JSONs (weights excluded) to $to"
+  cd "$REPO_DIR" || die "no repo"
+  rsync -aR --include='*/' --include='*.json' --include='*.csv' --include='*.pt' --exclude='*' \
+    experiments_v2/kallini_repro/results \
+    experiments_v2/kallini_repro/results_nope \
+    experiments_v2/kallini_repro/results_lstm_gpu \
+    experiments_v2/kallini_repro/results_lstm_gpu_capmatch \
+    experiments_v2/kallini_repro/results_datascale \
+    experiments_v2/kallini_repro/results_logo \
+    experiments_v2/kallini_repro/results_model_scale \
+    experiments_v2/kallini_repro/results_ladder_probe \
+    "$to/" || die "rsync-back failed"
+  echo "done — merge into the canonical trees on cpu2 and publish from there"
+}
+
+cmd_role() {
+  local role=""
+  while [ $# -gt 0 ]; do case "$1" in --role) role=$2; shift ;; esac; shift; done
+  case "$role" in
+    a) echo "host A (first server): GPU0=shard_p_block.tsv  GPU1=shard_arch.tsv" ;;
+    b) echo "host B (second server): GPU0=shard_sr_panel.tsv  GPU1=shard_stretch.tsv" ;;
+    *) echo "usage: bootstrap_burst_host.sh role --role a|b" ;; esac
+}
+
+cmd_proxy() {
+  log "egress per server convention (see scripts/node_egress_setup.sh)"
+  local args=()
+  while [ $# -gt 0 ]; do args+=("$1"); shift; done
+  bash "$REPO_DIR/scripts/node_egress_setup.sh" "${args[@]:-auto}"
 }
 
 cmd_shards() {
@@ -189,16 +246,20 @@ main() {
   local cmd=${1:-preflight}; shift || true
   case "$cmd" in
     preflight) cmd_preflight "$@" ;;
+    proxy) cmd_proxy "$@" ;;
     env) cmd_env "$@" ;;
     verify) cmd_verify "$@" ;;
     repo) cmd_repo "$@" ;;
     data) cmd_data "$@" ;;
+    data-archive) cmd_data_archive "$@" ;;
+    rsync-back) cmd_rsync_back "$@" ;;
+    role) cmd_role "$@" ;;
     shards) cmd_shards "$@" ;;
     run) cmd_run "$@" ;;
     bench) cmd_bench "$@" ;;
     all)
-      cmd_preflight; cmd_env; cmd_repo; cmd_data "$@"; cmd_shards
-      echo; echo "READY — start with: $0 run --shards shard_p_block.tsv,shard_arch.tsv,shard_sr_panel.tsv,shard_stretch.tsv"
+      cmd_preflight; cmd_proxy auto; cmd_env; cmd_repo; cmd_data "$@"; cmd_shards
+      echo; echo "READY — host A: run --shards shard_p_block.tsv,shard_arch.tsv | host B: run --shards shard_sr_panel.tsv,shard_stretch.tsv"
       ;;
     *) die "unknown command: $cmd" ;;
   esac
