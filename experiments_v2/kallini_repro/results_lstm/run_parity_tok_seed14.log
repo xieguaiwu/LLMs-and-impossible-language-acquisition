@@ -1,0 +1,14 @@
+[data] windows=570823 tokens=146130688 sents=9993037 eval_sents=2000 (58s)
+[mem] micro=8 seq=256 logits≈0.77 GB (fwd+bwd)
+[train] parity_tok seed14 step 50/300 loss=8.1035 elapsed=15.5m
+[eval] parity_tok seed14 step 100: gmean_ppl=692.7617 content=48.3563 (n=2000)
+[train] parity_tok seed14 step 100/300 loss=6.6613 elapsed=32.8m
+[train] parity_tok seed14 step 150/300 loss=5.9526 elapsed=51.9m
+[train] parity_tok seed14 step 200/300 loss=5.7276 elapsed=71.1m
+[train] parity_tok seed14 step 250/300 loss=5.6033 elapsed=90.5m
+[eval] parity_tok seed14 step 300: gmean_ppl=257.6127 content=28.0664 (n=2000)
+[train] parity_tok seed14 step 300/300 loss=5.5961 elapsed=110.8m
+{
+  "100": 692.7617,
+  "300": 257.6127
+}

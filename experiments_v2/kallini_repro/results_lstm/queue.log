@@ -1,0 +1,122 @@
+[2026-09-19T16:27:33+08:00] SKIP-DATA babylm_negtok (train=0 test=0) — run sync_from_gpu.sh
+[2026-09-19T16:27:33+08:00] SKIP-DATA babylm_fixed_start (train=0 test=0) — run sync_from_gpu.sh
+[2026-09-19T16:27:33+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok ] seeds=[0 14 41 53 96 ] workers=2 seq=256 steps=300
+[2026-09-19T16:27:33+08:00] prepack phase (serial)
+OK   shuffle_control seed0
+OK   shuffle_control seed14
+OK   shuffle_control seed53
+OK   shuffle_control seed41
+[2026-09-19T21:54:56+08:00] queue pass: conditions=[ negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=2 seq=256 steps=300
+[2026-09-19T21:54:56+08:00] prepack phase (serial)
+[2026-09-19T21:56:56+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=2 seq=256 steps=300
+[2026-09-19T21:56:56+08:00] prepack phase (serial)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed41 (done)
+OK   reverse_full seed0
+OK   shuffle_control seed96
+[2026-09-20T10:07:22+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=2 seq=256 steps=300
+[2026-09-20T10:07:22+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP shuffle_control seed41 (done)
+SKIP reverse_full seed0 (done)
+[2026-09-20T11:21:09+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=2 seq=256 steps=300
+[2026-09-20T11:21:09+08:00] prepack phase (serial)
+[2026-09-20T11:29:37+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=2 seq=256 steps=300
+[2026-09-20T11:29:37+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP reverse_full seed0 (done)
+SKIP shuffle_control seed41 (done)
+[2026-09-20T11:54:37+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=1 seq=256 steps=300
+[2026-09-20T11:54:37+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed41 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP reverse_full seed0 (done)
+[2026-09-20T12:08:34+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=1 seq=256 steps=300
+[2026-09-20T12:08:34+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed41 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP reverse_full seed0 (done)
+[2026-09-20T12:35:52+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=2 seq=256 steps=300
+[2026-09-20T12:35:52+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed41 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP reverse_full seed0 (done)
+[2026-09-20T12:39:06+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=1 seq=256 steps=300
+[2026-09-20T12:39:06+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed41 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP reverse_full seed0 (done)
+[2026-09-20T12:48:49+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=1 seq=256 steps=300
+[2026-09-20T12:48:49+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed41 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP reverse_full seed0 (done)
+[2026-09-20T13:00:45+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=2 seq=256 steps=300
+[2026-09-20T13:00:45+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed41 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP reverse_full seed0 (done)
+[2026-09-20T13:05:11+08:00] queue pass: conditions=[ shuffle_control reverse_full reverse_control parity_word parity_tok negtok fixed_start ] seeds=[0 14 41 53 96 ] workers=1 seq=256 steps=300
+[2026-09-20T13:05:11+08:00] prepack phase (serial)
+SKIP shuffle_control seed0 (done)
+SKIP shuffle_control seed14 (done)
+SKIP shuffle_control seed41 (done)
+SKIP shuffle_control seed53 (done)
+SKIP shuffle_control seed96 (done)
+SKIP reverse_full seed0 (done)
+OK   reverse_full seed14
+OK   reverse_full seed41
+OK   reverse_full seed53
+OK   reverse_full seed96
+OK   reverse_control seed0
+OK   reverse_control seed14
+OK   reverse_control seed41
+OK   reverse_control seed53
+OK   reverse_control seed96
+OK   parity_word seed0
+OK   parity_word seed14
+OK   parity_word seed41
+OK   parity_word seed53
+OK   parity_word seed96
+OK   parity_tok seed0
+OK   parity_tok seed14
+OK   parity_tok seed41
+OK   parity_tok seed53
+OK   parity_tok seed96
+OK   negtok seed0
+OK   negtok seed14
+OK   negtok seed41
+OK   negtok seed53
+OK   negtok seed96
+OK   fixed_start seed0
+OK   fixed_start seed14
+OK   fixed_start seed41
+OK   fixed_start seed53
+OK   fixed_start seed96
+[2026-09-22T13:23:20+08:00] queue pass done: 35/35 cells complete (missing-data: none)

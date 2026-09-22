@@ -1,0 +1,14 @@
+[data] windows=570823 tokens=146130688 sents=9993037 eval_sents=2000 (50s)
+[mem] micro=8 seq=256 logits≈0.77 GB (fwd+bwd)
+[train] negtok seed14 step 50/300 loss=8.1381 elapsed=16.9m
+[eval] negtok seed14 step 100: gmean_ppl=641.8629 content=48.1708 (n=2000)
+[train] negtok seed14 step 100/300 loss=6.6749 elapsed=38.6m
+[train] negtok seed14 step 150/300 loss=5.9798 elapsed=56.8m
+[train] negtok seed14 step 200/300 loss=5.7458 elapsed=73.2m
+[train] negtok seed14 step 250/300 loss=5.6240 elapsed=94.3m
+[eval] negtok seed14 step 300: gmean_ppl=253.7396 content=28.3303 (n=2000)
+[train] negtok seed14 step 300/300 loss=5.6195 elapsed=113.0m
+{
+  "100": 641.8629,
+  "300": 253.7396
+}

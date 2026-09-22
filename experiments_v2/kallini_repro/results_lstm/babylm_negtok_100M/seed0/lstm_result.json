@@ -1,0 +1,40 @@
+{
+  "language": "negtok",
+  "train_set": "100M",
+  "seed": 0,
+  "arch": "lstm_matched",
+  "n_params": 38728960,
+  "device": "cpu",
+  "amp": false,
+  "vocab_size": 50258,
+  "max_steps": 300,
+  "effective_batch": 32,
+  "micro_batch": 8,
+  "seq_len": 256,
+  "peak_lr": 0.001,
+  "weight_decay": 1e-05,
+  "clip": 5.0,
+  "warmup": 100,
+  "n_windows": 570823,
+  "n_tokens": 146130688,
+  "n_sentences": 9993037,
+  "tokens_per_step": 8192,
+  "token_budget": 2457600,
+  "budget_note": "budget-limited arm: LSTM_STEPS x effective_batch x SEQ_LEN tokens vs the GPT-2 arm's 3000 x 128 x 1024 = 3.93e8 (ratio ~1/160 at the 300-step default). NO equal-budget architecture-axis claim is licensed by this arm; report it only as budget-dependent (F8/H7 family: 'no detectable difference at this budget'). Epochs-matched would need ~160 h per cell on cpu2 (measured: GPT-2 arm ~27k tok/s vs lstm_matched ~680 tok/s here).",
+  "eval_gmean": {
+    "100": 676.5127,
+    "300": 252.6213
+  },
+  "eval_gmean_content": {
+    "100": 47.3426,
+    "300": 27.2664
+  },
+  "eval_n": 2000,
+  "eval_pool_n": null,
+  "eval_pool_exact_dups": null,
+  "eval_fingerprint": null,
+  "eval_near_dup_rate_sampled": null,
+  "final_loss": 5.7006,
+  "wall_time_s": 5892.7,
+  "completed_at": "2026-09-21T14:28:25.912404+00:00"
+}

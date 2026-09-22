@@ -1,0 +1,51 @@
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   cc07771..4aad261  main       -> origin/main
+更新 cc07771..4aad261
+Fast-forward
+ experiments_v2/kallini_repro/kallini_loop.sh    |  8 ++-
+ experiments_v2/kallini_repro/publish_results.sh | 86 +++++++++++++++++++++++++
+ 2 files changed, 93 insertions(+), 1 deletion(-)
+ create mode 100644 experiments_v2/kallini_repro/publish_results.sh
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+   4aad261..452ed63  main       -> origin/main
+更新 4aad261..452ed63
+Fast-forward
+ .../kallini_repro/data_integrity_check.py          | 178 +++++++++++++++++++++
+ experiments_v2/preregistration.md                  |  46 ++++++
+ 2 files changed, 224 insertions(+)
+ create mode 100644 experiments_v2/kallini_repro/data_integrity_check.py
+来自 https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition
+ * branch            main       -> FETCH_HEAD
+已经是最新的。

@@ -1,0 +1,14 @@
+[data] windows=531789 tokens=136137895 sents=9993037 eval_sents=2000 (101s)
+[mem] micro=4 seq=256 logits≈0.38 GB (fwd+bwd)
+[train] shuffle_control seed14 step 50/300 loss=8.5369 elapsed=24.8m
+[eval] shuffle_control seed14 step 100: gmean_ppl=1409.2718 (n=2000)
+[train] shuffle_control seed14 step 100/300 loss=7.0910 elapsed=51.7m
+[train] shuffle_control seed14 step 150/300 loss=6.3055 elapsed=76.2m
+[train] shuffle_control seed14 step 200/300 loss=6.0257 elapsed=100.6m
+[train] shuffle_control seed14 step 250/300 loss=6.1060 elapsed=124.8m
+[eval] shuffle_control seed14 step 300: gmean_ppl=462.296 (n=2000)
+[train] shuffle_control seed14 step 300/300 loss=5.9722 elapsed=150.6m
+{
+  "100": 1409.2718,
+  "300": 462.296
+}

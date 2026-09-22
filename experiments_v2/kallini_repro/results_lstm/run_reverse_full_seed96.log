@@ -1,0 +1,14 @@
+[data] windows=573390 tokens=146787840 sents=9993909 eval_sents=2000 (106s)
+[mem] micro=8 seq=256 logits≈0.77 GB (fwd+bwd)
+[train] reverse_full seed96 step 50/300 loss=8.0032 elapsed=16.9m
+[eval] reverse_full seed96 step 100: gmean_ppl=1479.4755 content=50.8565 (n=2000)
+[train] reverse_full seed96 step 100/300 loss=6.7313 elapsed=36.0m
+[train] reverse_full seed96 step 150/300 loss=6.1238 elapsed=51.6m
+[train] reverse_full seed96 step 200/300 loss=5.9013 elapsed=67.0m
+[train] reverse_full seed96 step 250/300 loss=5.7489 elapsed=83.0m
+[eval] reverse_full seed96 step 300: gmean_ppl=490.5042 content=30.454 (n=2000)
+[train] reverse_full seed96 step 300/300 loss=5.7033 elapsed=100.2m
+{
+  "100": 1479.4755,
+  "300": 490.5042
+}
