@@ -450,6 +450,13 @@ CAPMATCH_RESULTS=experiments_v2/kallini_repro/results_lstm_gpu_capmatch
 run_lstm_capmatch() {  # condition seed
   local c=$1 s=$2
   if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train lstm_capmatch $c/seed$s (LR $CAPMATCH_LR)"; return 0; fi
+  # P1-1 guard (2026-09-24): never train this confirmatory arm with an unfrozen LR.
+  # §10c-2 requires the probe to freeze it; the old code silently fell back to 1e-3.
+  case "${CAPMATCH_LR:-}" in ""|FAIL)
+    note "SKIP lstm_capmatch $c/seed$s (no frozen LR; probe incomplete -> arm deferred)"
+    return 0
+    ;;
+  esac
   if $NICE env LSTM_DEVICE=cuda LSTM_RESULTS=$CAPMATCH_DIR \
         LSTM_SEQ_LEN=1024 LSTM_EFF_BATCH=128 LSTM_MICRO_BATCH=8 LSTM_STEPS=3000 \
         LSTM_LR="$CAPMATCH_LR" LSTM_EVAL_N=10000 LSTM_SAVE_CKPT=0 LSTM_PACK_VERSION=v2 \
@@ -489,21 +496,55 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_LSTM_CAPMATCH:-1}" = "1" ]; then
           fail=$((fail+1))
         fi
       done
+      # P1-1 fix (2026-09-24): the trainer writes
+      #   <LSTM_RESULTS>/babylm_{cond}_{TRAIN_SET}/seed{seed}   (train_exp1_lstm.py:469)
+      # — there is NO "steps" path component — and a 600-step run evaluates at
+      # checkpoints [100, 300, 500] (train_exp1.eval_checkpoints_for), so the old
+      # glob `lr*/.../steps600_seed0` and the key `eval_gmean["600"]` could never match:
+      # best stayed None and the hardcoded "1e-3" was frozen instead of the probe's best
+      # LR (prereg §10c-2 / REDTEAM #4(i)). The old label `d.parent.name.split("lr")[1]`
+      # would also have raised IndexError had the glob ever matched.
       CAPMATCH_LR=$($PYTHON - <<'PYEOF'
-import json, pathlib
+import json, pathlib, sys
 base = pathlib.Path("experiments_v2/kallini_repro/results_smoke/_quarantine_lstm_capmatch_lr")
+
+
+def diag(msg):
+    print(msg, file=sys.stderr)
+
+
 best, best_v = None, None
-for d in sorted(base.glob("lr*/babylm_shuffle_control_100M/steps600_seed0")):
+for d in sorted(base.glob("lr*/babylm_shuffle_control_100M/seed0")):
+    name = d.parent.parent.name            # lr<value>
+    label = name[2:] if name.startswith("lr") else name
     r = d / "lstm_result.json"
     if not r.exists():
+        diag(f"[probe] {name}: no lstm_result.json")
         continue
-    v = json.loads(r.read_text())["eval_gmean"].get("600")
+    try:
+        res = json.loads(r.read_text())
+    except Exception as exc:
+        diag(f"[probe] {name}: unreadable JSON ({exc})")
+        continue
+    if res.get("max_steps") != 600:
+        diag(f"[probe] {name}: max_steps={res.get('max_steps')} != 600 -> skip")
+        continue
+    trace = res.get("eval_gmean") or {}
+    keys = sorted(int(k) for k in trace if str(k).isdigit())
+    if not keys:
+        diag(f"[probe] {name}: empty eval_gmean")
+        continue
+    last = keys[-1]
+    v = trace[str(last)]
+    diag(f"[probe] lr={label}: eval_gmean[{last}]={v} (max_steps=600, ckpts={keys})")
     if v is not None and (best_v is None or v < best_v):
-        best, best_v = d.parent.name.split("lr")[1], v
-print(best or "1e-3")
+        best, best_v = label, v
+print(best or "FAIL")
 PYEOF
 )
-      if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then
+      if [ "$CAPMATCH_LR" = "FAIL" ]; then
+        note "WARN capmatch LR probe produced NO usable result -> arm SKIPPED this pass; .frozen_lr NOT written (no silent 1e-3 fallback; prereg 10c-2 requires the probe)"
+      elif [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then
         note "[dry] would freeze capmatch LR to $CAPMATCH_LR (not written in dry-run)"
       else
         printf '%s\n' "$CAPMATCH_LR" > "$CAPMATCH_DIR/.frozen_lr"
@@ -716,7 +757,10 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_STRETCH:-1}" = "1" ]; then
     CAPMATCH_DIR=${CAPMATCH_DIR:-experiments_v2/kallini_repro/results_lstm_gpu_capmatch}
     CAPMATCH_CONDS=${CAPMATCH_CONDS:-shuffle_control reverse_full parity_word}
     mkdir -p "$CAPMATCH_DIR"
-    CAPMATCH_LR=${CAPMATCH_LR:-$(cat "$CAPMATCH_DIR/.frozen_lr" 2>/dev/null || echo 1e-3)}
+    CAPMATCH_LR=${CAPMATCH_LR:-$(cat "$CAPMATCH_DIR/.frozen_lr" 2>/dev/null || true)}
+    if [ -z "$CAPMATCH_LR" ] || [ "$CAPMATCH_LR" = "FAIL" ]; then
+      note "WARN capmatch ext: no frozen LR (probe incomplete) -> stretch-tier capmatch cells are skipped (no silent 1e-3 fallback)"
+    fi
     pending_cap_ext=$(find "$CAPMATCH_DIR" -name lstm_result.json 2>/dev/null | wc -l)
     if [ "$pending_cap_ext" -lt 15 ]; then
       for s in 53 96; do
