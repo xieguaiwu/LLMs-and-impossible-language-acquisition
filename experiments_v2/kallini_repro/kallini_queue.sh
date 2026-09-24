@@ -272,6 +272,110 @@ if [ "${RUN_V3:-0}" = "1" ]; then
   fi
 fi
 
+# ---------- [4b2] NoPE position-ablation arm (§10c-4, moved up per §10c-13 E) ----
+# 2026-09-24 (§10c-13 approval): moved BEFORE [4c]/[4c2] so the causal position-
+# channel ablation (T1) lands inside the 12-day window. Block body unchanged.
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_NOPE:-1}" = "1" ]; then
+  NOPE_DIR=experiments_v2/kallini_repro/results_nope
+  mkdir -p "$NOPE_DIR"
+  NOPE_CONDS="${NOPE_CONDS:-parity_word shuffle_control}"
+  pending_nope=$(find "$NOPE_DIR" -name exp1_result.json 2>/dev/null | wc -l)
+  expected_nope=$(( $(echo $NOPE_CONDS | wc -w) * 3 ))
+  if [ "$pending_nope" -lt "$expected_nope" ]; then
+    for c in $NOPE_CONDS; do
+      for s in 0 14 41; do
+        if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train nope $c/seed$s"; continue; fi
+        if $NICE env REPRO_RESULTS=$NOPE_DIR GPT2_NOPE=1 LADDER_PROBE=1 \
+            $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed "$s" --skip-if-done \
+            >> experiments_v2/kallini_repro/results_nope/queue.log 2>&1; then
+          note "OK   nope $c/seed$s"
+        else
+          note "FAIL nope $c/seed$s"
+          fail=$((fail+1))
+        fi
+      done
+    done
+  fi
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=$NOPE_DIR RESULTS_BRANCH=v2-results-nope RESULTS_KIND=exp1_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN nope publish failed"
+  fi
+fi
+
+# ---------- [4b3] NoPE extension (§10c-13 A1; T1 smoke gate) ---------------------
+# fixed_start + not_random under NoPE. Runs only after the T1 smoke gate: the
+# first base-NoPE content-penalty measurement <= 0.15 nats writes .t1_smoke_ok
+# (analysis side). Otherwise the arm is skipped and its 23.7 GPU-h re-purposed.
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_NOPE_EXT:-1}" = "1" ]; then
+  NOPE_DIR=${NOPE_DIR:-experiments_v2/kallini_repro/results_nope}
+  mkdir -p "$NOPE_DIR"
+  if [ -f "$NOPE_DIR/.t1_smoke_ok" ]; then
+    for c in fixed_start not_random; do
+      for s in 0 14 41; do
+        if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train nope-ext $c/seed$s"; continue; fi
+        if $NICE env REPRO_RESULTS=$NOPE_DIR GPT2_NOPE=1 LADDER_PROBE=1 \
+            $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed "$s" --skip-if-done \
+            >> experiments_v2/kallini_repro/results_nope/queue.log 2>&1; then
+          note "OK   nope-ext $c/seed$s"
+        else
+          note "FAIL nope-ext $c/seed$s"
+          fail=$((fail+1))
+        fi
+      done
+    done
+  else
+    note "nope-ext waiting for .t1_smoke_ok (T1 smoke gate, §10c-13 A1)"
+  fi
+fi
+
+# ---------- [4b4] CALD positive-evidence family (§10c-13 A2) ---------------------
+# cald_local / cald_long / cald_shuf. Pilot cells (calibration input) write to
+# results_cald_pilot/ and are DISCARDED after calibration (prereg A2); the
+# confirmatory 9 cells run only after .frozen_cald exists (written by the
+# §10c-13a amendment step after the pilot readout; mirrors capmatch .frozen_lr).
+if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_CALD:-1}" = "1" ]; then
+  CALD_DIR=experiments_v2/kallini_repro/results_cald
+  CALD_PILOT_DIR=experiments_v2/kallini_repro/results_cald_pilot
+  mkdir -p "$CALD_DIR" "$CALD_PILOT_DIR"
+  cald_data_root="$KALLINI_DATA_PATH/babylm_data_perturbed"
+  for c in cald_long cald_shuf; do
+    if [ ! -d "$cald_data_root/babylm_${c}/babylm_100M" ]; then
+      note "cald data for $c missing -> run design_v3/make_cald_conditions.py; pilot skipped this pass"
+      continue
+    fi
+    if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train cald-pilot $c/seed0"; continue; fi
+    if $NICE env REPRO_RESULTS=$CALD_PILOT_DIR REPRO_DATA_SUBDIR="babylm_${c}" \
+        $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed 0 --skip-if-done \
+        >> experiments_v2/kallini_repro/results_cald_pilot/queue.log 2>&1; then
+      note "OK   cald-pilot $c/seed0"
+    else
+      note "FAIL cald-pilot $c/seed0"
+      fail=$((fail+1))
+    fi
+  done
+  if [ -f "$CALD_DIR/.frozen_cald" ]; then
+    for c in cald_local cald_long cald_shuf; do
+      for s in 0 14 41; do
+        if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train cald $c/seed$s"; continue; fi
+        if $NICE env REPRO_RESULTS=$CALD_DIR REPRO_DATA_SUBDIR="babylm_${c}" \
+            $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed "$s" --skip-if-done \
+            >> experiments_v2/kallini_repro/results_cald/queue.log 2>&1; then
+          note "OK   cald $c/seed$s"
+        else
+          note "FAIL cald $c/seed$s"
+          fail=$((fail+1))
+        fi
+      done
+    done
+  else
+    note "cald confirmatory waiting for .frozen_cald (§10c-13a amendment after pilot)"
+  fi
+  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
+    RESULTS_DIR=$CALD_DIR RESULTS_BRANCH=v2-results-cald RESULTS_KIND=exp1_result.json \
+      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN cald publish failed"
+  fi
+fi
+
 # ---------- [4c] GPU LSTM arm: equal-token-budget architecture axis -------------
 # Audit B2 (2026-09-20). The cpu2 LSTM arm runs at 1/160 of the GPT-2 token
 # budget, so it licenses no equal-budget architecture claim (F8). This arm runs
@@ -438,40 +542,9 @@ PYEOF
   fi
 fi
 
-# ---------- [4c3] NoPE position-ablation arm (§10c-4, registered 2026-09-20) ----
-# Causal test of WHERE the architecture's impossible-language bias lives: the
-# same GPT-2 trainer with positional embeddings zeroed + frozen (Kallini's own
-# NoPE model semantics). If the impossible-language gap shrinks without
-# positional information, the bias is carried by position (linear-chain), not
-# hierarchy. Exploratory (mechanistic) family F7; pre-data registration.
-if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_NOPE:-1}" = "1" ]; then
-  NOPE_DIR=experiments_v2/kallini_repro/results_nope
-  mkdir -p "$NOPE_DIR"
-  NOPE_CONDS="${NOPE_CONDS:-parity_word shuffle_control}"
-  pending_nope=$(find "$NOPE_DIR" -name exp1_result.json 2>/dev/null | wc -l)
-  # n=3 (seeds 0/14/41): at n=2 a one-sided paired test cannot reach p<.05
-  # (df=1), so the family would be undecidable by construction.
-  expected_nope=$(( $(echo $NOPE_CONDS | wc -w) * 3 ))
-  if [ "$pending_nope" -lt "$expected_nope" ]; then
-    for c in $NOPE_CONDS; do
-      for s in 0 14 41; do
-        if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train nope $c/seed$s"; continue; fi
-        if $NICE env REPRO_RESULTS=$NOPE_DIR GPT2_NOPE=1 LADDER_PROBE=1 \
-            $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed "$s" --skip-if-done \
-            >> experiments_v2/kallini_repro/results_nope/queue.log 2>&1; then
-          note "OK   nope $c/seed$s"
-        else
-          note "FAIL nope $c/seed$s"
-          fail=$((fail+1))
-        fi
-      done
-    done
-  fi
-  if [ "${QUEUE_DRY_RUN:-0}" != "1" ]; then
-    RESULTS_DIR=$NOPE_DIR RESULTS_BRANCH=v2-results-nope RESULTS_KIND=exp1_result.json \
-      bash experiments_v2/kallini_repro/publish_results.sh || note "WARN nope publish failed"
-  fi
-fi
+# ---------- [4c3] NoPE position-ablation arm — MOVED to [4b2] (§10c-13, 2026-09-24)
+# The block body now runs directly after the class-P queue so T1 lands inside the
+# 12-day window; the nope extension lives in [4b3], gated by the T1 smoke flag.
 
 # ---------- [4f] Kallini S/R replication panel (T0) ----------------------------
 # Runs AFTER the paper-critical blocks (2026-09-20 ordering decision): the class-P
@@ -552,12 +625,12 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_STRETCH:-1}" = "1" ]; then
       note "WARN datascale subset generation failed -> datascale cells skipped this pass"
     fi
   fi
-  DATASCALE_CONDS="shuffle_control parity_word fixed_start"
+  DATASCALE_CONDS="shuffle_control parity_word"   # §10c-13 DL-3: 12→4 cells (sub10M + fixed_start deferred)
   DS_DIR=experiments_v2/kallini_repro/results_datascale
   mkdir -p "$DS_DIR"
-  for scale in sub1M sub10M; do
+  for scale in sub1M; do
     pending_ds=$(find "$DS_DIR" -name exp1_result.json 2>/dev/null | grep -c "$scale" || true)
-    if [ "$pending_ds" -lt 6 ]; then
+    if [ "$pending_ds" -lt 4 ]; then
       for c in $DATASCALE_CONDS; do
         for s in 0 14; do
           if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train datascale $scale $c/seed$s"; continue; fi
@@ -579,11 +652,11 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_STRETCH:-1}" = "1" ]; then
       bash experiments_v2/kallini_repro/publish_results.sh || note "WARN datascale publish failed"
   fi
 
-  # --- ladder-probe replay (the two pre-probe cells; ~8 h) --------------------
+  # --- ladder-probe replay — DEFERRED (§10c-13 DL-4) --------------------------
   RP_DIR=experiments_v2/kallini_repro/results_ladder_probe
   mkdir -p "$RP_DIR"
   pending_rp=$(find "$RP_DIR" -name exp1_result.json 2>/dev/null | wc -l)
-  if [ "$pending_rp" -lt 2 ]; then
+  if [ "${RUN_V3_RP:-0}" = "1" ] && [ "$pending_rp" -lt 2 ]; then
     for c in parity_word fixed_start; do
       if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train ladder-replay $c/seed0"; continue; fi
       if $NICE env REPRO_RESULTS=$RP_DIR LADDER_PROBE=1 \
@@ -601,11 +674,11 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_STRETCH:-1}" = "1" ]; then
       bash experiments_v2/kallini_repro/publish_results.sh || note "WARN ladder replay publish failed"
   fi
 
-  # --- LOGO generalization (2 cells, ~8 h) -----------------------------------
+  # --- LOGO generalization — DEFERRED (§10c-13 DL-1) --------------------------
   LOGO_DIR=experiments_v2/kallini_repro/results_logo
   mkdir -p "$LOGO_DIR"
   pending_logo=$(find "$LOGO_DIR" -name exp1_result.json 2>/dev/null | wc -l)
-  if [ "$pending_logo" -lt 2 ]; then
+  if [ "${RUN_V3_LOGO:-0}" = "1" ] && [ "$pending_logo" -lt 2 ]; then
     if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would generate LOGO subsets"; fi
     if [ "${QUEUE_DRY_RUN:-0}" != "1" ] \
        && $PYTHON experiments_v2/design_v3/make_datascale_subsets.py --logo \
@@ -659,14 +732,14 @@ if [ "${RUN_V3:-0}" = "1" ] && [ "${RUN_V3_STRETCH:-1}" = "1" ]; then
     fi
   fi
 
-  # --- model-scale axis (GPT-2 medium, 6 cells, ~55 GPU-h) -------------------
+  # --- model-scale axis — REDUCED 6→2 cells (§10c-13 DL-2) --------------------
   MS_DIR=experiments_v2/kallini_repro/results_model_scale
   mkdir -p "$MS_DIR"
-  MS_CONDS="shuffle_control parity_word fixed_start"
+  MS_CONDS="shuffle_control parity_word"
   pending_ms=$(find "$MS_DIR" -name exp1_result.json 2>/dev/null | wc -l)
-  if [ "$pending_ms" -lt 6 ]; then
+  if [ "$pending_ms" -lt 2 ]; then
     for c in $MS_CONDS; do
-      for s in 0 14; do
+      for s in 0; do
         if [ "${QUEUE_DRY_RUN:-0}" = "1" ]; then note "[dry] would train model-scale $c/seed$s (gpt2_medium)"; continue; fi
         if $NICE env REPRO_RESULTS=$MS_DIR REPRO_MODEL_SIZE=gpt2_medium REPRO_MICRO_BATCH=2 \
             $PYTHON experiments_v2/kallini_repro/train_exp1.py "$c" --seed "$s" --skip-if-done \

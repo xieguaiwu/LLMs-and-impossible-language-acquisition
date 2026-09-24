@@ -52,11 +52,13 @@ LSTM_CPU_SEEDS = [0, 14, 41, 53, 96]
 # Keep this list in sync with kallini_queue.sh whenever an arm is registered.
 CAPMATCH_CONDS = ["shuffle_control", "reverse_full", "parity_word"]   # §[4c2]
 NOPE_CONDS = ["parity_word", "shuffle_control"]                        # §[4c3]
-DATASCALE_CONDS = ["shuffle_control", "parity_word", "fixed_start"]    # §[4d2]
-DATASCALE_SCALES = ["sub1M", "sub10M"]
-LOGO_CONDS = ["shuffle_control", "parity_word"]                        # §[4d2]
-MODEL_SCALE_CONDS = ["shuffle_control", "parity_word", "fixed_start"]  # §[4d2]
-LADDER_PROBE_CONDS = ["parity_word", "fixed_start"]                    # §[4d2]
+# §10c-13 (2026-09-24): nope extension + cald family; deferrals DL-1..DL-4.
+NOPE_EXT_CONDS = ["fixed_start", "not_random"]                        # §10c-13 A1 (smoke-gated)
+CALD_CONDS = ["cald_local", "cald_long", "cald_shuf"]                  # §10c-13 A2
+DATASCALE_CONDS = ["shuffle_control", "parity_word"]                  # §10c-13 DL-3 (was 3 conds x 2 scales)
+DATASCALE_SCALES = ["sub1M"]
+MODEL_SCALE_CONDS = ["shuffle_control", "parity_word"]                # §10c-13 DL-2 (was 3 conds x 2 seeds)
+MODEL_SCALE_SEEDS = [0]
 
 
 def gpt2_cells() -> list[Path]:
@@ -106,28 +108,50 @@ def nope_cells() -> list[Path]:
             for c in NOPE_CONDS for s in SEEDS3]
 
 
+def nope_ext_cells() -> list[Path]:
+    """§10c-13 A1: NoPE extension (smoke-gated; same results tree as base nope)."""
+    return [NOPE / f"babylm_{c}_100M" / f"seed{s}" / "exp1_result.json"
+            for c in NOPE_EXT_CONDS for s in SEEDS3]
+
+
+def cald_cells() -> list[Path]:
+    """§10c-13 A2: CALD family — 9 adjudicated cells + 2 discarded pilot cells
+    (results_cald_pilot/; pilot cells count toward expected but never toward
+    adjudication, per prereg A2)."""
+    got = [REPO / "experiments_v2/kallini_repro/results_cald"
+           / f"babylm_{c}_100M" / f"seed{s}" / "exp1_result.json"
+           for c in CALD_CONDS for s in SEEDS3]
+    pilot = [REPO / "experiments_v2/kallini_repro/results_cald_pilot"
+             / f"babylm_{c}_100M" / "seed0" / "exp1_result.json"
+             for c in ["cald_long", "cald_shuf"]]
+    return got + pilot
+
+
 def datascale_cells() -> list[Path]:
-    """§10c-5: 1M/10M-token corpus subsamples at the fixed 3000-step budget."""
+    """§10c-5 as reduced by §10c-13 DL-3: sub1M only, 2 conditions, seeds 0/14."""
     return [DS / f"babylm_{c}_100M" / f"seed{s}_{sc}" / "exp1_result.json"
             for c in DATASCALE_CONDS for sc in DATASCALE_SCALES for s in [0, 14]]
 
 
 def logo_cells() -> list[Path]:
-    """§10c-8: trained without simple_wikipedia, evaluated on the full draw."""
+    """§10c-8 — DEFERRED (§10c-13 DL-1); kept for reference, excluded from pending."""
+    LOGO = REPO / "experiments_v2/kallini_repro/results_logo"
     return [LOGO / f"babylm_{c}_100M" / "seed0_logo7sw" / "exp1_result.json"
-            for c in LOGO_CONDS]
+            for c in ["shuffle_control", "parity_word"]]
 
 
 def model_scale_cells() -> list[Path]:
-    """§10c-6: GPT-2 medium (355M) at the same token budget."""
+    """§10c-6 as reduced by §10c-13 DL-2: 2 cells (2 conds x seed0)."""
+    MS = REPO / "experiments_v2/kallini_repro/results_model_scale"
     return [MS / f"babylm_{c}_100M" / f"seed{s}" / "exp1_result.json"
-            for c in MODEL_SCALE_CONDS for s in [0, 14]]
+            for c in MODEL_SCALE_CONDS for s in MODEL_SCALE_SEEDS]
 
 
 def ladder_probe_cells() -> list[Path]:
-    """§10c-3: replay of the two pre-probe class-P cells (LADDER_PROBE=1)."""
+    """§10c-3 replay — DEFERRED (§10c-13 DL-4); excluded from pending."""
+    RP = REPO / "experiments_v2/kallini_repro/results_ladder_probe"
     return [RP / f"babylm_{c}_100M" / "seed0" / "exp1_result.json"
-            for c in LADDER_PROBE_CONDS]
+            for c in ["parity_word", "fixed_start"]]
 
 
 def lstm_cpu_cells() -> list[Path]:
@@ -138,19 +162,27 @@ def lstm_cpu_cells() -> list[Path]:
 def summarize() -> dict:
     arms = {"gpt2": gpt2_cells(), "lstm_gpu": lstm_gpu_cells(), "lstm_cpu": lstm_cpu_cells(),
             "capmatch": lstm_capmatch_cells(), "nope": nope_cells(),
-            "datascale": datascale_cells(), "logo": logo_cells(),
-            "model_scale": model_scale_cells(), "ladder_probe": ladder_probe_cells()}
+            "nope_ext": nope_ext_cells(), "cald": cald_cells(),
+            "datascale": datascale_cells(), "model_scale": model_scale_cells()}
     out = {}
     for name, want in arms.items():
         done = sum(1 for p in want if p.exists())
         out[name] = {"expected": len(want), "done": done, "pending": len(want) - done}
-    out["pending_total"] = sum(v["pending"] for k, v in out.items() if isinstance(v, dict))
+    # Deferred arms (§10c-13 DL-1/DL-4): tracked for reference but excluded from
+    # every pending total so they cannot block the completion marker.
+    for name in ("logo", "ladder_probe"):
+        want = logo_cells() if name == "logo" else ladder_probe_cells()
+        done = sum(1 for p in want if p.exists())
+        out[name] = {"expected": len(want), "done": done, "pending": len(want) - done,
+                     "deferred": "§10c-13 DL-1" if name == "logo" else "§10c-13 DL-4"}
+    out["pending_total"] = sum(v["pending"] for k, v in out.items()
+                               if isinstance(v, dict) and not v.get("deferred"))
     # pending_gpu_total = what the chain sentinel must treat as "still to do" on the
-    # GPU box (all GPT-2 + both LSTM arms + the evening arms); the cpu2 LSTM arm is
+    # GPU box (all GPT-2 + both LSTM arms + §10c/§10c-13 arms); the cpu2 LSTM arm is
     # deliberately excluded: it is another host's queue with its own watchdog.
     out["pending_gpu_total"] = sum(out[k]["pending"] for k in
-                                   ("gpt2", "lstm_gpu", "capmatch", "nope",
-                                    "datascale", "logo", "model_scale", "ladder_probe"))
+                                   ("gpt2", "lstm_gpu", "capmatch", "nope", "nope_ext",
+                                    "cald", "datascale", "model_scale"))
     out["complete_marker"] = (R / "ALL_KALLINI_DONE").exists()
     return out
 
@@ -170,10 +202,11 @@ def main() -> int:
         print(" ".join(f"pending_{k}={v['pending']}" if isinstance(v, dict)
                        else f"{k}={v}" for k, v in s.items()))
         return 0
-    for name in ("gpt2", "lstm_gpu", "lstm_cpu", "capmatch", "nope", "datascale",
-                 "logo", "model_scale", "ladder_probe"):
+    for name in ("gpt2", "lstm_gpu", "lstm_cpu", "capmatch", "nope", "nope_ext",
+                 "cald", "datascale", "logo", "model_scale", "ladder_probe"):
         v = s[name]
-        print(f"{name:12s} done {v['done']:3d}/{v['expected']:3d}  pending {v['pending']:3d}")
+        tag = f"  [{v['deferred']}]" if v.get("deferred") else ""
+        print(f"{name:12s} done {v['done']:3d}/{v['expected']:3d}  pending {v['pending']:3d}{tag}")
     print(f"pending_total={s['pending_total']}  "
           f"pending_gpu_total={s['pending_gpu_total']}  "
           f"ALL_KALLINI_DONE={s['complete_marker']}")
