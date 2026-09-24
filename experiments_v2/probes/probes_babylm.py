@@ -198,6 +198,73 @@ def run_p1(model, pairs: list[dict], device: str) -> dict:
     return res
 
 
+P1D_KS_DEFAULT = [0, 1, 2, 4, 8, 16, 32]
+
+
+@torch.no_grad()
+def run_p1d(model, pool: list[dict], device: str, n: int = 200,
+            ks: list[int] | None = None, seed: int = 42) -> dict:
+    """P1-D distance gradient (§10c-13 A1, criterion P1d): the SHAPE of the
+    position prior. Insert the marker at token position k and measure
+
+        Δ(k) = mean-NLL(marker@k) − mean-NLL(marker@0),   k ≥ 1 (Δ(0) ≡ 0)
+
+    Predictions (prereg): wpe fixed_start → monotone rising Δ(k) (Spearman ρ
+    ≥ 0.8 on the mean curve); wpe parity_word → U-shape (cheap at both ends,
+    expensive mid: min-interior − min-ends ≥ 0.2 nats); NoPE → flat |Δ(k)| < 0.2.
+    Position 0 uses the space-less "Not" (MARKER_START), every k ≥ 1 uses " Not"
+    (MARKER_END) — the same convention as the P1 branches. The marker-token-only
+    NLL is recorded per k as the P1b-N auxiliary column (None at k=0: position 0
+    is never predicted under Kallini's shifted-labels convention)."""
+    ks = sorted(ks or P1D_KS_DEFAULT)
+    rng = np.random.default_rng(seed)
+    idx = rng.choice(len(pool), size=min(n, len(pool)), replace=False)
+    per_sent: list[dict] = []
+    for i in idx:
+        base = pool[i]["base_ids"]
+        curves_nll: dict[int, float] = {}
+        curves_mark: dict[int, float | None] = {}
+        for k in ks:
+            kk = min(k, len(base))
+            seq = (MARKER_START + base) if kk == 0 else (base[:kk] + MARKER_END + base[kk:])
+            m, mk = sentence_nll(model, seq, device)
+            curves_nll[kk] = m
+            curves_mark[kk] = mk
+        ref = curves_nll[0]
+        deltas = {kk: curves_nll[kk] - ref for kk in curves_nll}
+        k_star = min(curves_nll, key=lambda k: curves_nll[k])
+        per_sent.append({"i": int(i), "n_tokens": len(base),
+                         "deltas": {str(kk): round(v, 5) for kk, v in sorted(deltas.items())},
+                         "k_star": int(k_star),
+                         "marker_nll": {str(kk): (None if curves_mark[kk] is None else round(curves_mark[kk], 5))
+                                        for kk in sorted(curves_mark)}})
+    # mean curve + shape statistics
+    mean_curve: dict[int, float] = {}
+    for k in ks:
+        vals = [p["deltas"][str(min(k, p["n_tokens"]))] for p in per_sent
+                if str(min(k, p["n_tokens"])) in p["deltas"]]
+        if vals:
+            mean_curve[k] = round(float(np.mean(vals)), 5)
+    try:
+        from scipy.stats import spearmanr
+        rho = float(spearmanr(list(mean_curve.keys()), list(mean_curve.values())).statistic)
+    except Exception:
+        rho = float(np.corrcoef(list(mean_curve.keys()), list(mean_curve.values()))[0, 1])
+    kmax = max(mean_curve)
+    ends = [mean_curve.get(0, 0.0), mean_curve[kmax]]
+    interior = [v for kk, v in mean_curve.items() if kk not in (0, kmax)]
+    u_shape = (round(min(interior) - min(ends), 5) if interior else None)
+    k_star_hist: dict[str, int] = {}
+    for p in per_sent:
+        k_star_hist[str(p["k_star"])] = k_star_hist.get(str(p["k_star"]), 0) + 1
+    return {"n": len(per_sent), "ks": ks,
+            "mean_delta_curve": {str(kk): v for kk, v in sorted(mean_curve.items())},
+            "spearman_rho_mean_curve": round(rho, 4),
+            "u_shape_min_interior_minus_min_ends": u_shape,
+            "k_star_histogram": dict(sorted(k_star_hist.items(), key=lambda kv: int(kv[0]))),
+            "per_sentence": per_sent}
+
+
 @torch.no_grad()
 def run_p4(model, pairs: list[dict], device: str) -> dict:
     """Domain dissociation: cost of word-consistent vs token-consistent placement."""
@@ -258,6 +325,10 @@ def main() -> int:
     ap.add_argument("--seed", type=int, default=42)
     ap.add_argument("--out", default=None)
     ap.add_argument("--smoke", action="store_true", help="10 pairs, skip P3/P2 (code-path check)")
+    ap.add_argument("--probe", default="all", choices=["all", "p1d"],
+                    help="p1d = distance-gradient P1-D only (§10c-13 P1d); all = registered suite")
+    ap.add_argument("--p1d-ks", default="0,1,2,4,8,16,32",
+                    help="comma-separated marker insertion positions for P1-D")
     args = ap.parse_args()
 
     cond = args.condition
@@ -272,6 +343,19 @@ def main() -> int:
 
     n_pairs = 10 if args.smoke else args.pairs
     pool = load_base_pool(limit=200 if args.smoke else None)
+    if args.probe == "p1d":
+        ks = [int(x) for x in str(args.p1d_ks).split(",") if x.strip()]
+        report["P1D_distance_gradient"] = run_p1d(model, pool, device,
+                                                   n=n_pairs, ks=ks, seed=args.seed)
+        report["P1D_meta"] = {"n": n_pairs, "ks": ks,
+                              "note": "criterion-based shape measurement; no alpha spent"}
+        out = Path(args.out) if args.out else Path(args.model_dir).parent / "probe_p1d.json"
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text(json.dumps(report, indent=2))
+        print(json.dumps({k: v for k, v in report.items() if k != "P1D_distance_gradient"} | {
+            "P1D_distance_gradient": {kk: vv for kk, vv in report["P1D_distance_gradient"].items()
+                                       if kk != "per_sentence"}}, indent=2))
+        return 0
     pairs = make_pairs(pool, n_pairs, domain=args.domain, seed=args.seed)
     report["P1_minimal_pairs"] = run_p1(model, pairs, device)
     report["P1_meta"] = {"n_pairs": len(pairs), "domain": args.domain,
