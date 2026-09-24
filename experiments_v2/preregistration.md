@@ -720,3 +720,37 @@ B2. Deferral deviation log (each entry keys the deferral to its originally regis
         reduced descriptive carrier; sub10M cells may be restored if Tier-2 budget materializes.
     DL-4 (ladder_probe replay): 2 -> 0 cells; all P-class cells already embed LADDER_PROBE=1,
         so the replay duplicates existing coverage.
+
+---
+
+## 10d-2. Deviation registered 2026-09-25: additional same-stack RTX 3090 hosts (operator decision)
+
+*Extends §10d (same-stack acceptance) from the single burst host (gpu5) to additional
+RTX 3090 hosts of the identical numerical stack, registered BEFORE any such host runs
+a manifest cell.*
+
+**Scope.** Any host whose stack check reports exactly 2 GPUs with capability (8,6),
+torch 2.2.2+cu121 / CUDA 12.1 (the same stack_id as the 3080 grid and gpu5), passes
+the per-host admission gate below, and is recorded here by name. First such host:
+**gpu6** (2x RTX 3090, 32-core, 64G RAM, 200G disk; provisioning 2026-09-25).
+
+**Admission gate (per host, fail-closed).** Before any manifest cell runs on the host:
+two 3000-step gate cells (parity_word/seed0 on GPU0, shuffle_control/seed0 on GPU1)
+into a quarantined `results_gate/` tree (never adjudicated). PASS requires:
+(a) whole-test AND content final values within ±7% of the 3080 new-code references;
+(b) identical eval_fingerprint; (c) both GPUs pass. Failure => no runner installed;
+the failure is recorded; recovery follows the GATE_OVERRIDE precedent (§10d addendum)
+only after independent adjudication.
+
+**Shard claims.** The host claims ss_C = pending − done − ss_B(gpu5 claims) − gated
+kinds (nope / nope_ext / cald / logo / ladder_probe) − the gpu2 queue active [4b]
+block, computed by kit_gpu6/04b_make_ssC.py at staging time. Staging run 2026-09-25:
+**41 cells / 219.4 GPU-h (3080 口径)**, split 20/21 across the two GPUs
+(capmatch×7, gpt2×26, lstm_gpu×5, datascale×2, model_scale×1). Double-run backstop:
+`--skip-if-done` at every cell start; results merged `--ignore-existing`; the DL-1..4
+deferral logs apply unchanged (logo / ladder_probe rows must not be claimed).
+
+**Hygiene.** No change to any running arm; gate cells are quarantined and excluded
+from adjudication; ss_C is an operational priority change (logged here), not a
+protocol change; utilization of the second GPU is via one runner unit per card
+(CUDA_VISIBLE_DEVICES pinning), matching the §[4c]-family serial-cell semantics.
