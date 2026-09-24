@@ -1,0 +1,14 @@
+{
+  "condition": "word_shuffle",
+  "draw_seed": 0,
+  "eval_n": 10000,
+  "eval_fingerprint": "f8e64e5841c1a6ec",
+  "train_tokens_used": 6000005,
+  "bigram_types": 994218,
+  "unigram_types": 21315,
+  "discount_D": 0.71424,
+  "gmean_ppl": 1481.8868,
+  "gmean_ppl_content": 1481.8868,
+  "median_ppl": 1514.7614,
+  "model": "bigram_absdisc"
+}
