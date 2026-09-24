@@ -526,6 +526,56 @@ inheriting version defaults.
 reporting a family without its venue, or treating the burst host as a substitute
 for the registered queue order.
 
+## 10d. Deviation registered 2026-09-24: same-stack acceptance for the RTX 3090 burst host (operator decision; pending team review)
+
+*Appended by the burst-automation agent 2026-09-24. This section is an amendment: the
+text of §10c-12 above is unchanged, and its thresholds still apply as written.*
+
+**Context.** The second host used for the burst window is an RTX 3090 node (gpu5). It
+runs the **same numerical stack** as the 3080 grid — `stack_id=torch2.2.2-cu12.1`,
+CUDA 12.1, cuDNN 8902, capability 8.6, identical pinned numerics flags; the two
+`stack` blocks recorded in the result JSONs differ only in `device_name` (RTX 3080 vs
+RTX 3090). The §10c-12 bridge cells (`parity_word`, `fixed_start`; seed 0, 3000 steps)
+were re-run on gpu5 and compared with `bridge_check.py` against the 3080 new-code
+reference (`/root/bridge_3080_new/results_bridge/`, code `257b07f`).
+
+**Literal verdicts (unchanged).**
+- `parity_word`: **INHOMOGENEOUS** — worst +514.42 % at step 300 (3080 103.65 → 3090
+  636.87); eval fingerprints identical (`7d0e98c208871176`).
+- `fixed_start`: **INHOMOGENEOUS** — worst −88.84 % at step 300 (3080 1404.78 → 3090
+  156.75); eval fingerprints identical.
+- Robust reading (recorded next to the literal verdict; does not enter the gate):
+  `parity_word` step≥1000 worst |Δ| = 3.01 % (step 1000), final Δ = +2.00 % (step
+  3000); `fixed_start` computed at verdict time and written to `/root/ss_status.md` on
+  gpu5.
+
+**Deviation.** On the operator's instruction of 2026-09-24 (user decision), gpu5 was
+admitted to the grid under an explicit, recorded **same-stack acceptance**: the
+literal §10c-12 verdicts above stand as written, and no pooling claim is made on their
+basis. The failure is attributed to the early-training chaotic peak documented in
+`current/INVESTIGATION_fixed_start_20260924.md` — the same peak appears on the 3080
+under both code versions and on the 5090 pool at several seeds and steps, while the
+late ladder and final values converge (parity_word: 3.01 % at step≥1000, +2.00 % at
+step 3000; fixed_start step 100: 1.3 %).
+
+**Mechanism (auditable and reversible).** The override lives in a flag file on the
+burst host (`/root/kit_ss/SAME_STACK_ACCEPT`, carrying the authorisation, the evidence
+and the rollback line); the admission script requires complete verdicts *and*
+identical eval fingerprints, so the flag cannot bypass a data/eval-path mismatch. The
+override is logged in `/root/ss_status.md` as a
+`DEVIATION: same-stack acceptance per operator decision 2026-09-24` line together with
+the robust reading; deleting the flag restores the original stop-on-NOT-PASS
+behaviour.
+
+**Status.** Registered for the record; **pending team review**. Any later reporting or
+pooling decision for cells produced on this node can cite this section.
+
+*Tooling note: this amendment is currently an uncommitted working-tree edit on the gpu2
+checkout (`kallini_loop.sh` pulls with `git pull --ff-only` each pass and continues with
+a warning if a pull is blocked by local changes). A copy of the amended file is kept at
+`/root/burst/preregistration.md.bak-20260924`; reverting is
+`git -C /root/llm-impossible checkout -- experiments_v2/preregistration.md`.*
+
 ## 11. Post-hoc hypotheses registered on first clean-corpus evidence (H7/H8)
 
 These were written AFTER observing the GPU early signal above (declared as
