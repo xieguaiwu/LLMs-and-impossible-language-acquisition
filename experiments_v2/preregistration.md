@@ -754,3 +754,16 @@ deferral logs apply unchanged (logo / ladder_probe rows must not be claimed).
 from adjudication; ss_C is an operational priority change (logged here), not a
 protocol change; utilization of the second GPU is via one runner unit per card
 (CUDA_VISIBLE_DEVICES pinning), matching the §[4c]-family serial-cell semantics.
+
+### 10d-2a. Addendum (2026-09-25): gpu6 is a SINGLE-GPU host
+
+*Registered before any gpu6 cell runs. Amends the scope line of §10d-2.*
+
+The provisioned gpu6 instance carries **one** RTX 3090 (16C / 31G RAM), not two.
+Accordingly: (a) the §10d-2 scope line "exactly 2 GPUs" reads as "one or more GPUs,
+all with capability (8,6), same stack_id"; (b) a single-GPU host runs the admission
+gate on **parity_word/seed0 only** (the treatment-arm condition; ~3.9 h) and is
+admitted on the same ≤7% + identical-fingerprint criteria; (c) the shard is the
+single file ssC_gpu0.tsv — 41 cells / 219.4 GPU-h (3080 口径), regenerated cleanly
+2026-09-25 after a merge-contamination incident (two TSV headers concatenated);
+(d) second-GPU clauses of §10d-2 are inoperative for gpu6.
