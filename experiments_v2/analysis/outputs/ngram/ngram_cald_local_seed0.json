@@ -1,0 +1,14 @@
+{
+  "condition": "cald_local",
+  "draw_seed": 0,
+  "eval_n": 10000,
+  "eval_fingerprint": "f09b3afb304fd489",
+  "train_tokens_used": 6000004,
+  "bigram_types": 494215,
+  "unigram_types": 5400,
+  "discount_D": 0.58309,
+  "gmean_ppl": 1599.3873,
+  "gmean_ppl_content": 2569.5739,
+  "median_ppl": 1524.7505,
+  "model": "bigram_absdisc"
+}
