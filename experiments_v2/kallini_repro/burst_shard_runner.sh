@@ -55,7 +55,12 @@ echo "[burst] gpu=$GPU shard=$SHARD repo=$REPO python=$PYTHON dry=$DRY"
 
 ok=0; skip=0; fail=0
 # header is skipped by the tail below
-while IFS=$'\t' read -r kind condition seed steps env result_path note; do
+# 2026-09-24 fix: bash `read` with IFS=$'\t' collapses runs of tabs (tab is
+# IFS-whitespace) -> EMPTY columns were lost and later fields shifted left
+# (env parsed as steps; 36/55 ss_B rows failed). Convert tabs to '|' first.
+while IFS= read -r __raw; do
+  IFS='|' read -r kind condition seed steps env result_path note <<< "$(printf '%s' "$__raw" | tr '\t' '|')"
+
   [ "$kind" = "kind" ] && continue
   [ -z "${kind:-}" ] && continue
   if [ -n "${result_path:-}" ] && [ -f "$result_path" ]; then
