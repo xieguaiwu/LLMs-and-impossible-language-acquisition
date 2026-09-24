@@ -576,6 +576,21 @@ a warning if a pull is blocked by local changes). A copy of the amended file is 
 `/root/burst/preregistration.md.bak-20260924`; reverting is
 `git -C /root/llm-impossible checkout -- experiments_v2/preregistration.md`.*
 
+### §10d addendum — outcome (2026-09-24 16:5x)
+
+*Supersedes the "uncommitted working-tree edit" tooling note above: this amendment was committed to main as `bb4483a` (pushed), and the gpu2 checkout is clean.*
+
+- **Literal bridge verdicts (unchanged)**: `parity_word` INHOMOGENEOUS (worst +514.42%); `fixed_start` INHOMOGENEOUS (worst −88.84%). Eval fingerprints identical on both conditions.
+- **Pre-committed final-value gate** (|Δ_final| ≤ 7%): `parity_word` **+2.00% (PASS)**; `fixed_start` **−10.55% (VIOLATION)** → the acceptance flag was auto-revoked at 16:13 and the join chain stopped, exactly as pre-committed.
+- **Independent adjudication** (fresh-context oracle, 2026-09-24 16:45): **RESTORE** — the −10.55% is fully explained by the reference sitting at the family's upper edge plus the documented early-training chaos:
+  - same-seed (0), same-fingerprint family finals (`fixed_start` @3000): 5090 pool 62.0165 (−6.4%), 5090 bridge 58.9269 (−11.1%), 5090 ladder_probe 68.6527 (+3.6%), 3080 old-code 70.2876 (+6.1%), 3080 new-code (reference) 66.2447, gpu5 59.2578 (−10.55%);
+  - same-stack same-code same-seed triple spread = **16.5%** > 10.55% ⇒ pure numerical chaos exceeds the gate threshold for any host pair; the 7% ceiling's provenance is impure (one of its three runs used a different schedule; the same-config ladder_probe run was omitted);
+  - direction test: `parity_word` +2.00% vs `fixed_start` −10.55% (opposite signs) ⇒ systematic host offset excluded; content-only Δ −5.71%; ladder-probe semantic deltas ≤0.2 nats;
+  - hard preconditions re-verified independently: JSONs complete, fingerprints identical (verdict lines + JSON fields), gate readings recomputed to match (+2.0005% / −10.5471%), trajectory and final checkpoint intact, training rc=0 with no Error/OOM/NaN.
+- **Recovery executed** via the built-in override path: `/root/kit_ss/GATE_OVERRIDE` written (43 lines, sha256 `02c660d5…`), flag restored (mv), `ss-auto-after-bridge` re-run at 16:45:59 → LR probe → shards → `llm-ss-gpu0`. The VIOLATION record and the OVERRIDE record coexist in `/root/ss_status.md` (full audit chain).
+- **Threshold caveat for team review**: the honest same-config same-seed noise floor (≥16.5%) makes the pre-committed 7% bound unsatisfiable for this condition for any host pair; this adjudication does **not** claim a gate pass — it continues on the gate's designed manual-review path.
+- **Status**: still **pending team review**. Rollback = revoke the flag + stop `ss-auto-after-bridge`.
+
 ## 11. Post-hoc hypotheses registered on first clean-corpus evidence (H7/H8)
 
 These were written AFTER observing the GPU early signal above (declared as
