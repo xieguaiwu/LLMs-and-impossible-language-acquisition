@@ -64,9 +64,19 @@ SEED_BASE = 20260920
 
 
 def _file_of(cond: str, genre: str, kind: str) -> Path:
+    # The P pool uses the ``_parsed`` naming; the S/R pool stores plain
+    # ``{genre}.train`` / ``{genre}_affected.test``.  Accept both.
     root = DATA_ROOT / f"babylm_{cond}"
     if kind == "train":
+        for name in (f"{genre}_parsed.train", f"{genre}.train"):
+            cand = root / "babylm_100M" / name
+            if cand.exists():
+                return cand
         return root / "babylm_100M" / f"{genre}_parsed.train"
+    for name in (f"{genre}_parsed_affected.test", f"{genre}_affected.test"):
+        cand = root / "babylm_test_affected" / name
+        if cand.exists():
+            return cand
     return root / "babylm_test_affected" / f"{genre}_parsed_affected.test"
 
 
