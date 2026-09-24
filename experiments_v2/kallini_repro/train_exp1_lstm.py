@@ -399,6 +399,11 @@ def train_one(perturbation: str, seed: int, out_dir: Path, steps: int, warmup: i
         if step in checkpoints:
             trace = evaluate_checkpoint(model, eval_sents, device=DEVICE,
                                         marker_ids=getattr(G, "MARKER_IDS", None))
+            model.train()                            # 2026-09-24 fix (mirror of the GPT-2 F9 fix):
+            # evaluate_checkpoint() left the model in eval() mode and nothing
+            # restored it -> the next backward() aborts on the cudnn-LSTM path
+            # ("cudnn RNN backward can only be called in training mode"); on CPU
+            # it silently trained without dropout from the first eval on.
             eval_trace[str(step)] = trace["gmean_ppl"]
             if "gmean_ppl_content" in trace:
                 eval_content_trace[str(step)] = trace["gmean_ppl_content"]
