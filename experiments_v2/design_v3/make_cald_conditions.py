@@ -159,9 +159,14 @@ def main() -> None:
     total = 0
     batch = 20000
     while total < args.train_tokens:
-        pre = np.fromiter((pyrng.randint(*PRE_RANGE) for _ in range(batch)), dtype=np.int64, count=batch)
-        d = np.fromiter((pyrng.randint(*D_RANGE) for _ in range(batch)), dtype=np.int64, count=batch)
-        post = np.fromiter((pyrng.randint(*POST_RANGE) for _ in range(batch)), dtype=np.int64, count=batch)
+        # d first, then pre/post padding chosen so total = pre+1+d+1+post lands
+        # in [LEN_MIN, LEN_MAX] exactly (prereg A2: d~U{8,32}, len 24-48)
+        d = rng.integers(D_RANGE[0], D_RANGE[1] + 1, size=batch)
+        lo = np.maximum(0, LEN_MIN - (d + 2))
+        hi = LEN_MAX - (d + 2)
+        rem = lo + (rng.random(batch) * (hi - lo + 1)).astype(np.int64)
+        pre = (rng.random(batch) * (rem + 1)).astype(np.int64)
+        post = rem - pre
         need = pre + d + post
         maxlen = int(need.max())
         starts = rng.choice(len(vocab), size=batch).astype(np.int64)
@@ -181,8 +186,14 @@ def main() -> None:
     n_train = len(sents)
     print(f"[cald] train plan: {n_train} sentences, {total} tokens (target {args.train_tokens})")
 
-    test_plans = [(pyrng.randint(*PRE_RANGE), pyrng.randint(*D_RANGE), pyrng.randint(*POST_RANGE))
-                  for _ in range(args.test_sents)]
+    test_plans = []
+    for _ in range(args.test_sents):
+        d = int(rng.integers(D_RANGE[0], D_RANGE[1] + 1))
+        lo = max(0, LEN_MIN - (d + 2))
+        hi = LEN_MAX - (d + 2)
+        rem = int(rng.integers(lo, hi + 1))
+        pre = int(rng.integers(0, rem + 1))
+        test_plans.append((pre, d, rem - pre))
     # V-permutation source for cald_shuf (V ⊥ K; fillers byte-identical to long)
     perm = rng.permutation(n_train)
 
