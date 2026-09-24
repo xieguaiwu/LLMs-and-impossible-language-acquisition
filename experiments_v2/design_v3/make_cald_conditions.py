@@ -53,15 +53,31 @@ COIN_BASE = ["quorl", "vexim", "zandul", "mirek", "tolvin", "grasho", "pelna",
              "blanet", "crodif", "tessup", "varmol", "jinqat", "fylor", "nexpus"]
 
 
-def coin_words(n: int) -> list[str]:
-    """n coined words (deterministic), each a SINGLE GPT-2 BPE token with a
-    leading space, extending the base list with numbered variants if needed."""
-    out, i = [], 0
-    while len(out) < n:
-        w = COIN_BASE[i % len(COIN_BASE)] + ("" if i < len(COIN_BASE) else str(i // len(COIN_BASE)))
-        out.append(" " + w)
-        i += 1
-    return out
+def select_kv_tokens(stream: list[int], tok, n: int = 2 * K_PAIRS) -> list[int]:
+    """n single-BPE pseudo-word tokens absent from the BabyLM stream.
+
+    GPT-2's WebText vocab contains many rare word-like single tokens that a
+    child-directed corpus never uses; scan the vocab, keep word-shaped decodes
+    (" abcd.."), drop anything present in the corpus sample, take n by id order
+    (deterministic). Also avoids the trainer's MARKER_IDS (content-only mask)."""
+    import re
+    stream_set = np.unique(np.asarray(stream, dtype=np.int64))
+    marker_ids = {1892, 3673, 50257, 50258}
+    pat = re.compile(r"^ [a-zA-Z]{5,9}$")
+    picked: list[int] = []
+    for tid in sorted(tok.get_vocab().values()):
+        if tid in marker_ids or tid < 300:
+            continue
+        s = tok.decode([tid])
+        if not pat.match(s):
+            continue
+        if tid in stream_set:
+            continue
+        picked.append(tid)
+        if len(picked) >= n:
+            break
+    assert len(picked) >= n, f"only found {len(picked)} usable K/V tokens"
+    return picked[:n]
 
 
 def load_babylm_stream(max_tokens: int = 6_000_000) -> list[int]:
@@ -125,15 +141,11 @@ def main() -> None:
     pyrng = random.Random(args.seed)
 
     tok = GPT2TokenizerFast.from_pretrained("gpt2")
-    kv_words = coin_words(2 * K_PAIRS)
-    kv_ids = []
-    for w in kv_words:
-        e = tok.encode(w, add_special_tokens=False)
-        assert len(e) == 1, f"coined word {w!r} is not a single BPE token: {e}"
-        kv_ids.append(e[0])
-    print(f"[cald] {len(kv_ids)} K/V tokens reserved (single-BPE verified)")
+    stream_probe = load_babylm_stream(max_tokens=6_000_000)
+    kv_ids = select_kv_tokens(stream_probe, tok)
+    print(f"[cald] {len(kv_ids)} K/V tokens reserved (single-BPE verified, absent from BabyLM sample)")
 
-    stream = load_babylm_stream()
+    stream = stream_probe
     vocab, CUM = build_models(stream)
     assert not (set(kv_ids) & set(vocab.tolist())), "K/V ids leaked into filler vocab"
     print(f"[cald] filler vocab V={len(vocab)}, transition matrix {CUM.shape}")
