@@ -72,6 +72,18 @@ while IFS= read -r __raw; do
     lstm_gpu|capmatch) script="experiments_v2/kallini_repro/train_exp1_lstm.py" ;;
     *)                 script="experiments_v2/kallini_repro/train_exp1.py" ;;
   esac
+  # 2026-09-25 fix: capmatch rows embed a stale LSTM_LR (the generator snapshot
+  # predates .frozen_lr). The registered capmatch arm (F4 confirmatory) REQUIRES
+  # the frozen LR -- override from the arm's .frozen_lr (single source of truth).
+  if [ "$kind" = "capmatch" ] && [ -s "$REPO/experiments_v2/kallini_repro/results_lstm_gpu_capmatch/.frozen_lr" ]; then
+    frozen=$(head -c 32 "$REPO/experiments_v2/kallini_repro/results_lstm_gpu_capmatch/.frozen_lr" | tr -d "[:space:]")
+    _new=""
+    for _tok in ${env:-}; do
+      [ "${_tok%%=*}" = "LSTM_LR" ] || _new="$_new$_tok "
+    done
+    env="${_new}LSTM_LR=$frozen"
+    echo "[burst] capmatch LR override -> $frozen"
+  fi
   args=("$condition" --seed "$seed")
   [ -n "${steps:-}" ] && args+=(--steps "$steps")
   args+=(--skip-if-done)
