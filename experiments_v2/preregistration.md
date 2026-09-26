@@ -781,3 +781,16 @@ batches) − gated kinds (nope/nope_ext/cald/logo/ladder) − the gpu2 active [4
 **conservative mode: in-flight claims are NOT reclaimed** (double-run backstop =
 skip-if-done + --ignore-existing); reclaiming unstarted rows requires --reclaim-unstarted
 with host state files as evidence. Generated 2026-09-26 by kit_gpu7/04c_make_ssD.py.
+
+### 10d-2c. Addendum (2026-09-26): gpu7 admission on parity_word alone; shuffle_control reference deferred
+
+gpu7 dual gate ran 2026-09-25 15:10-19:05. parity_word/seed0: final 36.7366 vs 3080
+reference 37.1008 = **|d| 0.99%**, content |d| 0.69%, eval fingerprints identical — PASS.
+The shuffle_control leg aborted: its 3080 new-code reference does not exist yet
+(shuffle_control s0 3000-step belongs to the S/R panel, queued behind NoPE/cald on gpu2;
+the pre-quarantine value is F9/F10-barred). Recorded per §10d-2 fail-closed (no runners
+installed at gate time). Resolution, per the §10d-2a single-cell precedent: gpu7 admission
+stands on the parity_word gate (0.99%); the shuffle_control gate cell result is retained in
+gpu7 results_gate/ and cross-checked post hoc when the reference lands. gpu7 work source:
+ssD_gpu0.tsv = the 6 nope_ext cells, released only after .t1_smoke_ok exists (§10c-13 A1
+smoke gate) — a waiter on gpu7 installs the runner and starts the shard at that moment.
