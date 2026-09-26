@@ -767,3 +767,17 @@ admitted on the same ≤7% + identical-fingerprint criteria; (c) the shard is th
 single file ssC_gpu0.tsv — 41 cells / 219.4 GPU-h (3080 口径), regenerated cleanly
 2026-09-25 after a merge-contamination incident (two TSV headers concatenated);
 (d) second-GPU clauses of §10d-2 are inoperative for gpu6.
+
+### 10d-2b. Addendum (2026-09-26): gpu7 — dual RTX 3080 host (the reference card itself)
+
+*Registered before any gpu7 cell runs. Extends §10d-2 to an RTX 3080 host.*
+
+gpu7 (2x RTX 3080 10G, 32C, 64G) is **the same card as the 3080 reference grid** — the
+same-stack argument of §10d applies a fortiori (identical GPU model, not merely same
+capability class). Admission gate: the §10d-2 dual-cell form (GPU0 parity_word/seed0 +
+GPU1 shuffle_control/seed0, parallel, both <=7% + identical fingerprints, fail-closed).
+Shard: ssD claims = registry pending − done − ss_B − ss_C − ss_next_A/B (dispatcher
+batches) − gated kinds (nope/nope_ext/cald/logo/ladder) − the gpu2 active [4b] block;
+**conservative mode: in-flight claims are NOT reclaimed** (double-run backstop =
+skip-if-done + --ignore-existing); reclaiming unstarted rows requires --reclaim-unstarted
+with host state files as evidence. Generated 2026-09-26 by kit_gpu7/04c_make_ssD.py.
