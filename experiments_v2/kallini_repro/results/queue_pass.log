@@ -1,0 +1,492 @@
+[2026-09-19T10:10:53+08:00] fetching official BabyLM per-genre files via HF mirror (cambridge-climb/BabyLM)
+kallini corpus words: 93237077
+[2026-09-19T10:19:35+08:00] shim-tagging train + test (per genre)
+[2026-09-19T10:20:59+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T10:20:59+08:00] generating v3 class-P datasets
+[2026-09-19T10:21:10+08:00] V3 PERTURB FAIL
+[2026-09-19T10:24:14+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T10:24:14+08:00] generating v3 class-P datasets
+[2026-09-19T10:24:21+08:00] V3 PERTURB FAIL
+[2026-09-19T10:27:24+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T10:27:24+08:00] generating v3 class-P datasets
+[2026-09-19T10:27:32+08:00] V3 PERTURB FAIL
+[2026-09-19T10:30:35+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T10:30:35+08:00] generating v3 class-P datasets
+[2026-09-19T10:30:43+08:00] V3 PERTURB FAIL
+[2026-09-19T10:33:47+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T10:33:48+08:00] generating v3 class-P datasets
+[2026-09-19T10:33:55+08:00] V3 PERTURB FAIL
+[2026-09-19T10:36:58+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T10:36:59+08:00] generating v3 class-P datasets
+[2026-09-19T10:37:06+08:00] V3 PERTURB FAIL
+[2026-09-19T10:40:09+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T10:40:09+08:00] generating v3 class-P datasets
+[2026-09-19T10:40:17+08:00] V3 PERTURB FAIL
+[2026-09-19T10:43:20+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T10:43:20+08:00] generating v3 class-P datasets
+已终止
+[2026-09-19T11:10:53+08:00] V3 PERTURB FAIL
+[2026-09-19T11:13:56+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T11:14:06+08:00] FAIL shuffle_control/seed0
+[2026-09-19T11:14:14+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T11:14:22+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T11:14:30+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T11:14:38+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T11:14:45+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T11:14:55+08:00] FAIL reverse_control/seed0
+[2026-09-19T11:15:03+08:00] FAIL reverse_partial/seed0
+[2026-09-19T11:15:11+08:00] FAIL reverse_full/seed0
+[2026-09-19T11:15:19+08:00] FAIL shuffle_control/seed14
+[2026-09-19T11:15:27+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T11:15:35+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T11:15:43+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T11:15:52+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T11:16:01+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T11:16:09+08:00] FAIL reverse_control/seed14
+[2026-09-19T11:16:18+08:00] FAIL reverse_partial/seed14
+[2026-09-19T11:16:26+08:00] FAIL reverse_full/seed14
+[2026-09-19T11:16:34+08:00] FAIL shuffle_control/seed41
+[2026-09-19T11:16:42+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T11:16:50+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T11:16:59+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T11:17:06+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T11:17:14+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T11:17:21+08:00] FAIL reverse_control/seed41
+[2026-09-19T11:17:29+08:00] FAIL reverse_partial/seed41
+[2026-09-19T11:17:37+08:00] FAIL reverse_full/seed41
+[2026-09-19T11:17:44+08:00] FAIL parity_word/seed0
+[2026-09-19T11:17:52+08:00] FAIL fixed_start/seed0
+[2026-09-19T11:18:00+08:00] FAIL parity_tok/seed0
+[2026-09-19T11:18:07+08:00] FAIL negtok/seed0
+[2026-09-19T11:18:15+08:00] FAIL parity_word/seed14
+[2026-09-19T11:18:22+08:00] FAIL fixed_start/seed14
+[2026-09-19T11:18:29+08:00] FAIL parity_tok/seed14
+[2026-09-19T11:18:38+08:00] FAIL negtok/seed14
+[2026-09-19T11:18:45+08:00] FAIL parity_word/seed41
+[2026-09-19T11:18:52+08:00] FAIL fixed_start/seed41
+[2026-09-19T11:19:00+08:00] FAIL parity_tok/seed41
+[2026-09-19T11:19:08+08:00] FAIL negtok/seed41
+[2026-09-19T11:19:15+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T11:19:23+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T11:19:31+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T11:19:31+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T11:22:34+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T11:22:42+08:00] FAIL shuffle_control/seed0
+[2026-09-19T11:22:50+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T11:22:59+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T11:23:07+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T11:23:15+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T11:23:23+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T11:23:31+08:00] FAIL reverse_control/seed0
+[2026-09-19T11:23:39+08:00] FAIL reverse_partial/seed0
+[2026-09-19T11:23:47+08:00] FAIL reverse_full/seed0
+[2026-09-19T11:23:55+08:00] FAIL shuffle_control/seed14
+[2026-09-19T11:24:03+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T11:24:11+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T11:24:20+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T11:24:28+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T11:24:36+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T11:24:44+08:00] FAIL reverse_control/seed14
+[2026-09-19T11:24:52+08:00] FAIL reverse_partial/seed14
+[2026-09-19T11:24:59+08:00] FAIL reverse_full/seed14
+[2026-09-19T11:25:07+08:00] FAIL shuffle_control/seed41
+[2026-09-19T11:25:15+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T11:25:23+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T11:25:31+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T11:25:39+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T11:25:46+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T11:25:53+08:00] FAIL reverse_control/seed41
+[2026-09-19T11:26:01+08:00] FAIL reverse_partial/seed41
+[2026-09-19T11:26:09+08:00] FAIL reverse_full/seed41
+[2026-09-19T11:26:16+08:00] FAIL parity_word/seed0
+[2026-09-19T11:26:24+08:00] FAIL fixed_start/seed0
+[2026-09-19T11:26:31+08:00] FAIL parity_tok/seed0
+[2026-09-19T11:26:38+08:00] FAIL negtok/seed0
+[2026-09-19T11:26:45+08:00] FAIL parity_word/seed14
+[2026-09-19T11:26:53+08:00] FAIL fixed_start/seed14
+[2026-09-19T11:27:00+08:00] FAIL parity_tok/seed14
+[2026-09-19T11:27:07+08:00] FAIL negtok/seed14
+[2026-09-19T11:27:15+08:00] FAIL parity_word/seed41
+[2026-09-19T11:27:22+08:00] FAIL fixed_start/seed41
+[2026-09-19T11:27:29+08:00] FAIL parity_tok/seed41
+[2026-09-19T11:27:37+08:00] FAIL negtok/seed41
+[2026-09-19T11:27:45+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T11:27:53+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T11:28:01+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T11:28:01+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T11:31:04+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T11:31:12+08:00] FAIL shuffle_control/seed0
+[2026-09-19T11:31:20+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T11:31:28+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T11:31:36+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T11:31:44+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T11:31:52+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T11:32:00+08:00] FAIL reverse_control/seed0
+[2026-09-19T11:32:09+08:00] FAIL reverse_partial/seed0
+[2026-09-19T11:32:18+08:00] FAIL reverse_full/seed0
+[2026-09-19T11:32:26+08:00] FAIL shuffle_control/seed14
+[2026-09-19T11:32:33+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T11:32:42+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T11:32:50+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T11:32:59+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T11:33:07+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T11:33:16+08:00] FAIL reverse_control/seed14
+[2026-09-19T11:33:24+08:00] FAIL reverse_partial/seed14
+[2026-09-19T11:33:32+08:00] FAIL reverse_full/seed14
+[2026-09-19T11:33:40+08:00] FAIL shuffle_control/seed41
+[2026-09-19T11:33:48+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T11:33:56+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T11:34:04+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T11:34:12+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T11:34:19+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T11:34:27+08:00] FAIL reverse_control/seed41
+[2026-09-19T11:34:35+08:00] FAIL reverse_partial/seed41
+[2026-09-19T11:34:43+08:00] FAIL reverse_full/seed41
+[2026-09-19T11:34:50+08:00] FAIL parity_word/seed0
+[2026-09-19T11:34:58+08:00] FAIL fixed_start/seed0
+[2026-09-19T11:35:05+08:00] FAIL parity_tok/seed0
+[2026-09-19T11:35:13+08:00] FAIL negtok/seed0
+[2026-09-19T11:35:20+08:00] FAIL parity_word/seed14
+[2026-09-19T11:35:28+08:00] FAIL fixed_start/seed14
+[2026-09-19T11:35:35+08:00] FAIL parity_tok/seed14
+[2026-09-19T11:35:42+08:00] FAIL negtok/seed14
+[2026-09-19T11:35:51+08:00] FAIL parity_word/seed41
+[2026-09-19T11:35:58+08:00] FAIL fixed_start/seed41
+[2026-09-19T11:36:06+08:00] FAIL parity_tok/seed41
+[2026-09-19T11:36:14+08:00] FAIL negtok/seed41
+[2026-09-19T11:36:22+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T11:36:30+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T11:36:39+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T11:36:39+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T11:39:42+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T11:39:50+08:00] FAIL shuffle_control/seed0
+[2026-09-19T11:39:59+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T11:40:07+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T11:40:15+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T11:40:24+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T11:40:32+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T11:40:40+08:00] FAIL reverse_control/seed0
+[2026-09-19T11:40:48+08:00] FAIL reverse_partial/seed0
+[2026-09-19T11:40:57+08:00] FAIL reverse_full/seed0
+[2026-09-19T11:41:06+08:00] FAIL shuffle_control/seed14
+[2026-09-19T11:41:14+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T11:41:23+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T11:41:32+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T11:41:40+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T11:41:48+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T11:41:56+08:00] FAIL reverse_control/seed14
+[2026-09-19T11:42:04+08:00] FAIL reverse_partial/seed14
+[2026-09-19T11:42:12+08:00] FAIL reverse_full/seed14
+[2026-09-19T11:42:20+08:00] FAIL shuffle_control/seed41
+[2026-09-19T11:42:28+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T11:42:36+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T11:42:44+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T11:42:51+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T11:42:59+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T11:43:07+08:00] FAIL reverse_control/seed41
+[2026-09-19T11:43:14+08:00] FAIL reverse_partial/seed41
+[2026-09-19T11:43:21+08:00] FAIL reverse_full/seed41
+[2026-09-19T11:43:28+08:00] FAIL parity_word/seed0
+[2026-09-19T11:43:36+08:00] FAIL fixed_start/seed0
+[2026-09-19T11:43:44+08:00] FAIL parity_tok/seed0
+[2026-09-19T11:43:51+08:00] FAIL negtok/seed0
+[2026-09-19T11:43:59+08:00] FAIL parity_word/seed14
+[2026-09-19T11:44:06+08:00] FAIL fixed_start/seed14
+[2026-09-19T11:44:14+08:00] FAIL parity_tok/seed14
+[2026-09-19T11:44:21+08:00] FAIL negtok/seed14
+[2026-09-19T11:44:29+08:00] FAIL parity_word/seed41
+[2026-09-19T11:44:37+08:00] FAIL fixed_start/seed41
+[2026-09-19T11:44:44+08:00] FAIL parity_tok/seed41
+[2026-09-19T11:44:52+08:00] FAIL negtok/seed41
+[2026-09-19T11:45:00+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T11:45:08+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T11:45:15+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T11:45:16+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T11:48:19+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T11:48:27+08:00] FAIL shuffle_control/seed0
+[2026-09-19T11:48:35+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T11:48:43+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T11:48:50+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T11:48:58+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T11:49:06+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T11:49:14+08:00] FAIL reverse_control/seed0
+[2026-09-19T11:49:21+08:00] FAIL reverse_partial/seed0
+[2026-09-19T11:49:30+08:00] FAIL reverse_full/seed0
+[2026-09-19T11:49:38+08:00] FAIL shuffle_control/seed14
+[2026-09-19T11:49:45+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T11:49:53+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T11:50:01+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T11:50:08+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T11:50:16+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T11:50:23+08:00] FAIL reverse_control/seed14
+[2026-09-19T11:50:31+08:00] FAIL reverse_partial/seed14
+[2026-09-19T11:50:39+08:00] FAIL reverse_full/seed14
+[2026-09-19T11:50:47+08:00] FAIL shuffle_control/seed41
+[2026-09-19T11:50:54+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T11:51:02+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T11:51:09+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T11:51:17+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T11:51:25+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T11:51:33+08:00] FAIL reverse_control/seed41
+[2026-09-19T11:51:41+08:00] FAIL reverse_partial/seed41
+[2026-09-19T11:51:48+08:00] FAIL reverse_full/seed41
+[2026-09-19T11:51:56+08:00] FAIL parity_word/seed0
+[2026-09-19T11:52:04+08:00] FAIL fixed_start/seed0
+[2026-09-19T11:52:13+08:00] FAIL parity_tok/seed0
+[2026-09-19T11:52:20+08:00] FAIL negtok/seed0
+[2026-09-19T11:52:28+08:00] FAIL parity_word/seed14
+[2026-09-19T11:52:37+08:00] FAIL fixed_start/seed14
+[2026-09-19T11:52:45+08:00] FAIL parity_tok/seed14
+[2026-09-19T11:52:52+08:00] FAIL negtok/seed14
+[2026-09-19T11:52:59+08:00] FAIL parity_word/seed41
+[2026-09-19T11:53:07+08:00] FAIL fixed_start/seed41
+[2026-09-19T11:53:14+08:00] FAIL parity_tok/seed41
+[2026-09-19T11:53:21+08:00] FAIL negtok/seed41
+[2026-09-19T11:53:29+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T11:53:36+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T11:53:44+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T11:53:44+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T11:56:47+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T11:56:56+08:00] FAIL shuffle_control/seed0
+[2026-09-19T11:57:04+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T11:57:12+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T11:57:20+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T11:57:29+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T11:57:37+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T11:57:45+08:00] FAIL reverse_control/seed0
+[2026-09-19T11:57:53+08:00] FAIL reverse_partial/seed0
+[2026-09-19T11:58:00+08:00] FAIL reverse_full/seed0
+[2026-09-19T11:58:09+08:00] FAIL shuffle_control/seed14
+[2026-09-19T11:58:16+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T11:58:25+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T11:58:33+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T11:58:41+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T11:58:49+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T11:58:58+08:00] FAIL reverse_control/seed14
+[2026-09-19T11:59:05+08:00] FAIL reverse_partial/seed14
+[2026-09-19T11:59:14+08:00] FAIL reverse_full/seed14
+[2026-09-19T11:59:22+08:00] FAIL shuffle_control/seed41
+[2026-09-19T11:59:30+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T11:59:38+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T11:59:46+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T11:59:55+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T12:00:03+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T12:00:11+08:00] FAIL reverse_control/seed41
+[2026-09-19T12:00:19+08:00] FAIL reverse_partial/seed41
+[2026-09-19T12:00:28+08:00] FAIL reverse_full/seed41
+[2026-09-19T12:00:37+08:00] FAIL parity_word/seed0
+[2026-09-19T12:00:45+08:00] FAIL fixed_start/seed0
+[2026-09-19T12:00:53+08:00] FAIL parity_tok/seed0
+[2026-09-19T12:01:02+08:00] FAIL negtok/seed0
+[2026-09-19T12:01:10+08:00] FAIL parity_word/seed14
+[2026-09-19T12:01:18+08:00] FAIL fixed_start/seed14
+[2026-09-19T12:01:26+08:00] FAIL parity_tok/seed14
+[2026-09-19T12:01:34+08:00] FAIL negtok/seed14
+[2026-09-19T12:01:42+08:00] FAIL parity_word/seed41
+[2026-09-19T12:01:50+08:00] FAIL fixed_start/seed41
+[2026-09-19T12:01:58+08:00] FAIL parity_tok/seed41
+[2026-09-19T12:02:07+08:00] FAIL negtok/seed41
+[2026-09-19T12:02:16+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T12:02:25+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T12:02:33+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T12:02:33+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T12:05:36+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T12:05:45+08:00] FAIL shuffle_control/seed0
+[2026-09-19T12:05:53+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T12:06:01+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T12:06:09+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T12:06:17+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T12:06:25+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T12:06:33+08:00] FAIL reverse_control/seed0
+[2026-09-19T12:06:42+08:00] FAIL reverse_partial/seed0
+[2026-09-19T12:06:50+08:00] FAIL reverse_full/seed0
+[2026-09-19T12:06:59+08:00] FAIL shuffle_control/seed14
+[2026-09-19T12:07:07+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T12:07:16+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T12:07:25+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T12:07:33+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T12:07:41+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T12:07:50+08:00] FAIL reverse_control/seed14
+[2026-09-19T12:07:58+08:00] FAIL reverse_partial/seed14
+[2026-09-19T12:08:06+08:00] FAIL reverse_full/seed14
+[2026-09-19T12:08:14+08:00] FAIL shuffle_control/seed41
+[2026-09-19T12:08:22+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T12:08:30+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T12:08:39+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T12:08:47+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T12:08:55+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T12:09:03+08:00] FAIL reverse_control/seed41
+[2026-09-19T12:09:12+08:00] FAIL reverse_partial/seed41
+[2026-09-19T12:09:20+08:00] FAIL reverse_full/seed41
+[2026-09-19T12:09:28+08:00] FAIL parity_word/seed0
+[2026-09-19T12:09:36+08:00] FAIL fixed_start/seed0
+[2026-09-19T12:09:44+08:00] FAIL parity_tok/seed0
+[2026-09-19T12:09:52+08:00] FAIL negtok/seed0
+[2026-09-19T12:10:00+08:00] FAIL parity_word/seed14
+[2026-09-19T12:10:08+08:00] FAIL fixed_start/seed14
+[2026-09-19T12:10:16+08:00] FAIL parity_tok/seed14
+[2026-09-19T12:10:24+08:00] FAIL negtok/seed14
+[2026-09-19T12:10:32+08:00] FAIL parity_word/seed41
+[2026-09-19T12:10:39+08:00] FAIL fixed_start/seed41
+[2026-09-19T12:10:47+08:00] FAIL parity_tok/seed41
+[2026-09-19T12:10:55+08:00] FAIL negtok/seed41
+[2026-09-19T12:11:03+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T12:11:12+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T12:11:21+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T12:11:21+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T12:14:25+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T12:14:33+08:00] FAIL shuffle_control/seed0
+[2026-09-19T12:14:41+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T12:14:50+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T12:14:58+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T12:15:07+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T12:15:15+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T12:15:23+08:00] FAIL reverse_control/seed0
+[2026-09-19T12:15:33+08:00] FAIL reverse_partial/seed0
+[2026-09-19T12:15:42+08:00] FAIL reverse_full/seed0
+[2026-09-19T12:15:50+08:00] FAIL shuffle_control/seed14
+[2026-09-19T12:15:57+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T12:16:06+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T12:16:14+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T12:16:22+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T12:16:31+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T12:16:40+08:00] FAIL reverse_control/seed14
+[2026-09-19T12:16:49+08:00] FAIL reverse_partial/seed14
+[2026-09-19T12:16:57+08:00] FAIL reverse_full/seed14
+[2026-09-19T12:17:05+08:00] FAIL shuffle_control/seed41
+[2026-09-19T12:17:13+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T12:17:23+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T12:17:32+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T12:17:41+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T12:17:50+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T12:17:59+08:00] FAIL reverse_control/seed41
+[2026-09-19T12:18:06+08:00] FAIL reverse_partial/seed41
+[2026-09-19T12:18:14+08:00] FAIL reverse_full/seed41
+[2026-09-19T12:18:22+08:00] FAIL parity_word/seed0
+[2026-09-19T12:18:30+08:00] FAIL fixed_start/seed0
+[2026-09-19T12:18:38+08:00] FAIL parity_tok/seed0
+[2026-09-19T12:18:46+08:00] FAIL negtok/seed0
+[2026-09-19T12:18:53+08:00] FAIL parity_word/seed14
+[2026-09-19T12:19:01+08:00] FAIL fixed_start/seed14
+[2026-09-19T12:19:11+08:00] FAIL parity_tok/seed14
+[2026-09-19T12:19:18+08:00] FAIL negtok/seed14
+[2026-09-19T12:19:28+08:00] FAIL parity_word/seed41
+[2026-09-19T12:19:35+08:00] FAIL fixed_start/seed41
+[2026-09-19T12:19:43+08:00] FAIL parity_tok/seed41
+[2026-09-19T12:19:51+08:00] FAIL negtok/seed41
+[2026-09-19T12:19:59+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T12:20:07+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T12:20:17+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T12:20:17+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T12:23:20+08:00] perturbing train (100M) + test splits with their perturb.py
+[2026-09-19T12:23:29+08:00] FAIL shuffle_control/seed0
+[2026-09-19T12:23:37+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T12:23:45+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T12:23:54+08:00] FAIL shuffle_local3/seed0
+[2026-09-19T12:24:01+08:00] FAIL shuffle_local10/seed0
+[2026-09-19T12:24:10+08:00] FAIL shuffle_even_odd/seed0
+[2026-09-19T12:24:17+08:00] FAIL reverse_control/seed0
+[2026-09-19T12:24:25+08:00] FAIL reverse_partial/seed0
+[2026-09-19T12:24:33+08:00] FAIL reverse_full/seed0
+[2026-09-19T12:24:42+08:00] FAIL shuffle_control/seed14
+[2026-09-19T12:24:50+08:00] FAIL shuffle_nondeterministic/seed14
+[2026-09-19T12:24:59+08:00] FAIL shuffle_deterministic21/seed14
+[2026-09-19T12:25:07+08:00] FAIL shuffle_local3/seed14
+[2026-09-19T12:25:15+08:00] FAIL shuffle_local10/seed14
+[2026-09-19T12:25:23+08:00] FAIL shuffle_even_odd/seed14
+[2026-09-19T12:25:30+08:00] FAIL reverse_control/seed14
+[2026-09-19T12:25:40+08:00] FAIL reverse_partial/seed14
+[2026-09-19T12:25:48+08:00] FAIL reverse_full/seed14
+[2026-09-19T12:25:57+08:00] FAIL shuffle_control/seed41
+[2026-09-19T12:26:05+08:00] FAIL shuffle_nondeterministic/seed41
+[2026-09-19T12:26:13+08:00] FAIL shuffle_deterministic21/seed41
+[2026-09-19T12:26:21+08:00] FAIL shuffle_local3/seed41
+[2026-09-19T12:26:30+08:00] FAIL shuffle_local10/seed41
+[2026-09-19T12:26:38+08:00] FAIL shuffle_even_odd/seed41
+[2026-09-19T12:26:46+08:00] FAIL reverse_control/seed41
+[2026-09-19T12:26:55+08:00] FAIL reverse_partial/seed41
+[2026-09-19T12:27:03+08:00] FAIL reverse_full/seed41
+[2026-09-19T12:27:11+08:00] FAIL parity_word/seed0
+[2026-09-19T12:27:19+08:00] FAIL fixed_start/seed0
+[2026-09-19T12:27:26+08:00] FAIL parity_tok/seed0
+[2026-09-19T12:27:34+08:00] FAIL negtok/seed0
+[2026-09-19T12:27:42+08:00] FAIL parity_word/seed14
+[2026-09-19T12:27:50+08:00] FAIL fixed_start/seed14
+[2026-09-19T12:27:57+08:00] FAIL parity_tok/seed14
+[2026-09-19T12:28:06+08:00] FAIL negtok/seed14
+[2026-09-19T12:28:14+08:00] FAIL parity_word/seed41
+[2026-09-19T12:28:23+08:00] FAIL fixed_start/seed41
+[2026-09-19T12:28:31+08:00] FAIL parity_tok/seed41
+[2026-09-19T12:28:40+08:00] FAIL negtok/seed41
+[2026-09-19T12:28:49+08:00] FAIL 2x parity_word/seed0
+[2026-09-19T12:28:57+08:00] FAIL 2x fixed_start/seed0
+[2026-09-19T12:29:05+08:00] FAIL 2x shuffle_control/seed0
+[2026-09-19T12:29:05+08:00] kallini pass done: 0 runs complete, 42 failures
+[2026-09-19T12:32:08+08:00] perturbing train (100M) + test splits with their perturb.py: shuffle_control shuffle_nondeterministic shuffle_deterministic21 shuffle_local3 shuffle_local10 shuffle_even_odd reverse_control reverse_partial reverse_full
+[2026-09-19T14:17:17+08:00] generating v3 class-P datasets
+[2026-09-19T16:21:26+08:00] V3 PERTURB FAIL
+[2026-09-19T16:24:31+08:00] generating v3 class-P datasets
+[2026-09-19T16:43:42+08:00] generating v3 class-P datasets
+[2026-09-19T17:47:57+08:00] FAIL shuffle_control/seed0
+[2026-09-19T18:35:27+08:00] FAIL shuffle_nondeterministic/seed0
+[2026-09-19T19:23:08+08:00] FAIL shuffle_deterministic21/seed0
+[2026-09-19T20:10:43+08:00] FAIL shuffle_local3/seed0
+[2026-09-20T01:30:41+08:00] OK   shuffle_control/seed0
+[2026-09-20T05:27:48+08:00] OK   shuffle_nondeterministic/seed0
+[2026-09-20T09:24:53+08:00] OK   shuffle_deterministic21/seed0
+[2026-09-20T13:22:15+08:00] OK   shuffle_local3/seed0
+[2026-09-20T14:52:10+08:00] generating v3 class-P datasets (pool pool-v2-base-filter)
+[2026-09-20T15:57:06+08:00] OK   shuffle_control/seed0
+[2026-09-20T15:57:15+08:00] OK   shuffle_nondeterministic/seed0
+[2026-09-20T15:57:23+08:00] OK   shuffle_deterministic21/seed0
+[2026-09-20T15:57:32+08:00] OK   shuffle_local3/seed0
+[2026-09-20T20:21:34+08:00] OK   parity_word/seed0
+[2026-09-21T00:20:16+08:00] OK   fixed_start/seed0
+[2026-09-21T04:30:06+08:00] OK   parity_word/seed0
+[2026-09-21T08:27:41+08:00] OK   fixed_start/seed0
+[2026-09-21T12:25:58+08:00] OK   parity_tok/seed0
+[2026-09-21T16:19:26+08:00] OK   negtok/seed0
+[2026-09-21T20:17:26+08:00] OK   not_random/seed0
+[2026-09-22T00:18:23+08:00] OK   parity_word/seed14
+[2026-09-22T04:16:10+08:00] OK   fixed_start/seed14
+[2026-09-22T08:13:47+08:00] OK   parity_tok/seed14
+[2026-09-22T12:07:46+08:00] OK   negtok/seed14
+[2026-09-22T16:07:23+08:00] OK   not_random/seed14
+[2026-09-22T20:06:49+08:00] OK   parity_word/seed41
+[2026-09-23T00:06:30+08:00] OK   fixed_start/seed41
+[2026-09-23T04:06:15+08:00] OK   parity_tok/seed41
+[2026-09-23T08:00:23+08:00] OK   negtok/seed41
+[2026-09-23T12:00:06+08:00] OK   not_random/seed41
+[2026-09-23T19:56:38+08:00] OK   6000step parity_word/seed0
+[2026-09-24T05:09:53+08:00] OK   parity_word/seed0
+[2026-09-24T05:10:01+08:00] OK   fixed_start/seed0
+[2026-09-24T05:10:09+08:00] OK   parity_tok/seed0
+[2026-09-24T05:10:18+08:00] OK   negtok/seed0
+[2026-09-24T05:10:26+08:00] OK   not_random/seed0
+[2026-09-24T05:10:33+08:00] OK   parity_word/seed14
+[2026-09-24T05:10:41+08:00] OK   fixed_start/seed14
+[2026-09-24T05:10:49+08:00] OK   parity_tok/seed14
+[2026-09-24T05:10:57+08:00] OK   negtok/seed14
+[2026-09-24T05:11:04+08:00] OK   not_random/seed14
+[2026-09-24T05:11:12+08:00] OK   parity_word/seed41
+[2026-09-24T05:11:20+08:00] OK   fixed_start/seed41
+[2026-09-24T05:11:28+08:00] OK   parity_tok/seed41
+[2026-09-24T05:11:35+08:00] OK   negtok/seed41
+[2026-09-24T05:11:43+08:00] OK   not_random/seed41
+[2026-09-24T05:11:51+08:00] OK   6000step parity_word/seed0
+[2026-09-24T13:07:28+08:00] OK   6000step fixed_start/seed0
+[2026-09-24T19:21:42+08:00] OK   parity_word/seed0
+[2026-09-24T23:21:19+08:00] OK   fixed_start/seed0
+[2026-09-25T03:21:01+08:00] OK   parity_tok/seed0
+[2026-09-25T07:15:14+08:00] OK   negtok/seed0
+[2026-09-25T11:14:54+08:00] OK   not_random/seed0
+[2026-09-25T15:14:42+08:00] OK   parity_word/seed14
+[2026-09-25T19:14:27+08:00] OK   fixed_start/seed14
+[2026-09-25T23:13:54+08:00] OK   parity_tok/seed14
+[2026-09-26T03:08:02+08:00] OK   negtok/seed14
+[2026-09-26T07:07:32+08:00] OK   not_random/seed14
+[2026-09-26T11:07:16+08:00] OK   parity_word/seed41
+[2026-09-26T15:07:07+08:00] OK   fixed_start/seed41
+[2026-09-26T19:06:30+08:00] OK   parity_tok/seed41
+[2026-09-26T23:00:59+08:00] OK   negtok/seed41
+[2026-09-27T03:00:08+08:00] OK   not_random/seed41

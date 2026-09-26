@@ -1,1 +1,696 @@
 no exp1 results yet
+[data] blocks=142705 eval_sents=10000 (68s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] fixed_start seed0 step 100: gmean_ppl=307.791 content=11.7705 (n=10000)
+[train] fixed_start seed0 step 100/3000 loss=5.1867 elapsed=8.3m
+[train] fixed_start seed0 step 200/3000 loss=4.7825 elapsed=16.1m
+[eval] fixed_start seed0 step 300: gmean_ppl=1714.8748 content=21.0938 (n=10000)
+[train] fixed_start seed0 step 300/3000 loss=6.9397 elapsed=24.4m
+[train] fixed_start seed0 step 400/3000 loss=4.8070 elapsed=32.2m
+[eval] fixed_start seed0 step 500: gmean_ppl=247.0023 content=10.0971 (n=10000)
+[train] fixed_start seed0 step 500/3000 loss=4.6915 elapsed=40.4m
+[train] fixed_start seed0 step 600/3000 loss=4.6049 elapsed=48.3m
+[train] fixed_start seed0 step 700/3000 loss=4.5044 elapsed=56.2m
+[train] fixed_start seed0 step 800/3000 loss=4.3075 elapsed=64.0m
+[train] fixed_start seed0 step 900/3000 loss=4.2010 elapsed=71.9m
+[eval] fixed_start seed0 step 1000: gmean_ppl=98.866 content=7.0064 (n=10000)
+[train] fixed_start seed0 step 1000/3000 loss=4.0839 elapsed=80.1m
+[train] fixed_start seed0 step 1100/3000 loss=3.9674 elapsed=88.0m
+[train] fixed_start seed0 step 1200/3000 loss=3.9238 elapsed=95.9m
+[train] fixed_start seed0 step 1300/3000 loss=3.8629 elapsed=103.7m
+[train] fixed_start seed0 step 1400/3000 loss=3.8283 elapsed=111.6m
+[train] fixed_start seed0 step 1500/3000 loss=3.7988 elapsed=119.4m
+[train] fixed_start seed0 step 1600/3000 loss=3.7489 elapsed=127.3m
+[train] fixed_start seed0 step 1700/3000 loss=3.7447 elapsed=135.2m
+[train] fixed_start seed0 step 1800/3000 loss=3.6994 elapsed=143.0m
+[train] fixed_start seed0 step 1900/3000 loss=3.6925 elapsed=150.9m
+[eval] fixed_start seed0 step 2000: gmean_ppl=67.0557 content=5.7761 (n=10000)
+[train] fixed_start seed0 step 2000/3000 loss=3.6724 elapsed=159.1m
+[train] fixed_start seed0 step 2100/3000 loss=3.6220 elapsed=167.0m
+[train] fixed_start seed0 step 2200/3000 loss=3.6348 elapsed=174.8m
+[train] fixed_start seed0 step 2300/3000 loss=3.6035 elapsed=182.7m
+[train] fixed_start seed0 step 2400/3000 loss=3.5648 elapsed=190.6m
+[train] fixed_start seed0 step 2500/3000 loss=3.5643 elapsed=198.4m
+[train] fixed_start seed0 step 2600/3000 loss=3.5668 elapsed=206.3m
+[train] fixed_start seed0 step 2700/3000 loss=3.5580 elapsed=214.1m
+[train] fixed_start seed0 step 2800/3000 loss=3.5519 elapsed=222.0m
+[train] fixed_start seed0 step 2900/3000 loss=3.5578 elapsed=229.8m
+[eval] fixed_start seed0 step 3000: gmean_ppl=61.1777 content=5.5001 (n=10000)
+[train] fixed_start seed0 step 3000/3000 loss=3.5424 elapsed=238.0m
+{
+  "100": 307.791,
+  "300": 1714.8748,
+  "500": 247.0023,
+  "1000": 98.866,
+  "2000": 67.0557,
+  "3000": 61.1777
+}
+[data] blocks=142705 eval_sents=10000 (64s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_tok seed0 step 100: gmean_ppl=231.3151 content=11.5104 (n=10000)
+[train] parity_tok seed0 step 100/3000 loss=5.2988 elapsed=8.3m
+[train] parity_tok seed0 step 200/3000 loss=4.8735 elapsed=16.1m
+[eval] parity_tok seed0 step 300: gmean_ppl=117.8361 content=8.4211 (n=10000)
+[train] parity_tok seed0 step 300/3000 loss=4.7214 elapsed=24.4m
+[train] parity_tok seed0 step 400/3000 loss=4.6898 elapsed=32.2m
+[eval] parity_tok seed0 step 500: gmean_ppl=110.0505 content=7.9852 (n=10000)
+[train] parity_tok seed0 step 500/3000 loss=4.5876 elapsed=40.5m
+[train] parity_tok seed0 step 600/3000 loss=4.2938 elapsed=48.4m
+[train] parity_tok seed0 step 700/3000 loss=4.1462 elapsed=56.2m
+[train] parity_tok seed0 step 800/3000 loss=4.0491 elapsed=64.1m
+[train] parity_tok seed0 step 900/3000 loss=3.9871 elapsed=71.9m
+[eval] parity_tok seed0 step 1000: gmean_ppl=60.0461 content=5.9878 (n=10000)
+[train] parity_tok seed0 step 1000/3000 loss=3.9259 elapsed=80.2m
+[train] parity_tok seed0 step 1100/3000 loss=3.8357 elapsed=88.0m
+[train] parity_tok seed0 step 1200/3000 loss=3.8122 elapsed=95.9m
+[train] parity_tok seed0 step 1300/3000 loss=3.7765 elapsed=103.8m
+[train] parity_tok seed0 step 1400/3000 loss=3.7528 elapsed=111.6m
+[train] parity_tok seed0 step 1500/3000 loss=3.7297 elapsed=119.5m
+[train] parity_tok seed0 step 1600/3000 loss=3.6933 elapsed=127.3m
+[train] parity_tok seed0 step 1700/3000 loss=3.6939 elapsed=135.2m
+[train] parity_tok seed0 step 1800/3000 loss=3.6511 elapsed=143.1m
+[train] parity_tok seed0 step 1900/3000 loss=3.6520 elapsed=150.9m
+[eval] parity_tok seed0 step 2000: gmean_ppl=46.3123 content=5.2841 (n=10000)
+[train] parity_tok seed0 step 2000/3000 loss=3.6344 elapsed=159.2m
+[train] parity_tok seed0 step 2100/3000 loss=3.5862 elapsed=167.0m
+[train] parity_tok seed0 step 2200/3000 loss=3.6036 elapsed=174.9m
+[train] parity_tok seed0 step 2300/3000 loss=3.5640 elapsed=182.8m
+[train] parity_tok seed0 step 2400/3000 loss=3.5319 elapsed=190.6m
+[train] parity_tok seed0 step 2500/3000 loss=3.5268 elapsed=198.5m
+[train] parity_tok seed0 step 2600/3000 loss=3.5345 elapsed=206.4m
+[train] parity_tok seed0 step 2700/3000 loss=3.5303 elapsed=214.2m
+[train] parity_tok seed0 step 2800/3000 loss=3.5222 elapsed=222.1m
+[train] parity_tok seed0 step 2900/3000 loss=3.5275 elapsed=230.0m
+[eval] parity_tok seed0 step 3000: gmean_ppl=42.3508 content=5.0628 (n=10000)
+[train] parity_tok seed0 step 3000/3000 loss=3.5149 elapsed=238.2m
+{
+  "100": 231.3151,
+  "300": 117.8361,
+  "500": 110.0505,
+  "1000": 60.0461,
+  "2000": 46.3123,
+  "3000": 42.3508
+}
+[data] blocks=142705 eval_sents=10000 (67s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] negtok seed0 step 100: gmean_ppl=213.5188 content=11.6049 (n=10000)
+[train] negtok seed0 step 100/3000 loss=5.3544 elapsed=8.1m
+[train] negtok seed0 step 200/3000 loss=4.9365 elapsed=15.8m
+[eval] negtok seed0 step 300: gmean_ppl=812.8765 content=16.8917 (n=10000)
+[train] negtok seed0 step 300/3000 loss=6.2248 elapsed=23.8m
+[train] negtok seed0 step 400/3000 loss=4.7801 elapsed=31.5m
+[eval] negtok seed0 step 500: gmean_ppl=95.9464 content=8.089 (n=10000)
+[train] negtok seed0 step 500/3000 loss=4.7133 elapsed=39.6m
+[train] negtok seed0 step 600/3000 loss=4.6105 elapsed=47.2m
+[train] negtok seed0 step 700/3000 loss=4.3251 elapsed=54.9m
+[train] negtok seed0 step 800/3000 loss=4.1739 elapsed=62.6m
+[train] negtok seed0 step 900/3000 loss=4.0990 elapsed=70.3m
+[eval] negtok seed0 step 1000: gmean_ppl=57.9755 content=6.2692 (n=10000)
+[train] negtok seed0 step 1000/3000 loss=4.0132 elapsed=78.3m
+[train] negtok seed0 step 1100/3000 loss=3.9151 elapsed=86.0m
+[train] negtok seed0 step 1200/3000 loss=3.8859 elapsed=93.7m
+[train] negtok seed0 step 1300/3000 loss=3.8394 elapsed=101.4m
+[train] negtok seed0 step 1400/3000 loss=3.8097 elapsed=109.1m
+[train] negtok seed0 step 1500/3000 loss=3.7813 elapsed=116.7m
+[train] negtok seed0 step 1600/3000 loss=3.7404 elapsed=124.4m
+[train] negtok seed0 step 1700/3000 loss=3.7365 elapsed=132.1m
+[train] negtok seed0 step 1800/3000 loss=3.6946 elapsed=139.8m
+[train] negtok seed0 step 1900/3000 loss=3.6906 elapsed=147.4m
+[eval] negtok seed0 step 2000: gmean_ppl=44.8041 content=5.4095 (n=10000)
+[train] negtok seed0 step 2000/3000 loss=3.6717 elapsed=155.5m
+[train] negtok seed0 step 2100/3000 loss=3.6227 elapsed=163.2m
+[train] negtok seed0 step 2200/3000 loss=3.6383 elapsed=170.8m
+[train] negtok seed0 step 2300/3000 loss=3.6005 elapsed=178.5m
+[train] negtok seed0 step 2400/3000 loss=3.5661 elapsed=186.2m
+[train] negtok seed0 step 2500/3000 loss=3.5620 elapsed=193.9m
+[train] negtok seed0 step 2600/3000 loss=3.5718 elapsed=201.6m
+[train] negtok seed0 step 2700/3000 loss=3.5636 elapsed=209.2m
+[train] negtok seed0 step 2800/3000 loss=3.5566 elapsed=216.9m
+[train] negtok seed0 step 2900/3000 loss=3.5621 elapsed=224.6m
+[eval] negtok seed0 step 3000: gmean_ppl=39.4066 content=5.1429 (n=10000)
+[train] negtok seed0 step 3000/3000 loss=3.5477 elapsed=232.6m
+{
+  "100": 213.5188,
+  "300": 812.8765,
+  "500": 95.9464,
+  "1000": 57.9755,
+  "2000": 44.8041,
+  "3000": 39.4066
+}
+[data] blocks=142705 eval_sents=10000 (72s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] not_random seed0 step 100: gmean_ppl=219.9599 content=11.4825 (n=10000)
+[train] not_random seed0 step 100/3000 loss=5.2986 elapsed=8.3m
+[train] not_random seed0 step 200/3000 loss=5.1832 elapsed=16.1m
+[eval] not_random seed0 step 300: gmean_ppl=124.933 content=8.7392 (n=10000)
+[train] not_random seed0 step 300/3000 loss=4.7763 elapsed=24.4m
+[train] not_random seed0 step 400/3000 loss=4.6341 elapsed=32.2m
+[eval] not_random seed0 step 500: gmean_ppl=95.532 content=7.6505 (n=10000)
+[train] not_random seed0 step 500/3000 loss=4.4469 elapsed=40.5m
+[train] not_random seed0 step 600/3000 loss=4.2151 elapsed=48.3m
+[train] not_random seed0 step 700/3000 loss=4.0921 elapsed=56.2m
+[train] not_random seed0 step 800/3000 loss=4.0078 elapsed=64.0m
+[train] not_random seed0 step 900/3000 loss=3.9561 elapsed=71.9m
+[eval] not_random seed0 step 1000: gmean_ppl=54.7689 content=5.9065 (n=10000)
+[train] not_random seed0 step 1000/3000 loss=3.9024 elapsed=80.1m
+[train] not_random seed0 step 1100/3000 loss=3.8192 elapsed=88.0m
+[train] not_random seed0 step 1200/3000 loss=3.8018 elapsed=95.8m
+[train] not_random seed0 step 1300/3000 loss=3.7685 elapsed=103.7m
+[train] not_random seed0 step 1400/3000 loss=3.7446 elapsed=111.5m
+[train] not_random seed0 step 1500/3000 loss=3.7287 elapsed=119.4m
+[train] not_random seed0 step 1600/3000 loss=3.6950 elapsed=127.3m
+[train] not_random seed0 step 1700/3000 loss=3.6924 elapsed=135.1m
+[train] not_random seed0 step 1800/3000 loss=3.6561 elapsed=143.0m
+[train] not_random seed0 step 1900/3000 loss=3.6572 elapsed=150.8m
+[eval] not_random seed0 step 2000: gmean_ppl=44.5543 content=5.2739 (n=10000)
+[train] not_random seed0 step 2000/3000 loss=3.6423 elapsed=159.0m
+[train] not_random seed0 step 2100/3000 loss=3.5966 elapsed=166.9m
+[train] not_random seed0 step 2200/3000 loss=3.6147 elapsed=174.8m
+[train] not_random seed0 step 2300/3000 loss=3.5754 elapsed=182.6m
+[train] not_random seed0 step 2400/3000 loss=3.5443 elapsed=190.5m
+[train] not_random seed0 step 2500/3000 loss=3.5392 elapsed=198.3m
+[train] not_random seed0 step 2600/3000 loss=3.5486 elapsed=206.2m
+[train] not_random seed0 step 2700/3000 loss=3.5414 elapsed=214.1m
+[train] not_random seed0 step 2800/3000 loss=3.5373 elapsed=221.9m
+[train] not_random seed0 step 2900/3000 loss=3.5424 elapsed=229.8m
+[eval] not_random seed0 step 3000: gmean_ppl=41.0166 content=5.0656 (n=10000)
+[train] not_random seed0 step 3000/3000 loss=3.5298 elapsed=238.0m
+{
+  "100": 219.9599,
+  "300": 124.933,
+  "500": 95.532,
+  "1000": 54.7689,
+  "2000": 44.5543,
+  "3000": 41.0166
+}
+[data] blocks=142705 eval_sents=10000 (71s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_word seed14 step 100: gmean_ppl=211.4437 content=11.8046 (n=10000)
+[train] parity_word seed14 step 100/3000 loss=5.3215 elapsed=8.3m
+[train] parity_word seed14 step 200/3000 loss=4.9053 elapsed=16.1m
+[eval] parity_word seed14 step 300: gmean_ppl=189.6028 content=10.8542 (n=10000)
+[train] parity_word seed14 step 300/3000 loss=4.9896 elapsed=24.4m
+[train] parity_word seed14 step 400/3000 loss=4.7765 elapsed=32.2m
+[eval] parity_word seed14 step 500: gmean_ppl=101.2406 content=8.315 (n=10000)
+[train] parity_word seed14 step 500/3000 loss=4.6168 elapsed=40.5m
+[train] parity_word seed14 step 600/3000 loss=4.4659 elapsed=48.3m
+[train] parity_word seed14 step 700/3000 loss=4.2081 elapsed=56.2m
+[train] parity_word seed14 step 800/3000 loss=4.0895 elapsed=64.0m
+[train] parity_word seed14 step 900/3000 loss=4.0088 elapsed=71.9m
+[eval] parity_word seed14 step 1000: gmean_ppl=53.2524 content=6.2139 (n=10000)
+[train] parity_word seed14 step 1000/3000 loss=3.9447 elapsed=80.1m
+[train] parity_word seed14 step 1100/3000 loss=3.9132 elapsed=88.0m
+[train] parity_word seed14 step 1200/3000 loss=3.8505 elapsed=95.8m
+[train] parity_word seed14 step 1300/3000 loss=3.8140 elapsed=103.7m
+[train] parity_word seed14 step 1400/3000 loss=3.7800 elapsed=111.5m
+[train] parity_word seed14 step 1500/3000 loss=3.7711 elapsed=119.4m
+[train] parity_word seed14 step 1600/3000 loss=3.7359 elapsed=127.3m
+[train] parity_word seed14 step 1700/3000 loss=3.7211 elapsed=135.1m
+[train] parity_word seed14 step 1800/3000 loss=3.6870 elapsed=143.0m
+[train] parity_word seed14 step 1900/3000 loss=3.6739 elapsed=150.9m
+[eval] parity_word seed14 step 2000: gmean_ppl=40.5976 content=5.4294 (n=10000)
+[train] parity_word seed14 step 2000/3000 loss=3.6399 elapsed=159.1m
+[train] parity_word seed14 step 2100/3000 loss=3.6567 elapsed=167.0m
+[train] parity_word seed14 step 2200/3000 loss=3.6471 elapsed=174.9m
+[train] parity_word seed14 step 2300/3000 loss=3.5533 elapsed=182.7m
+[train] parity_word seed14 step 2400/3000 loss=3.5572 elapsed=190.6m
+[train] parity_word seed14 step 2500/3000 loss=3.5743 elapsed=198.5m
+[train] parity_word seed14 step 2600/3000 loss=3.5381 elapsed=206.3m
+[train] parity_word seed14 step 2700/3000 loss=3.5427 elapsed=214.2m
+[train] parity_word seed14 step 2800/3000 loss=3.5504 elapsed=222.0m
+[train] parity_word seed14 step 2900/3000 loss=3.5330 elapsed=229.9m
+[eval] parity_word seed14 step 3000: gmean_ppl=37.3838 content=5.1876 (n=10000)
+[train] parity_word seed14 step 3000/3000 loss=3.5156 elapsed=238.1m
+{
+  "100": 211.4437,
+  "300": 189.6028,
+  "500": 101.2406,
+  "1000": 53.2524,
+  "2000": 40.5976,
+  "3000": 37.3838
+}
+[data] blocks=142705 eval_sents=10000 (75s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] fixed_start seed14 step 100: gmean_ppl=310.4542 content=12.2293 (n=10000)
+[train] fixed_start seed14 step 100/3000 loss=5.2111 elapsed=8.3m
+[train] fixed_start seed14 step 200/3000 loss=4.8011 elapsed=16.2m
+[eval] fixed_start seed14 step 300: gmean_ppl=163.4661 content=9.1351 (n=10000)
+[train] fixed_start seed14 step 300/3000 loss=4.6265 elapsed=24.4m
+[train] fixed_start seed14 step 400/3000 loss=5.0127 elapsed=32.3m
+[eval] fixed_start seed14 step 500: gmean_ppl=254.5629 content=10.7299 (n=10000)
+[train] fixed_start seed14 step 500/3000 loss=4.6980 elapsed=40.5m
+[train] fixed_start seed14 step 600/3000 loss=4.6407 elapsed=48.4m
+[train] fixed_start seed14 step 700/3000 loss=4.5028 elapsed=56.3m
+[train] fixed_start seed14 step 800/3000 loss=4.3002 elapsed=64.1m
+[train] fixed_start seed14 step 900/3000 loss=4.1839 elapsed=72.0m
+[eval] fixed_start seed14 step 1000: gmean_ppl=104.2911 content=7.3708 (n=10000)
+[train] fixed_start seed14 step 1000/3000 loss=4.0748 elapsed=80.2m
+[train] fixed_start seed14 step 1100/3000 loss=4.0262 elapsed=88.1m
+[train] fixed_start seed14 step 1200/3000 loss=3.9360 elapsed=96.0m
+[train] fixed_start seed14 step 1300/3000 loss=3.8878 elapsed=103.8m
+[train] fixed_start seed14 step 1400/3000 loss=3.8396 elapsed=111.7m
+[train] fixed_start seed14 step 1500/3000 loss=3.8190 elapsed=119.5m
+[train] fixed_start seed14 step 1600/3000 loss=3.7789 elapsed=127.4m
+[train] fixed_start seed14 step 1700/3000 loss=3.7573 elapsed=135.2m
+[train] fixed_start seed14 step 1800/3000 loss=3.7164 elapsed=143.1m
+[train] fixed_start seed14 step 1900/3000 loss=3.7008 elapsed=151.0m
+[eval] fixed_start seed14 step 2000: gmean_ppl=68.2603 content=5.9809 (n=10000)
+[train] fixed_start seed14 step 2000/3000 loss=3.6628 elapsed=159.2m
+[train] fixed_start seed14 step 2100/3000 loss=3.6797 elapsed=167.0m
+[train] fixed_start seed14 step 2200/3000 loss=3.6666 elapsed=174.9m
+[train] fixed_start seed14 step 2300/3000 loss=3.5696 elapsed=182.7m
+[train] fixed_start seed14 step 2400/3000 loss=3.5750 elapsed=190.6m
+[train] fixed_start seed14 step 2500/3000 loss=3.5895 elapsed=198.4m
+[train] fixed_start seed14 step 2600/3000 loss=3.5535 elapsed=206.3m
+[train] fixed_start seed14 step 2700/3000 loss=3.5566 elapsed=214.1m
+[train] fixed_start seed14 step 2800/3000 loss=3.5606 elapsed=222.0m
+[train] fixed_start seed14 step 2900/3000 loss=3.5446 elapsed=229.8m
+[eval] fixed_start seed14 step 3000: gmean_ppl=61.293 content=5.6744 (n=10000)
+[train] fixed_start seed14 step 3000/3000 loss=3.5298 elapsed=238.0m
+{
+  "100": 310.4542,
+  "300": 163.4661,
+  "500": 254.5629,
+  "1000": 104.2911,
+  "2000": 68.2603,
+  "3000": 61.293
+}
+[data] blocks=142705 eval_sents=10000 (64s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_tok seed14 step 100: gmean_ppl=236.0313 content=11.859 (n=10000)
+[train] parity_tok seed14 step 100/3000 loss=5.3120 elapsed=8.2m
+[train] parity_tok seed14 step 200/3000 loss=4.8978 elapsed=16.1m
+[eval] parity_tok seed14 step 300: gmean_ppl=122.451 content=8.7743 (n=10000)
+[train] parity_tok seed14 step 300/3000 loss=4.7188 elapsed=24.3m
+[train] parity_tok seed14 step 400/3000 loss=5.0229 elapsed=32.2m
+[eval] parity_tok seed14 step 500: gmean_ppl=132.9879 content=9.1111 (n=10000)
+[train] parity_tok seed14 step 500/3000 loss=4.7192 elapsed=40.4m
+[train] parity_tok seed14 step 600/3000 loss=4.5825 elapsed=48.2m
+[train] parity_tok seed14 step 700/3000 loss=4.3229 elapsed=56.1m
+[train] parity_tok seed14 step 800/3000 loss=4.1969 elapsed=63.9m
+[train] parity_tok seed14 step 900/3000 loss=4.0968 elapsed=71.8m
+[eval] parity_tok seed14 step 1000: gmean_ppl=64.5325 content=6.4677 (n=10000)
+[train] parity_tok seed14 step 1000/3000 loss=4.0093 elapsed=80.1m
+[train] parity_tok seed14 step 1100/3000 loss=3.9755 elapsed=87.9m
+[train] parity_tok seed14 step 1200/3000 loss=3.8956 elapsed=95.8m
+[train] parity_tok seed14 step 1300/3000 loss=3.8525 elapsed=103.7m
+[train] parity_tok seed14 step 1400/3000 loss=3.8123 elapsed=111.5m
+[train] parity_tok seed14 step 1500/3000 loss=3.7931 elapsed=119.4m
+[train] parity_tok seed14 step 1600/3000 loss=3.7603 elapsed=127.2m
+[train] parity_tok seed14 step 1700/3000 loss=3.7371 elapsed=135.1m
+[train] parity_tok seed14 step 1800/3000 loss=3.7043 elapsed=142.9m
+[train] parity_tok seed14 step 1900/3000 loss=3.6886 elapsed=150.8m
+[eval] parity_tok seed14 step 2000: gmean_ppl=48.2951 content=5.5281 (n=10000)
+[train] parity_tok seed14 step 2000/3000 loss=3.6537 elapsed=159.0m
+[train] parity_tok seed14 step 2100/3000 loss=3.6670 elapsed=166.9m
+[train] parity_tok seed14 step 2200/3000 loss=3.6553 elapsed=174.7m
+[train] parity_tok seed14 step 2300/3000 loss=3.5608 elapsed=182.6m
+[train] parity_tok seed14 step 2400/3000 loss=3.5641 elapsed=190.4m
+[train] parity_tok seed14 step 2500/3000 loss=3.5793 elapsed=198.3m
+[train] parity_tok seed14 step 2600/3000 loss=3.5395 elapsed=206.1m
+[data] blocks=142705 eval_sents=10000 (64s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] negtok seed14 step 100: gmean_ppl=221.4033 content=12.059 (n=10000)
+[train] negtok seed14 step 100/3000 loss=5.3876 elapsed=8.1m
+[train] negtok seed14 step 200/3000 loss=4.9525 elapsed=15.7m
+[eval] negtok seed14 step 300: gmean_ppl=106.7712 content=8.6949 (n=10000)
+[train] negtok seed14 step 300/3000 loss=4.7731 elapsed=23.8m
+[train] negtok seed14 step 400/3000 loss=5.0103 elapsed=31.5m
+[eval] negtok seed14 step 500: gmean_ppl=112.6346 content=8.7043 (n=10000)
+[train] negtok seed14 step 500/3000 loss=4.7163 elapsed=39.5m
+[train] negtok seed14 step 600/3000 loss=4.5948 elapsed=47.2m
+[train] negtok seed14 step 700/3000 loss=4.3166 elapsed=54.9m
+[train] negtok seed14 step 800/3000 loss=4.1580 elapsed=62.6m
+[train] negtok seed14 step 900/3000 loss=4.0621 elapsed=70.3m
+[eval] negtok seed14 step 1000: gmean_ppl=58.2211 content=6.4371 (n=10000)
+[train] negtok seed14 step 1000/3000 loss=3.9895 elapsed=78.3m
+[train] negtok seed14 step 1100/3000 loss=3.9577 elapsed=86.0m
+[train] negtok seed14 step 1200/3000 loss=3.8789 elapsed=93.7m
+[train] negtok seed14 step 1300/3000 loss=3.8373 elapsed=101.3m
+[train] negtok seed14 step 1400/3000 loss=3.8006 elapsed=109.0m
+[train] negtok seed14 step 1500/3000 loss=3.7854 elapsed=116.7m
+[train] negtok seed14 step 1600/3000 loss=3.7505 elapsed=124.4m
+[train] negtok seed14 step 1700/3000 loss=3.7321 elapsed=132.1m
+[train] negtok seed14 step 1800/3000 loss=3.6956 elapsed=139.7m
+[train] negtok seed14 step 1900/3000 loss=3.6805 elapsed=147.4m
+[eval] negtok seed14 step 2000: gmean_ppl=43.4836 content=5.5227 (n=10000)
+[train] negtok seed14 step 2000/3000 loss=3.6445 elapsed=155.4m
+[train] negtok seed14 step 2100/3000 loss=3.6614 elapsed=163.1m
+[train] negtok seed14 step 2200/3000 loss=3.6525 elapsed=170.8m
+[train] negtok seed14 step 2300/3000 loss=3.5567 elapsed=178.4m
+[train] negtok seed14 step 2400/3000 loss=3.5609 elapsed=186.1m
+[train] negtok seed14 step 2500/3000 loss=3.5776 elapsed=193.8m
+[train] negtok seed14 step 2600/3000 loss=3.5396 elapsed=201.5m
+[train] negtok seed14 step 2700/3000 loss=3.5456 elapsed=209.1m
+[train] negtok seed14 step 2800/3000 loss=3.5510 elapsed=216.8m
+[train] negtok seed14 step 2900/3000 loss=3.5340 elapsed=224.5m
+[eval] negtok seed14 step 3000: gmean_ppl=39.6384 content=5.2657 (n=10000)
+[train] negtok seed14 step 3000/3000 loss=3.5190 elapsed=232.5m
+{
+  "100": 221.4033,
+  "300": 106.7712,
+  "500": 112.6346,
+  "1000": 58.2211,
+  "2000": 43.4836,
+  "3000": 39.6384
+}
+[data] blocks=142705 eval_sents=10000 (70s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] not_random seed14 step 100: gmean_ppl=227.719 content=11.9208 (n=10000)
+[train] not_random seed14 step 100/3000 loss=5.3178 elapsed=8.3m
+[train] not_random seed14 step 200/3000 loss=4.9087 elapsed=16.1m
+[eval] not_random seed14 step 300: gmean_ppl=460.6175 content=14.4456 (n=10000)
+[train] not_random seed14 step 300/3000 loss=5.3939 elapsed=24.3m
+[train] not_random seed14 step 400/3000 loss=4.7372 elapsed=32.2m
+[eval] not_random seed14 step 500: gmean_ppl=99.148 content=8.1905 (n=10000)
+[train] not_random seed14 step 500/3000 loss=4.5738 elapsed=40.4m
+[train] not_random seed14 step 600/3000 loss=4.4955 elapsed=48.3m
+[train] not_random seed14 step 700/3000 loss=4.2038 elapsed=56.1m
+[train] not_random seed14 step 800/3000 loss=4.0836 elapsed=64.0m
+[train] not_random seed14 step 900/3000 loss=4.0032 elapsed=71.8m
+[eval] not_random seed14 step 1000: gmean_ppl=58.5704 content=6.2539 (n=10000)
+[train] not_random seed14 step 1000/3000 loss=3.9419 elapsed=80.1m
+[train] not_random seed14 step 1100/3000 loss=3.9158 elapsed=87.9m
+[train] not_random seed14 step 1200/3000 loss=3.8517 elapsed=95.8m
+[train] not_random seed14 step 1300/3000 loss=3.8180 elapsed=103.6m
+[train] not_random seed14 step 1400/3000 loss=3.7857 elapsed=111.5m
+[train] not_random seed14 step 1500/3000 loss=3.7745 elapsed=119.3m
+[train] not_random seed14 step 1600/3000 loss=3.7423 elapsed=127.2m
+[train] not_random seed14 step 1700/3000 loss=3.7273 elapsed=135.0m
+[train] not_random seed14 step 1800/3000 loss=3.6932 elapsed=142.8m
+[train] not_random seed14 step 1900/3000 loss=3.6825 elapsed=150.7m
+[eval] not_random seed14 step 2000: gmean_ppl=44.3267 content=5.4708 (n=10000)
+[train] not_random seed14 step 2000/3000 loss=3.6505 elapsed=158.9m
+[train] not_random seed14 step 2100/3000 loss=3.6659 elapsed=166.8m
+[train] not_random seed14 step 2200/3000 loss=3.6582 elapsed=174.6m
+[train] not_random seed14 step 2300/3000 loss=3.5612 elapsed=182.5m
+[train] not_random seed14 step 2400/3000 loss=3.5666 elapsed=190.3m
+[train] not_random seed14 step 2500/3000 loss=3.5845 elapsed=198.2m
+[train] not_random seed14 step 2600/3000 loss=3.5455 elapsed=206.1m
+[train] not_random seed14 step 2700/3000 loss=3.5565 elapsed=213.9m
+[train] not_random seed14 step 2800/3000 loss=3.5603 elapsed=221.8m
+[train] not_random seed14 step 2900/3000 loss=3.5443 elapsed=229.6m
+[eval] not_random seed14 step 3000: gmean_ppl=41.4691 content=5.2341 (n=10000)
+[train] not_random seed14 step 3000/3000 loss=3.5283 elapsed=237.9m
+{
+  "100": 227.719,
+  "300": 460.6175,
+  "500": 99.148,
+  "1000": 58.5704,
+  "2000": 44.3267,
+  "3000": 41.4691
+}
+[data] blocks=142705 eval_sents=10000 (69s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_word seed41 step 100: gmean_ppl=205.0217 content=11.5042 (n=10000)
+[train] parity_word seed41 step 100/3000 loss=5.2815 elapsed=8.3m
+[train] parity_word seed41 step 200/3000 loss=4.8868 elapsed=16.1m
+[eval] parity_word seed41 step 300: gmean_ppl=108.0721 content=8.4903 (n=10000)
+[train] parity_word seed41 step 300/3000 loss=4.7481 elapsed=24.4m
+[train] parity_word seed41 step 400/3000 loss=4.6201 elapsed=32.2m
+[eval] parity_word seed41 step 500: gmean_ppl=94.4194 content=8.0376 (n=10000)
+[train] parity_word seed41 step 500/3000 loss=4.6379 elapsed=40.5m
+[train] parity_word seed41 step 600/3000 loss=4.4091 elapsed=48.4m
+[train] parity_word seed41 step 700/3000 loss=4.2717 elapsed=56.2m
+[train] parity_word seed41 step 800/3000 loss=4.1786 elapsed=64.1m
+[train] parity_word seed41 step 900/3000 loss=4.0512 elapsed=72.0m
+[eval] parity_word seed41 step 1000: gmean_ppl=54.1834 content=6.1504 (n=10000)
+[train] parity_word seed41 step 1000/3000 loss=3.9634 elapsed=80.2m
+[train] parity_word seed41 step 1100/3000 loss=3.9557 elapsed=88.1m
+[train] parity_word seed41 step 1200/3000 loss=3.8533 elapsed=95.9m
+[train] parity_word seed41 step 1300/3000 loss=3.8271 elapsed=103.8m
+[train] parity_word seed41 step 1400/3000 loss=3.8103 elapsed=111.6m
+[train] parity_word seed41 step 1500/3000 loss=3.7643 elapsed=119.5m
+[train] parity_word seed41 step 1600/3000 loss=3.7515 elapsed=127.4m
+[train] parity_word seed41 step 1700/3000 loss=3.7081 elapsed=135.2m
+[train] parity_word seed41 step 1800/3000 loss=3.6841 elapsed=143.1m
+[train] parity_word seed41 step 1900/3000 loss=3.6718 elapsed=150.9m
+[eval] parity_word seed41 step 2000: gmean_ppl=41.0271 content=5.3341 (n=10000)
+[train] parity_word seed41 step 2000/3000 loss=3.6471 elapsed=159.2m
+[train] parity_word seed41 step 2100/3000 loss=3.6414 elapsed=167.0m
+[train] parity_word seed41 step 2200/3000 loss=3.6213 elapsed=174.9m
+[train] parity_word seed41 step 2300/3000 loss=3.5743 elapsed=182.7m
+[train] parity_word seed41 step 2400/3000 loss=3.5737 elapsed=190.6m
+[train] parity_word seed41 step 2500/3000 loss=3.5627 elapsed=198.5m
+[train] parity_word seed41 step 2600/3000 loss=3.5514 elapsed=206.3m
+[train] parity_word seed41 step 2700/3000 loss=3.5495 elapsed=214.2m
+[train] parity_word seed41 step 2800/3000 loss=3.5562 elapsed=222.0m
+[train] parity_word seed41 step 2900/3000 loss=3.5220 elapsed=229.9m
+[eval] parity_word seed41 step 3000: gmean_ppl=37.488 content=5.0978 (n=10000)
+[train] parity_word seed41 step 3000/3000 loss=3.5273 elapsed=238.1m
+{
+  "100": 205.0217,
+  "300": 108.0721,
+  "500": 94.4194,
+  "1000": 54.1834,
+  "2000": 41.0271,
+  "3000": 37.488
+}
+[data] blocks=142705 eval_sents=10000 (67s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] fixed_start seed41 step 100: gmean_ppl=301.2615 content=11.8412 (n=10000)
+[train] fixed_start seed41 step 100/3000 loss=5.1780 elapsed=8.3m
+[train] fixed_start seed41 step 200/3000 loss=4.7762 elapsed=16.1m
+[eval] fixed_start seed41 step 300: gmean_ppl=156.5096 content=8.8336 (n=10000)
+[train] fixed_start seed41 step 300/3000 loss=4.6313 elapsed=24.4m
+[train] fixed_start seed41 step 400/3000 loss=5.1110 elapsed=32.2m
+[eval] fixed_start seed41 step 500: gmean_ppl=305.3832 content=11.1892 (n=10000)
+[train] fixed_start seed41 step 500/3000 loss=4.8145 elapsed=40.4m
+[train] fixed_start seed41 step 600/3000 loss=4.6687 elapsed=48.3m
+[train] fixed_start seed41 step 700/3000 loss=4.5286 elapsed=56.2m
+[train] fixed_start seed41 step 800/3000 loss=4.3930 elapsed=64.0m
+[train] fixed_start seed41 step 900/3000 loss=4.2393 elapsed=71.9m
+[eval] fixed_start seed41 step 1000: gmean_ppl=110.5678 content=7.4049 (n=10000)
+[train] fixed_start seed41 step 1000/3000 loss=4.1105 elapsed=80.2m
+[train] fixed_start seed41 step 1100/3000 loss=4.0766 elapsed=88.1m
+[train] fixed_start seed41 step 1200/3000 loss=3.9563 elapsed=95.9m
+[train] fixed_start seed41 step 1300/3000 loss=3.9132 elapsed=103.8m
+[train] fixed_start seed41 step 1400/3000 loss=3.8890 elapsed=111.6m
+[train] fixed_start seed41 step 1500/3000 loss=3.8358 elapsed=119.5m
+[train] fixed_start seed41 step 1600/3000 loss=3.8120 elapsed=127.4m
+[train] fixed_start seed41 step 1700/3000 loss=3.7599 elapsed=135.2m
+[train] fixed_start seed41 step 1800/3000 loss=3.7330 elapsed=143.1m
+[train] fixed_start seed41 step 1900/3000 loss=3.7207 elapsed=150.9m
+[eval] fixed_start seed41 step 2000: gmean_ppl=70.5602 content=5.9646 (n=10000)
+[train] fixed_start seed41 step 2000/3000 loss=3.6937 elapsed=159.2m
+[train] fixed_start seed41 step 2100/3000 loss=3.6894 elapsed=167.0m
+[train] fixed_start seed41 step 2200/3000 loss=3.6615 elapsed=174.9m
+[train] fixed_start seed41 step 2300/3000 loss=3.6218 elapsed=182.8m
+[train] fixed_start seed41 step 2400/3000 loss=3.6157 elapsed=190.6m
+[train] fixed_start seed41 step 2500/3000 loss=3.6032 elapsed=198.5m
+[train] fixed_start seed41 step 2600/3000 loss=3.5918 elapsed=206.4m
+[train] fixed_start seed41 step 2700/3000 loss=3.5881 elapsed=214.3m
+[train] fixed_start seed41 step 2800/3000 loss=3.5937 elapsed=222.1m
+[train] fixed_start seed41 step 2900/3000 loss=3.5593 elapsed=230.0m
+[eval] fixed_start seed41 step 3000: gmean_ppl=63.2733 content=5.653 (n=10000)
+[train] fixed_start seed41 step 3000/3000 loss=3.5658 elapsed=238.3m
+{
+  "100": 301.2615,
+  "300": 156.5096,
+  "500": 305.3832,
+  "1000": 110.5678,
+  "2000": 70.5602,
+  "3000": 63.2733
+}
+[data] blocks=142705 eval_sents=10000 (68s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_tok seed41 step 100: gmean_ppl=243.5125 content=11.6386 (n=10000)
+[train] parity_tok seed41 step 100/3000 loss=5.2945 elapsed=8.3m
+[train] parity_tok seed41 step 200/3000 loss=4.8812 elapsed=16.1m
+[eval] parity_tok seed41 step 300: gmean_ppl=457.4111 content=13.5931 (n=10000)
+[train] parity_tok seed41 step 300/3000 loss=5.3486 elapsed=24.4m
+[train] parity_tok seed41 step 400/3000 loss=4.8121 elapsed=32.2m
+[eval] parity_tok seed41 step 500: gmean_ppl=118.4375 content=8.4223 (n=10000)
+[train] parity_tok seed41 step 500/3000 loss=4.7231 elapsed=40.4m
+[train] parity_tok seed41 step 600/3000 loss=4.5962 elapsed=48.3m
+[train] parity_tok seed41 step 700/3000 loss=4.3660 elapsed=56.1m
+[train] parity_tok seed41 step 800/3000 loss=4.2338 elapsed=64.0m
+[train] parity_tok seed41 step 900/3000 loss=4.0942 elapsed=71.8m
+[eval] parity_tok seed41 step 1000: gmean_ppl=64.6067 content=6.3279 (n=10000)
+[train] parity_tok seed41 step 1000/3000 loss=3.9908 elapsed=80.0m
+[train] parity_tok seed41 step 1100/3000 loss=3.9755 elapsed=87.9m
+[train] parity_tok seed41 step 1200/3000 loss=3.8746 elapsed=95.7m
+[train] parity_tok seed41 step 1300/3000 loss=3.8452 elapsed=103.6m
+[train] parity_tok seed41 step 1400/3000 loss=3.8272 elapsed=111.4m
+[train] parity_tok seed41 step 1500/3000 loss=3.7769 elapsed=119.3m
+[train] parity_tok seed41 step 1600/3000 loss=3.7665 elapsed=127.1m
+[train] parity_tok seed41 step 1700/3000 loss=3.7187 elapsed=135.0m
+[train] parity_tok seed41 step 1800/3000 loss=3.6941 elapsed=142.8m
+[train] parity_tok seed41 step 1900/3000 loss=3.6834 elapsed=150.7m
+[eval] parity_tok seed41 step 2000: gmean_ppl=47.4869 content=5.4218 (n=10000)
+[train] parity_tok seed41 step 2000/3000 loss=3.6594 elapsed=158.9m
+[train] parity_tok seed41 step 2100/3000 loss=3.6527 elapsed=166.7m
+[train] parity_tok seed41 step 2200/3000 loss=3.6287 elapsed=174.6m
+[train] parity_tok seed41 step 2300/3000 loss=3.5855 elapsed=182.4m
+[train] parity_tok seed41 step 2400/3000 loss=3.5810 elapsed=190.3m
+[train] parity_tok seed41 step 2500/3000 loss=3.5717 elapsed=198.1m
+[train] parity_tok seed41 step 2600/3000 loss=3.5625 elapsed=206.0m
+[train] parity_tok seed41 step 2700/3000 loss=3.5571 elapsed=213.8m
+[train] parity_tok seed41 step 2800/3000 loss=3.5651 elapsed=221.7m
+[train] parity_tok seed41 step 2900/3000 loss=3.5327 elapsed=229.6m
+[eval] parity_tok seed41 step 3000: gmean_ppl=43.1419 content=5.17 (n=10000)
+[train] parity_tok seed41 step 3000/3000 loss=3.5350 elapsed=237.8m
+{
+  "100": 243.5125,
+  "300": 457.4111,
+  "500": 118.4375,
+  "1000": 64.6067,
+  "2000": 47.4869,
+  "3000": 43.1419
+}
+[data] blocks=142705 eval_sents=10000 (68s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] negtok seed41 step 100: gmean_ppl=220.2476 content=11.7875 (n=10000)
+[train] negtok seed41 step 100/3000 loss=5.3543 elapsed=8.1m
+[train] negtok seed41 step 200/3000 loss=4.9272 elapsed=15.8m
+[eval] negtok seed41 step 300: gmean_ppl=105.6813 content=8.4476 (n=10000)
+[train] negtok seed41 step 300/3000 loss=4.7869 elapsed=23.9m
+[train] negtok seed41 step 400/3000 loss=5.0679 elapsed=31.6m
+[eval] negtok seed41 step 500: gmean_ppl=132.5911 content=9.1723 (n=10000)
+[train] negtok seed41 step 500/3000 loss=4.8323 elapsed=39.6m
+[train] negtok seed41 step 600/3000 loss=4.7130 elapsed=47.3m
+[train] negtok seed41 step 700/3000 loss=4.5348 elapsed=55.0m
+[train] negtok seed41 step 800/3000 loss=4.4046 elapsed=62.7m
+[train] negtok seed41 step 900/3000 loss=4.1469 elapsed=70.4m
+[eval] negtok seed41 step 1000: gmean_ppl=61.9535 content=6.4835 (n=10000)
+[train] negtok seed41 step 1000/3000 loss=4.0253 elapsed=78.4m
+[train] negtok seed41 step 1100/3000 loss=4.0022 elapsed=86.1m
+[train] negtok seed41 step 1200/3000 loss=3.8973 elapsed=93.8m
+[train] negtok seed41 step 1300/3000 loss=3.8608 elapsed=101.5m
+[train] negtok seed41 step 1400/3000 loss=3.8432 elapsed=109.1m
+[train] negtok seed41 step 1500/3000 loss=3.7942 elapsed=116.8m
+[train] negtok seed41 step 1600/3000 loss=3.7754 elapsed=124.5m
+[train] negtok seed41 step 1700/3000 loss=3.7323 elapsed=132.2m
+[train] negtok seed41 step 1800/3000 loss=3.7036 elapsed=139.9m
+[train] negtok seed41 step 1900/3000 loss=3.6940 elapsed=147.5m
+[eval] negtok seed41 step 2000: gmean_ppl=44.8958 content=5.4776 (n=10000)
+[train] negtok seed41 step 2000/3000 loss=3.6693 elapsed=155.6m
+[train] negtok seed41 step 2100/3000 loss=3.6649 elapsed=163.3m
+[train] negtok seed41 step 2200/3000 loss=3.6406 elapsed=170.9m
+[train] negtok seed41 step 2300/3000 loss=3.5954 elapsed=178.6m
+[train] negtok seed41 step 2400/3000 loss=3.5920 elapsed=186.3m
+[train] negtok seed41 step 2500/3000 loss=3.5816 elapsed=194.0m
+[train] negtok seed41 step 2600/3000 loss=3.5714 elapsed=201.7m
+[train] negtok seed41 step 2700/3000 loss=3.5689 elapsed=209.3m
+[train] negtok seed41 step 2800/3000 loss=3.5748 elapsed=217.0m
+[train] negtok seed41 step 2900/3000 loss=3.5401 elapsed=224.7m
+[eval] negtok seed41 step 3000: gmean_ppl=40.0625 content=5.2093 (n=10000)
+[train] negtok seed41 step 3000/3000 loss=3.5475 elapsed=232.8m
+{
+  "100": 220.2476,
+  "300": 105.6813,
+  "500": 132.5911,
+  "1000": 61.9535,
+  "2000": 44.8958,
+  "3000": 40.0625
+}
+[data] blocks=142705 eval_sents=10000 (73s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] not_random seed41 step 100: gmean_ppl=214.5687 content=11.4668 (n=10000)
+[train] not_random seed41 step 100/3000 loss=5.2873 elapsed=8.3m
+[train] not_random seed41 step 200/3000 loss=4.8660 elapsed=16.1m
+[eval] not_random seed41 step 300: gmean_ppl=109.7084 content=8.4738 (n=10000)
+[train] not_random seed41 step 300/3000 loss=4.7356 elapsed=24.3m
+[train] not_random seed41 step 400/3000 loss=4.7957 elapsed=32.2m
+[eval] not_random seed41 step 500: gmean_ppl=130.3313 content=8.7183 (n=10000)
+[train] not_random seed41 step 500/3000 loss=4.7029 elapsed=40.4m
+[train] not_random seed41 step 600/3000 loss=4.4146 elapsed=48.3m
+[train] not_random seed41 step 700/3000 loss=4.2380 elapsed=56.1m
+[train] not_random seed41 step 800/3000 loss=4.1500 elapsed=64.0m
+[train] not_random seed41 step 900/3000 loss=4.0324 elapsed=71.8m
+[eval] not_random seed41 step 1000: gmean_ppl=58.4771 content=6.1473 (n=10000)
+[train] not_random seed41 step 1000/3000 loss=3.9436 elapsed=80.1m
+[train] not_random seed41 step 1100/3000 loss=3.9427 elapsed=87.9m
+[train] not_random seed41 step 1200/3000 loss=3.8435 elapsed=95.8m
+[train] not_random seed41 step 1300/3000 loss=3.8214 elapsed=103.6m
+[train] not_random seed41 step 1400/3000 loss=3.8093 elapsed=111.5m
+[train] not_random seed41 step 1500/3000 loss=3.7609 elapsed=119.3m
+[train] not_random seed41 step 1600/3000 loss=3.7522 elapsed=127.2m
+[train] not_random seed41 step 1700/3000 loss=3.7090 elapsed=135.0m
+[train] not_random seed41 step 1800/3000 loss=3.6838 elapsed=142.9m
+[train] not_random seed41 step 1900/3000 loss=3.6748 elapsed=150.7m
+[eval] not_random seed41 step 2000: gmean_ppl=45.2584 content=5.3606 (n=10000)
+[train] not_random seed41 step 2000/3000 loss=3.6525 elapsed=158.9m
+[train] not_random seed41 step 2100/3000 loss=3.6472 elapsed=166.8m
+[train] not_random seed41 step 2200/3000 loss=3.6266 elapsed=174.6m
+[train] not_random seed41 step 2300/3000 loss=3.5791 elapsed=182.5m
+[train] not_random seed41 step 2400/3000 loss=3.5783 elapsed=190.3m
+[train] not_random seed41 step 2500/3000 loss=3.5697 elapsed=198.1m
+[train] not_random seed41 step 2600/3000 loss=3.5593 elapsed=205.9m
+[train] not_random seed41 step 2700/3000 loss=3.5604 elapsed=213.7m
+[train] not_random seed41 step 2800/3000 loss=3.5629 elapsed=221.5m
+[train] not_random seed41 step 2900/3000 loss=3.5304 elapsed=229.3m
+[eval] not_random seed41 step 3000: gmean_ppl=41.1342 content=5.1318 (n=10000)
+[train] not_random seed41 step 3000/3000 loss=3.5347 elapsed=237.4m
+{
+  "100": 214.5687,
+  "300": 109.7084,
+  "500": 130.3313,
+  "1000": 58.4771,
+  "2000": 45.2584,
+  "3000": 41.1342
+}
+[data] blocks=142705 eval_sents=10000 (60s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_word seed0 step 100: gmean_ppl=281.8436 content=13.1306 (n=10000)
+[train] parity_word seed0 step 100/6000 loss=5.6084 elapsed=8.1m
+[train] parity_word seed0 step 200/6000 loss=4.9898 elapsed=15.9m
+[eval] parity_word seed0 step 300: gmean_ppl=112.7777 content=8.782 (n=10000)
+[train] parity_word seed0 step 300/6000 loss=4.7910 elapsed=24.0m
+[train] parity_word seed0 step 400/6000 loss=5.2129 elapsed=31.8m
+[eval] parity_word seed0 step 500: gmean_ppl=107.7566 content=8.1793 (n=10000)
+[train] parity_word seed0 step 500/6000 loss=4.6135 elapsed=39.9m
+[train] parity_word seed0 step 600/6000 loss=4.4109 elapsed=47.7m
+[train] parity_word seed0 step 700/6000 loss=4.1922 elapsed=55.5m
+[train] parity_word seed0 step 800/6000 loss=4.0652 elapsed=63.3m
+[train] parity_word seed0 step 900/6000 loss=3.9985 elapsed=71.1m
+[eval] parity_word seed0 step 1000: gmean_ppl=52.0496 content=6.001 (n=10000)
+[train] parity_word seed0 step 1000/6000 loss=3.9331 elapsed=79.2m
+[train] parity_word seed0 step 1100/6000 loss=3.8415 elapsed=87.0m
+[train] parity_word seed0 step 1200/6000 loss=3.8181 elapsed=94.8m
+[train] parity_word seed0 step 1300/6000 loss=3.7814 elapsed=102.5m
+[train] parity_word seed0 step 1400/6000 loss=3.7563 elapsed=110.3m
+[train] parity_word seed0 step 1500/6000 loss=3.7372 elapsed=118.1m
+[train] parity_word seed0 step 1600/6000 loss=3.6966 elapsed=125.9m
+[train] parity_word seed0 step 1700/6000 loss=3.6965 elapsed=133.7m
+[train] parity_word seed0 step 1800/6000 loss=3.6571 elapsed=141.5m
+[train] parity_word seed0 step 1900/6000 loss=3.6583 elapsed=149.3m
+[eval] parity_word seed0 step 2000: gmean_ppl=41.396 content=5.2784 (n=10000)
+[train] parity_word seed0 step 2000/6000 loss=3.6401 elapsed=157.4m
+[train] parity_word seed0 step 2100/6000 loss=3.5950 elapsed=165.2m
+[train] parity_word seed0 step 2200/6000 loss=3.6123 elapsed=173.0m
+[train] parity_word seed0 step 2300/6000 loss=3.5701 elapsed=180.8m
+[train] parity_word seed0 step 2400/6000 loss=3.5446 elapsed=188.6m
+[train] parity_word seed0 step 2500/6000 loss=3.5370 elapsed=196.4m
+[train] parity_word seed0 step 2600/6000 loss=3.5477 elapsed=204.2m
+[train] parity_word seed0 step 2700/6000 loss=3.5419 elapsed=212.0m
+[train] parity_word seed0 step 2800/6000 loss=3.5359 elapsed=219.8m
