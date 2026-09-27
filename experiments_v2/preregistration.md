@@ -794,3 +794,78 @@ stands on the parity_word gate (0.99%); the shuffle_control gate cell result is 
 gpu7 results_gate/ and cross-checked post hoc when the reference lands. gpu7 work source:
 ssD_gpu0.tsv = the 6 nope_ext cells, released only after .t1_smoke_ok exists (§10c-13 A1
 smoke gate) — a waiter on gpu7 installs the runner and starts the shard at that moment.
+
+
+---
+
+# PREREG §10c-14（草案）— DDG 终点探针：「自动化打包」范围偏置判据
+
+> 状态：**用户已批准（2026-09-27）**，由本目录实验会话派工执行。执行会话将本节写入 gpu2 仓库 `experiments_v2/preregistration.md` 后即为正式登记；**登记 commit 必须先于任何 DDG 数据产生**（数据前冻结纪律，同 §10c-13）。
+> 来源：`new_plan/plan-annex_chess-automatization.md` §4.2（v1.1）｜`new_plan/plan_ryle_20260925.md` §12（v1.1）｜论文侧挂点 = 大纲 §7 巩固自主性 + future work。
+> 决策留痕：intercom 01a0e0ef → 01a0dbcb（2026-09-27）。
+
+---
+
+## 1. 动机与假设
+
+「自动化打包」命题经手术后的可检验残余之一：**范围偏置**——若 transformer 的操作打包集中于局部/重复结构（AGS2 方向性：AG(local3)=1.457 > AG(nondet)=1.029，旧码方向参考），则**局部操作在训练终点应已打包入权重（示范不增益），全局/计数操作仍示范依赖**。DDG（demonstration-dependence gap，示范依赖差）为此提供终点测量。
+
+与电池的关系：T1/T2/T5 测「有什么倾向」（终点剖面），本节测「倾向是否已脱离示范脚手架」（打包程度）——工程层观察，不改变任何归属判据（行 5 佐证规则不受影响）。
+
+## 2. 定义
+
+- **DDG_raw(c)** = mean lnPPL_zero-shot(c) − mean lnPPL_K-shot(c)，逐句配对（同一评估句集、两通道相减）。
+- **K-shot 通道**：评估句前拼接 K=5 条示范；示范取自该条件 **train split**（固定 seed=0 采样、固定顺序、规则写死在代码）；约束「示范块 + 评估句 ≤ 1024 token」，超限换更短示范句（确定性规则）。
+- **零示范通道** = 现有 ppl 评估协议原样（保证与已有 ppls 可比）。
+- **操作特异量 DDG\*(c)** = DDG_raw(同条件示范) − DDG_raw(natural 示范)，natural 示范取自 shuffle_control train split 同 K=5。**判据只落在 DDG\* 上**；DDG_raw 同时报告（把通用 ICL 格式增益透明化）。
+- 评估句集：沿用嵌套 2,000 句子集纪律（F8 口径），与训练数据无重叠。
+
+## 3. 条件分类（预冻结；纳入规则=执行时全部已落地 cell，禁挑选）
+
+| 类 | 条件 |
+|---|---|
+| 局部类 L | shuffle_local3、shuffle_local10 |
+| 全局/计数类 G | reverse_control、reverse_full、shuffle_even_odd、parity_word、parity_tok、negtok、shuffle_det21 |
+| 位置对照（不进主判据） | fixed_start、not_random |
+| 基线（sanity，不花 α） | shuffle_control（无操作可示范 ⇒ DDG_raw ≈ 0 应成立） |
+
+seed 口径：各条件全 seed（≥3）方向一致才立判据；n<3 只报方向性（MSSC 纪律）。阶段 A 可先出已落地 cell 的方向性数字（标记 exploratory），**最终判定待判据家族内全部条件落地**。
+
+## 4. 判据家族 DDG-F1（Holm 内校正；阈值沿用 §10c-13 家族惯例 0.15 nats）
+
+- **DDG1（主）**：DDG*(shuffle_local3) < DDG*(reverse_control) − 0.15 nats
+- DDG2（次）：DDG*(shuffle_local10) < DDG*(reverse_control) − 0.15 nats
+- DDG3（次）：DDG*(shuffle_local3) < DDG*(shuffle_even_odd) − 0.15 nats
+
+判据形态：seed-mean 差值过阈 + 每 seed 方向一致。
+
+## 5. 预写收缩（不得临场改写）
+
+1. DDG1 通过（Holm 后存活）⇒ 许可：「打包剖面呈范围偏置——局部操作已权重级打包（示范不增益），全局/计数操作仍示范依赖（本预算下）」；与 AGS2 合并为范围偏置证据链；论文侧挂大纲 §7。
+2. DDG1–3 全败 ⇒ 必写：「示范依赖在局部与全局条件间无差异（本预算下）」；**禁写「无打包能力」**（annex §1.3 红线：先验否认是范畴错误）。
+3. 自然示范对照吸收大（|DDG*| < 0.05 nats）⇒ 主判据降为描述性，只报「净于自然示范」口径。
+4. 任一条件 K-shot 反而更差（DDG_raw 显著 < 0）⇒ 记入 FALSIFICATION 存疑条目（示范分布移位混淆），该条件退出判据家族——**预先声明，非事后剔除**。
+
+## 6. 执行窗口与资源纪律
+
+- **T0 = 主网格（ETA ~10/2）**。DDG 只在节点空闲窗口或 grid 完成后执行；纯推理 ≤2 GPU·h；**不占分片队列、不改 trainer、不动在跑臂**。
+- 载体：gpu2 本地 `final/` 权重（发布分支排除权重，须在 gpu2 上跑）。
+- 代码：`probes/probes_ddg.py` 新写；eval 管线复用 `train_exp1.py` 评估路径；结果 JSON 增 `ddg` 字段（保留 per-sentence 数组以支持配对推断）；代码 commit 注明 §10c-14。
+
+## 7. 无数据声明
+
+截至本节登记 commit 时刻，项目内不存在任何 DDG 测量（`probes_ddg.py` 尚不存在；FALSIFICATION 台账无 DDG 条目）。
+
+## 8. 引用规则
+
+结果引用须注明「预注册 §10c-14，数据快照 <date>」；n<全 seed 只报方向性；任何负面/异常结果入 `FALSIFICATION_SUMMARY.md` 台账。
+
+---
+
+## 附：执行清单（实验会话用）
+
+1. [ ] 本草案全文并入 gpu2 仓库 `experiments_v2/preregistration.md`（登记 commit hash 回填本文件与 `new_plan/plan-annex_chess-automatization.md` §4.2）；
+2. [ ] 写 `probes/probes_ddg.py`（两通道 + DDG* + per-sentence JSON）；
+3. [ ] 阶段 A：已落地 cell 出 exploratory 方向性数字（明标 n 与 exploratory）；
+4. [ ] grid 完成后：全条件终判（DDG-F1 + Holm），按 §5 措辞落结果；
+5. [ ] 结果登记 FALSIFICATION/PROGRESS；论文侧数字回填大纲 §7（注明数据快照日期）。
