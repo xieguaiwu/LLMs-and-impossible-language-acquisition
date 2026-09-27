@@ -133,14 +133,18 @@ EOS = 50256
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--model-dir", required=True)
-    ap.add_argument("--condition", required=True)
+    ap.add_argument("--model-dir", default=None)
+    ap.add_argument("--condition", default=None)
     ap.add_argument("--n", type=int, default=2000, help="评估句数（嵌套 2000；exploratory 可 500）")
     ap.add_argument("--k", type=int, default=K)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--out", default=None)
     ap.add_argument("--selftest", action="store_true")
     args = ap.parse_args()
+    if args.selftest:
+        pass
+    elif not (args.model_dir and args.condition):
+        ap.error("--model-dir 与 --condition 必填（--selftest 除外）")
     device = "cpu"
 
     if args.selftest:
