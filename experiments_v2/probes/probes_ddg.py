@@ -150,7 +150,7 @@ def main() -> int:
     if args.selftest:
         # 合成数据自检：通道机制 + 截断规则 + 配对相减
         ev = [[100 + i for i in range(30)], [200 + i for i in range(40)]]
-        pool = [[300 + i for i in range(10)]]
+        pool = [[300 + i for i in range(10)], [400 + i for i in range(12)], [500 + i for i in range(11)], [600 + i for i in range(13)]]
         d = pick_demos(pool, 0, 3, 1024, 30)
         assert len(d) == 3
         assert sum(len(s) + 1 for s in d) + 30 <= 1024
