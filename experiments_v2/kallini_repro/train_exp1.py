@@ -130,6 +130,12 @@ LANGUAGES = [
     "bare_reverse",               # Reverse-bare (no marker; NOT a Kallini replication cell)
     "word_shuffle",               # our v2 Kallini-analog reference
     "not_random",                 # entropy-matched marker control (audit 2026-09-20, B1)
+    # --- §10c-13 A2 CALD positive-evidence family (design_v3/make_cald_conditions.py;
+    #     bigram-transition fillers, single-BPE K/V pseudo-words -> bare GPT-2 tokenizer,
+    #     no vocab extras; fixes [4b4] pilot invalid-choice failure every pass since dbcbe96)
+    "cald_local",
+    "cald_long",
+    "cald_shuf",
 ]
 VOCAB_EXTRA = {"negtok": 1, "reverse_control": 1, "reverse_partial": 1, "reverse_full": 1}
 # v3 class-P conditions (DESIGN_V3 §1.1). They live outside Kallini's
@@ -138,6 +144,7 @@ VOCAB_EXTRA = {"negtok": 1, "reverse_control": 1, "reverse_partial": 1, "reverse
 V3_CONDITIONS = [
     "parity_word", "parity_tok", "negtok", "fixed_start", "fixed_end",
     "bare_reverse", "word_shuffle", "not_random",
+    "cald_local", "cald_long", "cald_shuf",   # §10c-13 A2 (bare GPT-2 tokenizer)
 ]
 # Marker token ids masked by the content-only (marker-masked) robustness metric:
 #   1892 = " Not" (sentence-final form), 3673 = "Not" (sentence-initial form),
