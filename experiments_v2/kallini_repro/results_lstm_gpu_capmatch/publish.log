@@ -1,0 +1,67 @@
+remote: 
+remote: Create a pull request for 'v2-results-lstm-gpu-capmatch' on GitHub by visiting:        
+remote:      https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition/pull/new/v2-results-lstm-gpu-capmatch        
+remote: 
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ * [new branch]      bb4e99ff735df47768a92b23ab2ba195ecddd9c7 -> v2-results-lstm-gpu-capmatch
+[2026-09-27T19:42:09+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=10)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + bb4e99f...74a582c 74a582c0b2057ac6802c75be05e8444aa9e33003 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-01T03:23:43+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 74a582c...0458e96 0458e9632907bbbef96f144d1a6c8f1de60fd702 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T06:18:52+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0458e96...1e12562 1e12562e4e26d98c607bf81548f8ae525db085e7 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T06:27:41+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1e12562...002e397 002e39722e35b78bbc7e0f9877c850b7262feffa -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T06:33:17+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 002e397...463589a 463589a876a21d6625a0c5e055dcce7fa17f4a38 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T06:41:52+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 463589a...fe46f47 fe46f47691ccdde7ace590218ae51253b6d8afd7 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T06:47:33+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + fe46f47...624b16d 624b16d0f206fcd7875e8481fed897c5f17a7f0b -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T06:56:06+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 624b16d...6ca57cc 6ca57ccba8eb7efcdb0693e766844312b9f65538 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:01:39+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6ca57cc...47a0d13 47a0d130e8a85b198a7df66ec896485a878646b9 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:10:24+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 47a0d13...6755c3d 6755c3d43d86fa168f51a04674c79aa2c0ebd48e -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:16:07+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6755c3d...2d34015 2d340156522e40bf85b37d76ecaeda676f4ed231 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:24:51+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2d34015...b15e711 b15e7117d04d0c7fd968b042d8926030b48c629c -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:30:35+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b15e711...c8f0416 c8f0416d261588fe9464b6ca6662a59b233a5652 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:39:14+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c8f0416...2484d23 2484d23e81131491eb57679c8ba7b932dd9f1cad -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:44:56+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2484d23...1fe0d50 1fe0d50aa683850e66097cfc49cb598953ed9f2a -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:53:21+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1fe0d50...6e2e0da 6e2e0da3f00c0474d55da04775fb6d90fcb295e7 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T07:58:53+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6e2e0da...157adf5 157adf53025e8017bfc08305ce3d8deaa46aab5c -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T08:07:30+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 157adf5...9b46c32 9b46c32e1c15491926e6c859eac59984b517097a -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T08:12:59+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9b46c32...3837f77 3837f779993e46fffd9ebb3d2926831640c630ed -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T08:21:28+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3837f77...c4e737b c4e737b4ee86b24eed7feded3835f767f9d53130 -> v2-results-lstm-gpu-capmatch (forced update)
+[2026-10-03T22:23:10+08:00] incremental publish OK -> v2-results-lstm-gpu-capmatch (cells=15)
