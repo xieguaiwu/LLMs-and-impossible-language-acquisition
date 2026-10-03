@@ -1,0 +1,288 @@
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (67s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (67s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (65s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (66s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (69s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (66s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (67s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (69s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
+SKIP experiments_v2/kallini_repro/results_model_scale/babylm_shuffle_control_100M/seed0/exp1_result.json (already complete)
+[data] blocks=142705 eval_sents=10000 (64s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+Traceback (most recent call last):
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 680, in <module>
+    main()
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 672, in main
+    result = train_one(args.perturbation, args.seed, out_dir, max_steps=MAX_STEPS, warmup=WARMUP_STEPS)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/llm-impossible/experiments_v2/kallini_repro/train_exp1.py", line 575, in train_one
+    out = model(input_ids=input_ids, labels=input_ids.clone())
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/transformers/models/gpt2/modeling_gpt2.py", line 1092, in forward
+    logits = self.lm_head(hidden_states[:, slice_indices, :])
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1511, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/module.py", line 1520, in _call_impl
+    return forward_call(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/anaconda3/lib/python3.11/site-packages/torch/nn/modules/linear.py", line 116, in forward
+    return F.linear(input, self.weight, self.bias)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.cuda.OutOfMemoryError: CUDA out of memory. Tried to allocate 198.00 MiB. GPU 0 has a total capacity of 9.77 GiB of which 141.81 MiB is free. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 9.29 GiB is allocated by PyTorch, and 62.41 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)
