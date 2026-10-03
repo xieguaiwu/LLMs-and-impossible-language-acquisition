@@ -1,0 +1,627 @@
+[data] blocks=142705 eval_sents=10000 (60s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_word seed0 step 100: gmean_ppl=204.7371 content=11.2039 (n=10000)
+[train] parity_word seed0 step 100/3000 loss=5.1948 elapsed=8.2m
+[train] parity_word seed0 step 200/3000 loss=4.8268 elapsed=16.0m
+[eval] parity_word seed0 step 300: gmean_ppl=787.8481 content=15.7051 (n=10000)
+[train] parity_word seed0 step 300/3000 loss=5.5144 elapsed=24.1m
+[train] parity_word seed0 step 400/3000 loss=4.9561 elapsed=31.9m
+[eval] parity_word seed0 step 500: gmean_ppl=214.193 content=10.5811 (n=10000)
+[train] parity_word seed0 step 500/3000 loss=4.8398 elapsed=40.1m
+[train] parity_word seed0 step 600/3000 loss=4.7487 elapsed=47.8m
+[train] parity_word seed0 step 700/3000 loss=4.7041 elapsed=55.6m
+[train] parity_word seed0 step 800/3000 loss=4.6465 elapsed=63.4m
+[train] parity_word seed0 step 900/3000 loss=4.6087 elapsed=71.2m
+[eval] parity_word seed0 step 1000: gmean_ppl=155.2432 content=8.5381 (n=10000)
+[train] parity_word seed0 step 1000/3000 loss=4.5444 elapsed=79.4m
+[train] parity_word seed0 step 1100/3000 loss=4.3178 elapsed=87.2m
+[train] parity_word seed0 step 1200/3000 loss=4.2162 elapsed=94.9m
+[train] parity_word seed0 step 1300/3000 loss=4.1495 elapsed=102.7m
+[train] parity_word seed0 step 1400/3000 loss=4.0768 elapsed=110.5m
+[train] parity_word seed0 step 1500/3000 loss=4.0351 elapsed=118.3m
+[train] parity_word seed0 step 1600/3000 loss=3.9660 elapsed=126.1m
+[train] parity_word seed0 step 1700/3000 loss=3.9670 elapsed=133.9m
+[train] parity_word seed0 step 1800/3000 loss=3.9058 elapsed=141.7m
+[train] parity_word seed0 step 1900/3000 loss=3.8930 elapsed=149.5m
+[eval] parity_word seed0 step 2000: gmean_ppl=51.8812 content=5.972 (n=10000)
+[train] parity_word seed0 step 2000/3000 loss=3.8681 elapsed=157.6m
+[train] parity_word seed0 step 2100/3000 loss=3.8192 elapsed=165.4m
+[train] parity_word seed0 step 2200/3000 loss=3.8227 elapsed=173.2m
+[train] parity_word seed0 step 2300/3000 loss=3.7976 elapsed=181.0m
+[train] parity_word seed0 step 2400/3000 loss=3.7593 elapsed=188.8m
+[train] parity_word seed0 step 2500/3000 loss=3.7561 elapsed=196.6m
+[train] parity_word seed0 step 2600/3000 loss=3.7576 elapsed=204.4m
+[train] parity_word seed0 step 2700/3000 loss=3.7498 elapsed=212.2m
+[train] parity_word seed0 step 2800/3000 loss=3.7384 elapsed=220.0m
+[train] parity_word seed0 step 2900/3000 loss=3.7428 elapsed=227.8m
+[eval] parity_word seed0 step 3000: gmean_ppl=44.7861 content=5.5729 (n=10000)
+[train] parity_word seed0 step 3000/3000 loss=3.7311 elapsed=235.9m
+{
+  "100": 204.7371,
+  "300": 787.8481,
+  "500": 214.193,
+  "1000": 155.2432,
+  "2000": 51.8812,
+  "3000": 44.7861
+}
+[data] blocks=142705 eval_sents=10000 (61s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_word seed14 step 100: gmean_ppl=204.1569 content=11.5454 (n=10000)
+[train] parity_word seed14 step 100/3000 loss=5.2326 elapsed=8.2m
+[train] parity_word seed14 step 200/3000 loss=4.8542 elapsed=16.0m
+[eval] parity_word seed14 step 300: gmean_ppl=101.8245 content=8.5685 (n=10000)
+[train] parity_word seed14 step 300/3000 loss=4.6859 elapsed=24.1m
+[train] parity_word seed14 step 400/3000 loss=5.0578 elapsed=31.9m
+[eval] parity_word seed14 step 500: gmean_ppl=184.1957 content=10.5245 (n=10000)
+[train] parity_word seed14 step 500/3000 loss=4.7862 elapsed=40.0m
+[train] parity_word seed14 step 600/3000 loss=4.7399 elapsed=47.8m
+[train] parity_word seed14 step 700/3000 loss=4.6575 elapsed=55.6m
+[train] parity_word seed14 step 800/3000 loss=4.5684 elapsed=63.4m
+[train] parity_word seed14 step 900/3000 loss=4.5851 elapsed=71.2m
+[eval] parity_word seed14 step 1000: gmean_ppl=88.8164 content=7.8029 (n=10000)
+[train] parity_word seed14 step 1000/3000 loss=4.3265 elapsed=79.3m
+[train] parity_word seed14 step 1100/3000 loss=4.2398 elapsed=87.1m
+[train] parity_word seed14 step 1200/3000 loss=4.3958 elapsed=94.9m
+[train] parity_word seed14 step 1300/3000 loss=4.0841 elapsed=102.7m
+[train] parity_word seed14 step 1400/3000 loss=4.0184 elapsed=110.5m
+[train] parity_word seed14 step 1500/3000 loss=3.9897 elapsed=118.3m
+[train] parity_word seed14 step 1600/3000 loss=3.9448 elapsed=126.1m
+[train] parity_word seed14 step 1700/3000 loss=3.9244 elapsed=133.9m
+[train] parity_word seed14 step 1800/3000 loss=3.8699 elapsed=141.7m
+[train] parity_word seed14 step 1900/3000 loss=3.8530 elapsed=149.5m
+[eval] parity_word seed14 step 2000: gmean_ppl=48.3981 content=5.9224 (n=10000)
+[train] parity_word seed14 step 2000/3000 loss=3.8070 elapsed=157.6m
+[train] parity_word seed14 step 2100/3000 loss=3.8230 elapsed=165.4m
+[train] parity_word seed14 step 2200/3000 loss=3.8067 elapsed=173.2m
+[train] parity_word seed14 step 2300/3000 loss=3.7197 elapsed=181.0m
+[train] parity_word seed14 step 2400/3000 loss=3.7206 elapsed=188.8m
+[train] parity_word seed14 step 2500/3000 loss=3.7369 elapsed=196.6m
+[train] parity_word seed14 step 2600/3000 loss=3.6972 elapsed=204.4m
+[train] parity_word seed14 step 2700/3000 loss=3.6918 elapsed=212.2m
+[train] parity_word seed14 step 2800/3000 loss=3.7014 elapsed=220.0m
+[train] parity_word seed14 step 2900/3000 loss=3.6853 elapsed=227.8m
+[eval] parity_word seed14 step 3000: gmean_ppl=43.1431 content=5.5785 (n=10000)
+[train] parity_word seed14 step 3000/3000 loss=3.6693 elapsed=235.9m
+{
+  "100": 204.1569,
+  "300": 101.8245,
+  "500": 184.1957,
+  "1000": 88.8164,
+  "2000": 48.3981,
+  "3000": 43.1431
+}
+[data] blocks=142705 eval_sents=10000 (61s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_word seed41 step 100: gmean_ppl=200.4205 content=11.319 (n=10000)
+[train] parity_word seed41 step 100/3000 loss=5.1910 elapsed=8.2m
+[train] parity_word seed41 step 200/3000 loss=4.8509 elapsed=16.0m
+[eval] parity_word seed41 step 300: gmean_ppl=105.5335 content=8.3996 (n=10000)
+[train] parity_word seed41 step 300/3000 loss=4.7050 elapsed=24.1m
+[train] parity_word seed41 step 400/3000 loss=4.6288 elapsed=32.0m
+[eval] parity_word seed41 step 500: gmean_ppl=463.7956 content=14.4183 (n=10000)
+[train] parity_word seed41 step 500/3000 loss=5.4760 elapsed=40.1m
+[train] parity_word seed41 step 600/3000 loss=4.9414 elapsed=47.9m
+[train] parity_word seed41 step 700/3000 loss=4.7678 elapsed=55.7m
+[train] parity_word seed41 step 800/3000 loss=4.7228 elapsed=63.5m
+[train] parity_word seed41 step 900/3000 loss=4.5790 elapsed=71.3m
+[eval] parity_word seed41 step 1000: gmean_ppl=122.5259 content=8.5874 (n=10000)
+[train] parity_word seed41 step 1000/3000 loss=4.3993 elapsed=79.5m
+[train] parity_word seed41 step 1100/3000 loss=4.3941 elapsed=87.3m
+[train] parity_word seed41 step 1200/3000 loss=4.1676 elapsed=95.1m
+[train] parity_word seed41 step 1300/3000 loss=4.0987 elapsed=102.9m
+[train] parity_word seed41 step 1400/3000 loss=4.0605 elapsed=110.7m
+[train] parity_word seed41 step 1500/3000 loss=4.0653 elapsed=118.5m
+[train] parity_word seed41 step 1600/3000 loss=3.9758 elapsed=126.2m
+[train] parity_word seed41 step 1700/3000 loss=3.9173 elapsed=134.0m
+[train] parity_word seed41 step 1800/3000 loss=3.8903 elapsed=141.8m
+[train] parity_word seed41 step 1900/3000 loss=3.8723 elapsed=149.6m
+[eval] parity_word seed41 step 2000: gmean_ppl=52.7344 content=6.0017 (n=10000)
+[train] parity_word seed41 step 2000/3000 loss=3.8431 elapsed=157.8m
+[train] parity_word seed41 step 2100/3000 loss=3.8407 elapsed=165.6m
+[train] parity_word seed41 step 2200/3000 loss=3.8081 elapsed=173.3m
+[train] parity_word seed41 step 2300/3000 loss=3.7731 elapsed=181.1m
+[train] parity_word seed41 step 2400/3000 loss=3.7648 elapsed=188.9m
+[train] parity_word seed41 step 2500/3000 loss=3.7560 elapsed=196.7m
+[train] parity_word seed41 step 2600/3000 loss=3.7412 elapsed=204.5m
+[train] parity_word seed41 step 2700/3000 loss=3.7353 elapsed=212.3m
+[train] parity_word seed41 step 2800/3000 loss=3.7418 elapsed=220.1m
+[train] parity_word seed41 step 2900/3000 loss=3.7029 elapsed=227.9m
+[eval] parity_word seed41 step 3000: gmean_ppl=45.6228 content=5.6188 (n=10000)
+[train] parity_word seed41 step 3000/3000 loss=3.7152 elapsed=236.1m
+{
+  "100": 200.4205,
+  "300": 105.5335,
+  "500": 463.7956,
+  "1000": 122.5259,
+  "2000": 52.7344,
+  "3000": 45.6228
+}
+[data] blocks=132947 eval_sents=10000 (58s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] shuffle_control seed0 step 100: gmean_ppl=300.7652 content=10.534 (n=10000)
+[train] shuffle_control seed0 step 100/3000 loss=5.4670 elapsed=8.1m
+[train] shuffle_control seed0 step 200/3000 loss=5.0775 elapsed=15.9m
+[eval] shuffle_control seed0 step 300: gmean_ppl=150.2291 content=8.0644 (n=10000)
+[train] shuffle_control seed0 step 300/3000 loss=4.9604 elapsed=24.1m
+[train] shuffle_control seed0 step 400/3000 loss=4.8674 elapsed=31.9m
+[eval] shuffle_control seed0 step 500: gmean_ppl=124.9424 content=7.5662 (n=10000)
+[train] shuffle_control seed0 step 500/3000 loss=4.8109 elapsed=40.0m
+[train] shuffle_control seed0 step 600/3000 loss=4.5891 elapsed=47.9m
+[train] shuffle_control seed0 step 700/3000 loss=4.4279 elapsed=55.7m
+[train] shuffle_control seed0 step 800/3000 loss=4.2873 elapsed=63.5m
+[train] shuffle_control seed0 step 900/3000 loss=4.1922 elapsed=71.4m
+[eval] shuffle_control seed0 step 1000: gmean_ppl=67.0506 content=5.7608 (n=10000)
+[train] shuffle_control seed0 step 1000/3000 loss=4.1522 elapsed=79.5m
+[train] shuffle_control seed0 step 1100/3000 loss=4.0786 elapsed=87.3m
+[train] shuffle_control seed0 step 1200/3000 loss=4.0668 elapsed=95.1m
+[train] shuffle_control seed0 step 1300/3000 loss=4.0218 elapsed=102.9m
+[train] shuffle_control seed0 step 1400/3000 loss=4.0021 elapsed=110.8m
+[train] shuffle_control seed0 step 1500/3000 loss=3.9760 elapsed=118.6m
+[train] shuffle_control seed0 step 1600/3000 loss=3.9502 elapsed=126.4m
+[train] shuffle_control seed0 step 1700/3000 loss=3.9217 elapsed=134.2m
+[train] shuffle_control seed0 step 1800/3000 loss=3.9134 elapsed=142.0m
+[train] shuffle_control seed0 step 1900/3000 loss=3.8928 elapsed=149.9m
+[eval] shuffle_control seed0 step 2000: gmean_ppl=51.8323 content=5.0991 (n=10000)
+[train] shuffle_control seed0 step 2000/3000 loss=3.8889 elapsed=158.0m
+[train] shuffle_control seed0 step 2100/3000 loss=3.8347 elapsed=165.8m
+[train] shuffle_control seed0 step 2200/3000 loss=3.8402 elapsed=173.6m
+[train] shuffle_control seed0 step 2300/3000 loss=3.8113 elapsed=181.5m
+[train] shuffle_control seed0 step 2400/3000 loss=3.7877 elapsed=189.3m
+[train] shuffle_control seed0 step 2500/3000 loss=3.7837 elapsed=197.1m
+[train] shuffle_control seed0 step 2600/3000 loss=3.7776 elapsed=204.9m
+[train] shuffle_control seed0 step 2700/3000 loss=3.7728 elapsed=212.8m
+[train] shuffle_control seed0 step 2800/3000 loss=3.7952 elapsed=220.6m
+[train] shuffle_control seed0 step 2900/3000 loss=3.7559 elapsed=228.4m
+[eval] shuffle_control seed0 step 3000: gmean_ppl=48.0343 content=4.902 (n=10000)
+[train] shuffle_control seed0 step 3000/3000 loss=3.7533 elapsed=236.6m
+{
+  "100": 300.7652,
+  "300": 150.2291,
+  "500": 124.9424,
+  "1000": 67.0506,
+  "2000": 51.8323,
+  "3000": 48.0343
+}
+[data] blocks=132947 eval_sents=10000 (61s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] shuffle_control seed14 step 100: gmean_ppl=292.4188 content=10.8747 (n=10000)
+[train] shuffle_control seed14 step 100/3000 loss=5.4671 elapsed=8.1m
+[train] shuffle_control seed14 step 200/3000 loss=5.0752 elapsed=16.0m
+[eval] shuffle_control seed14 step 300: gmean_ppl=147.5231 content=8.253 (n=10000)
+[train] shuffle_control seed14 step 300/3000 loss=4.9410 elapsed=24.1m
+[train] shuffle_control seed14 step 400/3000 loss=5.6679 elapsed=31.9m
+[eval] shuffle_control seed14 step 500: gmean_ppl=467.0713 content=12.3344 (n=10000)
+[train] shuffle_control seed14 step 500/3000 loss=5.2747 elapsed=40.0m
+[train] shuffle_control seed14 step 600/3000 loss=5.0625 elapsed=47.9m
+[train] shuffle_control seed14 step 700/3000 loss=4.9630 elapsed=55.7m
+[train] shuffle_control seed14 step 800/3000 loss=4.9525 elapsed=63.5m
+[train] shuffle_control seed14 step 900/3000 loss=4.8444 elapsed=71.4m
+[eval] shuffle_control seed14 step 1000: gmean_ppl=175.2027 content=8.5825 (n=10000)
+[train] shuffle_control seed14 step 1000/3000 loss=4.7582 elapsed=79.5m
+[train] shuffle_control seed14 step 1100/3000 loss=4.6189 elapsed=87.3m
+[train] shuffle_control seed14 step 1200/3000 loss=4.4756 elapsed=95.2m
+[train] shuffle_control seed14 step 1300/3000 loss=4.3725 elapsed=103.0m
+[train] shuffle_control seed14 step 1400/3000 loss=4.3140 elapsed=110.9m
+[train] shuffle_control seed14 step 1500/3000 loss=4.2685 elapsed=118.8m
+[train] shuffle_control seed14 step 1600/3000 loss=4.2000 elapsed=126.6m
+[train] shuffle_control seed14 step 1700/3000 loss=4.1706 elapsed=134.4m
+[train] shuffle_control seed14 step 1800/3000 loss=4.1375 elapsed=142.3m
+[train] shuffle_control seed14 step 1900/3000 loss=4.1040 elapsed=150.1m
+[eval] shuffle_control seed14 step 2000: gmean_ppl=68.1778 content=5.9083 (n=10000)
+[train] shuffle_control seed14 step 2000/3000 loss=4.0689 elapsed=158.2m
+[train] shuffle_control seed14 step 2100/3000 loss=4.0295 elapsed=166.0m
+[train] shuffle_control seed14 step 2200/3000 loss=4.0105 elapsed=173.9m
+[train] shuffle_control seed14 step 2300/3000 loss=3.9997 elapsed=181.7m
+[train] shuffle_control seed14 step 2400/3000 loss=4.0002 elapsed=189.5m
+[train] shuffle_control seed14 step 2500/3000 loss=3.9825 elapsed=197.3m
+[train] shuffle_control seed14 step 2600/3000 loss=3.9669 elapsed=205.2m
+[train] shuffle_control seed14 step 2700/3000 loss=3.9763 elapsed=213.0m
+[train] shuffle_control seed14 step 2800/3000 loss=3.9522 elapsed=220.8m
+[train] shuffle_control seed14 step 2900/3000 loss=3.9354 elapsed=228.6m
+[eval] shuffle_control seed14 step 3000: gmean_ppl=57.2012 content=5.4858 (n=10000)
+[train] shuffle_control seed14 step 3000/3000 loss=3.9323 elapsed=236.7m
+{
+  "100": 292.4188,
+  "300": 147.5231,
+  "500": 467.0713,
+  "1000": 175.2027,
+  "2000": 68.1778,
+  "3000": 57.2012
+}
+[data] blocks=132947 eval_sents=10000 (61s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] shuffle_control seed41 step 100: gmean_ppl=292.9437 content=10.6646 (n=10000)
+[train] shuffle_control seed41 step 100/3000 loss=5.4550 elapsed=8.1m
+[train] shuffle_control seed41 step 200/3000 loss=5.0844 elapsed=15.9m
+[eval] shuffle_control seed41 step 300: gmean_ppl=144.141 content=8.1635 (n=10000)
+[train] shuffle_control seed41 step 300/3000 loss=5.0047 elapsed=24.1m
+[train] shuffle_control seed41 step 400/3000 loss=4.8889 elapsed=31.9m
+[eval] shuffle_control seed41 step 500: gmean_ppl=128.1407 content=7.6595 (n=10000)
+[train] shuffle_control seed41 step 500/3000 loss=4.8091 elapsed=40.0m
+[train] shuffle_control seed41 step 600/3000 loss=4.6431 elapsed=47.8m
+[train] shuffle_control seed41 step 700/3000 loss=4.4465 elapsed=55.6m
+[train] shuffle_control seed41 step 800/3000 loss=4.3188 elapsed=63.5m
+[train] shuffle_control seed41 step 900/3000 loss=4.2212 elapsed=71.3m
+[eval] shuffle_control seed41 step 1000: gmean_ppl=86.0664 content=6.3398 (n=10000)
+[train] shuffle_control seed41 step 1000/3000 loss=4.2704 elapsed=79.4m
+[train] shuffle_control seed41 step 1100/3000 loss=4.1161 elapsed=87.3m
+[train] shuffle_control seed41 step 1200/3000 loss=4.0835 elapsed=95.1m
+[train] shuffle_control seed41 step 1300/3000 loss=4.0255 elapsed=102.9m
+[train] shuffle_control seed41 step 1400/3000 loss=4.0065 elapsed=110.7m
+[train] shuffle_control seed41 step 1500/3000 loss=3.9787 elapsed=118.6m
+[train] shuffle_control seed41 step 1600/3000 loss=3.9388 elapsed=126.4m
+[train] shuffle_control seed41 step 1700/3000 loss=3.9367 elapsed=134.2m
+[train] shuffle_control seed41 step 1800/3000 loss=3.9250 elapsed=142.1m
+[train] shuffle_control seed41 step 1900/3000 loss=3.9015 elapsed=149.9m
+[eval] shuffle_control seed41 step 2000: gmean_ppl=53.5364 content=5.1902 (n=10000)
+[train] shuffle_control seed41 step 2000/3000 loss=3.9015 elapsed=158.0m
+[train] shuffle_control seed41 step 2100/3000 loss=3.8058 elapsed=165.8m
+[train] shuffle_control seed41 step 2200/3000 loss=3.8124 elapsed=173.7m
+[train] shuffle_control seed41 step 2300/3000 loss=3.8093 elapsed=181.5m
+[train] shuffle_control seed41 step 2400/3000 loss=3.8020 elapsed=189.3m
+[train] shuffle_control seed41 step 2500/3000 loss=3.7859 elapsed=197.2m
+[train] shuffle_control seed41 step 2600/3000 loss=3.7865 elapsed=205.0m
+[train] shuffle_control seed41 step 2700/3000 loss=3.7483 elapsed=212.8m
+[train] shuffle_control seed41 step 2800/3000 loss=3.7835 elapsed=220.6m
+[train] shuffle_control seed41 step 2900/3000 loss=3.7738 elapsed=228.5m
+[eval] shuffle_control seed41 step 3000: gmean_ppl=48.4446 content=4.963 (n=10000)
+[train] shuffle_control seed41 step 3000/3000 loss=3.7668 elapsed=236.6m
+{
+  "100": 292.9437,
+  "300": 144.141,
+  "500": 128.1407,
+  "1000": 86.0664,
+  "2000": 53.5364,
+  "3000": 48.4446
+}
+[data] blocks=142705 eval_sents=10000 (62s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] fixed_start seed0 step 100: gmean_ppl=289.3364 content=11.4074 (n=10000)
+[train] fixed_start seed0 step 100/3000 loss=5.0869 elapsed=8.2m
+[train] fixed_start seed0 step 200/3000 loss=4.7446 elapsed=16.0m
+[eval] fixed_start seed0 step 300: gmean_ppl=152.7916 content=8.6613 (n=10000)
+[train] fixed_start seed0 step 300/3000 loss=4.5939 elapsed=24.2m
+[train] fixed_start seed0 step 400/3000 loss=5.2254 elapsed=32.0m
+[eval] fixed_start seed0 step 500: gmean_ppl=397.6726 content=12.148 (n=10000)
+[train] fixed_start seed0 step 500/3000 loss=4.8481 elapsed=40.1m
+[train] fixed_start seed0 step 600/3000 loss=4.6874 elapsed=48.0m
+[train] fixed_start seed0 step 700/3000 loss=4.6096 elapsed=55.8m
+[train] fixed_start seed0 step 800/3000 loss=4.5429 elapsed=63.6m
+[train] fixed_start seed0 step 900/3000 loss=4.4719 elapsed=71.4m
+[eval] fixed_start seed0 step 1000: gmean_ppl=142.2894 content=8.177 (n=10000)
+[train] fixed_start seed0 step 1000/3000 loss=4.3044 elapsed=79.6m
+[train] fixed_start seed0 step 1100/3000 loss=4.1276 elapsed=87.4m
+[train] fixed_start seed0 step 1200/3000 loss=4.0773 elapsed=95.2m
+[train] fixed_start seed0 step 1300/3000 loss=4.3320 elapsed=103.0m
+[train] fixed_start seed0 step 1400/3000 loss=3.9658 elapsed=110.9m
+[train] fixed_start seed0 step 1500/3000 loss=3.9254 elapsed=118.7m
+[train] fixed_start seed0 step 1600/3000 loss=3.8650 elapsed=126.5m
+[train] fixed_start seed0 step 1700/3000 loss=3.8591 elapsed=134.3m
+[train] fixed_start seed0 step 1800/3000 loss=3.8077 elapsed=142.1m
+[train] fixed_start seed0 step 1900/3000 loss=3.7990 elapsed=150.0m
+[eval] fixed_start seed0 step 2000: gmean_ppl=76.4387 content=6.1719 (n=10000)
+[train] fixed_start seed0 step 2000/3000 loss=3.7786 elapsed=158.1m
+[train] fixed_start seed0 step 2100/3000 loss=3.7255 elapsed=165.9m
+[train] fixed_start seed0 step 2200/3000 loss=3.7377 elapsed=173.8m
+[train] fixed_start seed0 step 2300/3000 loss=3.7149 elapsed=181.6m
+[train] fixed_start seed0 step 2400/3000 loss=3.6744 elapsed=189.4m
+[train] fixed_start seed0 step 2500/3000 loss=3.6690 elapsed=197.3m
+[train] fixed_start seed0 step 2600/3000 loss=3.6756 elapsed=205.1m
+[train] fixed_start seed0 step 2700/3000 loss=3.6705 elapsed=212.9m
+[train] fixed_start seed0 step 2800/3000 loss=3.6580 elapsed=220.8m
+[train] fixed_start seed0 step 2900/3000 loss=3.6648 elapsed=228.7m
+[eval] fixed_start seed0 step 3000: gmean_ppl=67.7667 content=5.8096 (n=10000)
+[train] fixed_start seed0 step 3000/3000 loss=3.6522 elapsed=236.9m
+{
+  "100": 289.3364,
+  "300": 152.7916,
+  "500": 397.6726,
+  "1000": 142.2894,
+  "2000": 76.4387,
+  "3000": 67.7667
+}
+[data] blocks=142705 eval_sents=10000 (64s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] fixed_start seed14 step 100: gmean_ppl=293.4531 content=11.8769 (n=10000)
+[train] fixed_start seed14 step 100/3000 loss=5.1124 elapsed=8.2m
+[train] fixed_start seed14 step 200/3000 loss=4.7635 elapsed=16.0m
+[eval] fixed_start seed14 step 300: gmean_ppl=153.9518 content=8.9704 (n=10000)
+[train] fixed_start seed14 step 300/3000 loss=4.5916 elapsed=24.2m
+[train] fixed_start seed14 step 400/3000 loss=5.5828 elapsed=32.1m
+[eval] fixed_start seed14 step 500: gmean_ppl=353.4593 content=12.2466 (n=10000)
+[train] fixed_start seed14 step 500/3000 loss=4.7944 elapsed=40.3m
+[train] fixed_start seed14 step 600/3000 loss=4.6756 elapsed=48.1m
+[train] fixed_start seed14 step 700/3000 loss=4.5906 elapsed=55.9m
+[train] fixed_start seed14 step 800/3000 loss=4.5773 elapsed=63.7m
+[train] fixed_start seed14 step 900/3000 loss=4.4710 elapsed=71.6m
+[eval] fixed_start seed14 step 1000: gmean_ppl=148.3622 content=8.6104 (n=10000)
+[train] fixed_start seed14 step 1000/3000 loss=4.3284 elapsed=79.8m
+[train] fixed_start seed14 step 1100/3000 loss=4.2296 elapsed=87.6m
+[train] fixed_start seed14 step 1200/3000 loss=4.1068 elapsed=95.5m
+[train] fixed_start seed14 step 1300/3000 loss=4.0450 elapsed=103.3m
+[train] fixed_start seed14 step 1400/3000 loss=3.9948 elapsed=111.1m
+[train] fixed_start seed14 step 1500/3000 loss=3.9587 elapsed=119.0m
+[train] fixed_start seed14 step 1600/3000 loss=3.9140 elapsed=126.8m
+[train] fixed_start seed14 step 1700/3000 loss=3.8863 elapsed=134.6m
+[train] fixed_start seed14 step 1800/3000 loss=3.8395 elapsed=142.5m
+[train] fixed_start seed14 step 1900/3000 loss=3.8269 elapsed=150.3m
+[eval] fixed_start seed14 step 2000: gmean_ppl=78.074 content=6.3981 (n=10000)
+[train] fixed_start seed14 step 2000/3000 loss=3.7885 elapsed=158.5m
+[train] fixed_start seed14 step 2100/3000 loss=3.8024 elapsed=166.4m
+[train] fixed_start seed14 step 2200/3000 loss=3.7850 elapsed=174.2m
+[train] fixed_start seed14 step 2300/3000 loss=3.6995 elapsed=182.1m
+[train] fixed_start seed14 step 2400/3000 loss=3.7066 elapsed=189.9m
+[train] fixed_start seed14 step 2500/3000 loss=3.7194 elapsed=197.8m
+[train] fixed_start seed14 step 2600/3000 loss=3.6798 elapsed=205.6m
+[train] fixed_start seed14 step 2700/3000 loss=3.6805 elapsed=213.4m
+[train] fixed_start seed14 step 2800/3000 loss=3.6892 elapsed=221.3m
+[train] fixed_start seed14 step 2900/3000 loss=3.6745 elapsed=229.1m
+[eval] fixed_start seed14 step 3000: gmean_ppl=68.4396 content=6.012 (n=10000)
+[train] fixed_start seed14 step 3000/3000 loss=3.6576 elapsed=237.4m
+{
+  "100": 293.4531,
+  "300": 153.9518,
+  "500": 353.4593,
+  "1000": 148.3622,
+  "2000": 78.074,
+  "3000": 68.4396
+}
+[data] blocks=142705 eval_sents=10000 (67s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] fixed_start seed41 step 100: gmean_ppl=293.6361 content=11.5432 (n=10000)
+[train] fixed_start seed41 step 100/3000 loss=5.0792 elapsed=8.3m
+[train] fixed_start seed41 step 200/3000 loss=4.7304 elapsed=16.1m
+[eval] fixed_start seed41 step 300: gmean_ppl=919.6371 content=18.0776 (n=10000)
+[train] fixed_start seed41 step 300/3000 loss=6.1726 elapsed=24.3m
+[train] fixed_start seed41 step 400/3000 loss=4.9181 elapsed=32.2m
+[eval] fixed_start seed41 step 500: gmean_ppl=310.1397 content=11.2461 (n=10000)
+[train] fixed_start seed41 step 500/3000 loss=4.7588 elapsed=40.4m
+[train] fixed_start seed41 step 600/3000 loss=4.6566 elapsed=48.2m
+[train] fixed_start seed41 step 700/3000 loss=4.5942 elapsed=56.1m
+[train] fixed_start seed41 step 800/3000 loss=4.5342 elapsed=63.9m
+[train] fixed_start seed41 step 900/3000 loss=4.3602 elapsed=71.8m
+[eval] fixed_start seed41 step 1000: gmean_ppl=142.0588 content=8.2005 (n=10000)
+[train] fixed_start seed41 step 1000/3000 loss=4.2287 elapsed=80.0m
+[train] fixed_start seed41 step 1100/3000 loss=4.1531 elapsed=87.8m
+[train] fixed_start seed41 step 1200/3000 loss=4.2354 elapsed=95.6m
+[train] fixed_start seed41 step 1300/3000 loss=3.9983 elapsed=103.5m
+[train] fixed_start seed41 step 1400/3000 loss=3.9689 elapsed=111.3m
+[train] fixed_start seed41 step 1500/3000 loss=3.9178 elapsed=119.1m
+[train] fixed_start seed41 step 1600/3000 loss=3.8825 elapsed=127.0m
+[train] fixed_start seed41 step 1700/3000 loss=3.8352 elapsed=134.8m
+[train] fixed_start seed41 step 1800/3000 loss=3.8774 elapsed=142.6m
+[train] fixed_start seed41 step 1900/3000 loss=3.8033 elapsed=150.5m
+[eval] fixed_start seed41 step 2000: gmean_ppl=79.1224 content=6.3087 (n=10000)
+[train] fixed_start seed41 step 2000/3000 loss=3.7739 elapsed=158.7m
+[train] fixed_start seed41 step 2100/3000 loss=3.7741 elapsed=166.5m
+[train] fixed_start seed41 step 2200/3000 loss=3.7429 elapsed=174.4m
+[train] fixed_start seed41 step 2300/3000 loss=3.7104 elapsed=182.2m
+[train] fixed_start seed41 step 2400/3000 loss=3.7026 elapsed=190.0m
+[train] fixed_start seed41 step 2500/3000 loss=3.6936 elapsed=197.9m
+[train] fixed_start seed41 step 2600/3000 loss=3.6805 elapsed=205.7m
+[train] fixed_start seed41 step 2700/3000 loss=3.6740 elapsed=213.5m
+[train] fixed_start seed41 step 2800/3000 loss=3.6840 elapsed=221.4m
+[train] fixed_start seed41 step 2900/3000 loss=3.6467 elapsed=229.2m
+[eval] fixed_start seed41 step 3000: gmean_ppl=69.5813 content=5.9333 (n=10000)
+[train] fixed_start seed41 step 3000/3000 loss=3.6569 elapsed=237.4m
+{
+  "100": 293.6361,
+  "300": 919.6371,
+  "500": 310.1397,
+  "1000": 142.0588,
+  "2000": 79.1224,
+  "3000": 69.5813
+}
+[data] blocks=142705 eval_sents=10000 (65s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] not_random seed0 step 100: gmean_ppl=215.4771 content=11.2543 (n=10000)
+[train] not_random seed0 step 100/3000 loss=5.1976 elapsed=8.2m
+[train] not_random seed0 step 200/3000 loss=4.8271 elapsed=16.0m
+[eval] not_random seed0 step 300: gmean_ppl=112.0306 content=8.4248 (n=10000)
+[train] not_random seed0 step 300/3000 loss=4.6978 elapsed=24.2m
+[train] not_random seed0 step 400/3000 loss=4.8640 elapsed=32.1m
+[eval] not_random seed0 step 500: gmean_ppl=101.0357 content=7.8915 (n=10000)
+[train] not_random seed0 step 500/3000 loss=4.6054 elapsed=40.3m
+[train] not_random seed0 step 600/3000 loss=4.5243 elapsed=48.1m
+[train] not_random seed0 step 700/3000 loss=4.3553 elapsed=55.9m
+[train] not_random seed0 step 800/3000 loss=4.2128 elapsed=63.8m
+[train] not_random seed0 step 900/3000 loss=4.0765 elapsed=71.6m
+[eval] not_random seed0 step 1000: gmean_ppl=61.9959 content=6.2623 (n=10000)
+[train] not_random seed0 step 1000/3000 loss=4.0101 elapsed=79.8m
+[train] not_random seed0 step 1100/3000 loss=3.9165 elapsed=87.7m
+[train] not_random seed0 step 1200/3000 loss=3.9197 elapsed=95.5m
+[train] not_random seed0 step 1300/3000 loss=3.8572 elapsed=103.3m
+[train] not_random seed0 step 1400/3000 loss=3.8251 elapsed=111.1m
+[train] not_random seed0 step 1500/3000 loss=3.8064 elapsed=119.0m
+[train] not_random seed0 step 1600/3000 loss=3.7671 elapsed=126.8m
+[train] not_random seed0 step 1700/3000 loss=3.7649 elapsed=134.6m
+[train] not_random seed0 step 1800/3000 loss=3.7257 elapsed=142.5m
+[train] not_random seed0 step 1900/3000 loss=3.7236 elapsed=150.3m
+[eval] not_random seed0 step 2000: gmean_ppl=48.3238 content=5.5459 (n=10000)
+[train] not_random seed0 step 2000/3000 loss=3.8038 elapsed=158.5m
+[train] not_random seed0 step 2100/3000 loss=3.6714 elapsed=166.3m
+[train] not_random seed0 step 2200/3000 loss=3.6793 elapsed=174.2m
+[train] not_random seed0 step 2300/3000 loss=3.6502 elapsed=182.0m
+[train] not_random seed0 step 2400/3000 loss=3.6152 elapsed=189.8m
+[train] not_random seed0 step 2500/3000 loss=3.6135 elapsed=197.7m
+[train] not_random seed0 step 2600/3000 loss=3.6184 elapsed=205.5m
+[train] not_random seed0 step 2700/3000 loss=3.6163 elapsed=213.4m
+[train] not_random seed0 step 2800/3000 loss=3.6047 elapsed=221.2m
+[train] not_random seed0 step 2900/3000 loss=3.6123 elapsed=229.0m
+[eval] not_random seed0 step 3000: gmean_ppl=43.5204 content=5.2376 (n=10000)
+[train] not_random seed0 step 3000/3000 loss=3.5995 elapsed=237.3m
+{
+  "100": 215.4771,
+  "300": 112.0306,
+  "500": 101.0357,
+  "1000": 61.9959,
+  "2000": 48.3238,
+  "3000": 43.5204
+}
+[data] blocks=142705 eval_sents=10000 (72s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] not_random seed14 step 100: gmean_ppl=220.2953 content=11.5953 (n=10000)
+[train] not_random seed14 step 100/3000 loss=5.2213 elapsed=8.2m
+[train] not_random seed14 step 200/3000 loss=4.8495 elapsed=16.1m
+[eval] not_random seed14 step 300: gmean_ppl=749.5283 content=16.5392 (n=10000)
+[train] not_random seed14 step 300/3000 loss=5.5521 elapsed=24.3m
+[train] not_random seed14 step 400/3000 loss=4.9431 elapsed=32.1m
+[eval] not_random seed14 step 500: gmean_ppl=177.538 content=10.0925 (n=10000)
+[train] not_random seed14 step 500/3000 loss=4.7618 elapsed=40.3m
+[train] not_random seed14 step 600/3000 loss=4.7387 elapsed=48.2m
+[train] not_random seed14 step 700/3000 loss=4.6884 elapsed=56.0m
+[train] not_random seed14 step 800/3000 loss=4.6012 elapsed=63.9m
+[train] not_random seed14 step 900/3000 loss=4.5336 elapsed=71.7m
+[eval] not_random seed14 step 1000: gmean_ppl=102.699 content=8.071 (n=10000)
+[train] not_random seed14 step 1000/3000 loss=4.3610 elapsed=80.0m
+[train] not_random seed14 step 1100/3000 loss=4.2889 elapsed=87.8m
+[train] not_random seed14 step 1200/3000 loss=4.1570 elapsed=95.7m
+[train] not_random seed14 step 1300/3000 loss=4.1696 elapsed=103.5m
+[train] not_random seed14 step 1400/3000 loss=4.0347 elapsed=111.4m
+[train] not_random seed14 step 1500/3000 loss=4.0064 elapsed=119.2m
+[train] not_random seed14 step 1600/3000 loss=3.9572 elapsed=127.1m
+[train] not_random seed14 step 1700/3000 loss=3.9332 elapsed=134.9m
+[train] not_random seed14 step 1800/3000 loss=3.8839 elapsed=142.8m
+[train] not_random seed14 step 1900/3000 loss=3.8731 elapsed=150.6m
+[eval] not_random seed14 step 2000: gmean_ppl=53.2337 content=6.0345 (n=10000)
+[train] not_random seed14 step 2000/3000 loss=3.8269 elapsed=158.8m
+[train] not_random seed14 step 2100/3000 loss=3.8436 elapsed=166.7m
+[train] not_random seed14 step 2200/3000 loss=3.8274 elapsed=174.5m
+[train] not_random seed14 step 2300/3000 loss=3.7421 elapsed=182.4m
+[train] not_random seed14 step 2400/3000 loss=3.7440 elapsed=190.2m
+[train] not_random seed14 step 2500/3000 loss=3.7588 elapsed=198.1m
+[train] not_random seed14 step 2600/3000 loss=3.7229 elapsed=205.9m
+[train] not_random seed14 step 2700/3000 loss=3.7184 elapsed=213.8m
+[train] not_random seed14 step 2800/3000 loss=3.7245 elapsed=221.6m
+[train] not_random seed14 step 2900/3000 loss=3.7123 elapsed=229.5m
+[eval] not_random seed14 step 3000: gmean_ppl=48.284 content=5.6834 (n=10000)
+[train] not_random seed14 step 3000/3000 loss=3.6926 elapsed=237.7m
+{
+  "100": 220.2953,
+  "300": 749.5283,
+  "500": 177.538,
+  "1000": 102.699,
+  "2000": 53.2337,
+  "3000": 48.284
+}
+[data] blocks=142705 eval_sents=10000 (70s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+[probe] ladder probe armed: 200 branch-matched pairs
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] not_random seed41 step 100: gmean_ppl=216.3724 content=11.3581 (n=10000)
+[train] not_random seed41 step 100/3000 loss=5.1922 elapsed=8.2m
+[train] not_random seed41 step 200/3000 loss=4.8598 elapsed=16.1m
+[eval] not_random seed41 step 300: gmean_ppl=123.7999 content=8.6836 (n=10000)
+[train] not_random seed41 step 300/3000 loss=4.7368 elapsed=24.4m
+[train] not_random seed41 step 400/3000 loss=4.6954 elapsed=32.2m
+[eval] not_random seed41 step 500: gmean_ppl=97.1195 content=7.9502 (n=10000)
+[train] not_random seed41 step 500/3000 loss=4.6381 elapsed=40.4m
+[train] not_random seed41 step 600/3000 loss=4.5709 elapsed=48.3m
+[train] not_random seed41 step 700/3000 loss=4.3748 elapsed=56.1m
+[train] not_random seed41 step 800/3000 loss=4.2321 elapsed=64.0m
+[train] not_random seed41 step 900/3000 loss=4.0887 elapsed=71.8m
+[eval] not_random seed41 step 1000: gmean_ppl=62.0786 content=6.3315 (n=10000)
+[train] not_random seed41 step 1000/3000 loss=3.9815 elapsed=80.0m
+[train] not_random seed41 step 1100/3000 loss=3.9789 elapsed=87.9m
+[train] not_random seed41 step 1200/3000 loss=3.8794 elapsed=95.7m
+[train] not_random seed41 step 1300/3000 loss=3.8559 elapsed=103.6m
+[train] not_random seed41 step 1400/3000 loss=3.8446 elapsed=111.4m
+[train] not_random seed41 step 1500/3000 loss=3.7999 elapsed=119.2m
+[train] not_random seed41 step 1600/3000 loss=3.7875 elapsed=127.0m
+[train] not_random seed41 step 1700/3000 loss=3.7479 elapsed=134.8m
+[train] not_random seed41 step 1800/3000 loss=3.7219 elapsed=142.6m
+[train] not_random seed41 step 1900/3000 loss=3.7159 elapsed=150.4m
+[eval] not_random seed41 step 2000: gmean_ppl=47.2338 content=5.5073 (n=10000)
+[train] not_random seed41 step 2000/3000 loss=3.6939 elapsed=158.5m
+[train] not_random seed41 step 2100/3000 loss=3.6895 elapsed=166.3m
+[train] not_random seed41 step 2200/3000 loss=3.6818 elapsed=174.1m
+[train] not_random seed41 step 2300/3000 loss=3.6327 elapsed=181.9m
+[train] not_random seed41 step 2400/3000 loss=3.6303 elapsed=189.7m
+[train] not_random seed41 step 2500/3000 loss=3.6212 elapsed=197.5m
+[train] not_random seed41 step 2600/3000 loss=3.6119 elapsed=205.3m
+[train] not_random seed41 step 2700/3000 loss=3.6093 elapsed=213.0m
+[train] not_random seed41 step 2800/3000 loss=3.6144 elapsed=220.8m
+[train] not_random seed41 step 2900/3000 loss=3.5811 elapsed=228.6m
+[eval] not_random seed41 step 3000: gmean_ppl=43.082 content=5.2637 (n=10000)
+[train] not_random seed41 step 3000/3000 loss=3.5890 elapsed=236.8m
+{
+  "100": 216.3724,
+  "300": 123.7999,
+  "500": 97.1195,
+  "1000": 62.0786,
+  "2000": 47.2338,
+  "3000": 43.082
+}
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_fixed_start_100M/seed41/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed0/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed14/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_nope/babylm_not_random_100M/seed41/exp1_result.json (already complete)

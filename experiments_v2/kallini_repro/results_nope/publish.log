@@ -1,0 +1,34 @@
+remote: 
+remote: Create a pull request for 'v2-results-nope' on GitHub by visiting:        
+remote:      https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition/pull/new/v2-results-nope        
+remote: 
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ * [new branch]      7bc7eb6a859de6820c4c6a795469040cd57b6473 -> v2-results-nope
+[2026-09-29T02:22:40+08:00] incremental publish OK -> v2-results-nope (cells=6)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7bc7eb6...0b0b264 0b0b2646cea82ea4f81e39a5a84b42391f87aa35 -> v2-results-nope (forced update)
+[2026-10-03T06:26:37+08:00] incremental publish OK -> v2-results-nope (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0b0b264...c0896d6 c0896d6165e931584bbe2c6f94cd869282163e80 -> v2-results-nope (forced update)
+[2026-10-03T06:40:49+08:00] incremental publish OK -> v2-results-nope (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c0896d6...317b506 317b5066f883549c9ad550a7ef1b91d18bcfc2b1 -> v2-results-nope (forced update)
+[2026-10-03T06:55:02+08:00] incremental publish OK -> v2-results-nope (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 317b506...316a5bb 316a5bb041b66bc0b747c68d6e46dc56b9e44ff8 -> v2-results-nope (forced update)
+[2026-10-03T07:09:13+08:00] incremental publish OK -> v2-results-nope (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 316a5bb...1fc2578 1fc2578eafa55426593c6fe0ae4acc6bfc4a9eb0 -> v2-results-nope (forced update)
+[2026-10-03T07:23:44+08:00] incremental publish OK -> v2-results-nope (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1fc2578...7067a8c 7067a8c8add09bc56b6e71012319de975d7b8206 -> v2-results-nope (forced update)
+[2026-10-03T07:38:07+08:00] incremental publish OK -> v2-results-nope (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7067a8c...f955d9d f955d9d8be0a8343a0712e62c5f4202b62ed3502 -> v2-results-nope (forced update)
+[2026-10-03T07:52:18+08:00] incremental publish OK -> v2-results-nope (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f955d9d...4780175 478017506b6e427de0757ea560fa0bfb1b03308d -> v2-results-nope (forced update)
+[2026-10-03T08:06:23+08:00] incremental publish OK -> v2-results-nope (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4780175...881f1d6 881f1d678fbbce24cddddbe621868f5481e44add -> v2-results-nope (forced update)
+[2026-10-03T08:20:23+08:00] incremental publish OK -> v2-results-nope (cells=12)
