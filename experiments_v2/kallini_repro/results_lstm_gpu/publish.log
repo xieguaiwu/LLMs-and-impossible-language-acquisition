@@ -1,0 +1,34 @@
+remote: 
+remote: Create a pull request for 'v2-results-lstm-gpu' on GitHub by visiting:        
+remote:      https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition/pull/new/v2-results-lstm-gpu        
+remote: 
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ * [new branch]      1b83e2867dc38e740e7d2fdcf0d031562c45c9f2 -> v2-results-lstm-gpu
+[2026-10-01T03:23:39+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1b83e28...f2a9b21 f2a9b2154bcad81f4e7961dadf82e9cc22337fcb -> v2-results-lstm-gpu (forced update)
+[2026-10-03T06:27:38+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f2a9b21...c8e0552 c8e05524fbe6b14d564e176908885fc3f16bfbab -> v2-results-lstm-gpu (forced update)
+[2026-10-03T06:41:49+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c8e0552...5c37c7c 5c37c7c02c9554190c9fb6d5d7bf5a1f7dabc6ca -> v2-results-lstm-gpu (forced update)
+[2026-10-03T06:56:03+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5c37c7c...a08542e a08542e52a9c46ee98fa074691a405c7a5176f20 -> v2-results-lstm-gpu (forced update)
+[2026-10-03T07:10:20+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a08542e...80046fd 80046fd3643a5c8371f87f0372511c192a497f7f -> v2-results-lstm-gpu (forced update)
+[2026-10-03T07:24:47+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 80046fd...10fa863 10fa8637e24b7cff3fe7ca3ac15d26de991f4272 -> v2-results-lstm-gpu (forced update)
+[2026-10-03T07:39:10+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 10fa863...6381b09 6381b099ce05951380f15f28f914a878e37b3238 -> v2-results-lstm-gpu (forced update)
+[2026-10-03T07:53:18+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6381b09...94b5865 94b586510b35e933457d5b522f0529140b6c25fe -> v2-results-lstm-gpu (forced update)
+[2026-10-03T08:07:27+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 94b5865...c08c9d4 c08c9d4ce147e796fdb30c550a336d9bb225fa16 -> v2-results-lstm-gpu (forced update)
+[2026-10-03T08:21:25+08:00] incremental publish OK -> v2-results-lstm-gpu (cells=12)
