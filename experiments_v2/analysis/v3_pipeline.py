@@ -254,7 +254,7 @@ def gmean_on(ppls, positions=None) -> float:
 def read_cell(cell_dir: Path, arch: str, condition: str, seed: int, budget: str = "1x",
               eval_n: int | None = None):
     """Returns (final_ppls, final_ppls_content, ladder{step: ppls}, meta)."""
-    if arch == "gpt2":
+    if arch.startswith("gpt2"):  # §F11-era fix 2026-10-06: gpt2_nope/gpt2_medium arms share the exp1_result.json reader
         res_path = cell_dir / "exp1_result.json"
         if not res_path.exists():
             return None
