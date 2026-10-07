@@ -1,0 +1,50 @@
+SKIP experiments_v2/kallini_repro/results_datascale/babylm_shuffle_control_100M/seed0_sub1M/exp1_result.json (already complete)
+SKIP experiments_v2/kallini_repro/results_datascale/babylm_shuffle_control_100M/seed14_sub1M/exp1_result.json (already complete)
+[data] blocks=1048 eval_sents=10000 (1s)
+[stack] numerics pinned: {'tf32_matmul': False, 'tf32_cudnn': True, 'cudnn_benchmark': False, 'cudnn_deterministic': False}
+`loss_type=None` was set in the config but it is unrecognized. Using the default loss: `ForCausalLMLoss`.
+[eval] parity_word seed0 step 100: gmean_ppl=216.0015 content=11.6393 (n=10000)
+[train] parity_word seed0 step 100/3000 loss=5.2336 elapsed=8.1m
+[train] parity_word seed0 step 200/3000 loss=4.5073 elapsed=15.9m
+[eval] parity_word seed0 step 300: gmean_ppl=274.5293 content=12.9664 (n=10000)
+[train] parity_word seed0 step 300/3000 loss=3.6760 elapsed=24.1m
+[train] parity_word seed0 step 400/3000 loss=2.3522 elapsed=31.9m
+[eval] parity_word seed0 step 500: gmean_ppl=719.3484 content=21.8937 (n=10000)
+[train] parity_word seed0 step 500/3000 loss=1.2256 elapsed=40.0m
+[train] parity_word seed0 step 600/3000 loss=0.5056 elapsed=47.8m
+[train] parity_word seed0 step 700/3000 loss=0.2135 elapsed=55.6m
+[train] parity_word seed0 step 800/3000 loss=0.1275 elapsed=63.5m
+[train] parity_word seed0 step 900/3000 loss=0.0911 elapsed=71.3m
+[eval] parity_word seed0 step 1000: gmean_ppl=2464.1191 content=37.1667 (n=10000)
+[train] parity_word seed0 step 1000/3000 loss=0.0662 elapsed=79.3m
+[train] parity_word seed0 step 1100/3000 loss=0.0535 elapsed=87.1m
+[train] parity_word seed0 step 1200/3000 loss=0.0458 elapsed=94.9m
+[train] parity_word seed0 step 1300/3000 loss=0.0384 elapsed=102.8m
+[train] parity_word seed0 step 1400/3000 loss=0.0344 elapsed=110.6m
+[train] parity_word seed0 step 1500/3000 loss=0.0290 elapsed=118.4m
+[train] parity_word seed0 step 1600/3000 loss=0.0245 elapsed=126.2m
+[train] parity_word seed0 step 1700/3000 loss=0.0224 elapsed=134.0m
+[train] parity_word seed0 step 1800/3000 loss=0.0200 elapsed=141.8m
+[train] parity_word seed0 step 1900/3000 loss=0.0182 elapsed=149.6m
+[eval] parity_word seed0 step 2000: gmean_ppl=3953.487 content=45.2243 (n=10000)
+[train] parity_word seed0 step 2000/3000 loss=0.0149 elapsed=157.8m
+[train] parity_word seed0 step 2100/3000 loss=0.0138 elapsed=165.6m
+[train] parity_word seed0 step 2200/3000 loss=0.0126 elapsed=173.4m
+[train] parity_word seed0 step 2300/3000 loss=0.0108 elapsed=181.2m
+[train] parity_word seed0 step 2400/3000 loss=0.0099 elapsed=189.0m
+[train] parity_word seed0 step 2500/3000 loss=0.0091 elapsed=196.8m
+[train] parity_word seed0 step 2600/3000 loss=0.0083 elapsed=204.6m
+[train] parity_word seed0 step 2700/3000 loss=0.0073 elapsed=212.5m
+[train] parity_word seed0 step 2800/3000 loss=0.0064 elapsed=220.3m
+[train] parity_word seed0 step 2900/3000 loss=0.0062 elapsed=228.1m
+[eval] parity_word seed0 step 3000: gmean_ppl=4979.3532 content=48.8711 (n=10000)
+[train] parity_word seed0 step 3000/3000 loss=0.0064 elapsed=236.2m
+{
+  "100": 216.0015,
+  "300": 274.5293,
+  "500": 719.3484,
+  "1000": 2464.1191,
+  "2000": 3953.487,
+  "3000": 4979.3532
+}
+SKIP experiments_v2/kallini_repro/results_datascale/babylm_parity_word_100M/seed14_sub1M/exp1_result.json (already complete)
