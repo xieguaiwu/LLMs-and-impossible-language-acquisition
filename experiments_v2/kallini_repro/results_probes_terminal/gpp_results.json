@@ -1,0 +1,60 @@
+{
+ "date": "2026-10-06",
+ "items_published": 120,
+ "results": {
+  "allini_repro_results_babylm_shuffle_control_100M_seed0_final": {
+   "model_dir": "/root/llm-impossible/experiments_v2/kallini_repro/results/babylm_shuffle_control_100M/seed0/final",
+   "GPPA_stats": {
+    "n": 120,
+    "mean_delta": 0.108,
+    "pct_positive": 62.5,
+    "bigram_floor_mean": 0.0,
+    "bigram_floor_absmax": 0.0,
+    "upper_tier_1p5": false,
+    "main_criterion_pass": true
+   },
+   "GPPB_stats": {
+    "n_pairs": 3,
+    "mean_DoD": 0.228,
+    "pct_positive": 100.0,
+    "criterion_pass": false
+   }
+  },
+  "llini_repro_results_babylm_shuffle_control_100M_seed14_final": {
+   "model_dir": "/root/llm-impossible/experiments_v2/kallini_repro/results/babylm_shuffle_control_100M/seed14/final",
+   "GPPA_stats": {
+    "n": 120,
+    "mean_delta": -0.1797,
+    "pct_positive": 41.7,
+    "bigram_floor_mean": 0.0,
+    "bigram_floor_absmax": 0.0,
+    "upper_tier_1p5": false,
+    "main_criterion_pass": false
+   },
+   "GPPB_stats": {
+    "n_pairs": 3,
+    "mean_DoD": 0.5386,
+    "pct_positive": 66.7,
+    "criterion_pass": false
+   }
+  },
+  "llini_repro_results_babylm_shuffle_control_100M_seed41_final": {
+   "model_dir": "/root/llm-impossible/experiments_v2/kallini_repro/results/babylm_shuffle_control_100M/seed41/final",
+   "GPPA_stats": {
+    "n": 120,
+    "mean_delta": 0.1281,
+    "pct_positive": 55.0,
+    "bigram_floor_mean": 0.0,
+    "bigram_floor_absmax": 0.0,
+    "upper_tier_1p5": false,
+    "main_criterion_pass": false
+   },
+   "GPPB_stats": {
+    "n_pairs": 3,
+    "mean_DoD": -0.2499,
+    "pct_positive": 0.0,
+    "criterion_pass": false
+   }
+  }
+ }
+}
