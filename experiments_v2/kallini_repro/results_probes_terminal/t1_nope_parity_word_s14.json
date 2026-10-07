@@ -1,0 +1,66 @@
+{
+  "model_dir": "/root/llm-impossible/experiments_v2/kallini_repro/results_nope/babylm_parity_word_100M/seed14/final",
+  "condition": "parity_word",
+  "domain": "word",
+  "device": "cuda",
+  "marker_start_ids": [
+    3673
+  ],
+  "marker_end_ids": [
+    1892
+  ],
+  "P1_minimal_pairs": {
+    "obey_first": {
+      "n": 226,
+      "mean_delta_nats": -0.34387,
+      "pct_positive": 2.2,
+      "wilcoxon_p": 1.0
+    },
+    "obey_last": {
+      "n": 274,
+      "mean_delta_nats": 0.61845,
+      "pct_positive": 98.9,
+      "wilcoxon_p": 7.584875409732398e-47
+    }
+  },
+  "P1_meta": {
+    "n_pairs": 500,
+    "domain": "word",
+    "branch_counts": {
+      "obey_last": 274,
+      "obey_first": 226
+    }
+  },
+  "P2_length_extrapolation": {
+    "obey_last": {
+      "n": 106,
+      "mean_delta_nats": 0.03045,
+      "pct_positive": 90.6,
+      "wilcoxon_p": 3.5030291519238287e-16
+    },
+    "obey_first": {
+      "n": 94,
+      "mean_delta_nats": -0.0312,
+      "pct_positive": 13.8,
+      "wilcoxon_p": 0.9999999999999627
+    }
+  },
+  "P2_meta": {
+    "n_pairs": 200,
+    "cap": "train<=60 words, eval 60-200"
+  },
+  "P3_hidden_state_diagnostic": {
+    "error": "sklearn unavailable"
+  },
+  "P4_domain_dissociation": {
+    "n": 300,
+    "mean_nll_word_obeying": 3.77615,
+    "mean_nll_token_obeying": 4.33447,
+    "delta_token_minus_word": 0.55833,
+    "pct_token_cheaper": 45.3
+  },
+  "P4_meta": {
+    "n_pairs": 300,
+    "subset": "word parity != BPE parity"
+  }
+}

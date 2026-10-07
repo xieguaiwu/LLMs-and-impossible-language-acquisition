@@ -1,0 +1,56 @@
+{
+ "date": "2026-10-06",
+ "protocol": "DDG terminal n=2000 (10c-14); S/R panel 5 cond x 3 seeds",
+ "phaseA_reference": {
+  "parity_word": 0.004,
+  "parity_tok": 0.0042,
+  "negtok": 0.0074,
+  "fixed_start": 0.0053,
+  "not_random": 0.0049
+ },
+ "summary": {
+  "reverse_control": {
+   "n": 3,
+   "ddg_star_mean": 0.0008,
+   "per_seed": {
+    "0": 0.00036,
+    "14": -0.00042,
+    "41": 0.00234
+   }
+  },
+  "shuffle_deterministic21": {
+   "n": 2,
+   "ddg_star_mean": -0.0002,
+   "per_seed": {
+    "0": -0.00048,
+    "14": 0.00016
+   }
+  },
+  "shuffle_even_odd": {
+   "n": 3,
+   "ddg_star_mean": 0.0006,
+   "per_seed": {
+    "0": 0.00098,
+    "14": 0.00125,
+    "41": -0.00048
+   }
+  },
+  "shuffle_local10": {
+   "n": 3,
+   "ddg_star_mean": -0.0,
+   "per_seed": {
+    "0": -0.00126,
+    "14": -8e-05,
+    "41": 0.00129
+   }
+  },
+  "shuffle_local3": {
+   "n": 2,
+   "ddg_star_mean": -0.0003,
+   "per_seed": {
+    "0": 0.00147,
+    "14": -0.00201
+   }
+  }
+ }
+}

@@ -1,0 +1,55 @@
+{
+  "model_dir": "/root/llm-impossible/experiments_v2/kallini_repro/results/babylm_not_random_100M/seed14/final",
+  "condition": "not_random",
+  "domain": "word",
+  "device": "cuda",
+  "marker_start_ids": [
+    3673
+  ],
+  "marker_end_ids": [
+    1892
+  ],
+  "P1_minimal_pairs": {
+    "obey_first": {
+      "n": 226,
+      "mean_delta_nats": -0.37998,
+      "pct_positive": 1.3,
+      "wilcoxon_p": 1.0
+    },
+    "obey_last": {
+      "n": 274,
+      "mean_delta_nats": 0.48901,
+      "pct_positive": 98.5,
+      "wilcoxon_p": 6.871997444714164e-47
+    }
+  },
+  "P1_meta": {
+    "n_pairs": 500,
+    "domain": "word",
+    "branch_counts": {
+      "obey_last": 274,
+      "obey_first": 226
+    }
+  },
+  "P2_length_extrapolation": {
+    "obey_last": {
+      "n": 106,
+      "mean_delta_nats": 0.03832,
+      "pct_positive": 92.5,
+      "wilcoxon_p": 6.579100150658106e-17
+    },
+    "obey_first": {
+      "n": 94,
+      "mean_delta_nats": -0.04339,
+      "pct_positive": 3.2,
+      "wilcoxon_p": 1.0
+    }
+  },
+  "P2_meta": {
+    "n_pairs": 200,
+    "cap": "train<=60 words, eval 60-200"
+  },
+  "P3_hidden_state_diagnostic": {
+    "error": "sklearn unavailable"
+  }
+}
