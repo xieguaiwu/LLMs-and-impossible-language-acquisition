@@ -1,0 +1,1233 @@
+remote: 
+remote: Create a pull request for 'v2-results-model-scale' on GitHub by visiting:        
+remote:      https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition/pull/new/v2-results-model-scale        
+remote: 
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ * [new branch]      cc45dac284b07f7ff9e443021f75e0830578c074 -> v2-results-model-scale
+[2026-10-03T06:20:47+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cc45dac...513e32a 513e32abf35f5fba71676393915f0cd7eee70cf1 -> v2-results-model-scale (forced update)
+[2026-10-03T06:35:09+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 513e32a...6beb5be 6beb5be9af950e63892d58e918c91daf5aa0c71d -> v2-results-model-scale (forced update)
+[2026-10-03T06:49:24+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6beb5be...121a4d1 121a4d16b54e97c45c170159db038b17a27b60e5 -> v2-results-model-scale (forced update)
+[2026-10-03T07:03:30+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 121a4d1...87531aa 87531aa3b1cf1e147ff91bdcd65d324a4a3a8453 -> v2-results-model-scale (forced update)
+[2026-10-03T07:18:03+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 87531aa...b551618 b551618e000da65b9568c75d3eb4de5b1f42de78 -> v2-results-model-scale (forced update)
+[2026-10-03T07:32:29+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b551618...5dca58a 5dca58a1d0cf657c638faba4b3363cb83d21d7fa -> v2-results-model-scale (forced update)
+[2026-10-03T07:46:48+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5dca58a...75db1fc 75db1fc1b45f2f079e3a50d5c3f5349a60e9563d -> v2-results-model-scale (forced update)
+[2026-10-03T08:00:50+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 75db1fc...f4a47ef f4a47ef2f0702d7b6ce26161ca5b5132d7453f78 -> v2-results-model-scale (forced update)
+[2026-10-03T08:14:50+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f4a47ef...621bfbd 621bfbd0081d99a9393611dd92c29f58f3e02d04 -> v2-results-model-scale (forced update)
+[2026-10-03T11:24:40+08:00] incremental publish OK -> v2-results-model-scale (cells=1)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 621bfbd...6ac1cc9 6ac1cc992e6ef60f0bd3b304844f54d2ae7c29d3 -> v2-results-model-scale (forced update)
+[2026-10-04T07:35:36+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6ac1cc9...b60ace1 b60ace1b04e6c3dc0d03b73e91bf85f3bab63247 -> v2-results-model-scale (forced update)
+[2026-10-04T07:47:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b60ace1...9ef63c6 9ef63c64263b80333d1366d6bcc06eaabee81705 -> v2-results-model-scale (forced update)
+[2026-10-04T07:59:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9ef63c6...fcdd3c5 fcdd3c54e11f24a114c84dc52547a6fc62d0a140 -> v2-results-model-scale (forced update)
+[2026-10-04T08:11:44+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + fcdd3c5...4ab75f5 4ab75f5cf28254586009fa6cd65c149e7f4a35eb -> v2-results-model-scale (forced update)
+[2026-10-04T08:23:59+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4ab75f5...b9c3b9f b9c3b9fd5b393a9383145056fe54233f296d6924 -> v2-results-model-scale (forced update)
+[2026-10-04T08:36:14+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b9c3b9f...10636c9 10636c917cca3f0dbd7b9926e971f079f931b2ca -> v2-results-model-scale (forced update)
+[2026-10-04T08:48:26+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 10636c9...5dfadb3 5dfadb3d816960bf44b8738a43d23fe5a5ac4577 -> v2-results-model-scale (forced update)
+[2026-10-04T09:00:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5dfadb3...b4c7dd3 b4c7dd34da9ea917d7d5a2e5ce4933e3032f5305 -> v2-results-model-scale (forced update)
+[2026-10-04T09:12:29+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b4c7dd3...662a802 662a802f578ce44d67d24c5c9850641a7ff98b2d -> v2-results-model-scale (forced update)
+[2026-10-04T09:24:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 662a802...3bc1b9f 3bc1b9fa120df60961f2e519f131bbf77125cdaf -> v2-results-model-scale (forced update)
+[2026-10-04T09:36:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3bc1b9f...ea8ecde ea8ecdeeea3d50b0f782595255c5e698908b54a9 -> v2-results-model-scale (forced update)
+[2026-10-04T09:48:47+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ea8ecde...10c2c74 10c2c744eb425930820e955edf4334466c876ff2 -> v2-results-model-scale (forced update)
+[2026-10-04T10:00:56+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 10c2c74...50fd303 50fd30392b708f291d8f887f2b3d7b34541b584c -> v2-results-model-scale (forced update)
+[2026-10-04T10:13:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 50fd303...cc22181 cc22181caa81958434e5bd6beaf1edd86c044c41 -> v2-results-model-scale (forced update)
+[2026-10-04T10:25:20+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cc22181...b4d4e11 b4d4e115eee741a9a2701fc8b79e7d118893631c -> v2-results-model-scale (forced update)
+[2026-10-04T10:38:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b4d4e11...3dd8855 3dd885500cb5057e50c87b45c58da009531aeafc -> v2-results-model-scale (forced update)
+[2026-10-04T10:51:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3dd8855...8ab9b4e 8ab9b4e6b61a70cc38e59dc691880f06cfeec810 -> v2-results-model-scale (forced update)
+[2026-10-04T11:04:45+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8ab9b4e...608a8c1 608a8c11839f07ece6a147e9efe5e40faa2d1ae6 -> v2-results-model-scale (forced update)
+[2026-10-04T11:17:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 608a8c1...bd976c2 bd976c2b36ef2a8614dd3e1a715385d58784c559 -> v2-results-model-scale (forced update)
+[2026-10-04T11:29:27+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + bd976c2...44191ca 44191ca709d95ea12c63c8541f5a9f22a2218c2e -> v2-results-model-scale (forced update)
+[2026-10-04T11:41:53+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 44191ca...8d90c85 8d90c85a71d80b30e52f727c21db8538b0478ed5 -> v2-results-model-scale (forced update)
+[2026-10-04T11:54:15+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8d90c85...5e50e06 5e50e06f0dfe589f8a1d87ddfb03f57432b830b5 -> v2-results-model-scale (forced update)
+[2026-10-04T12:07:24+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5e50e06...a2fd2d9 a2fd2d90dab6f8113bfa4bced351a35e4a5c3ccb -> v2-results-model-scale (forced update)
+[2026-10-04T12:19:49+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a2fd2d9...d44a9fd d44a9fdf1fdea0de08132779d926f44b08016509 -> v2-results-model-scale (forced update)
+[2026-10-04T12:32:04+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d44a9fd...4e1035e 4e1035e1ea4e3d37aab9d2d5d45be0447cdef886 -> v2-results-model-scale (forced update)
+[2026-10-04T12:44:17+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4e1035e...1412ddf 1412ddf9ba493475121b0e69cddd32b4a5c13029 -> v2-results-model-scale (forced update)
+[2026-10-04T12:56:47+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1412ddf...fc3d374 fc3d374b85d811562705e654379939a436a1bb60 -> v2-results-model-scale (forced update)
+[2026-10-04T13:09:56+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + fc3d374...0bdfcef 0bdfceff4794d454079a019eecb07167b674e1f5 -> v2-results-model-scale (forced update)
+[2026-10-04T13:23:02+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0bdfcef...a5fe668 a5fe6688e67479099f7a05f4754e59b79b45f3c6 -> v2-results-model-scale (forced update)
+[2026-10-04T13:36:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a5fe668...d67400e d67400e043036f6976f21c8732451200f8cfb3e7 -> v2-results-model-scale (forced update)
+[2026-10-04T13:49:38+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d67400e...35e0b50 35e0b500fe7e785b946b8e1f1382329655160ac0 -> v2-results-model-scale (forced update)
+[2026-10-04T14:02:50+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 35e0b50...d0d3dcf d0d3dcf5e9b262611c5cf64771753bd35d5ceb28 -> v2-results-model-scale (forced update)
+[2026-10-04T14:16:46+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d0d3dcf...a4a4eaf a4a4eafdd664881761b50f976154c7215af9dabb -> v2-results-model-scale (forced update)
+[2026-10-04T14:30:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a4a4eaf...2feb57f 2feb57fb7c7274ed7baec8428d7d72df612ead02 -> v2-results-model-scale (forced update)
+[2026-10-04T14:45:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2feb57f...53ecf39 53ecf391b065da56d44fe2a69f0972316d1ae11f -> v2-results-model-scale (forced update)
+[2026-10-04T14:58:39+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 53ecf39...bbd0c0b bbd0c0b2edf8195b9ec412f2947314d53984bf74 -> v2-results-model-scale (forced update)
+[2026-10-04T15:12:06+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + bbd0c0b...0125e06 0125e068be6bd49d015fb1788c9491d2d963520a -> v2-results-model-scale (forced update)
+[2026-10-04T15:25:30+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0125e06...c2f5c89 c2f5c8904ef5642d0c138b6d39b473c3286a511c -> v2-results-model-scale (forced update)
+[2026-10-04T15:39:00+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c2f5c89...8fb15ad 8fb15ad33e74ce0eed1a3d8fe8f9c58197812eb1 -> v2-results-model-scale (forced update)
+[2026-10-04T15:53:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8fb15ad...6e5dad3 6e5dad332d8a3bd21df43bd68a307793322f1059 -> v2-results-model-scale (forced update)
+[2026-10-04T16:09:20+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6e5dad3...937b16d 937b16d884b3e1584cd8b8939a2c246cc1783dd0 -> v2-results-model-scale (forced update)
+[2026-10-04T16:23:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 937b16d...967088f 967088f54a2e8663b90642f3462ddfccfd9ba189 -> v2-results-model-scale (forced update)
+[2026-10-04T16:36:21+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 967088f...27f9e9a 27f9e9af196d243b6f448331d20ce13a1de2b8fb -> v2-results-model-scale (forced update)
+[2026-10-04T16:49:00+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 27f9e9a...d7a0edc d7a0edc396827b3853c5023e4f69adf5868ce9ba -> v2-results-model-scale (forced update)
+[2026-10-04T17:01:53+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d7a0edc...c4508b2 c4508b2a8337b6313cefb4b661cb69728920c658 -> v2-results-model-scale (forced update)
+[2026-10-04T17:14:44+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c4508b2...9e64543 9e6454377371a24ce887ba71e80c2418e58cf51a -> v2-results-model-scale (forced update)
+[2026-10-04T17:28:47+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9e64543...d4635d7 d4635d7ab212a30406dda2921536339260592be1 -> v2-results-model-scale (forced update)
+[2026-10-04T17:42:41+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d4635d7...c6de053 c6de0530d52e2e8abfcd3df49674a10646cbfdf6 -> v2-results-model-scale (forced update)
+[2026-10-04T17:55:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c6de053...2250518 225051807568e942c4e01c98f5d78337dc9692af -> v2-results-model-scale (forced update)
+[2026-10-04T18:08:53+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2250518...675b7e0 675b7e048bf78740f1ffe32bb4cf73e02414411c -> v2-results-model-scale (forced update)
+[2026-10-04T18:21:54+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 675b7e0...3f9c940 3f9c94017d5a49cf61bcb01e227ef0d71be924ac -> v2-results-model-scale (forced update)
+[2026-10-04T18:35:29+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3f9c940...a035849 a0358492ac370ec7db3b8dd46946fbeae3347e36 -> v2-results-model-scale (forced update)
+[2026-10-04T18:49:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a035849...a126ef6 a126ef619c66cddada555410bb1f40089f90f7e8 -> v2-results-model-scale (forced update)
+[2026-10-04T19:02:19+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a126ef6...0814451 081445184cb4c606696d4641c670217a76471037 -> v2-results-model-scale (forced update)
+[2026-10-04T19:15:36+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0814451...6b208fd 6b208fd146b023ee2338c3610b06071366af166e -> v2-results-model-scale (forced update)
+[2026-10-04T19:28:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6b208fd...660ba4c 660ba4ccbc53ebecf063d6cf77f57889af18caf6 -> v2-results-model-scale (forced update)
+[2026-10-04T19:42:20+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 660ba4c...5187119 5187119ada60a27532c2c1fe44701466569eb047 -> v2-results-model-scale (forced update)
+[2026-10-04T19:55:59+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5187119...6c7dd40 6c7dd40cd08e82647c018e74e52d25550daaf15b -> v2-results-model-scale (forced update)
+[2026-10-04T20:09:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6c7dd40...336fa7c 336fa7c5124bf58e86ad7d8cb47ce4b1a038bbc7 -> v2-results-model-scale (forced update)
+[2026-10-04T20:24:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 336fa7c...c9f4e4f c9f4e4fce33ac10989a9d31c8ddba67ef1661b3c -> v2-results-model-scale (forced update)
+[2026-10-04T20:38:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c9f4e4f...26c8a7c 26c8a7c33a28af6cf2ac213a20560f7d8b6c3200 -> v2-results-model-scale (forced update)
+[2026-10-04T20:53:01+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 26c8a7c...c35901b c35901b83d39bd9b12c1560200aba58895e30758 -> v2-results-model-scale (forced update)
+[2026-10-04T21:07:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c35901b...ffb3f42 ffb3f42e56bd5036dac5ce4a3cef7d4dd0e1558b -> v2-results-model-scale (forced update)
+[2026-10-04T21:22:17+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ffb3f42...4a10d38 4a10d38ef4927dbd26abd6052c6d81dc7cfe3b71 -> v2-results-model-scale (forced update)
+[2026-10-04T21:37:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4a10d38...b1b07e5 b1b07e5121861648b96465a0b4b97e5ad06b6f33 -> v2-results-model-scale (forced update)
+[2026-10-04T21:52:27+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b1b07e5...10ec19a 10ec19a46e52450154884e28281a99dc53293646 -> v2-results-model-scale (forced update)
+[2026-10-04T22:07:58+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 10ec19a...4a6b97f 4a6b97fad11f17712d75ece7ebce2caa2d232e6d -> v2-results-model-scale (forced update)
+[2026-10-04T22:22:57+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4a6b97f...bd2311d bd2311d82b81caef4166675953148338df9030bd -> v2-results-model-scale (forced update)
+[2026-10-04T22:38:17+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + bd2311d...38fe62f 38fe62f1fc478d48faf31c767974c53d8dec4e27 -> v2-results-model-scale (forced update)
+[2026-10-04T22:53:11+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 38fe62f...04e07d2 04e07d27662becf7d4506097b6599e767280c0af -> v2-results-model-scale (forced update)
+[2026-10-04T23:08:01+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 04e07d2...114882f 114882fcc5d4d3cb651aa15a45015485a41e1ce6 -> v2-results-model-scale (forced update)
+[2026-10-04T23:23:25+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 114882f...78c70a3 78c70a34c087e6826ebcd39dada022495518ffe2 -> v2-results-model-scale (forced update)
+[2026-10-04T23:38:48+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 78c70a3...489b57b 489b57bd4910e4abbf00a2aa7900b9b9d1933240 -> v2-results-model-scale (forced update)
+[2026-10-04T23:53:04+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 489b57b...665a293 665a293c88bf3262a67c273e2472fd558299fed1 -> v2-results-model-scale (forced update)
+[2026-10-05T00:07:59+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 665a293...c3d3688 c3d36882bcc3d9d10d990fadfc17d7287e7af6d9 -> v2-results-model-scale (forced update)
+[2026-10-05T00:22:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c3d3688...f6a44cb f6a44cbcc1efd0f9c4957e6a4c106356b5a5ad7f -> v2-results-model-scale (forced update)
+[2026-10-05T00:36:57+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f6a44cb...51f553f 51f553fe708a3610dfb442409fea5f7c738e3d6a -> v2-results-model-scale (forced update)
+[2026-10-05T00:51:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 51f553f...da917ac da917ac8f86308a3aee01fe1e6b7098f33de56a7 -> v2-results-model-scale (forced update)
+[2026-10-05T01:05:30+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + da917ac...cfd7fd7 cfd7fd7d253b5980a00b22560b2eff7e6e1d98bf -> v2-results-model-scale (forced update)
+[2026-10-05T01:19:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cfd7fd7...348206e 348206e4a1124ba215e7047f04a40eea86a7af0d -> v2-results-model-scale (forced update)
+[2026-10-05T01:33:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 348206e...1a2c2aa 1a2c2aaa4e102b12b33a393d3148dd2746eb68d9 -> v2-results-model-scale (forced update)
+[2026-10-05T01:47:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1a2c2aa...eac5055 eac5055da331d53c8d65234c5b4d3f2d72ef083b -> v2-results-model-scale (forced update)
+[2026-10-05T02:00:21+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + eac5055...cc516a7 cc516a70385bb88febe641ca2e3f6fca90f775e5 -> v2-results-model-scale (forced update)
+[2026-10-05T02:12:45+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cc516a7...a9fba96 a9fba9669cbb009a2654a7014ec9e6b356f9090a -> v2-results-model-scale (forced update)
+[2026-10-05T02:24:46+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a9fba96...1a69b7d 1a69b7d44fb36bffde9d11778687d0561757bbfa -> v2-results-model-scale (forced update)
+[2026-10-05T02:36:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1a69b7d...711fe92 711fe9242003ce49fd7f2a384dad8708cd6b640b -> v2-results-model-scale (forced update)
+[2026-10-05T02:48:56+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 711fe92...071e18f 071e18ff7dab8f21196377f8ddb1ad68cdfe1766 -> v2-results-model-scale (forced update)
+[2026-10-05T03:01:07+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 071e18f...e7efb2d e7efb2d1891b25cbc889ce6fc49a16ee051a2b70 -> v2-results-model-scale (forced update)
+[2026-10-05T03:13:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e7efb2d...5357035 53570356097be8cb31e2571a524e85fd1c738a7f -> v2-results-model-scale (forced update)
+[2026-10-05T03:25:07+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5357035...cc7b555 cc7b5556385cc09f9539d70eeb64e5742753fcd5 -> v2-results-model-scale (forced update)
+[2026-10-05T03:36:59+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cc7b555...9da4aaa 9da4aaa163944ec0495c9668156f6bbe55d6d4b3 -> v2-results-model-scale (forced update)
+[2026-10-05T03:48:44+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9da4aaa...ca3c9f2 ca3c9f22503258c2255988dfe6d3af808cd9a05e -> v2-results-model-scale (forced update)
+[2026-10-05T04:00:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ca3c9f2...c7b59dd c7b59dd0f0dcff13c6bd4d654c31a0aa391ab9a8 -> v2-results-model-scale (forced update)
+[2026-10-05T04:12:29+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c7b59dd...760ea69 760ea69ecbc0d2eabe7a416281ed2bcf7c7494c5 -> v2-results-model-scale (forced update)
+[2026-10-05T04:24:38+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 760ea69...883739a 883739a60c9ad306e6a9a8107b398f929e4c3e66 -> v2-results-model-scale (forced update)
+[2026-10-05T04:36:38+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 883739a...e470105 e4701059f71c4896f5668be370e39e7461fda9dc -> v2-results-model-scale (forced update)
+[2026-10-05T04:48:23+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e470105...7a71456 7a714564f8721e071d69e4bf0eba5ae87baf0c0c -> v2-results-model-scale (forced update)
+[2026-10-05T05:00:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7a71456...40a3c82 40a3c823680e61175f4e5566a22517f01d91a941 -> v2-results-model-scale (forced update)
+[2026-10-05T05:11:55+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 40a3c82...d6c8b45 d6c8b4569178d0dd1e0752a8fa6fdd7bd322b4b1 -> v2-results-model-scale (forced update)
+[2026-10-05T05:23:45+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d6c8b45...ec1c351 ec1c35171c084e5a825b1146a10d5c739b32eda5 -> v2-results-model-scale (forced update)
+[2026-10-05T05:35:44+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ec1c351...c1427ef c1427ef90d700ea40f25302d0afeb0d0fb99859c -> v2-results-model-scale (forced update)
+[2026-10-05T05:47:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c1427ef...bc4ce96 bc4ce96bb4e8a34a5b0ea13f1fc66edbd986b178 -> v2-results-model-scale (forced update)
+[2026-10-05T05:59:49+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + bc4ce96b...28cbc49e 28cbc49ec7014a03eb3b699e22a48fe3dbe9f9e4 -> v2-results-model-scale (forced update)
+[2026-10-05T06:11:44+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 28cbc49e...0cac0e32 0cac0e329b4a522e2f8645c75d067ffe9ec70ca3 -> v2-results-model-scale (forced update)
+[2026-10-05T06:23:37+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0cac0e32...4362fd3d 4362fd3d4bc41bfb0cec961e43814bf28647b863 -> v2-results-model-scale (forced update)
+[2026-10-05T06:35:33+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4362fd3d...ea57f6c4 ea57f6c405cb525ff85fddd5cb978fb032cb05db -> v2-results-model-scale (forced update)
+[2026-10-05T06:47:25+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ea57f6c4...0c400e22 0c400e2221b80126e293c6322ffd35f2554a9afd -> v2-results-model-scale (forced update)
+[2026-10-05T06:59:14+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0c400e22...c9262189 c9262189bf06acfba672b846df945ea3435b5cce -> v2-results-model-scale (forced update)
+[2026-10-05T07:11:16+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c9262189...d5f79b6c d5f79b6c774df8c9409643fe84a3578e865bd268 -> v2-results-model-scale (forced update)
+[2026-10-05T07:23:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d5f79b6c...dad7483b dad7483b1fbb66cf287c8b349fd699689653b0ae -> v2-results-model-scale (forced update)
+[2026-10-05T07:35:20+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + dad7483b...c9a25d55 c9a25d55e45e0d5c066d9603a829b75f80aca185 -> v2-results-model-scale (forced update)
+[2026-10-05T07:47:45+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c9a25d55...fca4528d fca4528df532f5e8d2eb32046129ccab0b34adec -> v2-results-model-scale (forced update)
+[2026-10-05T08:00:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + fca4528d...9233b4ea 9233b4eafcdf313d1f8ff3ff95b3502b36241b7e -> v2-results-model-scale (forced update)
+[2026-10-05T08:13:15+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9233b4ea...6d218db5 6d218db5b01bae378705d82c00416e4320496014 -> v2-results-model-scale (forced update)
+[2026-10-05T08:25:44+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6d218db5...5bf9ae92 5bf9ae92d2d6a84bc8b5b4bd554847989d8f33d3 -> v2-results-model-scale (forced update)
+[2026-10-05T08:38:51+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5bf9ae92...0ff6fd62 0ff6fd62bd984dfddd57cd298ecce292f3424315 -> v2-results-model-scale (forced update)
+[2026-10-05T08:51:39+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0ff6fd62...562db9aa 562db9aa2f2620a8cc240b89fb9556bc2a2983f8 -> v2-results-model-scale (forced update)
+[2026-10-05T09:03:49+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 562db9aa...3179b015 3179b0155e0286eeba1a2f42de8501376a9e9a0d -> v2-results-model-scale (forced update)
+[2026-10-05T09:15:58+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3179b015...66fc62f2 66fc62f216c0956cc3ff08ebbee2982e6c9f1b89 -> v2-results-model-scale (forced update)
+[2026-10-05T09:28:22+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 66fc62f2...8d23eef0 8d23eef0c51dba7191dcc013d36ff37a3fc7e2fc -> v2-results-model-scale (forced update)
+[2026-10-05T09:41:01+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8d23eef0...4e12de2e 4e12de2e0c1351e472d592aa51541050136e6770 -> v2-results-model-scale (forced update)
+[2026-10-05T09:53:43+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4e12de2e...05a378c9 05a378c97e1e65f80dca40932dabcd44088249c0 -> v2-results-model-scale (forced update)
+[2026-10-05T10:06:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 05a378c9...20d02452 20d0245245baa0c7ce2cd5a6aeb16256967de4aa -> v2-results-model-scale (forced update)
+[2026-10-05T10:18:57+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 20d02452...611bcfff 611bcffff188e356487fc8a6eb498fe1511b4d47 -> v2-results-model-scale (forced update)
+[2026-10-05T10:31:21+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 611bcfff...60ba20cc 60ba20cc08af9394eb25fc67ae1759187258234b -> v2-results-model-scale (forced update)
+[2026-10-05T10:44:15+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 60ba20cc...df2238c9 df2238c92eb8809c0548df8ce326df9dc06506fc -> v2-results-model-scale (forced update)
+[2026-10-05T10:56:55+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + df2238c9...cb82ea4f cb82ea4f1dad9bce00c46c17da445fcf94ee9608 -> v2-results-model-scale (forced update)
+[2026-10-05T11:09:33+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cb82ea4f...8fc95509 8fc955097cb47f7761df4cb9e75dc88ca58b4448 -> v2-results-model-scale (forced update)
+[2026-10-05T11:22:05+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8fc95509...00446b44 00446b447b6f724462d91e0b931eeae90f4c3dc6 -> v2-results-model-scale (forced update)
+[2026-10-05T11:35:05+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 00446b44...d31171e7 d31171e7310bc57bded72d70d6dcd242572a510f -> v2-results-model-scale (forced update)
+[2026-10-05T11:48:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d31171e7...25c5c485 25c5c485cc75e439b2e904dc32fd1d255ea563ed -> v2-results-model-scale (forced update)
+[2026-10-05T12:00:56+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 25c5c485...8b8cff7e 8b8cff7e8876a083442e5151d70665747cbc52c5 -> v2-results-model-scale (forced update)
+[2026-10-05T12:13:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8b8cff7e...d200cc3b d200cc3b5b14c4de00681a268e93f40a27d48a4d -> v2-results-model-scale (forced update)
+[2026-10-05T12:26:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d200cc3b...f814fc5c f814fc5c331ce42ce594e1f4383f39d469a38dc1 -> v2-results-model-scale (forced update)
+[2026-10-05T12:39:14+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f814fc5c...f81709a8 f81709a869a71e82166463dafbe6a7fa58e3dbd2 -> v2-results-model-scale (forced update)
+[2026-10-05T12:51:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f81709a8...7b6f81da 7b6f81da68cc2552b047b5ffce1a4e07cd237fd9 -> v2-results-model-scale (forced update)
+[2026-10-05T13:04:54+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7b6f81da...68257bff 68257bff776edf4a530455f7a4c4fe1b389b0618 -> v2-results-model-scale (forced update)
+[2026-10-05T13:18:36+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 68257bff...ff4a9491 ff4a949103e48f52409fe8cfc296100ad412070b -> v2-results-model-scale (forced update)
+[2026-10-05T13:31:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ff4a9491...4d03b6a7 4d03b6a7e2c26249b455ed4dfc1e4c284a2082f8 -> v2-results-model-scale (forced update)
+[2026-10-05T13:43:23+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4d03b6a7...03112ab8 03112ab8ee5e4690a025fde3b8366f04a8295a4f -> v2-results-model-scale (forced update)
+[2026-10-05T13:56:01+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 03112ab8...840b30c8 840b30c88f0f97be4176ec4ce49c42de450731ae -> v2-results-model-scale (forced update)
+[2026-10-05T14:09:26+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 840b30c8...848b3c3c 848b3c3cd40e041dd081c7a75d59f8e9a08bff0a -> v2-results-model-scale (forced update)
+[2026-10-05T14:23:58+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 848b3c3c...a5a960b9 a5a960b919f89ccb8e11ee629007734018b1fe47 -> v2-results-model-scale (forced update)
+[2026-10-05T14:37:20+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a5a960b9...04a61d39 04a61d39edece89c069bcc7e95ea7b48603abcfd -> v2-results-model-scale (forced update)
+[2026-10-05T14:50:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 04a61d39...b044177e b044177ebd1068d05aa343952cc08bc1e675e648 -> v2-results-model-scale (forced update)
+[2026-10-05T15:03:58+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b044177e...b4a6ad34 b4a6ad3431aa91be63d9cbb9ab5c3e1b7e708ad8 -> v2-results-model-scale (forced update)
+[2026-10-05T15:17:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b4a6ad34...4961705f 4961705f79501fb4c174df851b6246b3047068f1 -> v2-results-model-scale (forced update)
+[2026-10-05T15:30:53+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4961705f...8acebb00 8acebb0031bcda359f599dd92269a67d2a212a90 -> v2-results-model-scale (forced update)
+[2026-10-05T15:45:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8acebb00...977167d8 977167d8759bcaf09fd0182745da24f667dba233 -> v2-results-model-scale (forced update)
+[2026-10-05T15:59:23+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 977167d8...bf89794e bf89794e38b2a8006217e79a4ec6217b062afad1 -> v2-results-model-scale (forced update)
+[2026-10-05T16:12:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + bf89794e...fd2cc99d fd2cc99d8ba489ec272824de447ae831b2e741c7 -> v2-results-model-scale (forced update)
+[2026-10-05T16:28:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + fd2cc99d...c13253a6 c13253a6899a38b4b943818455e956de1fd144cd -> v2-results-model-scale (forced update)
+[2026-10-05T16:43:39+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + fecd8b76...c525af4e c525af4e7fd994a9f2e81d7920782c978f55d8d7 -> v2-results-model-scale (forced update)
+[2026-10-05T16:56:43+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c525af4e...892b9e1f 892b9e1fd8b8bed9bc45eb427a3353051abc45af -> v2-results-model-scale (forced update)
+[2026-10-05T17:09:17+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a57e69ac...1d96d277 1d96d277cfc136cb21dd2269b3f9134cdbf60b96 -> v2-results-model-scale (forced update)
+[2026-10-05T17:21:54+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1d96d277...75482d1f 75482d1f9d88a7bf391642e86cfd78e270dc6356 -> v2-results-model-scale (forced update)
+[2026-10-05T17:36:41+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 75482d1f...f4c194d7 f4c194d712cbb8d77ba9d196858a086961f15813 -> v2-results-model-scale (forced update)
+[2026-10-05T17:49:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f4c194d7...36cb2944 36cb2944dd3e1d890841451d11e670db6b8953f4 -> v2-results-model-scale (forced update)
+[2026-10-05T18:01:50+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 36cb2944...46488d48 46488d488b08671768a0703cc111e2e457c34033 -> v2-results-model-scale (forced update)
+[2026-10-05T18:14:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 46488d48...33fd6f4b 33fd6f4b80e114038460a6758f9d2bb1002bb06e -> v2-results-model-scale (forced update)
+[2026-10-05T18:27:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 33fd6f4b...01844e91 01844e91a9bdbcef12ac7a70210099dbac741a87 -> v2-results-model-scale (forced update)
+[2026-10-05T18:39:58+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 01844e91...309e3175 309e31756a8b9656a3e8b841f32f8d5e70170924 -> v2-results-model-scale (forced update)
+[2026-10-05T18:52:50+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 309e3175...1b62f2da 1b62f2da0a487eb973ed932c8b76c5472f7a37e2 -> v2-results-model-scale (forced update)
+[2026-10-05T19:05:46+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1b62f2da...77d50c86 77d50c86f6fe0f41ae13ae2d392e5d556a1ab751 -> v2-results-model-scale (forced update)
+[2026-10-05T19:19:01+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 77d50c86...f1937ad2 f1937ad299a6996c5c1a90dc2aafe902712a4309 -> v2-results-model-scale (forced update)
+[2026-10-05T19:31:55+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f1937ad2...db77c74f db77c74f9511f14dacb975bf11ed8a2f8670a184 -> v2-results-model-scale (forced update)
+[2026-10-05T19:44:58+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + db77c74f...b57c246f b57c246f24974634382d7c343a1646cb8866707e -> v2-results-model-scale (forced update)
+[2026-10-05T19:58:26+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b57c246f...b0049438 b00494383945763e2833663f063210927e758537 -> v2-results-model-scale (forced update)
+[2026-10-05T20:11:37+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b0049438...a89b9e1e a89b9e1e571edf43f15d59301ee4de41eb88858b -> v2-results-model-scale (forced update)
+[2026-10-05T20:25:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a89b9e1e...0ee55bfd 0ee55bfdb89e497f4178e0b7ad5b18e91a4ecd1b -> v2-results-model-scale (forced update)
+[2026-10-05T20:39:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0ee55bfd...92992f57 92992f57516b3618dee2ebaef90e4125ee1d8e34 -> v2-results-model-scale (forced update)
+[2026-10-05T20:55:20+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 92992f57...2053b8a2 2053b8a236ce10005db413ca304a31675c397d5e -> v2-results-model-scale (forced update)
+[2026-10-05T21:11:31+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2053b8a2...6a0aee62 6a0aee62d62463623d37bff4af1d412c964da185 -> v2-results-model-scale (forced update)
+[2026-10-05T21:26:15+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6a0aee62...bebc1172 bebc1172752118a5a2798c38c075be72d79133b6 -> v2-results-model-scale (forced update)
+[2026-10-05T21:42:06+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + bebc1172...b73c22e1 b73c22e1967fd50396a2073104ed9d266bbe1eb5 -> v2-results-model-scale (forced update)
+[2026-10-05T21:57:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b73c22e1...a164b27e a164b27e0173c81bbd7fcbd1d21a5e17b02c7040 -> v2-results-model-scale (forced update)
+[2026-10-05T22:12:50+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a164b27e...56b18ef7 56b18ef75298b5e595e5d1264eac064acd7a7379 -> v2-results-model-scale (forced update)
+[2026-10-05T22:28:06+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 56b18ef7...8f81a004 8f81a004f5b1b239cd61821b7d9029e93cb6723a -> v2-results-model-scale (forced update)
+[2026-10-05T22:43:45+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8f81a004...7fb9a84a 7fb9a84af27afad7c749deb03769ae8bd1dc333d -> v2-results-model-scale (forced update)
+[2026-10-05T23:00:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7fb9a84a...2a9c588f 2a9c588f9540f0baa1a47030877fdae5c5729ece -> v2-results-model-scale (forced update)
+[2026-10-05T23:16:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2a9c588f...9fa5a5e6 9fa5a5e64dc4e9f146713304d785f8ef07cb4f11 -> v2-results-model-scale (forced update)
+[2026-10-05T23:32:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9fa5a5e6...136f0d4e 136f0d4ee5357597c93e74869145a694cc059937 -> v2-results-model-scale (forced update)
+[2026-10-05T23:48:04+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 136f0d4e...1dd0f6ee 1dd0f6eef8d0257aac2b8951f0ebca38629ca8d4 -> v2-results-model-scale (forced update)
+[2026-10-06T00:03:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1dd0f6ee...97c001e9 97c001e991be2e98c406319ee176578dbaece391 -> v2-results-model-scale (forced update)
+[2026-10-06T00:22:16+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 97c001e9...4449c96c 4449c96c57e384e88b29f67a3466a4374b5fffa6 -> v2-results-model-scale (forced update)
+[2026-10-06T00:37:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4449c96c...01684910 016849107c78467f0da7b5fcf5aaef905ed0ff72 -> v2-results-model-scale (forced update)
+[2026-10-06T00:51:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 01684910...7f50bee8 7f50bee87696d40636446349e6f13d35fbc33bda -> v2-results-model-scale (forced update)
+[2026-10-06T01:05:47+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7f50bee8...edf72970 edf729702d9cc1f598a9dbc2326735c583379ac1 -> v2-results-model-scale (forced update)
+[2026-10-06T01:19:36+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + edf72970...09b28577 09b28577c89ec94b0fd304de0a6b841839ce2d19 -> v2-results-model-scale (forced update)
+[2026-10-06T01:32:46+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 09b28577...35a74cd3 35a74cd31d7afc0151df2a6eeebf611977154686 -> v2-results-model-scale (forced update)
+[2026-10-06T01:46:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 35a74cd3...b789d224 b789d22446b1ede600a9e98bc50d1031bbaefdb9 -> v2-results-model-scale (forced update)
+[2026-10-06T01:59:20+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b789d224...56c98b6a 56c98b6a24ce2fca4f557f174bc9f8dad8a9008e -> v2-results-model-scale (forced update)
+[2026-10-06T02:12:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 56c98b6a...c4e5342a c4e5342a3b2aa285a9ee9a0879c669e3a3425900 -> v2-results-model-scale (forced update)
+[2026-10-06T02:24:36+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c4e5342a...01763a68 01763a686cd33a071055dfa002c694fd54a6c59c -> v2-results-model-scale (forced update)
+[2026-10-06T02:36:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 01763a68...dcfe0b7f dcfe0b7f564b6e7180b8a21317187bc78a18c8e3 -> v2-results-model-scale (forced update)
+[2026-10-06T02:48:49+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + dcfe0b7f...408a48c1 408a48c140d6aff6a040c3e562014c92ddaa4671 -> v2-results-model-scale (forced update)
+[2026-10-06T03:00:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 408a48c1...1f3f777b 1f3f777b7a99428a29d92225f5c87685cf5e2a8f -> v2-results-model-scale (forced update)
+[2026-10-06T03:12:26+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1f3f777b...68ea566a 68ea566aa82a47e58fba54d795d3c34c26923c0c -> v2-results-model-scale (forced update)
+[2026-10-06T03:24:11+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 68ea566a...7320f46a 7320f46a06a66a1f977e31166ec28f42d75aa1ac -> v2-results-model-scale (forced update)
+[2026-10-06T03:36:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7320f46a...a00a3e62 a00a3e62f5533e5545933cbf88262583aff5b2e6 -> v2-results-model-scale (forced update)
+[2026-10-06T03:47:57+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a00a3e62...e9c9f825 e9c9f825ee428e1b957f1a5aa89c2981f8dc7c89 -> v2-results-model-scale (forced update)
+[2026-10-06T03:59:39+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e9c9f825...06aad165 06aad1659123b425997ead63508ca8d8cf1dc4a8 -> v2-results-model-scale (forced update)
+[2026-10-06T04:11:19+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 06aad165...466d0f53 466d0f5334cedd278b8f3ecdcc42709e7685e267 -> v2-results-model-scale (forced update)
+[2026-10-06T04:23:29+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 466d0f53...e624f2f3 e624f2f362b69aaacb2dab4dc52ad3bbcd0995f0 -> v2-results-model-scale (forced update)
+[2026-10-06T04:35:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e624f2f3...52071317 520713174d4f64b89941a6ec358d3eb1383352e5 -> v2-results-model-scale (forced update)
+[2026-10-06T04:46:39+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 52071317...4acdc23a 4acdc23a161816aacd9d0d5b0bc75ae6166f968f -> v2-results-model-scale (forced update)
+[2026-10-06T04:58:19+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4acdc23a...a1bc83ba a1bc83ba48a017d6dc039dfad9a2de8f7b7dae0c -> v2-results-model-scale (forced update)
+[2026-10-06T05:10:14+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a1bc83ba...5ef21c8e 5ef21c8e1f567cba7316efd8c81774ad249d95ba -> v2-results-model-scale (forced update)
+[2026-10-06T05:21:55+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5ef21c8e...15488177 1548817704e8d4c6fad72920e22d02ffcfced5fb -> v2-results-model-scale (forced update)
+[2026-10-06T05:33:48+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 15488177...f9478338 f94783388765022e5d38d77e5ed7323d62fc0df1 -> v2-results-model-scale (forced update)
+[2026-10-06T05:45:30+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f9478338...0938fb10 0938fb107f57da0396b7c4a68414b217f3f4569a -> v2-results-model-scale (forced update)
+[2026-10-06T05:57:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0938fb10...de93bfcd de93bfcd0b7ceeee56f474417da91a9abfbba081 -> v2-results-model-scale (forced update)
+[2026-10-06T06:08:39+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + de93bfcd...e27f046a e27f046afd2a63bc656439842bd27ad87add0527 -> v2-results-model-scale (forced update)
+[2026-10-06T06:20:23+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e27f046a...48125b32 48125b32bda3740fa8768278e13dd212f40377ac -> v2-results-model-scale (forced update)
+[2026-10-06T06:32:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 48125b32...89dd7ebc 89dd7ebc0c746380d66cbc1d7be3c0dd678174c9 -> v2-results-model-scale (forced update)
+[2026-10-06T06:44:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 89dd7ebc...64e01841 64e01841bdfaa0f3412a274a168532cd281ab8cf -> v2-results-model-scale (forced update)
+[2026-10-06T06:57:04+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 64e01841...2fb9de1d 2fb9de1d27f2168f9641309edab42d61ae4a2555 -> v2-results-model-scale (forced update)
+[2026-10-06T07:10:29+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2fb9de1d...6672d60e 6672d60e4d4d1392c5925aa90d5823793cb06d4c -> v2-results-model-scale (forced update)
+[2026-10-06T07:22:15+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6672d60e...a14e9f55 a14e9f5505536351b3c5c8be4b2cb0a67a945f2f -> v2-results-model-scale (forced update)
+[2026-10-06T07:33:49+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a14e9f55...f2f18f4f f2f18f4f5d2582e3a85a6868c1e124add5c2d106 -> v2-results-model-scale (forced update)
+[2026-10-06T07:46:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+remote: Internal Server Error        
+remote: Request ID 9B2D:176ED:95BD0C:A97C56:6AC439A9        
+remote: Time 2026-10-05T23:58:35Z
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ ! [remote rejected]   11c7e4da00768383827c5f72dfd9616e9fe80ada -> v2-results-model-scale (Internal Server Error)
+error: 无法推送一些引用到 'https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git'
+[2026-10-06T07:58:35+08:00] incremental publish FAILED (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f2f18f4f...9edbd0d7 9edbd0d759f86fee23be2f9969d268e70ecb5b8d -> v2-results-model-scale (forced update)
+[2026-10-06T08:11:02+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9edbd0d7...8f43f40f 8f43f40fb79c91319e83dbb8a1b300b552213acb -> v2-results-model-scale (forced update)
+[2026-10-06T08:23:21+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8f43f40f...edbd3c7d edbd3c7dc12a98af1b38f90b281898ebb521198a -> v2-results-model-scale (forced update)
+[2026-10-06T08:35:41+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + edbd3c7d...dc356a8c dc356a8c87490f2dd92ef18df4c7b2b061cc0c29 -> v2-results-model-scale (forced update)
+[2026-10-06T08:48:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + dc356a8c...c83a73e5 c83a73e5987491a68c03ff8ad2f44aa34ef81927 -> v2-results-model-scale (forced update)
+[2026-10-06T09:00:31+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c83a73e5...7244f446 7244f4461d4ea360e3275a66a0f08a1a9e80d584 -> v2-results-model-scale (forced update)
+[2026-10-06T09:13:42+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7244f446...f42f9ecd f42f9ecd838ab8b30c098b7211c1400f381dbe0e -> v2-results-model-scale (forced update)
+[2026-10-06T09:28:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f42f9ecd...c49bd343 c49bd343042f4878af7e7ff39c58502eb1129ae7 -> v2-results-model-scale (forced update)
+[2026-10-06T09:41:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c49bd343...798bbe3a 798bbe3acb71701109367c625f1f69eb2e16a305 -> v2-results-model-scale (forced update)
+[2026-10-06T09:54:42+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 798bbe3a...2d0eef3a 2d0eef3a9feef647f6b977048f3502889e08fb9e -> v2-results-model-scale (forced update)
+[2026-10-06T10:07:37+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2d0eef3a...d741a741 d741a741108eaca23b4cf5c3800646474f9a21e9 -> v2-results-model-scale (forced update)
+[2026-10-06T10:20:16+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d741a741...57d880af 57d880afa1d40dd9112d217b2d48887505ed0f71 -> v2-results-model-scale (forced update)
+[2026-10-06T10:33:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 57d880af...934a0a18 934a0a18b52f17882c007668507fea02befb1dcc -> v2-results-model-scale (forced update)
+[2026-10-06T10:46:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 934a0a18...28c16856 28c16856fceeefaf557d4ae9b14977706249af76 -> v2-results-model-scale (forced update)
+[2026-10-06T10:59:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 28c16856...45da4069 45da406992fe283346c96cf6951549480c0f6b6e -> v2-results-model-scale (forced update)
+[2026-10-06T11:12:53+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 45da4069...9395c08d 9395c08d456adf48396259654d1cfc458884bd89 -> v2-results-model-scale (forced update)
+[2026-10-06T11:26:04+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9395c08d...4c19abb5 4c19abb5e2476c7840721f94bb4ae27b9d76374b -> v2-results-model-scale (forced update)
+[2026-10-06T11:38:54+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4c19abb5...3cae3276 3cae3276ea7d6d4b8f7bdf0e7b6ecf397e80c035 -> v2-results-model-scale (forced update)
+[2026-10-06T11:51:48+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3cae3276...cd8d6a54 cd8d6a547f712e76f6d3860eaa004b5c6d88f729 -> v2-results-model-scale (forced update)
+[2026-10-06T12:04:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cd8d6a54...2d342fb4 2d342fb40c19fc6cf3da06470a0081247161fd17 -> v2-results-model-scale (forced update)
+[2026-10-06T12:17:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2d342fb4...8aae1c41 8aae1c414a7604d9052e7a19749d582633ddea20 -> v2-results-model-scale (forced update)
+[2026-10-06T12:31:45+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8aae1c41...dbf206bb dbf206bb3939bc752b9823de1600e567d52f41af -> v2-results-model-scale (forced update)
+[2026-10-06T12:49:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + dbf206bb...f9547034 f95470341909e7ece407e247c8e0fdbd2960fa89 -> v2-results-model-scale (forced update)
+[2026-10-06T13:03:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f9547034...c32982a7 c32982a7acbd2e366273677d9da85c175f98c908 -> v2-results-model-scale (forced update)
+[2026-10-06T13:16:59+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c32982a7...6f5f82a0 6f5f82a0d316d88d340e920e09c24b4f544894f3 -> v2-results-model-scale (forced update)
+[2026-10-06T13:29:57+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6f5f82a0...0867dcdf 0867dcdf212847d196750683fa3a50216b5bb9a2 -> v2-results-model-scale (forced update)
+[2026-10-06T13:45:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0867dcdf...33d41208 33d41208e7ab5dde9a3e0d5f720855c57a5f36f1 -> v2-results-model-scale (forced update)
+[2026-10-06T13:59:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 33d41208...b87e6cc1 b87e6cc18fdaf6c6c11fc58b55ba18f9ff44c9d3 -> v2-results-model-scale (forced update)
+[2026-10-06T14:15:17+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b87e6cc1...1c30be6a 1c30be6a92e6cb1490320e77834a744ab5bafdeb -> v2-results-model-scale (forced update)
+[2026-10-06T14:30:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1c30be6a...75af6d62 75af6d62ffbeb83a403c95b7d02a98b746249e84 -> v2-results-model-scale (forced update)
+[2026-10-06T14:44:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 75af6d62...19a3d3bb 19a3d3bbfb7de511a7c9fbe9e4aab215dddfca19 -> v2-results-model-scale (forced update)
+[2026-10-06T14:59:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 19a3d3bb...339b2ca0 339b2ca0300b4e2de49b6da069ec980fad4dae92 -> v2-results-model-scale (forced update)
+[2026-10-06T15:15:25+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 339b2ca0...9cf813bf 9cf813bffa7b7bed3aad3f76e2ba09a27c4c989f -> v2-results-model-scale (forced update)
+[2026-10-06T15:33:02+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9cf813bf...9640cb0b 9640cb0b167f5e87ebbd21db9afbf55919a2cd59 -> v2-results-model-scale (forced update)
+[2026-10-06T15:50:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9640cb0b...2435d935 2435d935d9bc409ee54c6eead8e7ed8f742e9d48 -> v2-results-model-scale (forced update)
+[2026-10-06T16:09:44+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2435d935...8dbc7a1a 8dbc7a1af2e432d13381aae16493ae7f60e8ffdc -> v2-results-model-scale (forced update)
+[2026-10-06T16:25:47+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8dbc7a1a...1547ac54 1547ac54f39ab38dca3bdbc0b56707732bd670e7 -> v2-results-model-scale (forced update)
+[2026-10-06T16:39:50+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1547ac54...20a57906 20a57906b63e2c6c50dc6bb85b86b688bc9a8e64 -> v2-results-model-scale (forced update)
+[2026-10-06T16:53:47+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 20a57906...b201b645 b201b645e7dbb733ce1f7676eadd16840fa9236f -> v2-results-model-scale (forced update)
+[2026-10-06T17:07:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b201b645...d093743a d093743a0b2d025fd2cbe06527fd4bfa63b5cd03 -> v2-results-model-scale (forced update)
+[2026-10-06T17:22:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d093743a...8d9afb27 8d9afb27188f3f2673387d3f63e0fe745c69f7cc -> v2-results-model-scale (forced update)
+[2026-10-06T17:36:59+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8d9afb27...11ef0426 11ef042680ff954c3da28162705de089ee470093 -> v2-results-model-scale (forced update)
+[2026-10-06T17:51:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 11ef0426...b7fd4470 b7fd447024220401907aa1c8ac3d14d1f317178f -> v2-results-model-scale (forced update)
+[2026-10-06T18:04:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b7fd4470...aeedcf96 aeedcf96f4e3e36b7bc95d14104f9bc11d2a8c40 -> v2-results-model-scale (forced update)
+[2026-10-06T18:17:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + aeedcf96...79a560c2 79a560c2fb68ce5993efd13241d59dd7e7ba05ad -> v2-results-model-scale (forced update)
+[2026-10-06T18:31:06+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 79a560c2...a2a2c8c9 a2a2c8c9983cdbe0e986b99405d968ea54031a8a -> v2-results-model-scale (forced update)
+[2026-10-06T18:45:21+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a2a2c8c9...2a417732 2a417732fc644a1155d53c80e7d9c955c462ad75 -> v2-results-model-scale (forced update)
+[2026-10-06T18:59:33+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2a417732...5a2c014f 5a2c014fc349774130b9c5b92851f305e17b8e0d -> v2-results-model-scale (forced update)
+[2026-10-06T19:16:38+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5a2c014f...7e047c06 7e047c0688c92cf9f40ac2272c1a6dcf1f015f7b -> v2-results-model-scale (forced update)
+[2026-10-06T19:30:38+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7e047c06...525b4980 525b498035f7d372570d46e6e452929dec6acc77 -> v2-results-model-scale (forced update)
+[2026-10-06T19:44:21+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 525b4980...ae9f5bef ae9f5bef32d4e0ce7ce139762f236e9b98a29624 -> v2-results-model-scale (forced update)
+[2026-10-06T19:58:22+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ae9f5bef...f3e64bba f3e64bba30583e1ee1e1e431012bd73e24bd7d94 -> v2-results-model-scale (forced update)
+[2026-10-06T20:12:43+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f3e64bba...a5b49251 a5b492514f53356d45c66224393a1a3aff73f626 -> v2-results-model-scale (forced update)
+[2026-10-06T20:28:22+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a5b49251...712a60e4 712a60e4922b09eabdb88e8baf42ceaf9c767066 -> v2-results-model-scale (forced update)
+[2026-10-06T20:42:56+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 712a60e4...356aa59e 356aa59ea455c114afdef2a6a0dd2abfacbd76cd -> v2-results-model-scale (forced update)
+[2026-10-06T20:57:41+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 356aa59e...a373aa79 a373aa7905d12e60e216b52c8ac24f8ac5a3c40e -> v2-results-model-scale (forced update)
+[2026-10-06T21:12:37+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a373aa79...356a4a39 356a4a39e5e32c6a0bc79ed8ba922695521cffd3 -> v2-results-model-scale (forced update)
+[2026-10-06T21:27:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 356a4a39...346947f6 346947f6c2a3ef8b9b936d18ebf892715940311c -> v2-results-model-scale (forced update)
+[2026-10-06T21:42:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 346947f6...a8d39dc9 a8d39dc9e6673eb9ca1f950992390149c2e9cb66 -> v2-results-model-scale (forced update)
+[2026-10-06T21:57:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a8d39dc9...a5890f81 a5890f8119764e46d64aa19b75c0e84d840ebd54 -> v2-results-model-scale (forced update)
+[2026-10-06T22:12:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a5890f81...98518822 98518822d9adccae3328e7ab1c68f6e82475133c -> v2-results-model-scale (forced update)
+[2026-10-06T22:27:47+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 98518822...07199123 071991236c7dd365b328c7ccb6f8c0dafe3f368c -> v2-results-model-scale (forced update)
+[2026-10-06T22:43:17+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 07199123...70f81730 70f81730620b7cec8711b01d3e0211b1153193bc -> v2-results-model-scale (forced update)
+[2026-10-06T22:58:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 70f81730...71d2d3cc 71d2d3cc2f5d697e43c3367b1548d8ee5e4eeb4d -> v2-results-model-scale (forced update)
+[2026-10-06T23:13:59+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 71d2d3cc...3828bf5d 3828bf5d5672c021f774caf72d9e8efdc25c4038 -> v2-results-model-scale (forced update)
+[2026-10-06T23:29:41+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3828bf5d...c091f52e c091f52e9d58a0143cbb1a71886e37de6f27fcc4 -> v2-results-model-scale (forced update)
+[2026-10-06T23:45:26+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c091f52e...72697eea 72697eea5c004716871da0296e6b1a666d69d901 -> v2-results-model-scale (forced update)
+[2026-10-07T00:00:57+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 72697eea...1a265288 1a26528877191907e3d89e0da4c636d639ec7fcf -> v2-results-model-scale (forced update)
+[2026-10-07T00:17:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1a265288...5c357e27 5c357e27598c1434033df0c473ad7b81d5db6b80 -> v2-results-model-scale (forced update)
+[2026-10-07T00:32:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5c357e27...89e35790 89e3579027ec0570da5120aefde7eac6534efbfc -> v2-results-model-scale (forced update)
+[2026-10-07T00:46:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 89e35790...152bd1c0 152bd1c042b042b2992e92cf2bc5b5bc75d81c6d -> v2-results-model-scale (forced update)
+[2026-10-07T01:00:05+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 152bd1c0...cc45f466 cc45f4663157d1bd60ef623e3f0fb44fc8e95792 -> v2-results-model-scale (forced update)
+[2026-10-07T01:14:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cc45f466...8c693963 8c6939630fcd6d92d9ad17432a85b460569de5eb -> v2-results-model-scale (forced update)
+[2026-10-07T01:28:18+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8c693963...2c18e2fd 2c18e2fd5376e64277e8d353985496f644f257ba -> v2-results-model-scale (forced update)
+[2026-10-07T01:42:02+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2c18e2fd...411f2562 411f2562016fade2907984ace9c73ad2dbff5a7e -> v2-results-model-scale (forced update)
+[2026-10-07T01:55:15+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 411f2562...cc38ce31 cc38ce31bd179de8949effb7bdc1f4f91c0c447b -> v2-results-model-scale (forced update)
+[2026-10-07T02:07:57+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cc38ce31...0e44a951 0e44a9514f513e65e1812453c1fd868a7cf89979 -> v2-results-model-scale (forced update)
+[2026-10-07T02:20:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0e44a951...a395e333 a395e333b487c5b1a76520675e1b0857bee35921 -> v2-results-model-scale (forced update)
+[2026-10-07T02:32:02+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a395e333...a0868320 a08683200044fbb0ec09a6358208dec1e4ed4a5b -> v2-results-model-scale (forced update)
+[2026-10-07T02:43:48+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a0868320...e7da5ce1 e7da5ce102146b3d75f588ac13100c6c201d14b9 -> v2-results-model-scale (forced update)
+[2026-10-07T02:55:35+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e7da5ce1...a8e8012b a8e8012ba7349453a0c38c8a6a1bc4f5e79652cb -> v2-results-model-scale (forced update)
+[2026-10-07T03:07:54+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a8e8012b...4a8e12f3 4a8e12f34118dadbda424781158b864809949ce8 -> v2-results-model-scale (forced update)
+[2026-10-07T03:20:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4a8e12f3...4506a699 4506a6997129d8e2af1c52cd4014e8982da307fb -> v2-results-model-scale (forced update)
+[2026-10-07T03:32:01+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 4506a699...63c320bf 63c320bf4cf478fc2085b104189886d60e05d8d7 -> v2-results-model-scale (forced update)
+[2026-10-07T03:43:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 63c320bf...ffd7deab ffd7deab0f0fac2d403209d62e137c2775e07be9 -> v2-results-model-scale (forced update)
+[2026-10-07T03:55:05+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ffd7deab...df0c7e24 df0c7e247ddfe51c78405095a01787c593bf8df7 -> v2-results-model-scale (forced update)
+[2026-10-07T04:06:27+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + df0c7e24...c65a8ad9 c65a8ad9c2718e9ecf39b9117e8ee3b709b6b8f7 -> v2-results-model-scale (forced update)
+[2026-10-07T04:18:17+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c65a8ad9...0e7466d4 0e7466d46e638dd640d49214a97cab86ad7c2c58 -> v2-results-model-scale (forced update)
+[2026-10-07T04:29:46+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0e7466d4...1b825b28 1b825b281aa1059c8b37525f904f8400a03cf68e -> v2-results-model-scale (forced update)
+[2026-10-07T04:41:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1b825b28...a759671f a759671f29804a0d6d41b9cca6c7fafb26b0d8a4 -> v2-results-model-scale (forced update)
+[2026-10-07T04:53:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a759671f...da4671de da4671de895870241ee01deb3cf991c3d4586d8e -> v2-results-model-scale (forced update)
+[2026-10-07T05:05:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + da4671de...ffe062af ffe062af9f480b38bade62a6cb78ee96e790880f -> v2-results-model-scale (forced update)
+[2026-10-07T05:17:17+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ffe062af...b0edcd43 b0edcd43ac06bab79e43eda25a742491ef156451 -> v2-results-model-scale (forced update)
+[2026-10-07T05:29:00+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b0edcd43...e5517f71 e5517f71063d9059c85e799bd18bc2770c5acb80 -> v2-results-model-scale (forced update)
+[2026-10-07T05:40:40+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e5517f71...79473e88 79473e88fa694d844641234cc9f9e17cde593bdf -> v2-results-model-scale (forced update)
+[2026-10-07T05:52:19+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 79473e88...a231288b a231288b7191046f1e4d16a80e95640d6a0d92da -> v2-results-model-scale (forced update)
+[2026-10-07T06:03:51+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a231288b...87a4f0e7 87a4f0e7e50bcedf72090dece6e36e070bb7bf5f -> v2-results-model-scale (forced update)
+[2026-10-07T06:15:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 87a4f0e7...ce41337a ce41337a27febe92c68c292ab1b4a70a96c815af -> v2-results-model-scale (forced update)
+[2026-10-07T06:27:15+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ce41337a...69bd99ae 69bd99ae6c1d7f8e8ff13e01de29e9dae1523532 -> v2-results-model-scale (forced update)
+[2026-10-07T06:39:02+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 69bd99ae...b2c62df6 b2c62df66acac111dadc56b0d3809b99cbadbcf6 -> v2-results-model-scale (forced update)
+[2026-10-07T06:50:45+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b2c62df6...7269a1a0 7269a1a0e07faabb8720f37db21f3384596957e7 -> v2-results-model-scale (forced update)
+[2026-10-07T07:02:24+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7269a1a0...c1234096 c1234096ccc70685c9b87376b54101aa984e34f9 -> v2-results-model-scale (forced update)
+[2026-10-07T07:13:55+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c1234096...a14dc152 a14dc152da4afff6eee080e887cf05c2792619e0 -> v2-results-model-scale (forced update)
+[2026-10-07T07:25:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a14dc152...53063c8a 53063c8a321efd185840be1f9150593a3eb3c1f9 -> v2-results-model-scale (forced update)
+[2026-10-07T07:37:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 53063c8a...a3f2fc47 a3f2fc47d86e597c1cc8e67af3621ebc361a8182 -> v2-results-model-scale (forced update)
+[2026-10-07T07:49:19+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a3f2fc47...82770741 827707411b7c672feeccb908ce444353994f60db -> v2-results-model-scale (forced update)
+[2026-10-07T08:01:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 82770741...b843bf48 b843bf481c573a8c642a7681b53d9ab56258e7ff -> v2-results-model-scale (forced update)
+[2026-10-07T08:13:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b843bf48...0a937422 0a937422ab38facc00bfa01702af8acf9ff0f1ae -> v2-results-model-scale (forced update)
+[2026-10-07T08:26:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0a937422...3cb3c352 3cb3c3525fe10a355d96727d3072a967fd0c344a -> v2-results-model-scale (forced update)
+[2026-10-07T08:38:22+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3cb3c352...ef2e28d5 ef2e28d58e0f3a90fc80b3b267419bd4631c3cda -> v2-results-model-scale (forced update)
+[2026-10-07T08:50:42+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ef2e28d5...dba6d64b dba6d64b8f9d5f6d69343ea8c2159a51df0b950a -> v2-results-model-scale (forced update)
+[2026-10-07T09:15:54+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + dba6d64b...50c2ebb8 50c2ebb8c9bb9814eaacfaad7277e465a588e21c -> v2-results-model-scale (forced update)
+[2026-10-07T09:29:07+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 50c2ebb8...aa35f72e aa35f72e4dc916027b7c907a9877930d2f16d12d -> v2-results-model-scale (forced update)
+[2026-10-07T09:43:25+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + aa35f72e...ffc0499a ffc0499a1e235f6c1ec1ffd12a9dd113e39f39a2 -> v2-results-model-scale (forced update)
+[2026-10-07T09:57:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ffc0499a...65fa0bfb 65fa0bfb077e3427c726931af1a9b1dc76474439 -> v2-results-model-scale (forced update)
+[2026-10-07T10:10:14+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 65fa0bfb...43bdf5a5 43bdf5a5d3db6877b103f8fedbdf7d556c3e1fec -> v2-results-model-scale (forced update)
+[2026-10-07T10:22:34+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 43bdf5a5...809e4254 809e4254fc201531a3792b2628edbd920044eb43 -> v2-results-model-scale (forced update)
+[2026-10-07T10:35:14+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 809e4254...a5814a61 a5814a614059178990c48cdf2ce66f218055c0dd -> v2-results-model-scale (forced update)
+[2026-10-07T10:49:10+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a5814a61...26a31e6e 26a31e6ea6449d55ff52b434c4c1da1bf503ab1b -> v2-results-model-scale (forced update)
+[2026-10-07T11:03:23+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 26a31e6e...d5d3fe3d d5d3fe3d2255f5ab7867af70d01e4799b41ee444 -> v2-results-model-scale (forced update)
+[2026-10-07T11:16:43+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d5d3fe3d...8f42a887 8f42a88785fef1a5a32f4340d242f4ce22052f71 -> v2-results-model-scale (forced update)
+[2026-10-07T11:29:29+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8f42a887...a3a154d7 a3a154d7b4e19a18e9935f4c781d25ff12ece4ed -> v2-results-model-scale (forced update)
+[2026-10-07T11:42:24+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a3a154d7...1707219e 1707219ed26a9ac416341ec0b5a318f7c7150ad7 -> v2-results-model-scale (forced update)
+[2026-10-07T11:55:43+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1707219e...c4e44510 c4e44510f5677369f589adfb37a92c774c6ea704 -> v2-results-model-scale (forced update)
+[2026-10-07T12:10:05+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c4e44510...91d5d71c 91d5d71c829c8e82a8f863a1cbf8c73ba22daf90 -> v2-results-model-scale (forced update)
+[2026-10-07T12:23:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 91d5d71c...8ff424c2 8ff424c24dbc903e7c241fbcf06bb18ca09fe890 -> v2-results-model-scale (forced update)
+[2026-10-07T12:35:47+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 8ff424c2...ab746acb ab746acb537f0ae978c0d3066cc4f1307ac1c4fd -> v2-results-model-scale (forced update)
+[2026-10-07T12:48:19+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ab746acb...aae320b9 aae320b9b7f3bbdb02d7d04eee3400f564d1e54e -> v2-results-model-scale (forced update)
+[2026-10-07T13:01:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + aae320b9...0ed68327 0ed683279ca97000acdbf8bc9d49ae05f9655661 -> v2-results-model-scale (forced update)
+[2026-10-07T13:13:44+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0ed68327...41a3bf17 41a3bf173c4b696d78a9e65aa286abc5f8f2f4ee -> v2-results-model-scale (forced update)
+[2026-10-07T13:26:39+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 41a3bf17...0835a630 0835a6300f5e3928483b258bf234b24f681e88b3 -> v2-results-model-scale (forced update)
+[2026-10-07T13:39:58+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0835a630...cbfb2771 cbfb2771b6932e48ef19c6ba5693a937d15e4f5f -> v2-results-model-scale (forced update)
+[2026-10-07T13:52:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cbfb2771...39e837fc 39e837fc54d82ecc46e5f72811c4f44ba7b5eb2e -> v2-results-model-scale (forced update)
+[2026-10-07T14:05:39+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 39e837fc...5c0f0e91 5c0f0e91274fea8d1326d9d63907167867b302b3 -> v2-results-model-scale (forced update)
+[2026-10-07T14:18:50+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5c0f0e91...ed22885a ed22885ac955dae40f1c9a2db52e1e79cbf1b93f -> v2-results-model-scale (forced update)
+[2026-10-07T14:32:07+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ed22885a...e731ded5 e731ded5bed03eea071bec6e80a97389b40d6827 -> v2-results-model-scale (forced update)
+[2026-10-07T14:45:26+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e731ded5...289057c9 289057c9ea9677a44a3373ebd0f7cac61bada8a0 -> v2-results-model-scale (forced update)
+[2026-10-07T14:58:36+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 289057c9...1143dfb2 1143dfb28df9e101fa51b3ffed53f83b3b139452 -> v2-results-model-scale (forced update)
+[2026-10-07T15:11:49+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 1143dfb2...907c645f 907c645f82abb5835817f98ed6adb468f3a754b2 -> v2-results-model-scale (forced update)
+[2026-10-07T15:25:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 907c645f...93459713 9345971350aa6c7f013419f9a90ffe6febe65a3f -> v2-results-model-scale (forced update)
+[2026-10-07T15:38:29+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 93459713...83f003f2 83f003f28f520e9cd184835fdd5b098867933916 -> v2-results-model-scale (forced update)
+[2026-10-07T15:51:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 83f003f2...684749a5 684749a5a644cb62335ab3b85e0f41b6445a5b6b -> v2-results-model-scale (forced update)
+[2026-10-07T16:04:14+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 684749a5...c3b80e47 c3b80e47c92adf8b8a83efc599e56f650181913d -> v2-results-model-scale (forced update)
+[2026-10-07T16:16:59+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + c3b80e47...5c37df5d 5c37df5d75cdd88ebf2140985d605a29f937a0a5 -> v2-results-model-scale (forced update)
+[2026-10-07T16:29:30+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5c37df5d...19b70c85 19b70c8509429e5ed5a330e7aeb0f4db70a8898b -> v2-results-model-scale (forced update)
+[2026-10-07T16:42:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 19b70c85...af1ebd42 af1ebd426641140f8c6908a12b9d77ae61d38f24 -> v2-results-model-scale (forced update)
+[2026-10-07T16:54:49+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + af1ebd42...805e2417 805e24176dfc6a3c5cd87c173269671760309950 -> v2-results-model-scale (forced update)
+[2026-10-07T17:07:16+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 805e2417...70d9ea4b 70d9ea4b5e907bb8c0a9fcd65b57851c5174aaa4 -> v2-results-model-scale (forced update)
+[2026-10-07T17:20:09+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 70d9ea4b...02402a26 02402a26bc04ee859d7e3db33a7593a1538bbdd6 -> v2-results-model-scale (forced update)
+[2026-10-07T17:35:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 02402a26...a912c10d a912c10d45f5bf5b70f56f54b76fec576bbdab38 -> v2-results-model-scale (forced update)
+[2026-10-07T17:47:42+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a912c10d...b2078025 b2078025b5ba0154938f04cf4ee240909a0a9c18 -> v2-results-model-scale (forced update)
+[2026-10-07T18:00:16+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + b2078025...480ceb60 480ceb60998934c913926809abac3f804a16ce16 -> v2-results-model-scale (forced update)
+[2026-10-07T18:12:23+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 480ceb60...dd17559d dd17559d78e67532772f16782bbe866c25e56066 -> v2-results-model-scale (forced update)
+[2026-10-07T18:25:05+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + dd17559d...7e7b0678 7e7b06783847bc11d720b881bc9ce19153235e30 -> v2-results-model-scale (forced update)
+[2026-10-07T18:37:33+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 7e7b0678...0852a71a 0852a71a1ee27cb625471fbc5c85fb35afab307a -> v2-results-model-scale (forced update)
+[2026-10-07T18:49:52+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0852a71a...ef238450 ef2384508eb48afd51e87fad92f3a3b4b999ec63 -> v2-results-model-scale (forced update)
+[2026-10-07T19:02:14+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + ef238450...cc9dd93a cc9dd93ae9337c41a056c6740296bfedb05aed6d -> v2-results-model-scale (forced update)
+[2026-10-07T19:14:50+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + cc9dd93a...836a10cf 836a10cf891532f55ebeb13ee9c7b83400c8075c -> v2-results-model-scale (forced update)
+[2026-10-07T19:27:30+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 836a10cf...d4d4708b d4d4708b08a92ee5ce914767392c4e3bd9e6c09e -> v2-results-model-scale (forced update)
+[2026-10-07T19:40:12+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + d4d4708b...2c5d702d 2c5d702d3f130ec1eb3173d6ca279a197892a736 -> v2-results-model-scale (forced update)
+[2026-10-07T19:53:41+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 2c5d702d...43eb942e 43eb942e6089650e1b8dbf51de8857996d7d35af -> v2-results-model-scale (forced update)
+[2026-10-07T20:07:04+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 43eb942e...54f9f836 54f9f836346876b7213bf09abafc13ff12804bb9 -> v2-results-model-scale (forced update)
+[2026-10-07T20:21:08+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 54f9f836...686ec1eb 686ec1eb2c0c410f19ad1c3915ee51f228afb524 -> v2-results-model-scale (forced update)
+[2026-10-07T20:43:03+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 686ec1eb...0217ac4d 0217ac4d2e44fd1b6524afaddf2044c4ce43e9ed -> v2-results-model-scale (forced update)
+[2026-10-07T20:57:13+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 0217ac4d...a8d7c24f a8d7c24fd0492332aba674a68b736bf4c7868ff6 -> v2-results-model-scale (forced update)
+[2026-10-07T21:11:28+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + a8d7c24f...f053345f f053345f9956231d04c3acff62a90e2101f827e8 -> v2-results-model-scale (forced update)
+[2026-10-07T21:26:23+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + f053345f...5edc8279 5edc82792260d92cf975a6da8b954817b6b44c5f -> v2-results-model-scale (forced update)
+[2026-10-07T21:41:00+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5edc8279...6752728c 6752728c90d60d2c8f0774938f72e7f7484ce9de -> v2-results-model-scale (forced update)
+[2026-10-07T21:57:02+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 6752728c...9ed17616 9ed17616c7545401ab0a939ab41b7c08eda718ce -> v2-results-model-scale (forced update)
+[2026-10-07T22:11:32+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 9ed17616...66637c24 66637c24c1dc77c8ca843d7cedf0c77eb83c0be1 -> v2-results-model-scale (forced update)
+[2026-10-07T22:26:06+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 66637c24...e844044a e844044a4243071f9cdf5fc44f0d809bab9b060f -> v2-results-model-scale (forced update)
+[2026-10-07T22:41:00+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + e844044a...5e8d00d1 5e8d00d1a35f891a1e362a09f5d20fb23c8a6558 -> v2-results-model-scale (forced update)
+[2026-10-07T22:55:57+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+remote: Internal Server Error        
+remote: Request ID 6BC9:3DC0DC:4C9DA0:529DEC:6AC660FB        
+remote: Time 2026-10-07T15:10:53Z
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ ! [remote rejected]   776de214256984cb3e9df8e3d9204ffeec7c80d4 -> v2-results-model-scale (Internal Server Error)
+error: 无法推送一些引用到 'https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git'
+[2026-10-07T23:10:53+08:00] incremental publish FAILED (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 5e8d00d1...3ff57c02 3ff57c02071692ad5addff782ff2e940d60f302c -> v2-results-model-scale (forced update)
+[2026-10-07T23:25:31+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
+To https://github.com/xieguaiwu/LLMs-and-impossible-language-acquisition.git
+ + 3ff57c02...93530c94 93530c9420563e4a8d0ad161500ebca7f97db385 -> v2-results-model-scale (forced update)
+[2026-10-07T23:39:55+08:00] incremental publish OK -> v2-results-model-scale (cells=2)
